@@ -1,4 +1,4 @@
-# Lọ Chéo — Neon Arcade v2.0
+# Lọ Chéo
 
 A self-contained, offline-first HTML5 canvas roguelite. The only production artifact is **`dist/index.html`**: its HTML, JavaScript, CSS, six font subsets, and SVG graphics are inlined. No CDN, API, network, audio asset, or backend is needed.
 
