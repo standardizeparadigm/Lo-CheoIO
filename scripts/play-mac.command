@@ -229,7 +229,7 @@ action_info() {
 
 # ----- banner hoạt ảnh: khung vàng nhấp nháy + ngôi sao lấp lánh -----
 banner() {
-  printf "\033[2J\033[H" 2>/dev/null || clear
+  [ -t 1 ] && printf "\033[2J\033[H"
   say "${GOLD}${B}╔════════════════════════════════════════════╗${R}"
   say "${GOLD}${B}║   🫙  $(T title)  v${VERSION}   ║${R}"
   say "${GOLD}${B}╚════════════════════════════════════════════╝${R}"
