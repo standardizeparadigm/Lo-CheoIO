@@ -5,18 +5,20 @@
 # LỌ CHÉO — LA GRANDE GUERRE DU BOCAL
 
 ### 🫙 L'arcade de pickles vietnamienne qui tourne à 100% dans le navigateur — un seul HTML, offline-first
-### 🌐 UI en jeu en 5 langues — Tiếng Việt · English · 中文 · 日本語 · 한국어
+### 🌐 UI en jeu en 7 langues — Tiếng Việt · English · 中文 · 日本語 · 한국어 · Español · Français
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.3-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.3.md)
+[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-installation--exécution)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-de-production)
-[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-changer-de-langue)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO%20%C2%B7%20ES%20%C2%B7%20FR-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-changer-de-langue)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
 
 <img src="assets/demo.svg" alt="Lọ Chéo en jeu — le bocal dévale en diagonale, attrape les pickles et lacère les moisissures" width="100%" />
+
+<img src="assets/languages.svg" alt="7 langues — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
 
 </div>
 
@@ -24,58 +26,67 @@
 
 ## 🥒 À propos du projet
 
-> Lọ Chéo — La Grande Guerre du Bocal : un arcade de pickles qui tourne à 100% dans le navigateur, emballé dans un unique fichier HTML auto-suffisant, offline-first — aucun CDN, aucun serveur. Le bocal en céramique ne sait se déplacer qu'en **diagonale** : maintenez deux touches pour slalomer, accélérer et lacérer moisissures, mouches et chenilles ; remplissez le bocal avant que la céramique ne se fende en trois. **7 modes · 14 ingrédients · 14 succès · TOP 8 · interface en 5 langues.**
+> Lọ Chéo — La Grande Guerre du Bocal : un arcade de pickles qui tourne à 100% dans le navigateur, emballé dans un unique fichier HTML auto-suffisant, offline-first — aucun CDN, aucun serveur. Le bocal en céramique ne sait se déplacer qu'en **diagonale** : maintenez deux touches pour slalomer, accélérer et lacérer moisissures, mouches et chenilles ; remplissez le bocal avant que la céramique ne se fende en trois. **9 modes · 14 ingrédients · 16 succès · classement TOP 8 · UI en 7 langues.**
 
 C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnamiens. Pas de niveaux linéaires ni de menus surchargés — juste le bocal, une pluie infinie de pickles et vos réflexes en feu.
 
-## 🆕 Nouveautés de v1.1.3
+<img src="assets/divider.svg" alt="" width="100%" />
 
-- 🌧️ **2 nouveaux modes** — **Averse de pickles** (chute ×0.88, mais ~1.4× plus dense et ×1.5 plus de dangers, ×0.75 points — une jouissive « inondation de pickles » et des montées de niveau éclair) et **Céramique fine** (une seule fissure et le bocal éclate, ×2.0 points, ×1.3 dangers — réservé aux mains de diamant). Total : **7 modes**.
-- 🏆 **2 nouveaux succès** — **Déluge** (60 pickles en une partie d'Averse de pickles) & **Poterie d'acier** (remplir un bocal en Céramique fine). Total : **14 succès**.
-- 🌐 **5 langues en jeu** — ajout de **日本語 (日)** et de **한국어 (한)** aux côtés de VI/EN/中 : 193 clés par langue, synchro `<html lang>`, nombres selon la locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR).
-- 🚀 **Lanceurs multilingues animés** — les trois lanceurs (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) basculent de langue avec la touche `L` (VI→EN→中文), respectent `LOCHEO_LANG` et offrent bannière triple flash, spinner braille avec vrai pourcentage et scintillements ; le menu vietnamien garde **tous ses diacritiques**. Voir [scripts/README.md](scripts/README.md).
-- ⭐ **Nouveau favicon** `favicon.ico` (multi-tailles 16→256 px) + `assets/favicon.svg` animé (SMIL) & `public/` — prêt pour le web, magnifique sur chaque onglet.
-- 🐛 **Chasse complète aux bugs** (voir [CHANGELOG](CHANGELOG.md), `[1.1.3]`) ; `npm run check` au vert avec **55 tests unitaires**.
+## 🆕 Nouveautés de v1.1.4
 
-<img src="assets/modes.svg" alt="Les 7 modes — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Averse de pickles · Céramique fine" width="100%" />
+- 🎮 **2 NOUVEAUX modes — 9 au total** — **FESTIVAL DES COMBOS** (la fenêtre de combo vit **deux fois plus longtemps** : 5.4s, +15% par prise, pluie un peu plus dense, dangers ×1.25 — le multiplicateur grimpe comme un feu d'artifice) et **GRAND FESTIN** (chute ×0.78 mais presque deux fois plus dense, **bonus bocal ×2.5**, ×0.6 par prise — la stratégie « fermier de pickles » : remplis les bocaux l'un après l'autre). Les deux modes ont leur glyphe et leur éclat de carte.
+- 🏆 **2 nouveaux succès** — **CHAÎNE D'ACIER** (série de 40 dans n'importe quel mode) & **TABLE DE FESTIN PLEINE** (remplis 3 bocaux en une partie de Grand Festin). Soit **16 succès** au total.
+- 🌐 **7 langues en jeu** — ajout d'**Español** et de **Français** aux côtés de VI/EN/中/日/한/ES/FR : 207 clés par locale, synchro `<html lang>`, nombres selon la locale (es-ES / fr-FR inclus).
+- 🐛 **Le crash du lanceur Windows est définitivement corrigé** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.` : `play-windows.bat` est désormais en **CRLF + UTF-8 BOM** avec `chcp 65001`, chaînes à expansion différée `!TSTR!` et vietnamien conservé avec **tous ses diacritiques**. Un nouveau `.gitattributes` impose CRLF pour chaque `*.bat`/`*.cmd` — plus jamais de récidive.
+- 🚀 **Lanceurs multilingues et animés** — les trois lanceurs (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) parlent **7 langues** (VI/EN/中/日/한/ES/FR), la touche `L` boucle sur les sept et le séparateur scintillant alterne or/rose/cyan ; le menu vietnamien garde **tous ses diacritiques**. Voir [scripts/README.md](scripts/README.md).
+- 📖 **Ce README a été refait dans les 10 langues** — plus d'animations (bannière, grille des 9 modes, ruban des 7 langues, séparateur étincelant — tout en SMIL), plus de détail, plus de complétude.
+- 🧪 **61 tests unitaires** (contre 55) — `npm run check` au vert.
 
-<div align="center"><img src="assets/favicon.svg" alt="Favicon Lọ Chéo — bocal de pickles incliné avec couvercle doré (animation SMIL)" width="150" /></div>
+<img src="assets/new-modes.svg" alt="Nouveautés v1.1.4 — Festival des Combos et Grand Festin" width="100%" />
 
-→ Détails complets : [docs/releases/v1.1.3.md](docs/releases/v1.1.3.md)
+<img src="assets/modes.svg" alt="Les 9 modes — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Averse de pickles · Céramique fine · Festival des Combos · Grand Festin" width="100%" />
+
+<div align="center"><img src="assets/favicon.svg" alt="Favicon Lọ Chéo — un bocal incliné avec un couvercle doré (animation SMIL)" width="150" /></div>
+
+→ Détails complets : [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
 
 ## ✨ Points forts
 
 | Groupe | Détails |
 | --- | --- |
-| 🎮 **7 modes de jeu** | **PICKLE CLASSIQUE** (équilibré) · **ZEN** (sans dangers, ×0.5) · **ENFER DU PIMENT** (+35% vitesse, ×1.5) · **60 SECONDES** (contre-la-montre 60 s, ×1.25) · **RUÉE VERS L'OR** (butin doré ×2.6) · **Averse de pickles** (~1.4× plus dense, ×0.75) · **Céramique fine** (une fissure suffit, ×2.0) |
-| 🌐 **i18n en jeu** | Tiếng Việt · English · 中文 · 日本語 · 한국어 — `src/i18n/` (module pur + pont React), `t()` avec interpolation, synchronise `<html lang>`, nombres par locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR) |
+| 🎮 **9 modes de jeu** | **PICKLE CLASSIQUE** (équilibré) · **ZEN** (sans dangers, ×0.5) · **ENFER DU PIMENT** (+35% vitesse, ×1.5) · **60 SECONDES** (contre-la-montre 60 s, ×1.25) · **RUÉE VERS L'OR** (butin doré ×2.6) · **Averse de pickles** (~1.4× plus dense, ×0.75) · **Céramique fine** (une fissure suffit, ×2.0) · **FESTIVAL DES COMBOS** (fenêtre ×2, ×1.15) · **GRAND FESTIN** (densité ~×2, bocal ×2.5, ×0.6) |
+| 🌐 **i18n en jeu** | Tiếng Việt · English · 中文 · 日本語 · 한국어 · Español · Français — `src/i18n/` (module pur + pont React), `t()` avec interpolation, synchronise `<html lang>`, nombres par locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR / es-ES / fr-FR) |
 | 🕹️ **Mécanique LA DIAGONALE signature** | Maintenez 2 touches/axes en diagonale — le bocal accélère, brille et lacère les dangers. Barre de stamina dédiée avec hystérésis anti-scintillement |
 | 🥬 **14 ingrédients** | Aubergine, piment, ail, gingembre, sel, moutarde, **MOUTARDE DORÉE** (remplit le bocal vite) · SEL/AIL DORÉ · PIMENT INFERNAL · GLACE · MOISISSURE, MOUCHE, **CHENILLE** (dangers) |
 | 🧄 **Bouclier d'Ail Doré** | Power-up : accumulez jusqu'à **2 charges** absorbant les fissures ; un halo rotatif orbite autour du bocal |
-| 🏆 **14 succès** | Sauvegardés **entre les parties** (localStorage), avec un toast « NOUVEAU SUCCÈS ! » sur l'écran de fin |
+| 🏆 **16 succès** | Sauvegardés **entre les parties** (localStorage), avec un toast « NOUVEAU SUCCÈS ! » sur l'écran de fin |
 | 🔊 **Audio artisanal** | 11 effets synthétisés en Web Audio API (zéro fichier) + pentatonique qui module avec le niveau ; couper le son avec `M` |
 | 💾 **TOP 8** | Sauvegarde locale, validée et normalisée à la lecture, noms en majuscules automatiques, surbrillance pour le record tout frais |
 | 🎨 **60fps** | Canvas 2D, budget de 460 particules, DPR plafonné à 2, sol à carreaux pré-rendu offscreen, scintillement d'étoiles + aurore dans le menu |
 | 📴 **Vraiment offline-first** | Polices auto-hébergées (sous-ensembles latin + vietnamien, woff2), aucun CDN ni API — ouvrez `dist/index.html` et jouez |
-| 🧪 **Qualité** | 55 tests unitaires (vitest) pour modes / achievements / storage / i18n — `npm run check` est la porte CI |
+| 🧪 **Qualité** | 61 tests unitaires (vitest) pour modes / achievements / storage / i18n — `npm run check` est la porte CI |
 
 <img src="assets/items.svg" alt="Les 14 ingrédients — les pickles à attraper, les pouvoirs dorés à saisir, les dangers à éviter" width="100%" />
 
 ## 🌐 Changer de langue
 
-Lọ Chéo embarque **5 langues d'interface** — instantanément, sans rechargement ni perte de partie :
+Lọ Chéo embarque **7 langues d'interface**, appliquées instantanément — sans recharger, sans perdre ta partie :
 
-| Langue | Où | Stockée dans |
+<img src="assets/languages.svg" alt="7 langues — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+| Langue | Où | Stocké dans |
 | --- | --- | --- |
-| 🇻🇳 Tiếng Việt | bouton **VI** (défaut ; suit la locale du navigateur si non définie) | `locheo.lang.v1` |
-| 🇬🇧 English | bouton **EN** | `locheo.lang.v1` |
-| 🇨🇳 中文 | bouton **中** | `locheo.lang.v1` |
-| 🇯🇵 日本語 | bouton **日** | `locheo.lang.v1` |
-| 🇰🇷 한국어 | bouton **한** | `locheo.lang.v1` |
+| 🇻🇳 Tiếng Việt | bouton **VI** (par défaut ; suit la langue du navigateur) | `locheo.lang.v1` |
+| 🇬🇧 English | **EN** bouton | `locheo.lang.v1` |
+| 🇨🇳 中文 | **中** bouton | `locheo.lang.v1` |
+| 🇯🇵 日本語 | **日** bouton | `locheo.lang.v1` |
+| 🇰🇷 한국어 | **한** bouton | `locheo.lang.v1` |
+| 🇪🇸 Español | **ES** bouton | `locheo.lang.v1` |
+| 🇫🇷 Français | **FR** bouton | `locheo.lang.v1` |
 
-- Basculez depuis le **menu principal** (en haut à droite) ou l'**écran de pause** (en bas, version compacte).
-- Toutes les chaînes visibles vivent dans `src/i18n/locales/{vi,en,zh,ja,ko}.ts` — moteur canvas, écrans, HUD, popups, ticker, astuces.
-- Une clé manque ? `t()` retombe sur le vietnamien — l'ensemble des clés des cinq locales (et leurs placeholders) est garanti par les tests.
+- Change depuis le **menu principal** (en haut à droite) ou l'**écran de pause** (en bas, mode compact).
+- Toutes les chaînes visibles vivent dans `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts` — moteur canvas, écrans, HUD, popups, ticker, astuces.
+- Une clé manquante ? `t()` retombe sur le vietnamien — les sept jeux de clés (et leurs placeholders) sont garantis par les tests.
 
 ## 🕹️ Contrôles
 
@@ -88,7 +99,7 @@ Lọ Chéo embarque **5 langues d'interface** — instantanément, sans recharge
 | Recommencer aussitôt | `R` (même en pause/game over) | Bouton « Encore une fournée » |
 | Démarrer / confirmer | `Enter` | Bouton **AUX FOURNEAUX** |
 | Muet / son | `M` | Bouton haut-parleur, en haut à droite |
-| Changer de langue | — (boutons VI/EN/中/日/한) | Boutons VI/EN/中/日/한 sur le menu / la pause |
+| Changer de langue | — (boutons VI/EN/中/日/한/ES/FR) | Boutons VI/EN/中/日/한/ES/FR sur le menu / la pause |
 
 ## 🚀 Installation & exécution
 
@@ -108,7 +119,7 @@ npm install        # installe les dépendances (Node ≥ 20.19)
 npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 ```
 
-> `vite-plugin-singlefile` inline tout le JS/CSS/polices/images dans **un** `dist/index.html` (~655 Ko, gzip ~330 Ko). Ni serveur, ni réseau.
+> `vite-plugin-singlefile` inline tout le JS/CSS/polices/images dans **un** `dist/index.html` (~700 Ko, gzip ~355 Ko). Ni serveur, ni réseau.
 
 ### Développement
 
@@ -116,7 +127,7 @@ npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 npm run dev        # serveur de dev avec HMR (http://localhost:5173)
 npm run preview    # sert le build de production en local
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 55 tests unitaires (modes / achievements / storage / i18n)
+npm run test       # vitest — 61 tests unitaires (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (porte qualité CI)
 ```
 
@@ -125,7 +136,8 @@ npm run check      # typecheck + test + build (porte qualité CI)
 ```
 lo-cheoio/
 ├─ index.html              # entrée, meta SEO/OG (sans CDN)
-├─ package.json            # lo-cheoio v1.1.3, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.4, scripts dev/build/test/check
+├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict ; inclut src + tests
 ├─ favicon.ico             # web icon (multi-size 16→256)
@@ -134,7 +146,10 @@ lo-cheoio/
 │  ├─ banner.svg           # bannière du README (animation SMIL)
 │  ├─ demo.svg             # simulation de gameplay (animation SMIL)
 │  ├─ items.svg            # les 14 ingrédients (animation SMIL)
-│  ├─ modes.svg            # les 7 modes (animation SMIL)
+│  ├─ modes.svg            # les 9 modes (animation SMIL)
+│  ├─ languages.svg        # 7 in-game languages (SMIL animation)
+│  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # sceau copyleft AGPL-3.0 animé (animation SMIL)
 │  └─ favicon.svg          # favicon (SMIL animation)
 ├─ scripts/
@@ -149,7 +164,8 @@ lo-cheoio/
 │     ├─ v1.1.0.md         # notes v1.1.0
 │     ├─ v1.1.1.md         # notes v1.1.1
 │     ├─ v1.1.2.md         # v1.1.2
-│     └─ v1.1.3.md         # notes de la release courante (1.1.3)
+│     ├─ v1.1.3.md         # v1.1.3 release notes
+│     └─ v1.1.4.md         # current release notes (1.1.4)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -163,27 +179,27 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # racine React, StrictMode
 │  ├─ App.tsx              # machine à phases menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.3" (source unique de vérité)
+│  ├─ version.ts           # APP_VERSION = "1.1.4" (source unique de vérité)
 │  ├─ index.css            # thème tailwind v4 + toutes les animations/dégradés
 │  ├─ assets/fonts/        # sous-ensembles woff2 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
 │  ├─ i18n/
 │  │  ├─ i18n.ts           # module pur : détection, persistance, t() + interpolation
 │  │  ├─ useI18n.ts        # hook React : useI18n/useLanguage
-│  │  └─ locales/          # vi.ts (source des clés) · en · zh · ja · ko
+│  │  └─ locales/          # vi.ts (source des clés) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flottant + clavier + visibilité
 │  │  ├─ StartScreen.tsx   # menu : aurore, shimmer, choix du mode, succès
-│  │  ├─ ModeSelector.tsx  # 7 cartes de mode (classic/zen/inferno/blitz/goldrush/storm/hardcore)
+│  │  ├─ ModeSelector.tsx  # 9 cartes de mode (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # mur de badges verrouillés/déverrouillés
 │  │  ├─ GameOverScreen.tsx     # BOCAL BRISÉ ! + score + nouveaux succès
 │  │  ├─ PauseScreen.tsx        # PAUSE + stats de la partie
-│  │  ├─ LanguageSwitcher.tsx   # sélecteur partagé VI / EN / 中 / 日 / 한
+│  │  ├─ LanguageSwitcher.tsx   # sélecteur partagé VI / EN / 中 / 日 / 한 / ES / FR
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # toute la simulation + rendu canvas (~2100 lignes)
+│  │  ├─ engine.ts         # toute la simulation + rendu canvas (~2170 lignes)
 │  │  ├─ modes.ts          # modes + maths d'équilibrage (pur)
-│  │  ├─ achievements.ts   # 14 badges + checker pur (pur)
+│  │  ├─ achievements.ts   # 16 badges + checker pur (pur)
 │  │  ├─ storage.ts        # localStorage : top 8, progrès, succès
 │  │  └─ audio.ts          # synthèse Web Audio : sfx + musique pentatonique
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -201,6 +217,10 @@ lo-cheoio/
 - **Motion douce** : `prefers-reduced-motion` coupe aurore/shimmer/rotation ; étoiles de fond et screen shake respectent aussi les media queries.
 
 ## ❓ FAQ
+
+**Le lanceur Windows se plaint des caractères vietnamiens ?**
+Corrigé en v1.1.4 : `play-windows.bat` est désormais en CRLF + UTF-8 BOM avec `chcp 65001` et les diacritiques vietnamiens intacts — l'erreur `'Ọ' is not recognized...` appartient au passé. Si tu modifies le .bat avec un autre éditeur, conserve CRLF et BOM (`.gitattributes` l'impose automatiquement).
+
 
 **Peut-on jouer sans réseau ?**
 Oui — 100% : ouvre `dist/index.html` et tout fonctionne, polices et audio inclus. Pas une seule requête réseau.
@@ -224,6 +244,7 @@ Double-clique sur [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 | Version | Date | Notes |
 | --- | --- | --- |
+| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modes** (Festival des Combos · Grand Festin) · **16 succès** · **7 langues** (ES/FR ajoutées) · fix play-windows.bat (CRLF+BOM) · lanceurs en 7 langues · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modes (Averse de pickles · Céramique fine) · 14 succès · 5 langues · favicon · lanceurs multilingues · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modes (60 Secondes · Ruée vers l'or) · 12 succès · combo en feu · lanceurs à double-clic · README en 10 langues · 49 tests |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n en jeu VI/EN/ZH · README en 7 langues · grand ménage de bugs · 49 tests |
@@ -235,7 +256,7 @@ Voir aussi [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Contribuer
 
 1. Fork le repo, branche avec la convention `arena/<nom>` ou `feat/<nom>`.
-2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 55 tests + build).
+2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 61 tests + build).
 3. Évite les nouvelles dépendances runtime sauf nécessité réelle — philosophie : **un seul fichier, hors réseau, jouable pour toujours**.
 4. Dans la PR, indique les écrans/modes touchés et joins un clip si le gameplay change.
 
