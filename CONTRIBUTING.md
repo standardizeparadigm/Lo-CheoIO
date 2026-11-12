@@ -11,7 +11,7 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 ## Quy trình
 
 1. Fork repo → tạo branch `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm install` rồi `npm run check` (typecheck + 55 tests + build) — tất cả phải xanh.
+2. `npm install` rồi `npm run check` (typecheck + 61 tests + build) — tất cả phải xanh.
 3. Nếu sửa logic thuần (`modes.ts`, `achievements.ts`, `storage.ts`, `src/i18n/i18n.ts`): thêm/sửa test trong `tests/`.
 4. Nếu sửa gameplay/cân bằng: ghi rõ chế độ ảnh hưởng (Cổ điển / Thảnh Thơi / Ớt Lửa / Đua 60 Giây / Mùa Vàng) và đính clip trong PR.
 5. Không commit `dist/` (đã có trong `.gitignore`) — artifact release được tạo bằng `npm run build`.

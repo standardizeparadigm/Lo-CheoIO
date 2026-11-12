@@ -21,10 +21,14 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | 🇻🇳 **Tiếng Việt (gốc, có dấu đầy đủ)** | Mặc định — root language |
 | 🇬🇧 **English** | Available instantly |
 | 🇨🇳 **中文** | 按 `L` 键切换 |
+| 🇯🇵 **日本語** | `L` キーで切り替え |
+| 🇰🇷 **한국어** | `L` 키로 전환 |
+| 🇪🇸 **Español** | Pulsa `L` para cambiar |
+| 🇫🇷 **Français** | Appuyez sur `L` pour changer |
 
-- Thứ tự chuyển: **VI → EN → 中文 → VI**…
+- Thứ tự chuyển: **VI → EN → 中文 → 日本語 → 한국어 → Español → Français → VI**…
 - Tự nhận theo locale của máy (`$LANG` / Windows UI) nếu có; mặc định luôn là **Tiếng Việt**.
-- Ép ngôn ngữ bằng biến môi trường: `LOCHEO_LANG=vi` / `LOCHEO_LANG=en` / `LOCHEO_LANG=zh` (ví dụ `LOCHEO_LANG=en ./scripts/play-linux.sh`).
+- Ép ngôn ngữ bằng biến môi trường: `LOCHEO_LANG=vi` / `en` / `zh` / `ja` / `ko` / `es` / `fr` (ví dụ `LOCHEO_LANG=fr ./scripts/play-linux.sh`).
 
 ## ✨ Hoạt ảnh & hiệu ứng
 
@@ -45,13 +49,13 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | **1) Chơi ngay (Production)** | `npm run build` → mở `dist/index.html` | Build bản tự chứa rồi mở game bằng trình duyệt mặc định |
 | **2) Dev mode** | `npm run dev` | Server HMR tại <http://localhost:5173>; <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng |
 | **3) Build production** | `npm run build` | Tạo đúng 1 file `dist/index.html` (single-file) |
-| **4) Chạy tests** | `npm run test` | vitest — **55 tests** |
+| **4) Chạy tests** | `npm run test` | vitest — **61 tests** |
 | **5) Kiểm tra toàn bộ** | `npm run check` | typecheck + tests + build — cổng chất lượng |
 | **6) Cài đặt dependencies** | `npm install` | Cài/cập nhật `node_modules` |
 | **7) Dọn dẹp** | xoá `node_modules/` và `dist/` | Yêu cầu gõ `YES` để xác nhận; không đụng mã nguồn |
-| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.3, tác giả, nơi lưu dữ liệu |
+| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.4, tác giả, nơi lưu dữ liệu |
 | **0) Thoát** | — | Đóng trình chạy |
-| **L) Đổi ngôn ngữ** | — | VI ⇄ EN ⇄ 中文 (hint hiển thị ngay cạnh mục 0) |
+| **L) Đổi ngôn ngữ** | — | VI ⇄ EN ⇄ 中文 ⇄ 日本語 ⇄ 한국어 ⇄ ES ⇄ FR (hint hiển thị ngay cạnh mục 0) |
 
 Các mục **1, 2, 3, 4, 5** tự kiểm tra Node.js và tự chạy `npm install` nếu `node_modules/` chưa tồn tại — bạn không bao giờ phải lo thứ tự bước.
 
@@ -59,5 +63,5 @@ Các mục **1, 2, 3, 4, 5** tự kiểm tra Node.js và tự chạy `npm instal
 
 - **macOS / Linux:** menu dùng mã màu ANSI + clear-screen; terminal nào cũng hiển thị ổn. File `.command` nhờ Finder tự gán vào Terminal.
 - **Windows:** menu dùng `chcp 65001` (UTF-8) nên **tiếng Việt có dấu hiển thị đầy đủ**, ANSI colors bật sẵn trên Windows 10/11 (Terminal & cmd). Trên console đời cũ không hiện màu, menu vẫn chạy bình thường.
-- Cả 3 file đều tự `cd` về **gốc repo** dù được mở từ đâu, kiểm tra `node`/`npm` và báo lỗi thân thiện (VI/EN/中文) nếu thiếu.
-- Nội dung hiển thị gốc là **Tiếng Việt có dấu**; hai bản dịch EN/ZH tương đương 100% về mặt chức năng.
+- Cả 3 file đều tự `cd` về **gốc repo** dù được mở từ đâu, kiểm tra `node`/`npm` và báo lỗi thân thiện (VI/EN/中文/日本語/한국어/ES/FR) nếu thiếu.
+- Nội dung hiển thị gốc là **Tiếng Việt có dấu**; sáu bản dịch còn lại (EN/ZH/JA/KO/ES/FR) tương đương 100% về mặt chức năng.
