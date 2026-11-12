@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import type { AchievementDef } from "../game/achievements";
 import type { RunStats } from "../game/engine";
+import { MODES, type ModeId } from "../game/modes";
 import type { ScoreEntry } from "../game/storage";
 import { fmtTime } from "./PauseScreen";
 import { GameButton, JarLogo, Keycap, Panel, ScoreBoard, Stat } from "./ui";
@@ -11,6 +13,8 @@ export default function GameOverScreen({
   isHigh,
   rank,
   savedId,
+  mode,
+  newAchievements,
   onSave,
   onRestart,
   onMenu,
@@ -21,6 +25,8 @@ export default function GameOverScreen({
   isHigh: boolean;
   rank: number;
   savedId: string | null;
+  mode: ModeId;
+  newAchievements: AchievementDef[];
   onSave: (name: string) => void;
   onRestart: () => void;
   onMenu: () => void;
@@ -63,7 +69,16 @@ export default function GameOverScreen({
               </div>
             </div>
 
-            <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-2">
+            <div className="mt-3 flex items-center gap-2">
+              <span
+                className="inline-block border px-2 py-0.5 font-display text-[9px] tracking-[0.18em]"
+                style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
+              >
+                CHẾ ĐỘ: {MODES[mode].name}
+              </span>
+            </div>
+
+            <div className="mt-2 flex flex-wrap items-end gap-x-6 gap-y-2">
               <div>
                 <div className="font-body text-[10px] font-extrabold tracking-[0.3em] text-jade-500 uppercase">
                   điểm ván này
@@ -100,6 +115,36 @@ export default function GameOverScreen({
               <Stat label="Đã chém" value={stats.sliced} accent="text-chili-400" />
               <Stat label="Thời gian" value={fmtTime(stats.time)} />
             </div>
+
+            {newAchievements.length > 0 && (
+              <Panel className="anim-pop mt-4 p-3">
+                <div className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-tumeric-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z" />
+                    <path d="M7 6H4a1 1 0 00-1 1c0 2.2 1.3 4 4 4M17 6h3a1 1 0 011 1c0 2.2-1.3 4-4 4" />
+                  </svg>
+                  <span className="font-display text-[12px] tracking-[0.22em] text-tumeric-400">
+                    THÀNH TỰU MỚI!
+                  </span>
+                </div>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {newAchievements.map((a) => (
+                    <li
+                      key={a.id}
+                      className="anim-badge-pop flex items-center gap-2 border-2 border-tumeric-500/70 bg-tumeric-500/15 px-2 py-1.5"
+                      title={a.description}
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-tumeric-400 font-display text-[8px] text-tumeric-400">
+                        {a.glyph}
+                      </span>
+                      <span className="font-body text-[9px] leading-tight font-extrabold tracking-[0.08em] text-tumeric-400">
+                        {a.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+            )}
 
             {isHigh && !done && (
               <Panel className="anim-pop mt-4 flex flex-wrap items-center gap-2 p-3">

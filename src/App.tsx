@@ -4,8 +4,20 @@ import GameOverScreen from "./components/GameOverScreen";
 import PauseScreen from "./components/PauseScreen";
 import StartScreen from "./components/StartScreen";
 import { audio } from "./game/audio";
+import { ACHIEVEMENT_MAP, checkAchievements, type AchievementDef } from "./game/achievements";
 import type { LoCheoGame, Phase, RunStats } from "./game/engine";
-import { bestScore, loadScores, qualifies, rankOf, submitScore, type ScoreEntry } from "./game/storage";
+import { MODES, isModeId, type ModeId } from "./game/modes";
+import {
+  bestScore,
+  loadAchievements,
+  loadScores,
+  qualifies,
+  rankOf,
+  recordRun,
+  submitScore,
+  unlockAchievements,
+  type ScoreEntry,
+} from "./game/storage";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
@@ -18,23 +30,37 @@ export default function App() {
   const [savedId, setSavedId] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
   const [touchMode, setTouchMode] = useState(false);
+  const [mode, setMode] = useState<ModeId>(() => {
+    try {
+      const v = localStorage.getItem("locheo.mode.v1");
+      return isModeId(v) ? v : "classic";
+    } catch {
+      return "classic";
+    }
+  });
+  const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
+  const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
 
   const best = bestScore(scores);
 
   /* ---------------------------------------------------- boot listeners */
   useEffect(() => {
     if (window.matchMedia?.("(pointer: coarse)").matches) setTouchMode(true);
-    const unlock = () => {
-      audio.unlock();
-      setTouchMode(true);
-    };
+    // audio unlock only — a mouse click or keypress must NOT flip touch UI on
+    const unlock = () => audio.unlock();
     const coarse = () => setTouchMode(true);
+    const onPointer = (e: PointerEvent) => {
+      audio.unlock();
+      if (e.pointerType === "touch" || e.pointerType === "pen") setTouchMode(true);
+    };
     window.addEventListener("touchstart", coarse, { once: true, passive: true });
-    window.addEventListener("pointerdown", unlock, { once: true });
+    window.addEventListener("pointerdown", onPointer, { once: true });
     window.addEventListener("keydown", unlock, { once: true });
     return () => {
       window.removeEventListener("touchstart", coarse);
-      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("pointerdown", onPointer);
       window.removeEventListener("keydown", unlock);
     };
   }, []);
@@ -43,9 +69,22 @@ export default function App() {
     audio.setMuted(muted);
   }, [muted]);
 
+  // push the mode into the engine and persist it
+  useEffect(() => {
+    gameRef.current?.setMode(mode);
+    try {
+      localStorage.setItem("locheo.mode.v1", mode);
+    } catch {
+      /* storage blocked — session default only */
+    }
+  }, [mode]);
+
+  const handleModeChange = useCallback((m: ModeId) => setMode(m), []);
+
   /* ------------------------------------------------------------ actions */
   const onReady = useCallback((g: LoCheoGame) => {
     gameRef.current = g;
+    g.setMode(modeRef.current);
   }, []);
 
   const startRun = useCallback(() => {
@@ -53,8 +92,10 @@ export default function App() {
     if (!g) return;
     audio.unlock();
     setSavedId(null);
+    setNewAchievements([]);
     setRun(EMPTY);
     setShowOver(false);
+    g.setMode(modeRef.current);
     g.start();
   }, []);
 
@@ -75,6 +116,22 @@ export default function App() {
   const onGameOver = useCallback((s: RunStats) => {
     setRun(s);
     setSavedId(null);
+    // fold the run into lifetime progress, then light up any new badges
+    const progress = recordRun(s);
+    const known = loadAchievements();
+    const freshIds = checkAchievements({ ...s, mode: modeRef.current }, progress, known);
+    if (freshIds.length > 0) {
+      setAchievements(unlockAchievements(freshIds));
+      setNewAchievements(
+        freshIds
+          .map((id) => ACHIEVEMENT_MAP.get(id))
+          .filter((d): d is AchievementDef => Boolean(d)),
+      );
+      audio.play("full");
+    } else {
+      setAchievements(known);
+      setNewAchievements([]);
+    }
     setShowOver(true);
   }, []);
 
@@ -188,17 +245,28 @@ export default function App() {
         <div className="pointer-events-none absolute bottom-3 left-4 z-20 hidden lg:block">
           <span className="font-display text-[11px] tracking-[0.22em] text-jade-500/80">LỌ CHÉO</span>
           <span className="ml-2 font-body text-[10px] tracking-[0.14em] text-jade-700">
-            giữ 2 phím để chém chéo · SPACE lắc hũ · ESC tạm nghỉ
+            giữ 2 phím để chém chéo · SPACE lắc hũ · ESC tạm nghỉ · {MODES[mode].name}
           </span>
         </div>
       )}
 
       {/* screens */}
-      {phase === "menu" && <StartScreen scores={scores} best={best} touchMode={touchMode} onStart={startRun} />}
+      {phase === "menu" && (
+        <StartScreen
+          scores={scores}
+          best={best}
+          touchMode={touchMode}
+          achievements={achievements}
+          mode={mode}
+          onModeChange={handleModeChange}
+          onStart={startRun}
+        />
+      )}
       {phase === "paused" && (
         <PauseScreen
           stats={run}
           muted={muted}
+          mode={mode}
           onResume={togglePause}
           onRestart={startRun}
           onMenu={toMenu}
@@ -213,6 +281,8 @@ export default function App() {
           isHigh={isHigh}
           rank={rank}
           savedId={savedId}
+          mode={mode}
+          newAchievements={newAchievements}
           onSave={saveScore}
           onRestart={startRun}
           onMenu={toMenu}

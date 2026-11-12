@@ -1,3 +1,4 @@
+@import "./styles/fonts.css";
 @import "tailwindcss";
 
 @theme {
@@ -234,4 +235,184 @@
 ::-webkit-scrollbar-thumb {
   background: var(--color-jade-700);
   border-radius: 99px;
+}
+
+/* ============================================================
+   V1.1.0 — richer menu surfaces, gradients & ambient motion
+   ============================================================ */
+
+/* Drifting aurora backdrop — three coloured lights breathing across the kitchen */
+.aurora-bg {
+  background:
+    radial-gradient(60% 55% at 12% 18%, rgba(245, 168, 28, 0.16), transparent 60%),
+    radial-gradient(55% 60% at 88% 12%, rgba(43, 180, 140, 0.2), transparent 62%),
+    radial-gradient(70% 65% at 78% 88%, rgba(230, 59, 46, 0.14), transparent 60%),
+    radial-gradient(50% 50% at 8% 92%, rgba(140, 198, 63, 0.12), transparent 65%);
+  background-size: 200% 200%;
+  animation: lc-aurora-drift 16s ease-in-out infinite alternate;
+}
+@keyframes lc-aurora-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%;
+  }
+  100% {
+    background-position: 30% 25%, 65% 30%, 70% 70%, 25% 75%;
+  }
+}
+
+/* Checkerboard cement-tile floor, faded toward the edges */
+.tile-floor-mask {
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 30%, #000 40%, transparent 78%);
+  mask-image: radial-gradient(120% 90% at 50% 30%, #000 40%, transparent 78%);
+}
+
+/* Diagonal shimmer sweep on big display text */
+.text-shimmer {
+  background: linear-gradient(
+    100deg,
+    #f5a81c 0%,
+    #f5a81c 32%,
+    #fff3c4 42%,
+    #ffc94a 50%,
+    #fff3c4 58%,
+    #f5a81c 68%,
+    #f5a81c 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: lc-shimmer-sweep 3.4s ease-in-out infinite;
+}
+@keyframes lc-shimmer-sweep {
+  0% {
+    background-position: 120% 0;
+  }
+  55% {
+    background-position: -20% 0;
+  }
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+/* Gold gradient border panel (padding-box / border-box trick) */
+.gradient-border {
+  border: 3px solid transparent;
+  background:
+    linear-gradient(160deg, rgba(11, 42, 40, 0.96), rgba(6, 26, 26, 0.98)) padding-box,
+    linear-gradient(135deg, #ffc94a 0%, #e63b2e 38%, #2bb48c 72%, #f5a81c 100%) border-box;
+}
+
+/* Deep green panel with a golden inner hairline */
+.panel-grad {
+  background: linear-gradient(168deg, #0e332f 0%, #092723 48%, #071e1c 100%);
+  box-shadow: inset 0 1px 0 rgba(253, 243, 224, 0.09);
+}
+
+/* Mode card on the menu */
+.mode-card {
+  position: relative;
+  border: 3px solid rgba(28, 138, 111, 0.45);
+  background-clip: padding-box;
+  transition:
+    transform 160ms cubic-bezier(0.2, 0.9, 0.3, 1.3),
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+}
+.mode-card:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.14);
+}
+.mode-card[data-active="true"] {
+  border-color: var(--mode-accent, #f5a81c);
+  box-shadow:
+    0 0 0 1px rgba(6, 26, 26, 0.9),
+    0 0 26px -4px var(--mode-accent, #f5a81c),
+    5px 5px 0 0 rgba(6, 26, 26, 0.75);
+  transform: translateY(-2px);
+}
+
+/* Slow rotating halo behind the mascot */
+@keyframes lc-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.anim-spin-slow {
+  animation: lc-spin-slow 14s linear infinite;
+}
+
+/* Soft breathing glow for the halo ring */
+@keyframes lc-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.anim-breathe {
+  animation: lc-breathe 3.6s ease-in-out infinite;
+}
+
+/* One-sweep shine across a button (use sparingly, e.g. primary CTA) */
+@keyframes lc-sheen {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  60%,
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: lc-sheen 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Achievement badge pop when unlocked */
+@keyframes lc-badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-14deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.35) rotate(6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+.anim-badge-pop {
+  animation: lc-badge-pop 560ms cubic-bezier(0.18, 1.4, 0.36, 1) both;
+}
+
+/* Thin golden divider used between menu sections */
+.divider-gold {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 201, 74, 0.65), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg,
+  .text-shimmer,
+  .anim-spin-slow,
+  .anim-breathe,
+  .sheen::after {
+    animation: none;
+  }
 }
