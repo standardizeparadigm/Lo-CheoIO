@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 170" role="img" aria-label="7 languages: Tiếng Việt, English, 中文, 日本語, 한국어, Español, Français — all live in-game">
+  <defs>
+    <linearGradient id="lgBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e3a35"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <linearGradient id="lgSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff3c4" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#fff3c4" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#fff3c4" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#fff3c4" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff3c4" stop-opacity="0"/>
+      <animate attributeName="x1" values="-1.5;2.5" dur="3.6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="-0.5;3.5" dur="3.6s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="170" rx="16" fill="url(#lgBg)"/>
+  <rect width="1200" height="170" rx="16" fill="none" stroke="#123f38" stroke-width="2"/>
+  <text x="600" y="28" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="6" fill="#2bb48c">— 7 IN-GAME LANGUAGES · locheo.lang.v1 —</text>
+
+  <g font-family="'Bungee','Arial Black',sans-serif" font-size="21" text-anchor="middle">
+    <g transform="translate(20 52)"><rect width="160" height="88" rx="14" fill="#f5a81c" fill-opacity="0.12" stroke="#f5a81c" stroke-width="2.5"/><rect width="160" height="88" rx="14" fill="url(#lgSheen)"/><text x="80" y="38" fill="#f5a81c">VI</text><text x="80" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">Tiếng Việt</text></g>
+    <g transform="translate(192 52)"><rect width="160" height="88" rx="14" fill="#ffc94a" fill-opacity="0.10" stroke="#ffc94a" stroke-width="2.5"/><rect width="160" height="88" rx="14" fill="url(#lgSheen)"/><text x="80" y="38" fill="#ffc94a">EN</text><text x="80" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">English</text></g>
+    <g transform="translate(364 52)"><rect width="160" height="88" rx="14" fill="#e63b2e" fill-opacity="0.12" stroke="#e63b2e" stroke-width="2.5"/><rect width="160" height="88" rx="14" fill="url(#lgSheen)"/><text x="80" y="38" fill="#ff8a7a">中</text><text x="80" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">中文</text></g>
+    <g transform="translate(536 52)"><rect width="160" height="88" rx="14" fill="#8cc63f" fill-opacity="0.12" stroke="#8cc63f" stroke-width="2.5"/><rect width="160" height="88" rx="14" fill="url(#lgSheen)"/><text x="80" y="38" fill="#8cc63f">日</text><text x="80" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">日本語</text></g>
+    <g transform="translate(708 52)"><rect width="160" height="88" rx="14" fill="#7fd0ff" fill-opacity="0.12" stroke="#7fd0ff" stroke-width="2.5"/><rect width="160" height="88" rx="14" fill="url(#lgSheen)"/><text x="80" y="38" fill="#7fd0ff">한</text><text x="80" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">한국어</text></g>
+    <g transform="translate(880 52)"><rect width="140" height="88" rx="14" fill="#ff8ad4" fill-opacity="0.12" stroke="#ff8ad4" stroke-width="2.5"/><rect width="140" height="88" rx="14" fill="url(#lgSheen)"/><text x="70" y="38" fill="#ff8ad4">ES</text><text x="70" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">Español</text></g>
+    <g transform="translate(1032 52)"><rect width="148" height="88" rx="14" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-width="2.5"/><rect width="148" height="88" rx="14" fill="url(#lgSheen)"/><text x="74" y="38" fill="#5eead4">FR</text><text x="74" y="64" font-size="11" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" fill="#fdf3e0">Français</text></g>
+  </g>
+</svg>

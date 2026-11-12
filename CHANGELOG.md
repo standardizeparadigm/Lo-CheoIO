@@ -3,6 +3,31 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.4] — 2026-11-12
+
+Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc**: **2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 16 thành tựu · 7 ngôn ngữ trong game (thêm Español · Français) · sửa crash `play-windows.bat` (CRLF + UTF-8 BOM) · launcher 7 ngôn ngữ · README 10 ngôn ngữ làm mới · assets SMIL mới (languages/new-modes/divider) · modes.svg 9 chế độ · 61 unit tests**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+
+### Added
+- Chế độ **LỄ HỘI COMBO** (`combo`): cửa sổ combo sống **gấp đôi** (`comboWindowMult: 2` → 5.4s), **+15% điểm mỗi củ** (`scoreMult: 1.15`), `spawnMult: 0.92`, `hazardMult: 1.25`, `speedMult: 1.05` — giữ nhịp là combo không bao giờ đứt, multiplier pháo bông
+- Chế độ **ĐẠI TIỆC DƯA** (`feast`): dưa rơi chậm hơn (`speedMult: 0.78`) nhưng **dày gần gấp đôi** (`spawnMult: 0.6`), mỗi củ **×0.6 điểm**, bù lại **thưởng đổ đầy hũ ×2.5** (`jarBonusMult: 2.5`) — kiểu chơi «trồng lúa» leo hũ siêu nhanh
+- 2 thành tựu mới — **DÂY THÉP COMBO** (`combo-40`: chuỗi 40 củ liên tiếp, mọi chế độ) và **TẤM LÒNG TRẨY HỘI** (`feast-3jars`: đầy 3 hũ trong một ván Đại Tiệc Dưa); tổng cộng **16 thành tựu**
+- **2 ngôn ngữ giao diện mới**: **Español** (`es.ts`) và **Français** (`fr.ts`) — 207 khóa mỗi bản, parity test ép **7 locale** đồng bộ; `Language` type, `LANGUAGES`, detect theo trình duyệt (es/fr), `locheo.lang.v1`, `numberLocale` (es-ES/fr-FR), `LanguageSwitcher` hiển thị VI/EN/中/日/한/ES/FR
+- **Launcher 7 ngôn ngữ**: phím **`L`** chuyển vòng **VI → EN → 中 → 日 → 한 → ES → FR** (cả 3 launcher), `LOCHEO_LANG=vi|en|zh|ja|ko|es|fr`; `scripts/README.md` cập nhật
+- **Assets SMIL mới**: `assets/languages.svg` (7 ngôn ngữ), `assets/new-modes.svg` (2 chế độ mới), `assets/divider.svg` (dải sparkle ngăn cách section); `assets/modes.svg` nâng lên **9 chế độ**; `assets/banner.svg` — V1.1.4 · 9 CHẾ ĐỘ · 16 THÀNH TỰU
+- **README 10 ngôn ngữ làm mới** (vi/en/zh/ja/ko/es/fr/th/de/pt): badge 1.1.4 + language badge 7 ngôn ngữ, "What's new v1.1.4" viết tay theo từng ngôn ngữ, FAQ mới (launcher Windows tiếng Việt), cây thư mục/releases/tests đồng bộ
+- `.gitattributes` — ép CRLF cho `*.bat`/`*.cmd` (posix giữ LF), chặn lỗi encoding vĩnh viễn cho launcher Windows
+
+### Fixed
+- **`play-windows.bat` crash ngay khi mở** (`'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`): viết lại hoàn toàn — **CRLF + UTF-8 BOM** bắt buộc, `chcp 65001`, prompt dùng delayed expansion `!TSTR!`, tiếng Việt **giữ nguyên dấu**; `.gitattributes` đảm bảo không tái diễn
+- Docs còn số cũ (DESCRIPTION, package.json description/keywords, `index.html` meta, CONTRIBUTING/scripts README "55 tests", banner V1.1.3) — đồng bộ **1.1.4 / 9 chế độ / 16 thành tựu / 7 ngôn ngữ / 61 tests**
+
+### Changed
+- `APP_VERSION` → **1.1.4**; `package.json`/lock, `src/version.ts`, `assets/banner.svg`, `index.html` đều hiển thị 1.1.4
+- `ModeSelector` grid → 9 thẻ (`lg:grid-cols-9`); `ModeConfig` thêm optional `comboWindowMult?` / `jarBonusMult?` (mặc định 1)
+- Test suite: **61/61** (modes 22 · achievements 15 · storage 11 · i18n 13)
+
 ## [1.1.3] — 2026-11-12
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mưa Dưa · Gốm Mỏng) · 14 thành tựu · 5 ngôn ngữ trong game (thêm 日本語 · 한국어) · launcher đa ngôn ngữ + animation cho macOS/Windows/Linux · favicon web · modes.svg showcase 7 chế độ · README 10 ngôn ngữ đồng bộ · 55 unit tests**.
@@ -112,6 +137,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.4]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.4
 [1.1.3]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.3
 [1.1.2]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.2
 [1.1.1]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.1

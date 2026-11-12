@@ -21,6 +21,22 @@ function ModeGlyph({ id, className }: { id: ModeId; className?: string }) {
       </svg>
     );
   }
+  if (id === "combo") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M13 2L4.8 13.2h5.7L9 22l8.2-11.2h-5.7L13 2z" fill="currentColor" fillOpacity="0.22" />
+      </svg>
+    );
+  }
+  if (id === "feast") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 17h16" />
+        <path d="M5.5 17a6.5 6.5 0 0113 0" fill="currentColor" fillOpacity="0.18" />
+        <path d="M12 10.5V8.5M9.5 8.5h5" />
+      </svg>
+    );
+  }
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M9 3h6M9.5 3v3.5C7 8.5 6 11 6 13.5 6 17.6 8.6 20 12 20s6-2.4 6-6.5C18 11 17 8.5 14.5 6.5V3" fill="currentColor" fillOpacity="0.18" />
@@ -48,7 +64,7 @@ export default function ModeSelector({
           {t("mode.switch")}
         </span>
       </div>
-      <div className="grid grid-cols-2 gap-2 min-[560px]:grid-cols-4 lg:grid-cols-7">
+      <div className="grid grid-cols-3 gap-2 min-[560px]:grid-cols-5 lg:grid-cols-9">
         {MODE_LIST.map((m) => {
           const active = m.id === mode;
           return (

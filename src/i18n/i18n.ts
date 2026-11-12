@@ -1,6 +1,6 @@
 /* =====================================================================
    Lọ Chéo — i18n runtime.
-   - Languages: vi (default), en, zh, ja, ko
+   - Languages: vi (default), en, zh, ja, ko, es, fr
    - Persisted under storage key `locheo.lang.v1`
    - `t()` reads the module-level active language; call sites can pass
      their own snapshot via `t(key, params, lang)`.
@@ -13,20 +13,21 @@ import en from "./locales/en";
 import zh from "./locales/zh";
 import ja from "./locales/ja";
 import ko from "./locales/ko";
+import es from "./locales/es";
+import fr from "./locales/fr";
 
-export type Language = "vi" | "en" | "zh" | "ja" | "ko";
-export const LANGUAGES: Language[] = ["vi", "en", "zh", "ja", "ko"];
+export type Language = "vi" | "en" | "zh" | "ja" | "ko" | "es" | "fr";
+export const LANGUAGES: Language[] = ["vi", "en", "zh", "ja", "ko", "es", "fr"];
 
 export const LANG_STORAGE_KEY = "locheo.lang.v1";
 
-const messages: Record<Language, Record<MessageKey, string>> = { vi, en, zh, ja, ko };
+const messages: Record<Language, Record<MessageKey, string>> = { vi, en, zh, ja, ko, es, fr };
 
 /** Detect the best initial language: stored preference → browser → vi. */
 export function detectInitialLanguage(): Language {
   try {
     const raw = window.localStorage.getItem(LANG_STORAGE_KEY);
-    if (raw === "vi" || raw === "en" || raw === "zh" || raw === "ja" || raw === "ko")
-      return raw;
+    if (LANGUAGES.includes(raw as Language)) return raw as Language;
   } catch {
     /* storage unavailable */
   }
@@ -35,6 +36,8 @@ export function detectInitialLanguage(): Language {
     if (nav.startsWith("zh")) return "zh";
     if (nav.startsWith("ja")) return "ja";
     if (nav.startsWith("ko")) return "ko";
+    if (nav.startsWith("es")) return "es";
+    if (nav.startsWith("fr")) return "fr";
     if (nav.startsWith("vi")) return "vi";
     if (nav) return "en"; // any other locale → English
   } catch {
@@ -117,6 +120,10 @@ export function numberLocale(lang: Language = activeLanguage): string {
       return "ja-JP";
     case "ko":
       return "ko-KR";
+    case "es":
+      return "es-ES";
+    case "fr":
+      return "fr-FR";
     case "vi":
     default:
       return "vi-VN";

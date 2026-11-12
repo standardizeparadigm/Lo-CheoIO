@@ -26,10 +26,10 @@ const baseProgress: ProgressLike = {
 };
 
 describe("achievement catalogue", () => {
-  it("has 14 unique ids", () => {
-    expect(ACHIEVEMENTS).toHaveLength(14);
-    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(14);
-    expect(ACHIEVEMENT_MAP.size).toBe(14);
+  it("has 16 unique ids", () => {
+    expect(ACHIEVEMENTS).toHaveLength(16);
+    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(16);
+    expect(ACHIEVEMENT_MAP.size).toBe(16);
   });
 
   it("every achievement has display copy", () => {
@@ -99,6 +99,18 @@ describe("checkAchievements", () => {
     expect(checkAchievements({ ...baseRun, jars: 2, mode: "goldrush" }, baseProgress, [])).toContain("goldrush-2jars");
     expect(checkAchievements({ ...baseRun, jars: 1, mode: "goldrush" }, baseProgress, [])).not.toContain("goldrush-2jars");
     expect(checkAchievements({ ...baseRun, jars: 2, mode: "inferno" }, baseProgress, [])).not.toContain("goldrush-2jars");
+  });
+
+  it("grants combo-40 from a 40-catch streak in any mode", () => {
+    expect(checkAchievements({ ...baseRun, bestCombo: 40, mode: "combo" }, baseProgress, [])).toContain("combo-40");
+    expect(checkAchievements({ ...baseRun, bestCombo: 40, mode: "classic" }, baseProgress, [])).toContain("combo-40");
+    expect(checkAchievements({ ...baseRun, bestCombo: 39 }, baseProgress, [])).not.toContain("combo-40");
+  });
+
+  it("grants feast-3jars only in feast mode with 3+ jars", () => {
+    expect(checkAchievements({ ...baseRun, jars: 3, mode: "feast" }, baseProgress, [])).toContain("feast-3jars");
+    expect(checkAchievements({ ...baseRun, jars: 2, mode: "feast" }, baseProgress, [])).not.toContain("feast-3jars");
+    expect(checkAchievements({ ...baseRun, jars: 3, mode: "classic" }, baseProgress, [])).not.toContain("feast-3jars");
   });
 
   it("never re-grants an already unlocked id", () => {

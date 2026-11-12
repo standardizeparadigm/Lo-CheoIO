@@ -166,6 +166,16 @@ const vi = {
   "mode.hardcore.desc":
     "Gốm lò nung non tay: chỉ chịu đúng MỘT vết nứt — chạm đồ hư khi chưa gãy là vỡ hũ ngay. Đền lại ×2.0 điểm mỗi củ và đồ hư nhiều hơn 30%. Chỉ dành cho tay chéo kim cương.",
   "mode.hardcore.badge": "×2.0 · 1 NỨT",
+  "mode.combo.name": "LỄ HỘI COMBO",
+  "mode.combo.tagline": "Cửa sổ combo ×2 · kéo dây thả ga",
+  "mode.combo.desc":
+    "Lễ hội dành cho tay kéo dây: cửa sổ combo sống gấp đôi (5.4 giây), dưa rơi dày hơn một chút, đền lại +15% điểm mỗi củ. Giữ nhịp hứng đều — multiplier nhảy vọt như pháo bông.",
+  "mode.combo.badge": "×1.15 · COMBO ×2",
+  "mode.feast.name": "ĐẠI TIỆC DƯA",
+  "mode.feast.tagline": "Dưa rơi như trẩy hội · hũ thưởng ×2.5",
+  "mode.feast.desc":
+    "Trẩy hội muối dưa: dưa rơi chậm mà dày gần gấp đôi, thưởng đổ đầy hũ ×2.5. Điểm mỗi củ chỉ ×0.6 — chơi kiểu «trồng lúa»: nhặt nhanh tay, đổ thật nhiều hũ.",
+  "mode.feast.badge": "×0.6 · HŨ ×2.5",
 
   /* achievements */
   "ach.title": "Thành tựu bếp dưa",
@@ -199,6 +209,10 @@ const vi = {
   "ach.storm-60.desc": "Hứng được 60 củ trong một ván Mưa Dưa.",
   "ach.hardcore-jar.name": "GỐM THÉP",
   "ach.hardcore-jar.desc": "Đầy một hũ trong một ván Gốm Mỏng.",
+  "ach.combo-40.name": "DÂY THÉP COMBO",
+  "ach.combo-40.desc": "Đạt chuỗi 40 củ liên tiếp trong một ván.",
+  "ach.feast-3jars.name": "TẤM LÒNG TRẨY HỘI",
+  "ach.feast-3jars.desc": "Đầy 3 hũ trong một ván Đại Tiệc Dưa.",
 
   /* ingredient ticker */
   "ticker.0": "CÀ PHÁO +10",
@@ -232,9 +246,9 @@ const vi = {
   "rule.4.t": "3 VẾT NỨT",
   "rule.4.d":
     "Đụng đồ hư khi không lướt chéo là nứt hũ. Ba vết là mất hũ, đầy hũ thì được thưởng.",
-  "rule.5.t": "7 CHẾ ĐỘ",
+  "rule.5.t": "9 CHẾ ĐỘ",
   "rule.5.d":
-    "Cổ điển cân bằng · Thảnh Thơi không đồ hư · Ớt Lửa +35% tốc độ đổi lấy ×1.5 điểm · Đua 60 Giây time-attack · Mùa Vàng đồ vàng ×2.6 · Mưa Dưa dày đặc · Gốm Mỏng chỉ 1 vết nứt.",
+    "Cổ điển cân bằng · Thảnh Thơi không đồ hư · Ớt Lửa +35% tốc đổi ×1.5 điểm · Đua 60 Giây time-attack · Mùa Vàng đồ vàng ×2.6 · Mưa Dưa dày đặc · Gốm Mỏng 1 vết nứt · Lễ Hội Combo cửa sổ combo ×2 · Đại Tiệc Dưa hũ thưởng ×2.5.",
 
   /* language switcher */
   "lang.label": "Ngôn ngữ",
@@ -243,6 +257,8 @@ const vi = {
   "lang.zh": "中文",
   "lang.ja": "日本語",
   "lang.ko": "한국어",
+  "lang.es": "Español",
+  "lang.fr": "Français",
 
   /* footer */
   "footer.offline": "100% offline",

@@ -154,6 +154,16 @@ const en: Record<MessageKey, string> = {
   "mode.hardcore.desc":
     "Pottery from a green kiln: the jar survives exactly ONE crack — touch a hazard and it shatters on the spot. In exchange you score ×2.0 per catch and hazards rain down 30% more. Diamond-hand diagonal slashers only.",
   "mode.hardcore.badge": "×2.0 · 1 CRACK",
+  "mode.combo.name": "COMBO FESTIVAL",
+  "mode.combo.tagline": "Combo window ×2 · chain like fireworks",
+  "mode.combo.desc":
+    "A festival for chain-pullers: the combo window lasts twice as long (5.4s), pickles rain slightly denser, and each catch pays +15%. Keep a steady rhythm — the multiplier climbs like fireworks.",
+  "mode.combo.badge": "×1.15 · COMBO ×2",
+  "mode.feast.name": "GRAND FEAST",
+  "mode.feast.tagline": "Pickles fall like a festival · jar bonus ×2.5",
+  "mode.feast.desc":
+    "A pickle festival: pickles fall slower but nearly twice as dense, and the jar-fill bonus is multiplied ×2.5. Each catch pays only ×0.6 — play the farmer: grab fast, fill many jars.",
+  "mode.feast.badge": "×0.6 · JAR ×2.5",
 
   "ach.title": "Kitchen achievements",
   "ach.locked": "LOCKED",
@@ -186,6 +196,10 @@ const en: Record<MessageKey, string> = {
   "ach.storm-60.desc": "Catch 60 pickles in a single Pickle Rain run.",
   "ach.hardcore-jar.name": "STEEL CERAMIC",
   "ach.hardcore-jar.desc": "Fill a jar in a single Thin Ceramic run.",
+  "ach.combo-40.name": "IRON CHAIN",
+  "ach.combo-40.desc": "Reach a 40-catch streak in one run.",
+  "ach.feast-3jars.name": "FEAST TABLE FULL",
+  "ach.feast-3jars.desc": "Fill 3 jars in a single Grand Feast run.",
 
   "ticker.0": "EGGPLANT +10",
   "ticker.1": "CHILI +15",
@@ -217,9 +231,9 @@ const en: Record<MessageKey, string> = {
   "rule.4.t": "THREE CRACKS",
   "rule.4.d":
     "Hit a hazard without slanting and the jar cracks. Three cracks and it's over — fill the jar for a bonus.",
-  "rule.5.t": "SEVEN MODES",
+  "rule.5.t": "NINE MODES",
   "rule.5.d":
-    "Classic is balanced · Zen has no hazards · Inferno is +35% speed for ×1.5 · 60-Second Rush is time-attack · Gold Rush rains gold ×2.6 · Pickle Rain floods the screen · Thin Ceramic cracks once.",
+    "Classic is balanced · Zen has no hazards · Inferno is +35% speed for ×1.5 · 60-Second Rush is time-attack · Gold Rush rains gold ×2.6 · Pickle Rain floods the screen · Thin Ceramic cracks once · Combo Festival doubles the combo window · Grand Feast pays jars ×2.5.",
 
   "lang.label": "Language",
   "lang.vi": "Tiếng Việt",
@@ -227,6 +241,8 @@ const en: Record<MessageKey, string> = {
   "lang.zh": "中文",
   "lang.ja": "日本語",
   "lang.ko": "한국어",
+  "lang.es": "Español",
+  "lang.fr": "Français",
 
   "footer.offline": "100% offline",
 };

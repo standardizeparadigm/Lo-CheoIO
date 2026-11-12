@@ -1,9 +1,9 @@
 import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
 import {
-  COMBO_WINDOW,
   MODES,
-  jarBonus,
+  comboWindowFor,
+  jarBonusFor,
   levelForCatches,
   multiplierForCombo,
   type ModeId,
@@ -969,7 +969,7 @@ export class LoCheoGame {
     const cfg = MODES[this.mode];
     const prevMult = this.multiplier();
     this.combo++;
-    this.comboT = COMBO_WINDOW;
+    this.comboT = comboWindowFor(this.mode);
     this.stats.bestCombo = Math.max(this.stats.bestCombo, this.combo);
     this.stats.catches++;
     const mult = this.multiplier();
@@ -1031,7 +1031,7 @@ export class LoCheoGame {
     this.stats.score += gain;
     this.stats.sliced++;
     this.combo++;
-    this.comboT = COMBO_WINDOW;
+    this.comboT = comboWindowFor(this.mode);
     this.stats.bestCombo = Math.max(this.stats.bestCombo, this.combo);
     this.popup(it.x, it.y, fromSlam ? `+${gain}` : t("popup.cheo", { n: gain }), C.goldLight, fromSlam ? 20 : 26);
     audio.play("slice");
@@ -1190,7 +1190,7 @@ export class LoCheoGame {
   private jarFull() {
     this.stats.jars++;
     this.fill = 0;
-    const bonus = jarBonus(this.stats.level);
+    const bonus = jarBonusFor(this.stats.level, this.mode);
     this.stats.score += bonus;
     audio.play("full");
     this.banner = { text: t("banner.jarFull", { bonus }), sub: t("banner.jarFull.sub"), life: 1.6, max: 1.6, color: C.brine };
@@ -2110,7 +2110,7 @@ export class LoCheoGame {
 
     // combo
     if (this.combo > 1) {
-      const k = clamp(this.comboT / COMBO_WINDOW, 0, 1);
+      const k = clamp(this.comboT / comboWindowFor(this.mode), 0, 1);
       const pulse = 1 + Math.sin(this.t * 12) * 0.04 * (this.combo > 8 ? 1 : 0.4);
       ctx.save();
       ctx.translate(cx, pad + 96 * s);

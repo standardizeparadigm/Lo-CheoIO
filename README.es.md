@@ -5,18 +5,20 @@
 # LỌ CHÉO — LA GRAN GUERRA DE LA ORZA
 
 ### 🫙 Arcade vietnamita de encurtidos que corre 100% en el navegador — un único HTML, offline-first
-### 🌐 UI en el juego en 5 idiomas — Tiếng Việt · English · 中文 · 日本語 · 한국어
+### 🌐 UI del juego en 7 idiomas — Tiếng Việt · English · 中文 · 日本語 · 한국어 · Español · Français
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.3-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.3.md)
+[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-instalación-y-ejecución)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-de-producción)
-[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-cambiar-de-idioma)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO%20%C2%B7%20ES%20%C2%B7%20FR-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-cambiar-de-idioma)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
 
 <img src="assets/demo.svg" alt="Lọ Chéo en acción — la orza avanza en diagonal, atrapa encurtidos y despedaza moho" width="100%" />
+
+<img src="assets/languages.svg" alt="7 idiomas — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
 
 </div>
 
@@ -24,58 +26,67 @@
 
 ## 🥒 Sobre el proyecto
 
-> Lọ Chéo — La Gran Guerra de la Orza: un arcade de encurtidos que corre 100% en el navegador, empaquetado en un único archivo HTML autocontenido, offline-first — sin CDN, sin servidor. La orza de cerámica solo sabe moverse en **diagonal**: mantén dos teclas para zigzaguear, acelerar y despedazar moho, moscas y orugas; llena la orza antes de que la cerámica se raje en tres. **7 modos · 14 ingredientes · 14 logros · clasificación TOP 8 · interfaz en 5 idiomas.**
+> Lọ Chéo — La Gran Guerra de la Orza: un arcade de encurtidos que corre 100% en el navegador, empaquetado en un único archivo HTML autocontenido, offline-first — sin CDN, sin servidor. La orza de cerámica solo sabe moverse en **diagonal**: mantén dos teclas para zigzaguear, acelerar y despedazar moho, moscas y orugas; llena la orza antes de que la cerámica se raje en tres. **9 modos · 14 ingredientes · 16 logros · ranking TOP 8 · UI en 7 idiomas.**
 
 Es un **arcade de acción de pantalla única** inspirado en los humildes encurtidos vietnamitas. Sin niveles lineales ni menús recargados: solo la orza, una lluvia infinita de verduras y tus reflejos en llamas.
 
-## 🆕 Novedades de v1.1.3
+<img src="assets/divider.svg" alt="" width="100%" />
 
-- 🌧️ **2 nuevos modos** — **LLUVIA DE CONSERVAS** (caída ×0.88 más lenta, pero ~1.4× más densa y ×1.5 más peligros, ×0.75 puntos — una gloriosa «inundación de conservas» con subidas de nivel exprés) y **CERÁMICA FINA** (una sola grieta y el tarro estalla, ×2.0 puntos, ×1.3 peligros — solo para manos de diamante). En total: **7 modos**.
-- 🏆 **2 nuevos logros** — **CHAPARRÓN** (60 conservas en una partida de Lluvia de Conservas) & **CERÁMICA DE ACERO** (llenar un tarro en Cerámica Fina). En total: **14 logros**.
-- 🌐 **5 idiomas en el juego** — añadidos **日本語 (日)** y **한국어 (한)** junto a VI/EN/中: 193 claves por idioma, sincroniza `<html lang>`, números según locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR).
-- 🚀 **Lanzadores multilingües animados** — los tres launchers (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) cambian de idioma con la tecla `L` (VI→EN→中文), respetan la variable `LOCHEO_LANG` e incorporan banner de triple destello, spinner braille con % real y destellos; el menú vietnamita conserva **todos sus signos diacríticos**. Ver [scripts/README.md](scripts/README.md).
-- ⭐ **Nuevo favicon** `favicon.ico` (multi-tamaño 16→256 px) + `assets/favicon.svg` animado (SMIL) & `public/` — listo para la web, precioso en cada pestaña.
-- 🐛 **Barrido total de errores** (ver [CHANGELOG](CHANGELOG.md), `[1.1.3]`); `npm run check` en verde con **55 tests unitarios**.
+## 🆕 Novedades de v1.1.4
 
-<img src="assets/modes.svg" alt="Los 7 modos — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Lluvia de Conservas · Cerámica Fina" width="100%" />
+- 🎮 **2 modos NUEVOS — 9 en total** — **FESTIVAL DE COMBOS** (la ventana de combo vive **el doble**: 5.4s, +15% por atrapada, lluvia algo más densa, peligros ×1.25 — el multiplicador sube como fuegos artificiales) y **GRAN FESTÍN** (caída ×0.78 pero casi el doble de densa, **bono de tarro ×2.5**, ×0.6 por atrapada — la jugada del «granjero de encurtidos»: llena tarro tras tarro). Ambos tienen glifo propio y brillo de tarjeta.
+- 🏆 **2 logros nuevos** — **CADENA DE ACERO** (racha de 40 en cualquier modo) & **MESA DE FESTÍN LLENA** (llena 3 tarros en una partida de Gran Festín). En total **16 logros**.
+- 🌐 **7 idiomas en el juego** — añadidos **Español** y **Français** junto a VI/EN/中/日/한/ES/FR: 207 claves por locale, sincronía de `<html lang>`, números por locale (es-ES / fr-FR incluidos).
+- 🐛 **El fallo del lanzador de Windows, corregido para siempre** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat` ahora es **CRLF + UTF-8 BOM** con `chcp 65001`, cadenas de expansión diferida `!TSTR!` y el vietnamita con **todos sus diacríticos**. Un nuevo `.gitattributes` fuerza CRLF en cada `*.bat`/`*.cmd` — nunca más.
+- 🚀 **Lanzadores multilingües y animados** — los tres lanzadores (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) hablan **7 idiomas** (VI/EN/中/日/한/ES/FR), la tecla `L` rota por los siete y el separador brillante alterna oro/rosa/cian; el menú vietnamita conserva **todos sus diacríticos**. Ver [scripts/README.md](scripts/README.md).
+- 📖 **Este README se renovó en los 10 idiomas** — más animaciones (banner, rejilla de 9 modos, cinta de 7 idiomas, divisor brillante — todo SMIL), más detalle y más completitud.
+- 🧪 **61 tests unitarios** (antes 55) — `npm run check` en verde.
 
-<div align="center"><img src="assets/favicon.svg" alt="Favicon de Lọ Chéo — orza de encurtidos inclinada con tapa dorada (animación SMIL)" width="150" /></div>
+<img src="assets/new-modes.svg" alt="Novedades v1.1.4 — Festival de Combos y Gran Festín" width="100%" />
 
-→ Detalles completos: [docs/releases/v1.1.3.md](docs/releases/v1.1.3.md)
+<img src="assets/modes.svg" alt="Los 9 modos — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Lluvia de Conservas · Cerámica Fina · Festival de Combos · Gran Festín" width="100%" />
+
+<div align="center"><img src="assets/favicon.svg" alt="Favicon de Lọ Chéo — un tarro inclinado con tapa dorada (animación SMIL)" width="150" /></div>
+
+→ Detalles completos: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
 
 ## ✨ Lo destacado
 
 | Grupo | Detalles |
 | --- | --- |
-| 🎮 **7 modos de juego** | **ENCURTIDO CLÁSICO** (equilibrado) · **ZEN** (sin peligros, ×0.5) · **INFIERNO DE CHILE** (+35% velocidad, ×1.5) · **60 SEGUNDOS** (contrarreloj 60 s, ×1.25) · **FIEBRE DE ORO** (botín dorado ×2.6) · **LLUVIA DE CONSERVAS** (densidad ~1.4×, ×0.75) · **CERÁMICA FINA** (una grieta es fatal, ×2.0) |
-| 🌐 **i18n en el juego** | Tiếng Việt · English · 中文 · 日本語 · 한국어 — `src/i18n/` (módulo puro + puente React), `t()` con interpolación, sincroniza `<html lang>`, números por locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR) |
+| 🎮 **9 modos de juego** | **ENCURTIDO CLÁSICO** (equilibrado) · **ZEN** (sin peligros, ×0.5) · **INFIERNO DE CHILE** (+35% velocidad, ×1.5) · **60 SEGUNDOS** (contrarreloj 60 s, ×1.25) · **FIEBRE DE ORO** (botín dorado ×2.6) · **LLUVIA DE CONSERVAS** (densidad ~1.4×, ×0.75) · **CERÁMICA FINA** (una grieta es fatal, ×2.0) · **FESTIVAL DE COMBOS** (ventana ×2, ×1.15) · **GRAN FESTÍN** (densidad ~×2, tarro ×2.5, ×0.6) |
+| 🌐 **i18n en el juego** | Tiếng Việt · English · 中文 · 日本語 · 한국어 · Español · Français — `src/i18n/` (módulo puro + puente React), `t()` con interpolación, sincroniza `<html lang>`, números por locale (vi-VN / en-US / zh-CN / ja-JP / ko-KR / es-ES / fr-FR) |
 | 🕹️ **Mecánica AL CORTE exclusiva** | Mantén 2 teclas/ejes en diagonal — la orza acelera, brilla y despedaza peligros. Barra de stamina dedicada con histéresis anti-parpadeo |
 | 🥬 **14 ingredientes** | Berenjena, chile, ajo, jengibre, sal, mostaza, **MOSTAZA DORADA** (llena la orza rápido) · SAL/AJO DORADO · CHILE INFERNAL · HIELO · MOHO, MOSCA, **ORUGA** (peligros) |
 | 🧄 **Escudo de Ajo Dorado** | Mejora: apila hasta **2 cargas** que absorben las grietas; un halo giratorio orbita la orza |
-| 🏆 **14 logros** | Guardados **entre partidas** (localStorage), con aviso «¡NUEVO LOGRO!» en la pantalla de fin |
+| 🏆 **16 logros** | Guardados **entre partidas** (localStorage), con aviso «¡NUEVO LOGRO!» en la pantalla de fin |
 | 🔊 **Audio artesanal** | 11 efectos sintetizados con Web Audio API (cero archivos) + pentatónica que modula con el nivel; silencio con `M` |
 | 💾 **Clasificación TOP 8** | Guardado local, validado y normalizado al leer, nombres en mayúsculas automáticas, highlight para el récord recién marcado |
 | 🎨 **Gráficos 60fps** | Canvas 2D, presupuesto de 460 partículas, DPR tope 2, suelo de losetas pre-renderizado offscreen, titileo de estrellas + aurora en el menú |
 | 📴 **Offline-first de verdad** | Fuentes auto-alojadas (subsets latin + vietnamita, woff2), sin CDN ni APIs — abre `dist/index.html` y a jugar |
-| 🧪 **Calidad** | 55 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
+| 🧪 **Calidad** | 61 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
 
 <img src="assets/items.svg" alt="Los 14 ingredientes — encurtidos para atrapar, poderes dorados para agarrar, peligros para esquivar" width="100%" />
 
 ## 🌐 Cambiar de idioma
 
-Lọ Chéo lleva **5 idiomas de interfaz** — al instante, sin recargar ni perder la partida:
+Lọ Chéo incluye **7 idiomas de interfaz**, aplicados al instante — sin recargar, sin perder la partida:
+
+<img src="assets/languages.svg" alt="7 idiomas — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
 
 | Idioma | Dónde | Guardado en |
 | --- | --- | --- |
-| 🇻🇳 Tiếng Việt | botón **VI** (por defecto; sigue el locale del navegador si no se elige) | `locheo.lang.v1` |
-| 🇬🇧 English | botón **EN** | `locheo.lang.v1` |
-| 🇨🇳 中文 | botón **中** | `locheo.lang.v1` |
-| 🇯🇵 日本語 | botón **日** | `locheo.lang.v1` |
-| 🇰🇷 한국어 | botón **한** | `locheo.lang.v1` |
+| 🇻🇳 Tiếng Việt | botón **VI** (predeterminado; sigue el idioma del navegador) | `locheo.lang.v1` |
+| 🇬🇧 English | **EN** botón | `locheo.lang.v1` |
+| 🇨🇳 中文 | **中** botón | `locheo.lang.v1` |
+| 🇯🇵 日本語 | **日** botón | `locheo.lang.v1` |
+| 🇰🇷 한국어 | **한** botón | `locheo.lang.v1` |
+| 🇪🇸 Español | **ES** botón | `locheo.lang.v1` |
+| 🇫🇷 Français | **FR** botón | `locheo.lang.v1` |
 
-- Cambia desde el **menú principal** (arriba a la derecha) o la **pantalla de pausa** (abajo, versión compacta).
-- Todas las cadenas visibles viven en `src/i18n/locales/{vi,en,zh,ja,ko}.ts` — motor canvas, pantallas, HUD, popups, ticker, pistas.
-- ¿Falta una clave? `t()` cae al vietnamita — el conjunto de claves de los cinco locales (y sus placeholders) lo garantizan los tests.
+- Cambia desde el **menú principal** (arriba a la derecha) o la **pantalla de pausa** (abajo, modo compacto).
+- Todas las cadenas visibles viven en `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts` — motor canvas, pantallas, HUD, popups, ticker, pistas.
+- ¿Falta una clave? `t()` cae al vietnamita — los siete juegos de claves (y sus placeholders) los garantizan los tests.
 
 ## 🕹️ Controles
 
@@ -88,7 +99,7 @@ Lọ Chéo lleva **5 idiomas de interfaz** — al instante, sin recargar ni perd
 | Reinicio instantáneo | `R` (también en pausa/game over) | Botón «Otra tanda» |
 | Empezar / confirmar | `Enter` | Botón **AL FUEGO** |
 | Silencio / sonido | `M` | Botón de altavoz, arriba a la derecha |
-| Cambiar idioma | — (usa los botones VI/EN/中/日/한) | Botones VI/EN/中/日/한 en menú / pausa |
+| Cambiar idioma | — (usa los botones VI/EN/中/日/한/ES/FR) | Botones VI/EN/中/日/한/ES/FR en menú / pausa |
 
 ## 🚀 Instalación y ejecución
 
@@ -108,7 +119,7 @@ npm install        # instala dependencias (Node ≥ 20.19)
 npm run build      # → dist/index.html (un único archivo autocontenido)
 ```
 
-> `vite-plugin-singlefile` incrusta todo el JS/CSS/fuentes/imágenes en **un** `dist/index.html` (~655 KB, gzip ~330 KB). Sin servidor, sin red.
+> `vite-plugin-singlefile` incrusta todo el JS/CSS/fuentes/imágenes en **un** `dist/index.html` (~700 KB, gzip ~355 KB). Sin servidor, sin red.
 
 ### Desarrollo
 
@@ -116,7 +127,7 @@ npm run build      # → dist/index.html (un único archivo autocontenido)
 npm run dev        # servidor de desarrollo con HMR (http://localhost:5173)
 npm run preview    # sirve el build de producción localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 55 tests unitarios (modes / achievements / storage / i18n)
+npm run test       # vitest — 61 tests unitarios (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 
@@ -125,7 +136,8 @@ npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 lo-cheoio/
 ├─ index.html              # entrada, meta SEO/OG (sin CDN)
-├─ package.json            # lo-cheoio v1.1.3, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.4, scripts dev/build/test/check
+├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; incluye src + tests
 ├─ favicon.ico             # web icon (multi-size 16→256)
@@ -134,7 +146,10 @@ lo-cheoio/
 │  ├─ banner.svg           # banner del README (animación SMIL)
 │  ├─ demo.svg             # simulación de gameplay (animación SMIL)
 │  ├─ items.svg            # los 14 ingredientes (animación SMIL)
-│  ├─ modes.svg            # los 7 modos (animación SMIL)
+│  ├─ modes.svg            # los 9 modos (animación SMIL)
+│  ├─ languages.svg        # 7 in-game languages (SMIL animation)
+│  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # sello copyleft AGPL-3.0 animado (animación SMIL)
 │  └─ favicon.svg          # favicon (SMIL animation)
 ├─ scripts/
@@ -149,7 +164,8 @@ lo-cheoio/
 │     ├─ v1.1.0.md         # notas de v1.1.0
 │     ├─ v1.1.1.md         # notas de v1.1.1
 │     ├─ v1.1.2.md         # v1.1.2
-│     └─ v1.1.3.md         # notas del release actual (1.1.3)
+│     ├─ v1.1.3.md         # v1.1.3 release notes
+│     └─ v1.1.4.md         # current release notes (1.1.4)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -163,27 +179,27 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # raíz React, StrictMode
 │  ├─ App.tsx              # máquina de fases menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.3" (fuente única de verdad)
+│  ├─ version.ts           # APP_VERSION = "1.1.4" (fuente única de verdad)
 │  ├─ index.css            # tema tailwind v4 + todas las animaciones/gradientes
 │  ├─ assets/fonts/        # subsets woff2 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
 │  ├─ i18n/
 │  │  ├─ i18n.ts           # módulo puro: detección, persistencia, t() + interpolación
 │  │  ├─ useI18n.ts        # hook React: useI18n/useLanguage
-│  │  └─ locales/          # vi.ts (fuente de claves) · en · zh · ja · ko
+│  │  └─ locales/          # vi.ts (fuente de claves) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flotante + teclado + visibilidad
 │  │  ├─ StartScreen.tsx   # menú: aurora, shimmer, selector de modo, logros
-│  │  ├─ ModeSelector.tsx  # 7 tarjetas de modo (classic/zen/inferno/blitz/goldrush/storm/hardcore)
+│  │  ├─ ModeSelector.tsx  # 9 tarjetas de modo (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # muro de insignias bloqueadas/desbloqueadas
 │  │  ├─ GameOverScreen.tsx     # ¡ORZA ROTA! + puntos + nuevos logros
 │  │  ├─ PauseScreen.tsx        # PAUSA + estadísticas de la partida
-│  │  ├─ LanguageSwitcher.tsx   # selector compartido VI / EN / 中 / 日 / 한
+│  │  ├─ LanguageSwitcher.tsx   # selector compartido VI / EN / 中 / 日 / 한 / ES / FR
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # toda la simulación + render canvas (~2100 líneas)
+│  │  ├─ engine.ts         # toda la simulación + render canvas (~2170 líneas)
 │  │  ├─ modes.ts          # modos + matemáticas de balance (puro)
-│  │  ├─ achievements.ts   # 14 insignias + checker puro (puro)
+│  │  ├─ achievements.ts   # 16 insignias + checker puro (puro)
 │  │  ├─ storage.ts        # localStorage: top 8, progreso, logros
 │  │  └─ audio.ts          # sintetizador Web Audio: sfx + música pentatónica
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -201,6 +217,10 @@ lo-cheoio/
 - **Motion suave**: `prefers-reduced-motion` desactiva aurora/shimmer/spin; las estrellas y el screen shake también respetan las media queries.
 
 ## ❓ Preguntas frecuentes
+
+**¿El lanzador de Windows se queja de los caracteres vietnamitas?**
+Corregido en v1.1.4: `play-windows.bat` ahora es CRLF + UTF-8 BOM con `chcp 65001` y los diacríticos vietnamitas intactos — el error `'Ọ' is not recognized...` desaparece para siempre. Si editas el .bat con otro editor, conserva CRLF y BOM (`.gitattributes` lo fuerza automáticamente).
+
 
 **¿Puedo jugar sin red?**
 Sí — 100%: abre `dist/index.html` y todo funciona, fuentes y audio incluidos. No hay ni una petición de red.
@@ -224,6 +244,7 @@ Doble clic en [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`
 
 | Versión | Fecha | Notas |
 | --- | --- | --- |
+| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modos** (Combo Festival · Gran Festín) · **16 logros** · **7 idiomas** (ES/FR añadidos) · fix play-windows.bat (CRLF+BOM) · lanzadores en 7 idiomas · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modos (Lluvia de Conservas · Cerámica Fina) · 14 logros · 5 idiomas · favicon · lanzadores multilingües · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modos (60 Segundos · Fiebre de Oro) · 12 logros · combo en llamas · lanzadores de doble clic · README en 10 idiomas · 49 tests |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n en el juego VI/EN/ZH · README en 7 idiomas · barrido total de bugs · 49 tests |
@@ -235,7 +256,7 @@ Ver también [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Contribuir
 
 1. Haz fork, crea una rama con la convención `arena/<nombre>` o `feat/<nombre>`.
-2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 55 tests + build).
+2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 61 tests + build).
 3. Evita nuevas dependencias de runtime salvo necesidad real — filosofía: **un archivo, sin red, jugable para siempre**.
 4. En el PR indica las pantallas/modos afectados y adjunta un clip si cambia el gameplay.
 
