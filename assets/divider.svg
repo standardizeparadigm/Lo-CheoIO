@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 40" role="presentation" aria-hidden="true">
+  <line x1="0" y1="20" x2="520" y2="20" stroke="#2bb48c" stroke-opacity="0.45" stroke-width="1.6" stroke-dasharray="1 9" stroke-linecap="round"/>
+  <line x1="680" y1="20" x2="1200" y2="20" stroke="#2bb48c" stroke-opacity="0.45" stroke-width="1.6" stroke-dasharray="1 9" stroke-linecap="round"/>
+  <path d="M600 6 l4.2 9.6 9.6 4.2 -9.6 4.2 -4.2 9.6 -4.2 -9.6 -9.6 -4.2 9.6 -4.2 Z" fill="#f5a81c">
+    <animate attributeName="fill" values="#f5a81c;#fff3c4;#f5a81c" dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <path d="M548 11 l2.5 5.7 5.7 2.5 -5.7 2.5 -2.5 5.7 -2.5 -5.7 -5.7 -2.5 5.7 -2.5 Z" fill="#ffc94a" opacity="0.85">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="2.2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M652 11 l2.5 5.7 5.7 2.5 -5.7 2.5 -2.5 5.7 -2.5 -5.7 -5.7 -2.5 5.7 -2.5 Z" fill="#ffc94a" opacity="0.85">
+    <animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/>
+  </path>
+</svg>

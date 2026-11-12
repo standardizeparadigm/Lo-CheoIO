@@ -1,113 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 300" role="img" aria-label="Lọ Chéo — 7 game modes: Classic, Zen, Inferno, 60-Second Rush, Gold Rush, Pickle Rain, Thin Ceramic">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1740 232" role="img" aria-label="Lọ Chéo — 9 game modes: Classic, Zen, Inferno, 60-Second Rush, Gold Rush, Pickle Rain, Thin Ceramic, Combo Festival, Grand Feast">
   <defs>
-    <linearGradient id="modesBg" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="mBg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0e3a35"/>
       <stop offset="1" stop-color="#061a1a"/>
     </linearGradient>
-    <linearGradient id="jarBody" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fffaf0"/>
-      <stop offset="0.45" stop-color="#f3e3c8"/>
-      <stop offset="1" stop-color="#cbb191"/>
-    </linearGradient>
-    <linearGradient id="jarBrine" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#8cc63f"/>
-      <stop offset="1" stop-color="#3f7d2a"/>
-    </linearGradient>
-    <path id="flightPath" d="M 30 262 L 1470 44"/>
   </defs>
-
-  <rect width="1500" height="300" rx="16" fill="url(#modesBg)"/>
-  <rect width="1500" height="300" rx="16" fill="none" stroke="#123f38" stroke-width="2"/>
-  <text x="750" y="26" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700"
-    font-size="11" letter-spacing="6" fill="#2bb48c">— 7 GAME MODES · 7 CHẾ ĐỘ CHƠI —</text>
-
-  <g transform="translate(59 46)">
-    <rect width="182" height="150" rx="12" fill="#241d05" stroke="#f5a81c" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#f5a81c" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="0.0s" repeatCount="indefinite"/>
+  <rect width="1740" height="232" rx="16" fill="url(#mBg)"/>
+  <rect width="1740" height="232" rx="16" fill="none" stroke="#123f38" stroke-width="2"/>
+  <text x="870" y="26" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="5" fill="#2bb48c">— 9 GAME MODES · 9 CHẾ ĐỘ CHƠI —</text>
+  <g transform="translate(40 46)">
+    <rect width="172" height="150" rx="12" fill="#241d05" stroke="#f5a81c" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#f5a81c" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="0.00s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="20" fill="#f5a81c">CLASSIC</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×1.0</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">MUỐI DƯA CỔ ĐIỂN</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#f5a81c" opacity="0.9">BALANCED</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#f5a81c">CLASSIC</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×1.0</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">MUỐI DƯA CỔ ĐIỂN</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#f5a81c" opacity="0.9">BALANCED</text>
   </g>
-  <g transform="translate(259 46)">
-    <rect width="182" height="150" rx="12" fill="#0a2418" stroke="#8cc63f" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#8cc63f" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="0.5s" repeatCount="indefinite"/>
+  <g transform="translate(226 46)">
+    <rect width="172" height="150" rx="12" fill="#0a2418" stroke="#8cc63f" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#8cc63f" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="0.35s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="22" fill="#8cc63f">ZEN</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×0.5</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">THẢNH THƠI</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#8cc63f" opacity="0.9">NO HAZARDS</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#8cc63f">ZEN</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×0.5</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">THẢNH THƠI</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#8cc63f" opacity="0.9">NO HAZARDS</text>
   </g>
-  <g transform="translate(459 46)">
-    <rect width="182" height="150" rx="12" fill="#260b08" stroke="#ff6a4d" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#ff6a4d" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="1.0s" repeatCount="indefinite"/>
+  <g transform="translate(412 46)">
+    <rect width="172" height="150" rx="12" fill="#260b08" stroke="#ff6a4d" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#ff6a4d" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="0.70s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="19" fill="#ff6a4d">INFERNO</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×1.5</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">ỚT LỬA</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#ff6a4d" opacity="0.9">+35% SPEED</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#ff6a4d">INFERNO</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×1.5</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">ỚT LỬA</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#ff6a4d" opacity="0.9">+35% SPEED</text>
   </g>
-  <g transform="translate(659 46)">
-    <rect width="182" height="150" rx="12" fill="#271e06" stroke="#ffc94a" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#ffc94a" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="1.5s" repeatCount="indefinite"/>
+  <g transform="translate(598 46)">
+    <rect width="172" height="150" rx="12" fill="#271e06" stroke="#ffc94a" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#ffc94a" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="1.05s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="22" fill="#ffc94a">BLITZ</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×1.25</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">ĐUA 60 GIÂY</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#ffc94a" opacity="0.9">60-SECOND</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#ffc94a">60S RUSH</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×1.25</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">ĐUA 60 GIÂY</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#ffc94a" opacity="0.9">TIME ATTACK</text>
   </g>
-  <g transform="translate(859 46)">
-    <rect width="182" height="150" rx="12" fill="#292404" stroke="#ffd766" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#ffd766" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="2.0s" repeatCount="indefinite"/>
+  <g transform="translate(784 46)">
+    <rect width="172" height="150" rx="12" fill="#292404" stroke="#ffd766" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#ffd766" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="1.40s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="18" fill="#ffd766">GOLD RUSH</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×2.6★</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">MÙA VÀNG</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#ffd766" opacity="0.9">GOLD RAIN</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#ffd766">GOLD RUSH</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×1.0</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">MÙA VÀNG</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#ffd766" opacity="0.9">GOLD ×2.6</text>
   </g>
-  <g transform="translate(1059 46)">
-    <rect width="182" height="150" rx="12" fill="#081f2b" stroke="#7fd0ff" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#7fd0ff" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="2.5s" repeatCount="indefinite"/>
+  <g transform="translate(970 46)">
+    <rect width="172" height="150" rx="12" fill="#081f2b" stroke="#7fd0ff" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#7fd0ff" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="1.75s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="22" fill="#7fd0ff">STORM</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×0.75</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">MƯA DƯA</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#7fd0ff" opacity="0.9">PICKLE RAIN</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#7fd0ff">RAIN</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×0.75</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">MƯA DƯA</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#7fd0ff" opacity="0.9">DENSE DRIZZLE</text>
   </g>
-  <g transform="translate(1259 46)">
-    <rect width="182" height="150" rx="12" fill="#22060d" stroke="#ff4d6d" stroke-width="3"/>
-    <rect width="182" height="150" rx="12" fill="#ff4d6d" opacity="0.10">
-      <animate attributeName="opacity" values="0.06;0.30;0.06" dur="3.4s" begin="3.0s" repeatCount="indefinite"/>
+  <g transform="translate(1156 46)">
+    <rect width="172" height="150" rx="12" fill="#22060d" stroke="#ff4d6d" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#ff4d6d" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="2.10s" repeatCount="indefinite"/>
     </rect>
-    <text x="91" y="42" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="18" fill="#ff4d6d">HARDCORE</text>
-    <text x="91" y="76" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="29" fill="#fdf3e0">×2.0</text>
-    <text x="91" y="104" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="12" fill="#cdd8cf">GỐM MỎNG</text>
-    <text x="91" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10.5" letter-spacing="1" fill="#ff4d6d" opacity="0.9">1 CRACK</text>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="13" fill="#ff4d6d">THIN CERAMIC</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×2.0</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">GỐM MỎNG</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#ff4d6d" opacity="0.9">1 CRACK</text>
   </g>
-
-  <!-- ===== flying jar trail (SMIL) ===== -->
-  <circle r="3.4" fill="#ffc94a" opacity="0.85">
-    <animateMotion href="#flightPath" dur="5s" begin="-0.35s" repeatCount="indefinite"/>
-  </circle>
-  <circle r="5" fill="#fff3c4" opacity="0.9">
-    <animateMotion href="#flightPath" dur="5s" begin="-0.17s" repeatCount="indefinite"/>
-  </circle>
-  <g>
-    <animateMotion href="#flightPath" dur="5s" rotate="auto" repeatCount="indefinite"/>
-    <rect x="-13" y="-19" width="26" height="7" rx="2" fill="#a9743a" stroke="#061a1a" stroke-width="1.6"/>
-    <rect x="-16" y="-13" width="32" height="26" rx="7" fill="url(#jarBody)" stroke="#061a1a" stroke-width="1.8"/>
-    <rect x="-12.5" y="-4" width="25" height="13.5" rx="4" fill="url(#jarBrine)"/>
-    <circle cx="-4" cy="3" r="1.7" fill="#2c2f3a"/>
-    <circle cx="3.6" cy="6" r="1.7" fill="#2c2f3a"/>
-    <circle cx="6.5" cy="1" r="1.7" fill="#2c2f3a"/>
-    <line x1="-10" y1="-9" x2="-4" y2="-9" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+  <g transform="translate(1342 46)">
+    <rect width="172" height="150" rx="12" fill="#260a1f" stroke="#ff8ad4" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#ff8ad4" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="2.45s" repeatCount="indefinite"/>
+    </rect>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="16" fill="#ff8ad4">COMBO FEST</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×1.15</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">LỄ HỘI COMBO</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#ff8ad4" opacity="0.9">COMBO ×2</text>
+  </g>
+  <g transform="translate(1528 46)">
+    <rect width="172" height="150" rx="12" fill="#052422" stroke="#5eead4" stroke-width="3"/>
+    <rect width="172" height="150" rx="12" fill="#5eead4" opacity="0.10">
+      <animate attributeName="opacity" values="0.06;0.32;0.06" dur="3.4s" begin="2.80s" repeatCount="indefinite"/>
+    </rect>
+    <text x="86" y="38" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="13" fill="#5eead4">GRAND FEAST</text>
+    <text x="86" y="74" text-anchor="middle" font-family="'Bungee','Arial Black',sans-serif" font-size="25" fill="#fdf3e0">×0.6</text>
+    <text x="86" y="102" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="700" font-size="11" fill="#cdd8cf">ĐẠI TIỆC DƯA</text>
+    <text x="86" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="9.5" letter-spacing="1" fill="#5eead4" opacity="0.9">JAR ×2.5</text>
   </g>
 </svg>
-
