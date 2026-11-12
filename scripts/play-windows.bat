@@ -28,6 +28,7 @@ set "VERSION=1.1.4"
 rem ---------- Ngôn ngữ: LOCHEO_LANG=vi/en/zh/ja/ko/es/fr, mặc định vi ----------
 set "UILANG=%LOCHEO_LANG%"
 if "%UILANG%"=="" set "UILANG=vi"
+goto menu
 
 rem ---------- Bảng chuỗi đa ngôn ngữ: VI gốc - EN - ZH - JA - KO - ES - FR ----------
 :T
