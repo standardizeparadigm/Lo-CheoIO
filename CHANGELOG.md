@@ -3,6 +3,34 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.3] — 2026-11-12
+
+Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mưa Dưa · Gốm Mỏng) · 14 thành tựu · 5 ngôn ngữ trong game (thêm 日本語 · 한국어) · launcher đa ngôn ngữ + animation cho macOS/Windows/Linux · favicon web · modes.svg showcase 7 chế độ · README 10 ngôn ngữ đồng bộ · 55 unit tests**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.3.md](docs/releases/v1.1.3.md)
+
+### Added
+- Chế độ **MƯA DƯA** (`storm`): dưa rơi chậm hơn (`speedMult 0.88`) nhưng dày gấp ~1.4× (`spawnMult 0.72`) và đồ hư nhiều gấp 1.5× (`hazardMult 1.5`), đổi lại ×0.75 điểm (`scoreMult 0.75`) — cảm giác «lụt dưa», leo cấp rất nhanh
+- Chế độ **GỐM MỎNG** (`hardcore`): chỉ **MỘT vết nứt** là vỡ hũ (`maxCracks: 1`), ×2.0 điểm (`scoreMult 2`), hazard ×1.3, spawn ×0.95, speed ×1.1 — chỉ dành cho tay chéo kim cương
+- 2 thành tựu mới — **CƠN MƯA NẶNG HẠT** (`storm-60`: hứng 60 củ trong một ván Mưa Dưa) và **GỐM THÉP** (`hardcore-jar`: đầy một hũ trong một ván Gốm Mỏng); tổng cộng **14 thành tựu**
+- **2 ngôn ngữ giao diện mới**: **日本語** (`ja.ts`) và **한국어** (`ko.ts`) — 193 khóa mỗi bản, parity test ép 5 locale đồng bộ; `Language` type, `LANGUAGES`, detect theo trình duyệt (ja/ko), `locheo.lang.v1`, `numberLocale` (ja-JP/ko-KR), `LanguageSwitcher` hiển thị VI/EN/中/日/한
+- **Favicon web**: `favicon.ico` (multi-size 16/24/32/48/64/128/256) ở repo root, `public/favicon.ico` + `public/favicon.png` (256) + `public/favicon.svg`, `assets/favicon.svg` (hoạt họa SMIL, nhúng trong README) và `assets/favicon-512.png`; `index.html` nhúng **data-URI ICO** + `favicon.svg` + `apple-touch-icon`
+- **Launcher đa ngôn ngữ + animation**: cả 3 launcher đổi ngôn ngữ bằng phím **`L`** (VI→EN→中), đọc biến môi trường **`LOCHEO_LANG`**, có **banner 3 nháy**, **spinner braille** kèm % thật và **tia lấp lánh** (sparkle line); menu tiếng Việt hiển thị **dấu đầy đủ**; `play-mac.command` viết lại cho macOS (brew hint, `open`), `play-windows.bat` viết lại hoàn toàn (UTF-8 qua `chcp 65001`, ANSI màu, winget, menu animation)
+- `assets/modes.svg` — showcase **7 chế độ** (SMIL animation); `assets/favicon.svg` — favicon động (SMIL: lọ lắc nhẹ + tia lấp lánh); banner hiển thị **V1.1.3**
+
+### Fixed
+- `play-linux.sh`: `spin_run` bắt `$*` làm nhãn và gọi cứng `npm run build` — ký hiệu thật giờ là `spin_run <log> <label> -- <lệnh…>`; **banner 3 nháy in rác `\033[2J` khi output không phải TTY** — giờ animation chỉ chạy khi `[ -t 1 ]`; **`sparkle_line` ghi byte null thô** từ `/dev/zero` vào terminal — giờ là chuỗi ký tự tĩnh và có gọi trước prompt; **`LANG: unbound variable`** dưới `set -u` khi env trống — thêm fallback `${LANG:-vi}`
+- `play-windows.bat`: menu in 3 frame banner liền nhau không `cls`; toàn bộ file chuyển CRLF + `chcp 65001` để menu tiếng Việt có dấu hiển thị đúng
+- `index.html` còn meta "3 ngôn ngữ / 5 chế độ / 12 thành tựu" và thiếu favicon — cập nhật **5 ngôn ngữ / 7 chế độ / 14 thành tựu** + 3 link icon
+- `package.json`/`docs/DESCRIPTION.md`/`CONTRIBUTING.md` còn "5 chế độ / 12 thành tựu / 3 ngôn ngữ / 49 tests" — đồng bộ **1.1.3 / 7 chế độ / 14 thành tựu / 5 ngôn ngữ / 55 tests**
+- Mọi README (10 ngôn ngữ) còn sót số liệu/version cũ (badge 1.1.2, "5 modes", "12 achievements", "3 languages", 49 tests, release notes link trỏ v1.1.2.md) — đã rà quét và đồng bộ **1.1.3** trên cả 10 bản
+
+### Changed
+- `APP_VERSION` → **1.1.3**; `package.json`/lock, `src/version.ts`, `assets/banner.svg`, `index.html` đều hiển thị 1.1.3
+- Engine: ngưỡng **vỡ hũ theo từng chế độ** — `MODES[mode].maxCracks ?? 3` (dùng cho cả popup `popup.cracked/broken` và `gameOver()`); Gốm Mỏng gãy ở đúng 1 vết nứt
+- ModeSelector grid: `lg:grid-cols-5` → `lg:grid-cols-7` (vừa 7 thẻ)
+- `npm run check` (typecheck + 55 tests + build) xanh — cổng CI bắt buộc trước PR
+
 ## [1.1.2] — 2026-11-12
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Đua 60 Giây · Mùa Vàng) · 12 thành tựu · combo 12+ bốc lửa · launcher double-click cho macOS/Windows/Linux · README 10 ngôn ngữ · license asset mới · 49 unit tests**.
@@ -84,6 +112,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.3]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.3
 [1.1.2]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.2
 [1.1.1]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.1
 [1.1.0]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.0

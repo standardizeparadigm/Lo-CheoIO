@@ -60,8 +60,16 @@ describe("jarBonus", () => {
 });
 
 describe("MODES", () => {
-  it("ships exactly five modes in a stable order", () => {
-    expect(MODE_LIST.map((m) => m.id)).toEqual(["classic", "zen", "inferno", "blitz", "goldrush"]);
+  it("ships exactly seven modes in a stable order", () => {
+    expect(MODE_LIST.map((m) => m.id)).toEqual([
+      "classic",
+      "zen",
+      "inferno",
+      "blitz",
+      "goldrush",
+      "storm",
+      "hardcore",
+    ]);
   });
 
   it("blitz is a 60-second time attack worth ×1.25", () => {
@@ -69,6 +77,21 @@ describe("MODES", () => {
     expect(MODES.blitz.scoreMult).toBe(1.25);
     expect(MODES.blitz.speedMult).toBeGreaterThan(1);
     expect(MODES.blitz.spawnMult).toBeLessThanOrEqual(1);
+  });
+
+  it("storm pours dense slow rain at a discount", () => {
+    expect(MODES.storm.spawnMult).toBeLessThan(0.8);
+    expect(MODES.storm.speedMult).toBeLessThan(1);
+    expect(MODES.storm.scoreMult).toBe(0.75);
+    expect(MODES.storm.hazardMult).toBeGreaterThan(1);
+    expect(MODES.storm.timeLimit).toBeUndefined();
+  });
+
+  it("hardcore ends the run after a single crack but pays double", () => {
+    expect(MODES.hardcore.maxCracks).toBe(1);
+    expect(MODES.hardcore.scoreMult).toBe(2);
+    expect(MODES.hardcore.hazardMult).toBeGreaterThan(1);
+    expect(MODES.classic.maxCracks).toBeUndefined();
   });
 
   it("goldrush boosts golden powers without touching hazards or score", () => {
@@ -104,12 +127,14 @@ describe("MODES", () => {
 });
 
 describe("isModeId", () => {
-  it("accepts the five known modes", () => {
+  it("accepts the seven known modes", () => {
     expect(isModeId("classic")).toBe(true);
     expect(isModeId("zen")).toBe(true);
     expect(isModeId("inferno")).toBe(true);
     expect(isModeId("blitz")).toBe(true);
     expect(isModeId("goldrush")).toBe(true);
+    expect(isModeId("storm")).toBe(true);
+    expect(isModeId("hardcore")).toBe(true);
   });
 
   it("rejects anything else", () => {

@@ -144,6 +144,16 @@ const zh: Record<MessageKey, string> = {
   "mode.goldrush.desc":
     "金光闪闪的丰收：金盐、金芥末、金蒜、爆辣辣椒和冰块的掉落率提升约 2.6 倍。平衡性与经典模式一致——为黄金爱好者与成就猎人而生。",
   "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
+  "mode.storm.name": "腌菜暴雨",
+  "mode.storm.tagline": "腌菜倾盆而下 · 厨房被淹没",
+  "mode.storm.desc":
+    "腌菜行家的洪水猛兽：下落稍慢，但密度却近乎1.4倍，危险物也多出50%。每只仅×0.75分——换来腌菜洪流的快感与极速升级。",
+  "mode.storm.badge": "×0.75 · STORM",
+  "mode.hardcore.name": "脆皮瓦罐",
+  "mode.hardcore.tagline": "只裂一道缝就粉碎 · ×2.0 分",
+  "mode.hardcore.desc":
+    "嫩窑烧出的陶罐：只能承受整整一道裂痕——摸到危险物当场粉碎。作为补偿，每只+100%分数，危险物也多出30%。唯有斜切宗师可驾驭。",
+  "mode.hardcore.badge": "×2.0 · 1 缝",
 
   "ach.title": "厨房成就",
   "ach.locked": "未解锁",
@@ -172,6 +182,10 @@ const zh: Record<MessageKey, string> = {
   "ach.blitz-3000.desc": "在 60秒冲刺 模式单局得分 3,000 分。",
   "ach.goldrush-2jars.name": "黄金大丰收",
   "ach.goldrush-2jars.desc": "在 黄金丰收 模式单局装满 2 个腌罐。",
+  "ach.storm-60.name": "暴雨倾盆",
+  "ach.storm-60.desc": "在 暴雨 模式单局收获 60 只腌菜。",
+  "ach.hardcore-jar.name": "钢铁陶罐",
+  "ach.hardcore-jar.desc": "在 脆皮瓦罐 模式单局装满 1 个腌罐。",
 
   "ticker.0": "小茄子 +10",
   "ticker.1": "辣椒 +15",
@@ -198,13 +212,15 @@ const zh: Record<MessageKey, string> = {
   "rule.3.d": "拾取黄金蒜可最多储存 2 层护盾。受到撞击时护盾破裂，代替罐子受创。",
   "rule.4.t": "三条裂痕",
   "rule.4.d": "未处于斜切状态撞到危险物就会裂罐。三条裂痕即告失败——装满罐子可获奖励。",
-  "rule.5.t": "三种模式",
-  "rule.5.d": "经典均衡、禅意无危险物、辣椒火焰速度 +35% 换取 ×1.5 分数。",
+  "rule.5.t": "七种模式",
+  "rule.5.d": "经典均衡 · 禅意无危险 · 炼狱 +35% 速度换 ×1.5 · 60秒冲刺限时 · 黄金丰收黄金 ×2.6 · 腌菜暴雨密不透风 · 脆皮瓦罐只裂一缝。",
 
   "lang.label": "语言",
   "lang.vi": "Tiếng Việt",
   "lang.en": "English",
   "lang.zh": "中文",
+  "lang.ja": "日本語",
+  "lang.ko": "한국어",
 
   "footer.offline": "100% 离线",
 };

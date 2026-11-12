@@ -26,10 +26,10 @@ const baseProgress: ProgressLike = {
 };
 
 describe("achievement catalogue", () => {
-  it("has 12 unique ids", () => {
-    expect(ACHIEVEMENTS).toHaveLength(12);
-    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(12);
-    expect(ACHIEVEMENT_MAP.size).toBe(12);
+  it("has 14 unique ids", () => {
+    expect(ACHIEVEMENTS).toHaveLength(14);
+    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(14);
+    expect(ACHIEVEMENT_MAP.size).toBe(14);
   });
 
   it("every achievement has display copy", () => {
@@ -81,6 +81,18 @@ describe("checkAchievements", () => {
     expect(checkAchievements({ ...baseRun, score: 3000, mode: "blitz" }, baseProgress, [])).toContain("blitz-3000");
     expect(checkAchievements({ ...baseRun, score: 2999, mode: "blitz" }, baseProgress, [])).not.toContain("blitz-3000");
     expect(checkAchievements({ ...baseRun, score: 3000, mode: "classic" }, baseProgress, [])).not.toContain("blitz-3000");
+  });
+
+  it("grants storm-60 only in storm mode with 60+ catches", () => {
+    expect(checkAchievements({ ...baseRun, catches: 60, mode: "storm" }, baseProgress, [])).toContain("storm-60");
+    expect(checkAchievements({ ...baseRun, catches: 59, mode: "storm" }, baseProgress, [])).not.toContain("storm-60");
+    expect(checkAchievements({ ...baseRun, catches: 60, mode: "classic" }, baseProgress, [])).not.toContain("storm-60");
+  });
+
+  it("grants hardcore-jar only in hardcore mode with a full jar", () => {
+    expect(checkAchievements({ ...baseRun, jars: 1, mode: "hardcore" }, baseProgress, [])).toContain("hardcore-jar");
+    expect(checkAchievements({ ...baseRun, jars: 0, mode: "hardcore" }, baseProgress, [])).not.toContain("hardcore-jar");
+    expect(checkAchievements({ ...baseRun, jars: 1, mode: "zen" }, baseProgress, [])).not.toContain("hardcore-jar");
   });
 
   it("grants goldrush-2jars only in goldrush mode with 2+ jars", () => {

@@ -5,15 +5,15 @@
 # LỌ CHÉO — PICKLED JAR SHOWDOWN
 
 ### 🫙 Vietnamesisches Pickle-Arcade, zu 100% im Browser — eine einzige, in sich geschlossene HTML-Datei, offline-first
-### 🌐 Oberfläche im Spiel in 3 Sprachen — Tiếng Việt · English · 中文
+### 🌐 In-Game-UI in 5 Sprachen — Tiếng Việt · English · 中文 · 日本語 · 한국어
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
+[![Version](https://img.shields.io/badge/version-1.1.3-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.3.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-installieren--starten)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-produktions-build)
-[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-sprachen-wechseln)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-sprachen-wechseln)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
 
 <img src="assets/demo.svg" alt="Lọ Chéo Gameplay — das Glas schrägt sich diagonal, fängt Gurken, zerfetzt Schimmel" width="100%" />
@@ -24,55 +24,58 @@
 
 ## 🥒 Worum es geht
 
-> Lọ Chéo — Pickled Jar Showdown: ein Pickle-Arcade, der zu 100% im Browser läuft, verpackt in einer einzigen, in sich geschlossenen HTML-Datei, offline-first — kein CDN, kein Server. Das Keramikglas kennt nur EINE Bewegungsrichtung: diagonal. Halte zwei Tasten, um schräg zu laufen, zu beschleunigen und Schimmel, Fliegen und Raupen zu zerfetzten — und fülle das Glas, bevor die Keramik in drei Stücken platzt. **5 Spielmodi · 14 Zutaten · 12 Erfolge · TOP-8-Bestenliste · Oberfläche in 3 Sprachen.**
+> Lọ Chéo — Pickled Jar Showdown: ein Pickle-Arcade, der zu 100% im Browser läuft, verpackt in einer einzigen, in sich geschlossenen HTML-Datei, offline-first — kein CDN, kein Server. Das Keramikglas kennt nur EINE Bewegungsrichtung: diagonal. Halte zwei Tasten, um schräg zu laufen, zu beschleunigen und Schimmel, Fliegen und Raupen zu zerfetzten — und fülle das Glas, bevor die Keramik in drei Stücken platzt. **7 Spielmodi · 14 Zutaten · 14 Erfolge · TOP-8-Bestenliste · Oberfläche in 5 Sprachen.**
 
 Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichten vietnamesischen eingelegtes Gemüses. Keine linearen Level, keine überladenen Menüs — nur das Glas, ein endloser Regen aus Gemüse und deine feurigen Reflexe.
 
-## 🆕 Was ist neu in v1.1.2
+## 🆕 Neu in v1.1.3
 
-- 🎮 **2 neue Modi** — **60-SEKUNDEN-RUSH** (Time-Attack, 60 s, dichterer und schnellerer Regen, ×1.25 Punkte, der HUD-Countdown blinkt die letzten 10 s rot) und **GOLDRAUSCH** (Goldenes Salz, Goldgrün, Goldknoblauch, Lodernde Chili und Eis fallen ×2.6 häufiger; Balance wie Klassisch). Zusammen **5 Modi**.
-- 🏆 **2 neue Erfolge** — **60-SEKUNDEN-KÖNIG** (3.000 Punkte in einem Blitz-Run) & **GOLDENE ERNTE** (2 Gläser in einem Goldrausch-Run füllen). Zusammen **12 Erfolge**.
-- 🔥 **Combo 12+ entzündet sich** — ab 12 Treffern in Folge umhüllt eine Gold/Chili-Feueraura das Glas (nur visuell, keinerlei Balance-Änderung).
-- 🚀 **Doppelklick-Launcher** in `scripts/`: `play-mac.command` (macOS) · `play-windows.bat` (Windows) · `play-linux.sh` (Linux) — Doppelklick öffnet ein **farbiges Menü**: Produktion (Build + Spielen) oder Dev (HMR auf localhost:5173), ohne eine einzige Eingabe. Siehe [scripts/README.md](scripts/README.md).
-- 🪪 **Neues Lizenz-Asset** `assets/license.svg` (animiertes AGPL-3.0-Copyleft-Siegel) & **5-Modi-Schaufenster** `assets/modes.svg` (SMIL-Animation) — direkt unten eingebettet.
-- 📖 **README jetzt in 10 Sprachen** (neu: 🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português).
-- 🐛 **Alle verbliebenen Bugs ausgemerzt** (siehe [CHANGELOG](CHANGELOG.md), `[1.1.2]`); `npm run check` grün mit **49 Unit-Tests**.
+- 🌧️ **2 neue Spielmodi** — **Eingelegter Regen** (fällt ×0.88 langsamer, dafür ~1.4× dichter und ×1.5 mehr Gefahren, ×0.75 Punkte — eine glorreiche «eingelegte Flut», Level steigen blitzschnell) und **Dünnes Keramik** (ein einziger Riss und der Krug zerspringt, ×2.0 Punkte, ×1.3 Gefahren — nur für Diamanthände). Insgesamt **7 Modi**.
+- 🏆 **2 neue Erfolge** — **Wolkenbruch** (60 Gemüse in einer Eingelegter-Regen-Runde) & **Stahlkeramik** (Krug in Dünnes Keramik füllen). Insgesamt **14 Erfolge**.
+- 🌐 **5 In-Game-Sprachen** — **日本語 (日)** und **한국어 (한)** zusätzlich zu VI/EN/中: 193 Schlüssel pro Sprache, `<html lang>`-Sync, locale-Zahlen (vi-VN / en-US / zh-CN / ja-JP / ko-KR).
+- 🚀 **Mehrsprachige animierte Launcher** — die drei Launcher (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) wechseln mit der Taste `L` die Sprache (VI→EN→中文), beachten `LOCHEO_LANG` und bieten Dreifach-Blitz-Banner, Braille-Spinner mit echter Prozentanzeige und Funken; das vietnamesische Menü behält **alle diakritischen Zeichen**. Siehe [scripts/README.md](scripts/README.md).
+- ⭐ **Neues Favicon** `favicon.ico` (Multi-Size 16→256 px) + animiertes `assets/favicon.svg` (SMIL) & `public/` — webfertig, schön in jedem Tab.
+- 🐛 **Vollständiger Bug-Sweep** (siehe [CHANGELOG](CHANGELOG.md), `[1.1.3]`); `npm run check` grün mit **55 Unit-Tests**.
 
-<img src="assets/modes.svg" alt="Die 5 Modi — Classic · Zen · Inferno · 60-Second Rush · Gold Rush" width="100%" />
+<img src="assets/modes.svg" alt="Die 7 Modi — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Eingelegter Regen · Dünnes Keramik" width="100%" />
 
-→ Alle Details: [docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
+<div align="center"><img src="assets/favicon.svg" alt="Lọ-Chéo-Favicon — schräger Pickle-Krug mit goldenem Deckel (SMIL-Animation)" width="150" /></div>
+
+→ Alle Details: [docs/releases/v1.1.3.md](docs/releases/v1.1.3.md)
 
 ## ✨ Die Highlights
 
 | Bereich | Details |
 | --- | --- |
-| 🎮 **5 Spielmodi** | **KLASSISCHES PICKLE** (ausgewogen) · **ZEN** (keine Gefahren, ×0.5) · **INFERNO-CHILI** (+35% Tempo, ×1.5) · **60-SEKUNDEN-RUSH** (Time-Attack 60 s, ×1.25) · **GOLDRAUSCH** (Gold-Beute ×2.6 Spawn) |
-| 🌐 **i18n im Spiel** | Tiếng Việt · English · 中文 — `src/i18n/` (reines Modul + React-Brücke), `t()` mit Interpolation, synchronisiert `<html lang>`, länderspezifische Zahlen (vi-VN / en-US / zh-CN) |
+| 🎮 **7 Spielmodi** | **KLASSISCH EINGELEGT** (ausgewogen) · **ZEN** (keine Gefahren, ×0.5) · **CHILI-INFERNO** (+35% Tempo, ×1.5) · **60-SEKUNDEN-RUSH** (Time-Attack 60s, ×1.25) · **GOLDRAUSCH** (goldene Beute ×2.6) · **Eingelegter Regen** (~1.4× dichter, ×0.75) · **Dünnes Keramik** (ein Riss genügt, ×2.0) |
+| 🌐 **i18n im Spiel** | Tiếng Việt · English · 中文 · 日本語 · 한국어 — `src/i18n/` (reines Modul + React-Brücke), `t()` mit Interpolation, synchronisiert `<html lang>`, länderspezifische Zahlen (vi-VN / en-US / zh-CN / ja-JP / ko-KR) |
 | 🕹️ **Signatur-SLANT-Mechanik** | 2 Tasten/Achsen diagonal gedrückt halten — das Glas beschleunigt, glüht und zerfetzt Gefahren. Eigener Ausdauerbalken mit Anti-Flacker-Hysterese |
 | 🥬 **14 Zutaten** | Aubergine, Chili, Knoblauch, Ingwer, Salz, Gemüse, **GOLDGEMÜSE** (füllt das Glas schnell) · GOLDSALZ/-KNOBLAUCH · INFERNO-CHILI · EIS · SCHIMMEL, FLIEGE, **RAUPE** (Gefahren) |
 | 🧄 **Goldknoblauch-Schild** | Power-up: bis zu **2 Schild-Ladungen** stapelbar, die Risse abfangen; ein rotierender Heiligenschein umkreist das Glas |
-| 🏆 **12 Erfolge** | Über Läufe hinweg gespeichert (localStorage), mit „NEUER ERFOLG!“-Toast auf dem Game-Over-Bildschirm |
+| 🏆 **14 Erfolge** | Über Läufe hinweg gespeichert (localStorage), mit „NEUER ERFOLG!“-Toast auf dem Game-Over-Bildschirm |
 | 🔊 **Handgemachter Sound** | 11 synthetisierte Web-Audio-API-Effekte (null Dateien) + pentatonische Skala, die mit dem Level moduliert; stummschalten mit `M` |
 | 💾 **TOP-8-Bestenliste** | Lokal gespeichert, beim Lesen validiert & normalisiert, Namen automatisch großgeschrieben, Highlight für frisch gesetzte Rekorde |
 | 🎨 **60fps-Grafik** | Canvas 2D, 460-Partikel-Budget, DPR-Cap 2, vorgerenderter Offscreen-Boden, funkelnde Sterne + Aurora im Menü |
 | 📴 **Echt offline-first** | Selbst gehostete Fonts (latein + vietnamesisch, woff2), kein CDN, keine API — `dist/index.html` doppelklicken und spielen |
-| 🧪 **Qualitätstor** | 49 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
+| 🧪 **Qualitätstor** | 55 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
 
 <img src="assets/items.svg" alt="Die 14 Zutaten — Pickles zum Fangen, goldene Power-ups zum Greifen, Gefahren zum Ausweichen" width="100%" />
 
 ## 🌐 Sprachen wechseln
 
-Lọ Chéo kommt mit **3 UI-Sprachen**, sofort angewendet — kein Neuladen, kein verlorener Lauf:
+Lọ Chéo kommt mit **5 UI-Sprachen**, sofort angewendet — kein Neuladen, kein verlorener Lauf:
 
 | Sprache | Wo | Gespeichert in |
 | --- | --- | --- |
 | 🇻🇳 Tiếng Việt | **VI**-Button (Standard; folgt der Browser-Sprache falls nicht gesetzt) | `locheo.lang.v1` |
 | 🇬🇧 English | **EN**-Button | `locheo.lang.v1` |
 | 🇨🇳 中文 | **中**-Button | `locheo.lang.v1` |
+| 🇯🇵 日本語 | **日**-Button | `locheo.lang.v1` |
+| 🇰🇷 한국어 | **한**-Button | `locheo.lang.v1` |
 
 - Wechsel im **Hauptmenü** (oben rechts) oder im **Pausenbildschirm** (unten, Kompaktmodus).
-- Jeder sichtbare String lebt in `src/i18n/locales/{vi,en,zh}.ts` — Canvas-Engine, Screens, HUD, Popups, Ticker, Hinweise.
-- Fehlt ein Key? `t()` fällt auf Vietnamesisch zurück — die drei Locale-Key-Sets (und ihre Platzhalter) werden von Tests erzwungen.
+- Jeder sichtbare String lebt in `src/i18n/locales/{vi,en,zh,ja,ko}.ts` — Canvas-Engine, Screens, HUD, Popups, Ticker, Hinweise.
+- Fehlt ein Key? `t()` fällt auf Vietnamesisch zurück — die fünf Locale-Key-Sets (und ihre Platzhalter) werden von Tests erzwungen.
 
 ## 🕹️ Steuerung
 
@@ -85,7 +88,7 @@ Lọ Chéo kommt mit **3 UI-Sprachen**, sofort angewendet — kein Neuladen, kei
 | Sofortiger Neustart | `R` (auch in Pause/Game-Over) | „Noch ein Pickle“-Button |
 | Start / Bestätigen | `Enter` | **BETRETEN DIE KÜCHE**-Button |
 | Stumm / Ton an | `M` | Lautsprecher-Button oben rechts |
-| Sprache wechseln | — (VI/EN/中-Buttons) | VI/EN/中-Buttons im Menü / Pause |
+| Sprache wechseln | — (VI/EN/中/日/한-Buttons) | VI/EN/中/日/한-Buttons im Menü / Pause |
 
 ## 🚀 Installieren & Starten
 
@@ -113,7 +116,7 @@ npm run build      # → dist/index.html (eine in sich geschlossene Datei)
 npm run dev        # Dev-Server mit HMR (http://localhost:5173)
 npm run preview    # Produktions-Build lokal ausliefern
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 49 Unit-Tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 55 Unit-Tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 
@@ -122,15 +125,18 @@ npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 lo-cheoio/
 ├─ index.html              # Einstieg, SEO/OG-Meta (kein CDN)
-├─ package.json            # lo-cheoio v1.1.2, dev/build/test/check-Skripte
+├─ package.json            # lo-cheoio v1.1.3, dev/build/test/check-Skripte
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; enthält src + tests
+├─ favicon.ico             # web icon (multi-size 16→256)
+├─ public/                 # favicon.ico/png/svg served at web root
 ├─ assets/
 │  ├─ banner.svg           # README-Banner (SMIL-Animation)
 │  ├─ demo.svg             # Gameplay-Simulation (SMIL-Animation)
 │  ├─ items.svg            # die 14 Zutaten (SMIL-Animation)
-│  ├─ modes.svg            # die 5 Modi (SMIL-Animation)
-│  └─ license.svg          # animiertes AGPL-3.0-Copyleft-Siegel (SMIL-Animation)
+│  ├─ modes.svg            # die 7 Modi (SMIL-Animation)
+│  ├─ license.svg          # animiertes AGPL-3.0-Copyleft-Siegel (SMIL-Animation)
+│  └─ favicon.svg          # favicon (SMIL animation)
 ├─ scripts/
 │  ├─ play-mac.command     # macOS-Launcher — Doppelklick, farbiges Menü
 │  ├─ play-windows.bat     # Windows-Launcher — Doppelklick, farbiges Menü
@@ -142,7 +148,8 @@ lo-cheoio/
 │     ├─ v1.0.0.md         # erste Release-Notes
 │     ├─ v1.1.0.md         # v1.1.0 Release-Notes
 │     ├─ v1.1.1.md         # v1.1.1 Release-Notes
-│     └─ v1.1.2.md         # aktuelle Release-Notes (1.1.2)
+│     ├─ v1.1.2.md         # v1.1.2
+│     └─ v1.1.3.md         # aktuelle Release-Notes (1.1.3)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -156,27 +163,27 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React-Wurzel, StrictMode
 │  ├─ App.tsx              # Phasenmaschine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.2" (einzige Wahrheitsquelle)
+│  ├─ version.ts           # APP_VERSION = "1.1.3" (einzige Wahrheitsquelle)
 │  ├─ index.css            # tailwind v4-Theme + alle Animationen/Verläufe
 │  ├─ assets/fonts/        # woff2-Subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
 │  ├─ i18n/
 │  │  ├─ i18n.ts           # reines Modul: detect, persist, t() + Interpolation
 │  │  ├─ useI18n.ts        # React-Hook: useI18n/useLanguage
-│  │  └─ locales/          # vi.ts (Key-Quelle) · en.ts · zh.ts
+│  │  └─ locales/          # vi.ts (Key-Quelle) · en · zh · ja · ko
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # Canvas + schwebender Joystick + Tastatur + Visibility
 │  │  ├─ StartScreen.tsx   # Menü: Aurora, Shimmer, Modus-Wahl, Erfolge
-│  │  ├─ ModeSelector.tsx  # 5 Modus-Karten (classic/zen/inferno/blitz/goldrush)
+│  │  ├─ ModeSelector.tsx  # 7 Modus-Karten (classic/zen/inferno/blitz/goldrush/storm/hardcore)
 │  │  ├─ AchievementsPanel.tsx  # gesperrtes/freigeschaltetes Badge-Tableau
 │  │  ├─ GameOverScreen.tsx     # GLAS ZERBROCHEN! + Punkte + neue Erfolge
 │  │  ├─ PauseScreen.tsx        # PAUSIERT + Run-Statistiken
-│  │  ├─ LanguageSwitcher.tsx   # gemeinsamer VI/EN/中-Switcher
+│  │  ├─ LanguageSwitcher.tsx   # gemeinsamer VI/EN/中/日/한-Switcher
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
 │  │  ├─ engine.ts         # gesamte Simulation + Canvas-Rendering (~2100 Zeilen)
 │  │  ├─ modes.ts          # Spielmodi + Balance-Mathematik (pure)
-│  │  ├─ achievements.ts   # 12 Badges + pure Prüfung (pure)
+│  │  ├─ achievements.ts   # 14 Badges + pure Prüfung (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, Fortschritt, Erfolge
 │  │  └─ audio.ts          # Web Audio Synth: SFX + pentatonische Musik
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -217,6 +224,7 @@ Doppelklick auf [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 | Version | Datum | Notizen |
 | --- | --- | --- |
+| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 Modi (Eingelegter Regen · Dünnes Keramik) · 14 Erfolge · 5 Sprachen · Favicon · mehrsprachige Launcher · 55 Tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 Modi (60-Sekunden-Rush · Goldrausch) · 12 Erfolge · Combo-Flammen · Doppelklick-Launcher · README in 10 Sprachen · 49 Tests |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | In-game i18n VI/EN/ZH · README in 7 Sprachen · komplette Bug-Ausmerzung · 45 Tests |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 Spielmodi · Goldknoblauch-Schild · Raupe · Goldgemüse · 10 Erfolge · selbst gehostete Fonts |
@@ -227,7 +235,7 @@ Siehe auch [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Mitwirken
 
 1. Forke das Repo, Branch nach dem Schema `arena/<name>` oder `feat/<name>`.
-2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 49 Tests + build).
+2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 55 Tests + build).
 3. Vermeide neue Laufzeit-Abhängigkeiten, sofern nicht unbedingt nötig — Philosophie: **eine Datei, kein Netz, ewig spielbar**.
 4. Nenne in deinem PR die betroffenen Screens/Modi und hänge bei Gameplay-Änderungen einen Clip an.
 

@@ -5,15 +5,15 @@
 # LỌ CHÉO — 절임항아리 대격전
 
 ### 🫙 브라우저에서 100% 동작하는 베트남식 절임 아케이드 — 단일 HTML 파일, 오프라인 우선
-### 🌐 게임 내 3개 언어 지원 — Tiếng Việt · English · 中文
+### 🌐 게임 내 5개 언어 지원 — Tiếng Việt · English · 中文 · 日本語 · 한국어
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
+[![Version](https://img.shields.io/badge/version-1.1.3-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.3.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-프로덕션-빌드)
-[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-언어-전환)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH%20%C2%B7%20JA%20%C2%B7%20KO-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-언어-전환)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
 
 <img src="assets/demo.svg" alt="Lọ Chéo 플레이 장면 — 항아리가 대각선으로 돌진하고, 절임 재료를 받고, 곰팡이를 자른다" width="100%" />
@@ -24,55 +24,58 @@
 
 ## 🥒 프로젝트 소개
 
-> Lọ Chéo — 절임항아리 대격전: 브라우저에서 100% 실행되는 절임 아케이드. 하나의 자기완결적 HTML 파일에 담긴 오프라인 우선 설계 — CDN 없음, 서버 없음. 이 도자기 항아리는 **대각선**으로만 움직일 수 있습니다. 두 개의 키를 눌러 대각선으로 질주하고, 가속하고, 곰팡이·파리·배추벌레를 잘게 썰며, 항아리가 세 조각 나기 전에 가득 채워보세요! **5가지 모드 · 14가지 재료 · 12개 업적 · TOP 8 순위 · 게임 내 3개 언어.**
+> Lọ Chéo — 절임항아리 대격전: 브라우저에서 100% 실행되는 절임 아케이드. 하나의 자기완결적 HTML 파일에 담긴 오프라인 우선 설계 — CDN 없음, 서버 없음. 이 도자기 항아리는 **대각선**으로만 움직일 수 있습니다. 두 개의 키를 눌러 대각선으로 질주하고, 가속하고, 곰팡이·파리·배추벌레를 잘게 썰며, 항아리가 세 조각 나기 전에 가득 채워보세요! **7가지 모드 · 14가지 재료 · 14개 업적 · TOP 8 순위 · 게임 내 5개 언어.**
 
 베트남의 소박한 절임 음식에서 영감을 받은 **단일 화면 액션 아케이드**입니다. 선형 레벨도, 복잡한 메뉴도 없습니다 — 오직 항아리와 끝없이 쏟아지는 절임 재료, 그리고 불꽃 같은 반사신경만 있을 뿐.
 
-## 🆕 v1.1.2 새로운 점
+## 🆕 v1.1.3 새로운 점
 
-- 🎮 **2개의 신규 모드** — **60초 스프린트**(60초 타임어택, 재료가 더 촘촘하고 빨리 떨어지며 ×1.25 점수, HUD 카운트다운이 마지막 10초간 빨간색으로 깜빡임)와 **골드 러시**(황금소금, 황금 겨자채, 황금마늘, 불타는 고추, 얼음이 ~2.6배 자주 등장, 밸런스는 클래식과 동일). 총 **5가지 모드**.
-- 🏆 **2개의 신규 업적** — **60초의 왕**(한 판에 3,000점) & **황금 대수확**(한 판에 항아리 2개 가득 채우기). 총 **12개 업적**.
-- 🔥 **콤보 12+ 발화** — 연속 12회 이상이면 항아리를 감싸는 금/홍 불꽃 아우라(순수 연출, 밸런스 변화 없음).
-- 🚀 **더블클릭 실행 런처** `scripts/`: `play-mac.command`(macOS) · `play-windows.bat`(Windows) · `play-linux.sh`(Linux) — 더블클릭하면 **알록달록한 풀 컬러 메뉴**가 열리고 Production(빌드+플레이) 또는 Dev(HMR, localhost:5173)를 고르기만 하면 됩니다. 명령어 입력 불필요. 자세한 내용: [scripts/README.md](scripts/README.md).
-- 🪪 **새 라이선스 에셋** `assets/license.svg`(AGPL-3.0 copyleft 애니메이션 인장) & **5가지 모드 쇼케이스** `assets/modes.svg`(SMIL 애니메이션) — 바로 아래에 삽입되어 있습니다.
-- 📖 **README가 10개 언어로** (🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português 신규 추가).
-- 🐛 **잔존 버그 전량 탐색·수정** ([CHANGELOG](CHANGELOG.md) `[1.1.2]` 참조). `npm run check` 그린, **49개 단위 테스트**.
+- 🌧️ **2개의 신규 모드** — **절임비 대폭풍**(떨어지는 속도 ×0.88, 대신 ~1.4배 밀도·위험물 ×1.5배, ×0.75 점수 — «절임 홍수»의 쾌감, 레벨이 순식간에 상승)과 **얇은 도자기**(금 한 줄이면 산산조각, ×2.0 점수, 위험물 ×1.3 — 다이아몬드 손목 소유자 전용). 총 **7가지 모드**.
+- 🏆 **2개의 신규 업적** — **폭우**(절임비 대폭풍에서 60개 캐치) & **강철 도자기**(얇은 도자기에서 항아리 가득 채우기). 총 **14개 업적**.
+- 🌐 **게임 내 5개 언어** — VI/EN/中에 **日本語(日)** 와 **한국어(한)** 를 추가: 로케일당 193개 키, `<html lang>` 동기화, 로케일별 숫자 표기(vi-VN / en-US / zh-CN / ja-JP / ko-KR).
+- 🚀 **다국어 애니메이션 런처** — 세 런처(`play-linux.sh` · `play-mac.command` · `play-windows.bat`)가 `L` 키로 언어 전환(VI→EN→中文)되며 `LOCHEO_LANG` 환경변수도 지원. 3단 플래시 배너, 실시간 % 브레일 스피너, 반짝임 효과까지 — 베트남어 메뉴는 **완전한 성조 부호** 포함. 자세한 내용: [scripts/README.md](scripts/README.md).
+- ⭐ **새 favicon** `favicon.ico`(16→256px 멀티사이즈) + 애니메이션 `assets/favicon.svg`(SMIL) & `public/` — 웹 어디서든 예쁘게 빛납니다.
+- 🐛 **잔존 버그 전량 탐색·수정** ([CHANGELOG](CHANGELOG.md) `[1.1.3]` 참조). `npm run check` 그린, **55개 단위 테스트**.
 
-<img src="assets/modes.svg" alt="5가지 모드 — Classic · Zen · Inferno · 60초 스프린트 · 골드 러시" width="100%" />
+<img src="assets/modes.svg" alt="7가지 모드 — Classic · Zen · Inferno · 60초 스프린트 · 골드 러시 · 절임비 대폭풍 · 얇은 도자기" width="100%" />
 
-→ 전체 내용: [docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
+<div align="center"><img src="assets/favicon.svg" alt="Lọ Chéo favicon — 금뚜껑 기울어진 절임 항아리 (SMIL 애니메이션)" width="150" /></div>
+
+→ 전체 내용: [docs/releases/v1.1.3.md](docs/releases/v1.1.3.md)
 
 ## ✨ 하이라이트
 
 | 분류 | 세부 |
 | --- | --- |
-| 🎮 **5가지 게임 모드** | **클래식 절임**(균형형) · **ZEN**(위험물 없음, ×0.5) · **인페르노 칠리**(속도 +35%, ×1.5) · **60초 스프린트**(60초 타임어택, ×1.25) · **골드 러시**(황금 등장률 ×2.6) |
-| 🌐 **게임 내 i18n** | Tiếng Việt · English · 中文 — `src/i18n/`(pure 모듈 + React 브리지), 보간을 지원하는 `t()`, `<html lang>` 동기화, 로케일별 숫자 표기(vi-VN / en-US / zh-CN) |
+| 🎮 **7가지 게임 모드** | **클래식 절임**(균형형) · **ZEN**(위험물 없음, ×0.5) · **인페르노 칠리**(속도 +35%, ×1.5) · **60초 스프린트**(60초 타임어택, ×1.25) · **골드 러시**(황금 등장률 ×2.6) · **절임비 대폭풍**(~1.4배 밀도, ×0.75) · **얇은 도자기**(금 한 줄이면 종료, ×2.0) |
+| 🌐 **게임 내 i18n** | Tiếng Việt · English · 中文 · 日本語 · 한국어 — `src/i18n/`(pure 모듈 + React 브리지), 보간을 지원하는 `t()`, `<html lang>` 동기화, 로케일별 숫자 표기(vi-VN / en-US / zh-CN / ja-JP / ko-KR) |
 | 🕹️ **시그니처 “대각 베기(CHÉO)”** | 2개의 키/대각 축을 동시에 누르면 — 항아리가 가속·발광하며 위험물을 잘라냅니다. 깜빡임 방지 히스테리시스가 적용된 전용 스태미나 바 |
 | 🥬 **14가지 재료** | 가지, 고추, 마늘, 생강, 소금, 겨자채, **황금 겨자채**(항아리를 빠르게 채움) · 황금소금/황금마늘 · 불타는 고추 · 얼음 · 곰팡이, 파리, **배추벌레**(위험물) |
 | 🧄 **황금마늘 실드** | 파워업: 최대 **2겹** 실드를 쌓아 금이 가는 것을 흡수. 항아리 주위를 도는 회전 후광 |
-| 🏆 **12개 업적** | **판을 넘나드는** 누적 저장(localStorage), 게임 오버 화면에 “새 업적!” 토스트 |
+| 🏆 **14개 업적** | **판을 넘나드는** 누적 저장(localStorage), 게임 오버 화면에 “새 업적!” 토스트 |
 | 🔊 **수제 오디오** | Web Audio API로 합성한 효과음 11종(파일 없음) + 레벨에 따라 변주되는 오음계 배경음, `M`으로 음소거 |
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 49개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 55개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
 ## 🌐 언어 전환
 
-Lọ Chéo는 **3가지 UI 언어**를 내장 — 새로고침 없이, 진행 중인 판을 잃지 않고 즉시 적용됩니다:
+Lọ Chéo는 **5가지 UI 언어**를 내장 — 새로고침 없이, 진행 중인 판을 잃지 않고 즉시 적용됩니다:
 
 | 언어 | 위치 | 저장 키 |
 | --- | --- | --- |
 | 🇻🇳 Tiếng Việt | **VI** 버튼 (기본값; 미설정 시 브라우저 언어를 따름) | `locheo.lang.v1` |
 | 🇬🇧 English | **EN** 버튼 | `locheo.lang.v1` |
 | 🇨🇳 中文 | **中** 버튼 | `locheo.lang.v1` |
+| 🇯🇵 日本語 | **日** 버튼 | `locheo.lang.v1` |
+| 🇰🇷 한국어 | **한** 버튼 | `locheo.lang.v1` |
 
 - **메인 메뉴**(오른쪽 상단) 또는 **일시정지 화면**(하단 컴팩트)에서 전환.
-- 사용자에게 보이는 모든 문자열은 `src/i18n/locales/{vi,en,zh}.ts`에 있습니다 — Canvas 엔진, 화면, HUD, 팝업, 티커, 힌트.
-- 키가 없다면? `t()`는 베트남어로 폴백합니다 — 세 로케일의 키 집합과 플레이스홀더 일치는 테스트로 강제됩니다.
+- 사용자에게 보이는 모든 문자열은 `src/i18n/locales/{vi,en,zh,ja,ko}.ts`에 있습니다 — Canvas 엔진, 화면, HUD, 팝업, 티커, 힌트.
+- 키가 없다면? `t()`는 베트남어로 폴백합니다 — 다섯 로케일의 키 집합과 플레이스홀더 일치는 테스트로 강제됩니다.
 
 ## 🕹️ 조작 방법
 
@@ -85,7 +88,7 @@ Lọ Chéo는 **3가지 UI 언어**를 내장 — 새로고침 없이, 진행 �
 | 즉시 재시작 | `R` (일시정지/게임 오버 중에도 가능) | “다시 절이기” 버튼 |
 | 시작 / 확인 | `Enter` | **부엌으로** 버튼 |
 | 음소거 / 해제 | `M` | 오른쪽 상단 스피커 버튼 |
-| 언어 전환 | — (VI/EN/中 버튼 사용) | 메뉴 / 일시정지의 VI/EN/中 버튼 |
+| 언어 전환 | — (VI/EN/中/日/한 버튼 사용) | 메뉴 / 일시정지의 VI/EN/中/日/한 버튼 |
 
 ## 🚀 설치 · 실행
 
@@ -113,7 +116,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 49개 단위 테스트 (modes / achievements / storage / i18n)
+npm run test       # vitest — 55개 단위 테스트 (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -122,15 +125,18 @@ npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 lo-cheoio/
 ├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
-├─ package.json            # lo-cheoio v1.1.2, dev/build/test/check 스크립트
+├─ package.json            # lo-cheoio v1.1.3, dev/build/test/check 스크립트
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; src + tests 포함
+├─ favicon.ico             # web icon (multi-size 16→256)
+├─ public/                 # favicon.ico/png/svg served at web root
 ├─ assets/
 │  ├─ banner.svg           # README 배너 (SMIL 애니메이션)
 │  ├─ demo.svg             # 게임플레이 시뮬레이션 (SMIL 애니메이션)
 │  ├─ items.svg            # 14가지 재료 (SMIL 애니메이션)
-│  ├─ modes.svg            # 5가지 모드 (SMIL 애니메이션)
-│  └─ license.svg          # AGPL-3.0 copyleft 인장 (SMIL 애니메이션)
+│  ├─ modes.svg            # 7가지 모드 (SMIL 애니메이션)
+│  ├─ license.svg          # AGPL-3.0 copyleft 인장 (SMIL 애니메이션)
+│  └─ favicon.svg          # favicon (SMIL animation)
 ├─ scripts/
 │  ├─ play-mac.command     # macOS 런처 — 더블클릭, 풀 컬러 메뉴
 │  ├─ play-windows.bat     # Windows 런처 — 더블클릭, 풀 컬러 메뉴
@@ -142,7 +148,8 @@ lo-cheoio/
 │     ├─ v1.0.0.md         # 첫 릴리스 노트
 │     ├─ v1.1.0.md         # v1.1.0 릴리스 노트
 │     ├─ v1.1.1.md         # v1.1.1 릴리스 노트
-│     └─ v1.1.2.md         # 현재 릴리스 노트 (1.1.2)
+│     ├─ v1.1.2.md         # v1.1.2
+│     └─ v1.1.3.md         # 현재 릴리스 노트 (1.1.3)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -156,27 +163,27 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 루트, StrictMode
 │  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.2" (단일 진실 공급원)
+│  ├─ version.ts           # APP_VERSION = "1.1.3" (단일 진실 공급원)
 │  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
 │  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
 │  ├─ i18n/
 │  │  ├─ i18n.ts           # pure 모듈: 감지, 저장, t() + 보간
 │  │  ├─ useI18n.ts        # React 훅: useI18n/useLanguage
-│  │  └─ locales/          # vi.ts (키 소스) · en.ts · zh.ts
+│  │  └─ locales/          # vi.ts (키 소스) · en · zh · ja · ko
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
 │  │  ├─ StartScreen.tsx   # 메뉴: 오로라, 시머, 모드 선택, 업적
-│  │  ├─ ModeSelector.tsx  # 5개 모드 카드 (classic/zen/inferno/blitz/goldrush)
+│  │  ├─ ModeSelector.tsx  # 7개 모드 카드 (classic/zen/inferno/blitz/goldrush/storm/hardcore)
 │  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
 │  │  ├─ GameOverScreen.tsx     # 항아리가 깨졌다! + 점수 + 새 업적
 │  │  ├─ PauseScreen.tsx        # 일시정지 + 판 통계
-│  │  ├─ LanguageSwitcher.tsx   # 공용 VI / EN / 中 스위처
+│  │  ├─ LanguageSwitcher.tsx   # 공용 VI / EN / 中 / 日 / 한 스위처
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
 │  │  ├─ engine.ts         # 시뮬레이션과 캔버스 렌더링 전부 (약 2100줄)
 │  │  ├─ modes.ts          # 게임 모드 + 밸런스 수치 (pure)
-│  │  ├─ achievements.ts   # 배지 12개 + pure 체커 (pure)
+│  │  ├─ achievements.ts   # 배지 14개 + pure 체커 (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, 진행도, 업적
 │  │  └─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -217,6 +224,7 @@ lo-cheoio/
 
 | 버전 | 날짜 | 노트 |
 | --- | --- | --- |
+| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
@@ -227,7 +235,7 @@ lo-cheoio/
 ## 🤝 기여하기
 
 1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
-2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 49개 + build).
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 55개 + build).
 3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
 4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
 

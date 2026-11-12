@@ -2,6 +2,8 @@ import { describe, expect, it, vi as vitestVi } from "vitest";
 import viLocale, { type MessageKey } from "../src/i18n/locales/vi";
 import en from "../src/i18n/locales/en";
 import zh from "../src/i18n/locales/zh";
+import ja from "../src/i18n/locales/ja";
+import ko from "../src/i18n/locales/ko";
 import {
   detectInitialLanguage,
   localeTable,
@@ -24,6 +26,14 @@ describe("locale key parity", () => {
     expect(Object.keys(zh).sort()).toEqual([...viKeys].sort());
   });
 
+  it("ja mirrors every vi key exactly", () => {
+    expect(Object.keys(ja).sort()).toEqual([...viKeys].sort());
+  });
+
+  it("ko mirrors every vi key exactly", () => {
+    expect(Object.keys(ko).sort()).toEqual([...viKeys].sort());
+  });
+
   it("no message is empty in any locale", () => {
     for (const lang of LANGUAGES) {
       const table = localeTable(lang);
@@ -38,6 +48,8 @@ describe("locale key parity", () => {
     for (const key of viKeys) {
       expect(ph(en[key]), `en:${key}`).toEqual(ph(viLocale[key]));
       expect(ph(zh[key]), `zh:${key}`).toEqual(ph(viLocale[key]));
+      expect(ph(ja[key]), `ja:${key}`).toEqual(ph(viLocale[key]));
+      expect(ph(ko[key]), `ko:${key}`).toEqual(ph(viLocale[key]));
     }
   });
 });
@@ -56,6 +68,8 @@ describe("t()", () => {
     expect(numberLocale("vi")).toBe("vi-VN");
     expect(numberLocale("en")).toBe("en-US");
     expect(numberLocale("zh")).toBe("zh-CN");
+    expect(numberLocale("ja")).toBe("ja-JP");
+    expect(numberLocale("ko")).toBe("ko-KR");
   });
 });
 

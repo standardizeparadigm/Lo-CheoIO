@@ -1,6 +1,6 @@
 /* =====================================================================
    Lọ Chéo — i18n runtime.
-   - Languages: vi (default), en, zh
+   - Languages: vi (default), en, zh, ja, ko
    - Persisted under storage key `locheo.lang.v1`
    - `t()` reads the module-level active language; call sites can pass
      their own snapshot via `t(key, params, lang)`.
@@ -11,25 +11,30 @@
 import vi, { type MessageKey } from "./locales/vi";
 import en from "./locales/en";
 import zh from "./locales/zh";
+import ja from "./locales/ja";
+import ko from "./locales/ko";
 
-export type Language = "vi" | "en" | "zh";
-export const LANGUAGES: Language[] = ["vi", "en", "zh"];
+export type Language = "vi" | "en" | "zh" | "ja" | "ko";
+export const LANGUAGES: Language[] = ["vi", "en", "zh", "ja", "ko"];
 
 export const LANG_STORAGE_KEY = "locheo.lang.v1";
 
-const messages: Record<Language, Record<MessageKey, string>> = { vi, en, zh };
+const messages: Record<Language, Record<MessageKey, string>> = { vi, en, zh, ja, ko };
 
 /** Detect the best initial language: stored preference → browser → vi. */
 export function detectInitialLanguage(): Language {
   try {
     const raw = window.localStorage.getItem(LANG_STORAGE_KEY);
-    if (raw === "vi" || raw === "en" || raw === "zh") return raw;
+    if (raw === "vi" || raw === "en" || raw === "zh" || raw === "ja" || raw === "ko")
+      return raw;
   } catch {
     /* storage unavailable */
   }
   try {
     const nav = (window.navigator?.language || "").toLowerCase();
     if (nav.startsWith("zh")) return "zh";
+    if (nav.startsWith("ja")) return "ja";
+    if (nav.startsWith("ko")) return "ko";
     if (nav.startsWith("vi")) return "vi";
     if (nav) return "en"; // any other locale → English
   } catch {
@@ -108,6 +113,10 @@ export function numberLocale(lang: Language = activeLanguage): string {
       return "en-US";
     case "zh":
       return "zh-CN";
+    case "ja":
+      return "ja-JP";
+    case "ko":
+      return "ko-KR";
     case "vi":
     default:
       return "vi-VN";

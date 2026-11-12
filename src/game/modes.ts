@@ -2,7 +2,7 @@
    Lọ Chéo — Game modes & balance math (pure functions, unit-tested)
    ===================================================================== */
 
-export type ModeId = "classic" | "zen" | "inferno" | "blitz" | "goldrush";
+export type ModeId = "classic" | "zen" | "inferno" | "blitz" | "goldrush" | "storm" | "hardcore";
 
 export interface ModeConfig {
   id: ModeId;
@@ -26,6 +26,8 @@ export interface ModeConfig {
   timeLimit?: number;
   /** Spawn-weight multiplier for golden powers (Muối Vàng, Ớt Hiểm, Đá Lạnh, Cải Vàng, Tỏi Vàng) */
   goldMult?: number;
+  /** Optional cap on cracks before the jar shatters (defaults to MAX_CRACKS) */
+  maxCracks?: number;
   /** Accent colour for the card glow / ring */
   accent: string;
   /** CSS gradient used for the card background */
@@ -112,12 +114,59 @@ export const MODES: Record<ModeId, ModeConfig> = {
     gradient: "linear-gradient(150deg,#3a3305 0%,#292404 55%,#161304 100%)",
     tint: "rgba(255,215,102,0.05)",
   },
+  storm: {
+    id: "storm",
+    name: "MƯA DƯA",
+    tagline: "Dưa rơi như trút nước · lụt dưa cả bếp",
+    description:
+      "Thiên tai của dân muối dưa: dưa rơi chậm hơn một chút nhưng dày gấp gần rưỡi, đồ hư cũng nhiều hơn. Điểm mỗi củ chỉ ×0.75 — đổi lấy cảm giác «lụt dưa» sướng tay và leo cấp cực nhanh.",
+    badge: "×0.75 · STORM",
+    scoreMult: 0.75,
+    speedMult: 0.88,
+    hazardMult: 1.5,
+    spawnMult: 0.72,
+    accent: "#7fd0ff",
+    gradient: "linear-gradient(150deg,#0d2b38 0%,#081f2b 55%,#050f16 100%)",
+    tint: "rgba(127,208,255,0.05)",
+  },
+  hardcore: {
+    id: "hardcore",
+    name: "GỐM MỎNG",
+    tagline: "Chỉ một vết nứt là vỡ hũ · ×2.0 điểm",
+    description:
+      "Gốm của lò nung non tay: chỉ chịu được đúng MỘT vết nứt — chạm đồ hư là vỡ hũ ngay. Đền lại ×2.0 điểm mỗi củ và hazard nhiều hơn một chút. Chỉ dành cho tay chéo kim cương.",
+    badge: "×2.0 · 1 NỨT",
+    scoreMult: 2,
+    speedMult: 1.1,
+    hazardMult: 1.3,
+    spawnMult: 0.95,
+    maxCracks: 1,
+    accent: "#ff4d6d",
+    gradient: "linear-gradient(150deg,#330d16 0%,#22060d 55%,#130409 100%)",
+    tint: "rgba(255,77,109,0.06)",
+  },
 };
 
-export const MODE_LIST: ModeConfig[] = [MODES.classic, MODES.zen, MODES.inferno, MODES.blitz, MODES.goldrush];
+export const MODE_LIST: ModeConfig[] = [
+  MODES.classic,
+  MODES.zen,
+  MODES.inferno,
+  MODES.blitz,
+  MODES.goldrush,
+  MODES.storm,
+  MODES.hardcore,
+];
 
 export function isModeId(v: unknown): v is ModeId {
-  return v === "classic" || v === "zen" || v === "inferno" || v === "blitz" || v === "goldrush";
+  return (
+    v === "classic" ||
+    v === "zen" ||
+    v === "inferno" ||
+    v === "blitz" ||
+    v === "goldrush" ||
+    v === "storm" ||
+    v === "hardcore"
+  );
 }
 
 /** Combo multiplier: +1 per 4-catch streak, capped at ×9, doubled in frenzy. */

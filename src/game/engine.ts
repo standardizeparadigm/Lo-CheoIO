@@ -2,7 +2,6 @@ import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
 import {
   COMBO_WINDOW,
-  MAX_CRACKS,
   MODES,
   jarBonus,
   levelForCatches,
@@ -1148,7 +1147,8 @@ export class LoCheoGame {
     this.flash = 0.75;
     this.flashColor = C.chili;
     audio.play("hurt");
-    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= MAX_CRACKS ? t("popup.broken") : t("popup.cracked"), C.chili, 28);
+    const maxCracks = MODES[this.mode].maxCracks ?? 3;
+    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= maxCracks ? t("popup.broken") : t("popup.cracked"), C.chili, 28);
     this.rings.push({ x: this.px, y: this.py, r: this.pr, to: this.pr * 7, life: 0.4, max: 0.4, color: C.chili, width: 7 });
     for (let i = 0; i < 26; i++) {
       const a = rnd(0, TAU);
@@ -1165,7 +1165,7 @@ export class LoCheoGame {
         life: rnd(0.3, 0.7), size: rnd(2, 5) * this.S, color: it.def.color, kind: "dot", grav: 700, drag: 1.6,
       });
     }
-    if (this.cracks >= MAX_CRACKS) this.gameOver();
+    if (this.cracks >= (MODES[this.mode].maxCracks ?? 3)) this.gameOver();
   }
 
   private missItem(it: Item) {
