@@ -81,6 +81,7 @@ const zh: Record<MessageKey, string> = {
   "hud.best": "纪录",
   "hud.cheo": "斜切！",
   "hud.jar": "腌罐",
+  "hud.timeLeft": "剩 {n} 秒",
   "hud.combo": "{n} 连击",
   "hud.slamReady": "拍罐 ✦ 就绪",
   "hud.slamCd": "拍罐…",
@@ -133,6 +134,16 @@ const zh: Record<MessageKey, string> = {
   "mode.inferno.desc":
     "腌菜高手的炼狱：腌菜下落速度加快 35%，危险物几乎翻倍，但每只 +50% 分数。只适合斜切老手。",
   "mode.inferno.badge": "×1.5 得分",
+  "mode.blitz.name": "60秒冲刺",
+  "mode.blitz.tagline": "与时间赛跑 · 极限刷分",
+  "mode.blitz.desc":
+    "与时间赛跑：60 秒，腌菜掉落更密集、更快、危险更多，但每只 +25% 分数。倒计时归零即结束——能接多少就接多少。",
+  "mode.blitz.badge": "×1.25 · 60S",
+  "mode.goldrush.name": "黄金丰收",
+  "mode.goldrush.tagline": "黄金掉落如雨 · 收获季节",
+  "mode.goldrush.desc":
+    "金光闪闪的丰收：金盐、金芥末、金蒜、爆辣辣椒和冰块的掉落率提升约 2.6 倍。平衡性与经典模式一致——为黄金爱好者与成就猎人而生。",
+  "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
 
   "ach.title": "厨房成就",
   "ach.locked": "未解锁",
@@ -157,6 +168,10 @@ const zh: Record<MessageKey, string> = {
   "ach.runs-5.desc": "完成 5 局游戏（跨模式累计）。",
   "ach.inferno-1500.name": "不怕辣",
   "ach.inferno-1500.desc": "在辣椒火焰模式得分 1,500 分。",
+  "ach.blitz-3000.name": "60秒之王",
+  "ach.blitz-3000.desc": "在 60秒冲刺 模式单局得分 3,000 分。",
+  "ach.goldrush-2jars.name": "黄金大丰收",
+  "ach.goldrush-2jars.desc": "在 黄金丰收 模式单局装满 2 个腌罐。",
 
   "ticker.0": "小茄子 +10",
   "ticker.1": "辣椒 +15",

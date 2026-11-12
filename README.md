@@ -7,9 +7,9 @@
 ### 🫙 Arcade muối dưa chạy 100% trong trình duyệt — một file HTML duy nhất, offline-first
 ### 🌐 Giao diện 3 ngôn ngữ ngay trong game — Tiếng Việt · English · 中文
 
-[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
+[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-cài-đặt--chạy)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-production)
@@ -24,34 +24,39 @@
 
 ## 🥒 Về dự án
 
-> Lọ Chéo — Hũ Dưa Đại Chiến: arcade muối dưa chạy 100% trong trình duyệt, gói gọn trong một file HTML duy nhất, offline-first — không CDN, không server. Chiếc lọ gốm chỉ chịu đi đường CHÉO: giữ 2 phím để lượn xiên, tăng tốc chém tan mốc, ruồi, sâu rau, hứng đầy hũ trước khi gốm nứt làm ba. **3 chế độ chơi · 14 nguyên liệu · 10 thành tựu · bảng vàng TOP 8 · giao diện 3 ngôn ngữ.**
+> Lọ Chéo — Hũ Dưa Đại Chiến: arcade muối dưa chạy 100% trong trình duyệt, gói gọn trong một file HTML duy nhất, offline-first — không CDN, không server. Chiếc lọ gốm chỉ chịu đi đường CHÉO: giữ 2 phím để lượn xiên, tăng tốc chém tan mốc, ruồi, sâu rau, hứng đầy hũ trước khi gốm nứt làm ba. **5 chế độ chơi · 14 nguyên liệu · 12 thành tựu · bảng vàng TOP 8 · giao diện 3 ngôn ngữ.**
 
 Đây là tựa **arcade hành động một màn hình** lấy cảm hứng từ hũ dưa món quê Việt Nam. Không có level tuyến tính, không có màn hình menu loằng ngoằng — chỉ có cái lọ, trận mưa dưa bất tận và phản xạ cháy rực của bạn.
 
-## 🆕 Mới trong v1.1.1
+## 🆕 Mới trong v1.1.2
 
-- 🌐 **Chuyển đổi ngôn ngữ ngay trong game** — VI ⇄ EN ⇄ ZH, đổi tức thì ở menu chính lẫn màn tạm nghỉ, nhớ lựa chọn qua `locheo.lang.v1`; toàn bộ HUD canvas, popup, banner, menu, pause, game over, thành tựu và ticker đều được dịch.
-- 📖 **README 7 ngôn ngữ** (thêm 🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français) với banner động, mô phỏng gameplay animation và bảng 14 nguyên liệu.
-- 🐛 **Toàn bộ lỗi tồn đọng đã được rà quét và sửa** (xem [CHANGELOG](CHANGELOG.md) mục `[1.1.1]`); `npm run check` xanh với **45 unit tests**.
-- 🖼️ **2 SVG động mới** cho tài liệu: `assets/demo.svg` (gameplay loop) và `assets/items.svg` (14 nguyên liệu).
+- 🎮 **2 chế độ chơi mới** — **ĐUA 60 GIÂY** (time-attack 60 giây, dưa rơi dày hơn, ×1.25 điểm, HUD đếm ngược nhấp nháy đỏ 10s cuối) và **MÙA VÀNG** (Muối Vàng, Cải Vàng, Tỏi Vàng, Ớt Hiểm, Đá Lạnh rơi dày ×2.6, cân bằng như Cổ điển). Tổng cộng **5 chế độ**.
+- 🏆 **2 thành tựu mới** — **VUA ĐUA 60 GIÂY** (3.000 điểm trong một ván Blitz) & **MÙA VÀNG BỘI THU** (đầy 2 hũ trong một ván Mùa Vàng). Tổng cộng **12 thành tựu**.
+- 🔥 **Combo 12+ bốc lửa** — aura lửa vàng/ớt bao quanh lọ khi chuỗi đạt từ 12 (hiệu ứng thuần tuý, không đổi cân bằng).
+- 🚀 **Trình chạy double-click** trong `scripts/`: `play-mac.command` (macOS) · `play-windows.bat` (Windows) · `play-linux.sh` (Linux) — nhấn đúp là hiện **menu đầy đủ màu sắc**, chọn Production (build + chơi) hoặc Dev (HMR tại localhost:5173), không cần gõ lệnh. Xem [scripts/README.md](scripts/README.md).
+- 🪪 **Asset license mới** `assets/license.svg` (dấu AGPL-3.0 động, copyleft) & **showcase 5 chế độ** `assets/modes.svg` (SMIL animation) — nhúng ngay dưới đây.
+- 📖 **README giờ có 10 ngôn ngữ** (thêm 🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português).
+- 🐛 **Rà quét toàn bộ lỗi còn tồn đọng** (xem [CHANGELOG](CHANGELOG.md) mục `[1.1.2]`); `npm run check` xanh với **49 unit tests**.
 
-→ Chi tiết đầy đủ: [docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
+<img src="assets/modes.svg" alt="5 chế độ chơi — Classic · Zen · Inferno · Blitz 60s · Gold Rush" width="100%" />
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
 
 ## ✨ Tính năng nổi bật
 
 | Nhóm | Chi tiết |
 | --- | --- |
-| 🎮 **3 chế độ chơi** | **MUỐI DƯA CỔ ĐIỂN** (cân bằng) · **THẢNH THƠI** (không đồ hư, ×0.5 điểm) · **ỚT LỬA** (nhanh +35%, ×1.5 điểm) |
+| 🎮 **5 chế độ chơi** | **MUỐI DƯA CỔ ĐIỂN** (cân bằng) · **THẢNH THƠI** (không đồ hư, ×0.5 điểm) · **ỚT LỬA** (nhanh +35%, ×1.5 điểm) · **ĐUA 60 GIÂY** (time-attack 60s, ×1.25 điểm) · **MÙA VÀNG** (đồ vàng rơi ×2.6) |
 | 🌐 **i18n trong game** | Tiếng Việt · English · 中文 — `src/i18n/` (module thuần + context), `t()` có interpolation, đồng bộ `<html lang>`, số theo locale (vi-VN / en-US / zh-CN) |
 | 🕹️ **Cơ chế CHÉO độc quyền** | Giữ 2 phím/trục chéo — lọ tăng tốc, phát sáng, chém tan đồ hư. Có thanh stamina riêng với hysteresis chống nhấp nháy |
 | 🥬 **14 nguyên liệu** | Cà pháo, ớt, tỏi, gừng, muối, cải, **CẢI VÀNG** (làm đầy hũ cực nhanh) · MUỐI/TỎI VÀNG · ỚT HIỂM · ĐÁ LẠNH · MỐC, RUỒI, **SÂU RAU** (hazard) |
 | 🧄 **Khiên Tỏi Vàng** | Power-up: tích tối đa **2 lớp khiên** chặn vết nứt, vòng hào quang xoay quanh lọ |
-| 🏆 **10 thành tựu** | Lưu **cộng dồn qua các ván** (localStorage), toast "THÀNH TỰU MỚI!" ở màn thua |
+| 🏆 **12 thành tựu** | Lưu **cộng dồn qua các ván** (localStorage), toast "THÀNH TỰU MỚI!" ở màn thua |
 | 🔊 **Âm thanh thủ công** | 11 hiệu ứng Web Audio API tổng hợp thuần (không file) + nền pentatonic đổi tông theo cấp, mute bằng `M` |
 | 💾 **Bảng vàng TOP 8** | Điểm lưu cục bộ, validate & chuẩn hoá khi đọc, tên tự viết hoa, highlight dòng vừa lập kỷ lục |
 | 🎨 **Đồ hoạ 60fps** | Canvas 2D, particle budget 460, DPR cap 2, nền gạch bông pre-render offscreen, star twinkle + aurora menu |
 | 📴 **Offline-first thật sự** | Fonts tự host (subset latin + vietnamese, woff2), không CDN, không API — mở `dist/index.html` là chơi |
-| 🧪 **Chất lượng** | 45 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
+| 🧪 **Chất lượng** | 49 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
 
 <img src="assets/items.svg" alt="14 nguyên liệu Lọ Chéo — nhóm hứng, nhóm power, nhóm né" width="100%" />
 
@@ -108,7 +113,7 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 45 unit tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 49 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 
@@ -117,19 +122,27 @@ npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 lo-cheoio/
 ├─ index.html              # entry, meta SEO/OG (không CDN)
-├─ package.json            # lo-cheoio v1.1.1, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.2, scripts dev/build/test/check
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; include src + tests
 ├─ assets/
 │  ├─ banner.svg           # banner README (SMIL animation)
 │  ├─ demo.svg             # mô phỏng gameplay (SMIL animation)
-│  └─ items.svg            # 14 nguyên liệu (SMIL animation)
+│  ├─ items.svg            # 14 nguyên liệu (SMIL animation)
+│  ├─ modes.svg            # 5 chế độ chơi (SMIL animation)
+│  └─ license.svg          # dấu AGPL-3.0 copyleft (SMIL animation)
+├─ scripts/
+│  ├─ play-mac.command     # trình chạy macOS — nhấn đúp, menu đầy đủ màu
+│  ├─ play-windows.bat     # trình chạy Windows — nhấn đúp, menu đầy đủ màu
+│  ├─ play-linux.sh        # trình chạy Linux — nhấn đúp, menu đầy đủ màu
+│  └─ README.md            # hướng dẫn trình chạy cho người không rành terminal
 ├─ docs/
 │  ├─ DESCRIPTION.md       # mô tả dự án đa ngôn ngữ (vi/en/zh + SEO)
 │  └─ releases/
 │     ├─ v1.0.0.md         # release notes bản đầu tiên
 │     ├─ v1.1.0.md         # release notes v1.1.0
-│     └─ v1.1.1.md         # release notes bản hiện tại
+│     ├─ v1.1.1.md         # release notes v1.1.1
+│     └─ v1.1.2.md         # release notes bản hiện tại (1.1.2)
 ├─ README.md               # 🇻🇳 Tiếng Việt (file này)
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -137,10 +150,13 @@ lo-cheoio/
 ├─ README.ko.md            # 🇰🇷 한국어
 ├─ README.es.md            # 🇪🇸 Español
 ├─ README.fr.md            # 🇫🇷 Français
+├─ README.th.md            # 🇹🇭 ไทย
+├─ README.de.md            # 🇩🇪 Deutsch
+├─ README.pt.md            # 🇵🇹 Português
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.1" (nguồn duy nhất)
+│  ├─ version.ts           # APP_VERSION = "1.1.2" (nguồn duy nhất)
 │  ├─ index.css            # tailwind v4 theme + toàn bộ animation/gradient
 │  ├─ assets/fonts/        # woff2 subset (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, offline 100%
@@ -151,7 +167,7 @@ lo-cheoio/
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick nổi + bàn phím + visibility
 │  │  ├─ StartScreen.tsx   # menu: aurora, shimmer, chọn chế độ, thành tựu
-│  │  ├─ ModeSelector.tsx  # 3 thẻ chế độ (gradient, accent theo mode)
+│  │  ├─ ModeSelector.tsx  # 5 thẻ chế độ (classic/zen/inferno/blitz/goldrush)
 │  │  ├─ AchievementsPanel.tsx  # tường huy hiệu locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # VỠ HŨ! + điểm + new achievements
 │  │  ├─ PauseScreen.tsx        # TẠM NGHỈ + stats ván
@@ -160,7 +176,7 @@ lo-cheoio/
 │  ├─ game/
 │  │  ├─ engine.ts         # toàn bộ simulation + render canvas (~2100 dòng)
 │  │  ├─ modes.ts          # chế độ chơi + công thức cân bằng (pure)
-│  │  ├─ achievements.ts   # 10 huy hiệu + checker thuần (pure)
+│  │  ├─ achievements.ts   # 12 huy hiệu + checker thuần (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  └─ audio.ts          # Web Audio synth: sfx + pentatonic music
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -194,10 +210,14 @@ Không. Điểm, thành tựu, tiến độ và chế độ chơi đều độc 
 **Muốn thêm ngôn ngữ mới?**
 Thêm `src/i18n/locales/xx.ts` mirror key set của `vi.ts`, cập nhật `LANGUAGES` + test, mở PR — xem [CONTRIBUTING.md](CONTRIBUTING.md).
 
+**Không biết gõ lệnh thì chạy game kiểu gì?**
+Nhấn đúp vào [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`scripts/play-windows.bat`](scripts/play-windows.bat) (Windows) hoặc [`scripts/play-linux.sh`](scripts/play-linux.sh) (Linux) — menu màu hiện ra, chọn `1` để build & chơi ngay, `2` để dev tại localhost:5173. Chi tiết: [scripts/README.md](scripts/README.md).
+
 ## 📦 Releases & changelog
 
 | Phiên bản | Ngày | Ghi chú |
 | --- | --- | --- |
+| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 chế độ (thêm Đua 60 Giây · Mùa Vàng) · 12 thành tựu · combo lửa · trình chạy double-click · README 10 ngôn ngữ · 49 tests |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n VI/EN/ZH trong game · README 7 ngôn ngữ · sửa toàn bộ lỗi tồn đọng · 45 tests |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau · Cải Vàng · 10 thành tựu · fonts self-host |
 | [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, LẮC HŨ, combo ×9 |
@@ -207,12 +227,14 @@ Xem thêm [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Đóng góp
 
 1. Fork repo, tạo branch theo quy ước `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm run check` phải xanh trước khi mở PR (typecheck + 45 tests + build).
+2. `npm run check` phải xanh trước khi mở PR (typecheck + 49 tests + build).
 3. Không thêm dependency runtime nếu không thực sự cần — triết lý: **một file, không mạng, chơi được mãi mãi**.
 4. Mô tả PR ghi rõ chế độ/màn hình bị ảnh hưởng và kèm clip nếu thay đổi gameplay.
 
 ## 📄 License & tác giả
 
-- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — xem [LICENSE](LICENSE).
+<img src="assets/license.svg" alt="AGPL-3.0-only — giấy phép copyleft" width="400" />
+
+- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — xem [LICENSE](LICENSE) & [assets/license.svg](assets/license.svg).
 - Fonts: [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) & [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1 (subset woff2 tự host).
 - Vòng tay ôm dịu dàng gửi tới những hũ dưa trên khắp các mâm cơm Việt Nam. 🫙🇻🇳

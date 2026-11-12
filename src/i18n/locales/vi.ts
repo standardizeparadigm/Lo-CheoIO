@@ -90,6 +90,7 @@ const vi = {
   "hud.best": "KỶ LỤC",
   "hud.cheo": "CHÉO!",
   "hud.jar": "HŨ DƯA",
+  "hud.timeLeft": "CÒN {n}S",
   "hud.combo": "{n} CHUỖI",
   "hud.slamReady": "LẮC HŨ ✦ SẴN SÀNG",
   "hud.slamCd": "LẮC HŨ…",
@@ -145,6 +146,16 @@ const vi = {
   "mode.inferno.desc":
     "Địa ngục của dân muối dưa: dưa rơi nhanh hơn 35%, đồ hư nhiều gần gấp đôi, đền lại +50% điểm mỗi củ. Chỉ dành cho tay chéo cứng.",
   "mode.inferno.badge": "×1.5 ĐIỂM",
+  "mode.blitz.name": "ĐUA 60 GIÂY",
+  "mode.blitz.tagline": "Đồng hồ đếm ngược · chém điểm tối đa",
+  "mode.blitz.desc":
+    "Chạy đua với đồng hồ: 60 giây, dưa rơi dày hơn và nhanh hơn một chút, đồ hư nhiều hơn một chút, đền lại ×1.25 điểm mỗi củ. Hết giờ là hết ván — hứng được càng nhiều càng tốt.",
+  "mode.blitz.badge": "×1.25 · 60S",
+  "mode.goldrush.name": "MÙA VÀNG",
+  "mode.goldrush.tagline": "Đồ vàng rơi dày đặc · mùa bội thu",
+  "mode.goldrush.desc":
+    "Mùa gặt rực rỡ: Muối Vàng, Cải Vàng, Tỏi Vàng, Ớt Hiểm và Đá Lạnh rơi dày gấp khoảng 2.6 lần. Cân bằng như Cổ điển — dành cho ai thích ăn vàng và leo thành tựu.",
+  "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
 
   /* achievements */
   "ach.title": "Thành tựu bếp dưa",
@@ -170,6 +181,10 @@ const vi = {
   "ach.runs-5.desc": "Hoàn thành 5 ván chơi (cộng dồn mọi chế độ).",
   "ach.inferno-1500.name": "ĂN ỚT KHÔNG CAY",
   "ach.inferno-1500.desc": "Ghi 1.500 điểm ở chế độ Ớt Lửa.",
+  "ach.blitz-3000.name": "VUA ĐUA 60 GIÂY",
+  "ach.blitz-3000.desc": "Ghi 3.000 điểm trong một ván Đua 60 Giây.",
+  "ach.goldrush-2jars.name": "MÙA VÀNG BỘI THU",
+  "ach.goldrush-2jars.desc": "Đầy 2 hũ trong một ván Mùa Vàng.",
 
   /* ingredient ticker */
   "ticker.0": "CÀ PHÁO +10",

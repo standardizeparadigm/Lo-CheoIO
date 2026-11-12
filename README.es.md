@@ -7,9 +7,9 @@
 ### 🫙 Arcade vietnamita de encurtidos que corre 100% en el navegador — un único HTML, offline-first
 ### 🌐 Interfaz en el juego en 3 idiomas — Tiếng Việt · English · 中文
 
-[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
+[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-instalación-y-ejecución)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-de-producción)
@@ -24,34 +24,39 @@
 
 ## 🥒 Sobre el proyecto
 
-> Lọ Chéo — La Gran Guerra de la Orza: un arcade de encurtidos que corre 100% en el navegador, empaquetado en un único archivo HTML autocontenido, offline-first — sin CDN, sin servidor. La orza de cerámica solo sabe moverse en **diagonal**: mantén dos teclas para zigzaguear, acelerar y despedazar moho, moscas y orugas; llena la orza antes de que la cerámica se raje en tres. **3 modos · 14 ingredientes · 10 logros · clasificación TOP 8 · interfaz en 3 idiomas.**
+> Lọ Chéo — La Gran Guerra de la Orza: un arcade de encurtidos que corre 100% en el navegador, empaquetado en un único archivo HTML autocontenido, offline-first — sin CDN, sin servidor. La orza de cerámica solo sabe moverse en **diagonal**: mantén dos teclas para zigzaguear, acelerar y despedazar moho, moscas y orugas; llena la orza antes de que la cerámica se raje en tres. **5 modos · 14 ingredientes · 12 logros · clasificación TOP 8 · interfaz en 3 idiomas.**
 
 Es un **arcade de acción de pantalla única** inspirado en los humildes encurtidos vietnamitas. Sin niveles lineales ni menús recargados: solo la orza, una lluvia infinita de verduras y tus reflejos en llamas.
 
-## 🆕 Novedades de v1.1.1
+## 🆕 Novedades de v1.1.2
 
-- 🌐 **Cambio de idioma dentro del juego** — VI ⇄ EN ⇄ ZH, al instante desde el menú principal o la pausa, recordado vía `locheo.lang.v1`. HUD de canvas, popups, banners, menús, pausa, game over, logros y ticker traducidos.
-- 📖 **README en 7 idiomas** (añadidos 🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français), con banner animado, animación de gameplay y tabla de los 14 ingredientes.
-- 🐛 **Todos los bugs pendientes revisados y corregidos** (ver [CHANGELOG](CHANGELOG.md), `[1.1.1]`); `npm run check` en verde con **45 tests unitarios**.
-- 🖼️ **2 nuevos SVG animados** para la documentación: `assets/demo.svg` (bucle de juego) e `assets/items.svg` (14 ingredientes).
+- 🎮 **2 modos nuevos** — **60 SEGUNDOS** (contrarreloj de 60 s, lluvia más densa y rápida, ×1.25 puntos, la cuenta atrás del HUD parpadea en rojo los últimos 10 s) y **FIEBRE DE ORO** (Sal Dorada, Mostaza Dorada, Ajo Dorado, Chile Infernal y Hielo aparecen ×2.6 más; equilibrio idéntico a Clásico). En total, **5 modos**.
+- 🏆 **2 logros nuevos** — **REY DE LOS 60 SEGUNDOS** (3.000 puntos en una partida Blitz) y **COSECHA DE ORO** (llena 2 orzas en una partida Fiebre de Oro). En total, **12 logros**.
+- 🔥 **Combo 12+ en llamas** — con 12 capturas seguidas o más, una aura de fuego dorado/rojo envuelve la orza (solo visual, sin cambio de equilibrio).
+- 🚀 **Lanzadores de doble clic** en `scripts/`: `play-mac.command` (macOS) · `play-windows.bat` (Windows) · `play-linux.sh` (Linux) — doble clic y se abre un **menú a todo color**: Producción (build + jugar) o Desarrollo (HMR en localhost:5173), sin escribir un solo comando. Ver [scripts/README.md](scripts/README.md).
+- 🪪 **Nuevo asset de licencia** `assets/license.svg` (sello copyleft AGPL-3.0 animado) & **escaparate de los 5 modos** `assets/modes.svg` (animación SMIL) — incrustado justo debajo.
+- 📖 **README ahora en 10 idiomas** (añadidos 🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português).
+- 🐛 **Barrido total de los bugs restantes** (ver [CHANGELOG](CHANGELOG.md), `[1.1.2]`); `npm run check` en verde con **49 tests unitarios**.
 
-→ Detalles completos: [docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
+<img src="assets/modes.svg" alt="Los 5 modos — Classic · Zen · Inferno · 60-Second Rush · Gold Rush" width="100%" />
+
+→ Detalles completos: [docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
 
 ## ✨ Lo destacado
 
 | Grupo | Detalles |
 | --- | --- |
-| 🎮 **3 modos de juego** | **ENCURTIDO CLÁSICO** (equilibrado) · **ZEN** (sin peligros, ×0.5 puntos) · **INFIERNO DE CHILE** (+35% velocidad, ×1.5 puntos) |
+| 🎮 **5 modos de juego** | **ENCURTIDO CLÁSICO** (equilibrado) · **ZEN** (sin peligros, ×0.5) · **INFIERNO DE CHILE** (+35% velocidad, ×1.5) · **60 SEGUNDOS** (contrarreloj 60 s, ×1.25) · **FIEBRE DE ORO** (botín dorado ×2.6) |
 | 🌐 **i18n en el juego** | Tiếng Việt · English · 中文 — `src/i18n/` (módulo puro + puente React), `t()` con interpolación, sincroniza `<html lang>`, números por locale (vi-VN / en-US / zh-CN) |
 | 🕹️ **Mecánica AL CORTE exclusiva** | Mantén 2 teclas/ejes en diagonal — la orza acelera, brilla y despedaza peligros. Barra de stamina dedicada con histéresis anti-parpadeo |
 | 🥬 **14 ingredientes** | Berenjena, chile, ajo, jengibre, sal, mostaza, **MOSTAZA DORADA** (llena la orza rápido) · SAL/AJO DORADO · CHILE INFERNAL · HIELO · MOHO, MOSCA, **ORUGA** (peligros) |
 | 🧄 **Escudo de Ajo Dorado** | Mejora: apila hasta **2 cargas** que absorben las grietas; un halo giratorio orbita la orza |
-| 🏆 **10 logros** | Guardados **entre partidas** (localStorage), con aviso «¡NUEVO LOGRO!» en la pantalla de fin |
+| 🏆 **12 logros** | Guardados **entre partidas** (localStorage), con aviso «¡NUEVO LOGRO!» en la pantalla de fin |
 | 🔊 **Audio artesanal** | 11 efectos sintetizados con Web Audio API (cero archivos) + pentatónica que modula con el nivel; silencio con `M` |
 | 💾 **Clasificación TOP 8** | Guardado local, validado y normalizado al leer, nombres en mayúsculas automáticas, highlight para el récord recién marcado |
 | 🎨 **Gráficos 60fps** | Canvas 2D, presupuesto de 460 partículas, DPR tope 2, suelo de losetas pre-renderizado offscreen, titileo de estrellas + aurora en el menú |
 | 📴 **Offline-first de verdad** | Fuentes auto-alojadas (subsets latin + vietnamita, woff2), sin CDN ni APIs — abre `dist/index.html` y a jugar |
-| 🧪 **Calidad** | 45 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
+| 🧪 **Calidad** | 49 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
 
 <img src="assets/items.svg" alt="Los 14 ingredientes — encurtidos para atrapar, poderes dorados para agarrar, peligros para esquivar" width="100%" />
 
@@ -108,7 +113,7 @@ npm run build      # → dist/index.html (un único archivo autocontenido)
 npm run dev        # servidor de desarrollo con HMR (http://localhost:5173)
 npm run preview    # sirve el build de producción localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 45 tests unitarios (modes / achievements / storage / i18n)
+npm run test       # vitest — 49 tests unitarios (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 
@@ -117,19 +122,27 @@ npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 lo-cheoio/
 ├─ index.html              # entrada, meta SEO/OG (sin CDN)
-├─ package.json            # lo-cheoio v1.1.1, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.2, scripts dev/build/test/check
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; incluye src + tests
 ├─ assets/
 │  ├─ banner.svg           # banner del README (animación SMIL)
 │  ├─ demo.svg             # simulación de gameplay (animación SMIL)
-│  └─ items.svg            # los 14 ingredientes (animación SMIL)
+│  ├─ items.svg            # los 14 ingredientes (animación SMIL)
+│  ├─ modes.svg            # los 5 modos (animación SMIL)
+│  └─ license.svg          # sello copyleft AGPL-3.0 animado (animación SMIL)
+├─ scripts/
+│  ├─ play-mac.command     # lanzador macOS — doble clic, menú a todo color
+│  ├─ play-windows.bat     # lanzador Windows — doble clic, menú a todo color
+│  ├─ play-linux.sh        # lanzador Linux — doble clic, menú a todo color
+│  └─ README.md            # guía de lanzadores para novatos de la terminal
 ├─ docs/
 │  ├─ DESCRIPTION.md       # blurbs multiidioma (vi/en/zh + SEO)
 │  └─ releases/
 │     ├─ v1.0.0.md         # notas del primer release
 │     ├─ v1.1.0.md         # notas de v1.1.0
-│     └─ v1.1.1.md         # notas del release actual
+│     ├─ v1.1.1.md         # notas de v1.1.1
+│     └─ v1.1.2.md         # notas del release actual (1.1.2)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -137,10 +150,13 @@ lo-cheoio/
 ├─ README.ko.md            # 🇰🇷 한국어
 ├─ README.es.md            # 🇪🇸 Español (este archivo)
 ├─ README.fr.md            # 🇫🇷 Français
+├─ README.th.md            # 🇹🇭 ไทย
+├─ README.de.md            # 🇩🇪 Deutsch
+├─ README.pt.md            # 🇵🇹 Português
 ├─ src/
 │  ├─ main.tsx             # raíz React, StrictMode
 │  ├─ App.tsx              # máquina de fases menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.1" (fuente única de verdad)
+│  ├─ version.ts           # APP_VERSION = "1.1.2" (fuente única de verdad)
 │  ├─ index.css            # tema tailwind v4 + todas las animaciones/gradientes
 │  ├─ assets/fonts/        # subsets woff2 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
@@ -151,7 +167,7 @@ lo-cheoio/
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flotante + teclado + visibilidad
 │  │  ├─ StartScreen.tsx   # menú: aurora, shimmer, selector de modo, logros
-│  │  ├─ ModeSelector.tsx  # 3 tarjetas de modo (gradiente + acento por modo)
+│  │  ├─ ModeSelector.tsx  # 5 tarjetas de modo (classic/zen/inferno/blitz/goldrush)
 │  │  ├─ AchievementsPanel.tsx  # muro de insignias bloqueadas/desbloqueadas
 │  │  ├─ GameOverScreen.tsx     # ¡ORZA ROTA! + puntos + nuevos logros
 │  │  ├─ PauseScreen.tsx        # PAUSA + estadísticas de la partida
@@ -160,7 +176,7 @@ lo-cheoio/
 │  ├─ game/
 │  │  ├─ engine.ts         # toda la simulación + render canvas (~2100 líneas)
 │  │  ├─ modes.ts          # modos + matemáticas de balance (puro)
-│  │  ├─ achievements.ts   # 10 insignias + checker puro (puro)
+│  │  ├─ achievements.ts   # 12 insignias + checker puro (puro)
 │  │  ├─ storage.ts        # localStorage: top 8, progreso, logros
 │  │  └─ audio.ts          # sintetizador Web Audio: sfx + música pentatónica
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -194,11 +210,15 @@ No. Puntos, logros, progreso y modo son independientes de `locheo.lang.v1`.
 **¿Quieres añadir otro idioma?**
 Añade `src/i18n/locales/xx.ts` reflejando las claves de `vi.ts`, actualiza `LANGUAGES` + tests y abre un PR — ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
+**¿No te apañas con la terminal?**
+Doble clic en [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`scripts/play-windows.bat`](scripts/play-windows.bat) (Windows) o [`scripts/play-linux.sh`](scripts/play-linux.sh) (Linux) — aparece un menú a color; elige `1` para compilar y jugar al instante, `2` para el servidor de desarrollo. Detalles: [scripts/README.md](scripts/README.md).
+
 ## 📦 Releases y changelog
 
 | Versión | Fecha | Notas |
 | --- | --- | --- |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n en el juego VI/EN/ZH · README en 7 idiomas · barrido total de bugs · 45 tests |
+| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modos (60 Segundos · Fiebre de Oro) · 12 logros · combo en llamas · lanzadores de doble clic · README en 10 idiomas · 49 tests |
+| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n en el juego VI/EN/ZH · README en 7 idiomas · barrido total de bugs · 49 tests |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 modos · Escudo de Ajo Dorado · Oruga · Mostaza Dorada · 10 logros · fuentes auto-alojadas |
 | [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | Primer release: motor completo, 11 ingredientes, GOLPE DE ORZA, combo ×9 |
 
@@ -207,12 +227,14 @@ Ver también [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Contribuir
 
 1. Haz fork, crea una rama con la convención `arena/<nombre>` o `feat/<nombre>`.
-2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 45 tests + build).
+2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 49 tests + build).
 3. Evita nuevas dependencias de runtime salvo necesidad real — filosofía: **un archivo, sin red, jugable para siempre**.
 4. En el PR indica las pantallas/modos afectados y adjunta un clip si cambia el gameplay.
 
 ## 📄 Licencia y autor
 
-- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — ver [LICENSE](LICENSE).
+<img src="assets/license.svg" alt="AGPL-3.0-only — licencia copyleft" width="400" />
+
+- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — ver [LICENSE](LICENSE) y [assets/license.svg](assets/license.svg).
 - Fuentes: [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) & [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1 (subsets woff2 auto-alojados).
 - Por cada orza de encurtidos en cada mesa vietnamita — salud. 🫙🇻🇳

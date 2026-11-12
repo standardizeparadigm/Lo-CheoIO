@@ -48,6 +48,8 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: "score-6000", name: "HUYỀN THOẠI HŨ CHÉO", description: "Ghi 6.000 điểm trong một ván.", glyph: "6K", tone: "chili" },
   { id: "runs-5", name: "MUỐI 5 MẺ", description: "Hoàn thành 5 ván chơi (cộng dồn mọi chế độ).", glyph: "5 MẺ", tone: "jade" },
   { id: "inferno-1500", name: "ĂN ỚT KHÔNG CAY", description: "Ghi 1.500 điểm ở chế độ Ớt Lửa.", glyph: "ỚT", tone: "chili" },
+  { id: "blitz-3000", name: "VUA ĐUA 60 GIÂY", description: "Ghi 3.000 điểm trong một ván Đua 60 Giây.", glyph: "60S", tone: "gold" },
+  { id: "goldrush-2jars", name: "MÙA VÀNG BỘI THU", description: "Đầy 2 hũ trong một ván Mùa Vàng.", glyph: "2 HŨ", tone: "brine" },
 ];
 
 export const ACHIEVEMENT_MAP: ReadonlyMap<string, AchievementDef> = new Map(
@@ -82,6 +84,8 @@ export function checkAchievements(
   grant("score-6000", run.score >= 6000);
   grant("runs-5", progress.runs >= 5);
   grant("inferno-1500", run.mode === "inferno" && run.score >= 1500);
+  grant("blitz-3000", run.mode === "blitz" && run.score >= 3000);
+  grant("goldrush-2jars", run.mode === "goldrush" && run.jars >= 2);
 
   return next;
 }
