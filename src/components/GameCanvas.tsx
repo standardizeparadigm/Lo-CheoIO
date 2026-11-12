@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { LoCheoGame, type Phase, type RunStats } from "../game/engine";
+import { useI18n } from "../i18n/useI18n";
 
 interface Props {
   best: number;
@@ -28,6 +29,7 @@ export default function GameCanvas({
   onStartKey,
   onMuteKey,
 }: Props) {
+  const { t } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<LoCheoGame | null>(null);
@@ -227,7 +229,7 @@ export default function GameCanvas({
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-end justify-end p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           <button
             type="button"
-            aria-label="Lắc hũ"
+            aria-label={t("keys.slam")}
             onPointerDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -239,7 +241,7 @@ export default function GameCanvas({
               <path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M18 6l-2 2M6 18l2-2M18 18l-2-2" />
               <circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none" />
             </svg>
-            LẮC
+            {t("keys.slam")}
           </button>
         </div>
       )}

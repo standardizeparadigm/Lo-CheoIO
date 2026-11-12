@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useI18n } from "./i18n/useI18n";
 import GameCanvas from "./components/GameCanvas";
 import GameOverScreen from "./components/GameOverScreen";
 import PauseScreen from "./components/PauseScreen";
@@ -6,7 +7,8 @@ import StartScreen from "./components/StartScreen";
 import { audio } from "./game/audio";
 import { ACHIEVEMENT_MAP, checkAchievements, type AchievementDef } from "./game/achievements";
 import type { LoCheoGame, Phase, RunStats } from "./game/engine";
-import { MODES, isModeId, type ModeId } from "./game/modes";
+import { isModeId, type ModeId } from "./game/modes";
+import type { MessageKey } from "./i18n/i18n";
 import {
   bestScore,
   loadAchievements,
@@ -22,6 +24,7 @@ import {
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
 export default function App() {
+  const { t, lang } = useI18n();
   const gameRef = useRef<LoCheoGame | null>(null);
   const [phase, setPhase] = useState<Phase>("menu");
   const [scores, setScores] = useState<ScoreEntry[]>(() => loadScores());
@@ -68,6 +71,15 @@ export default function App() {
   useEffect(() => {
     audio.setMuted(muted);
   }, [muted]);
+
+  // keep <html lang> honest for screen readers & search engines
+  useEffect(() => {
+    try {
+      document.documentElement.lang = lang;
+    } catch {
+      /* non-DOM environment */
+    }
+  }, [lang]);
 
   // push the mode into the engine and persist it
   useEffect(() => {
@@ -206,7 +218,7 @@ export default function App() {
           <button
             type="button"
             onClick={togglePause}
-            aria-label={phase === "paused" ? "Tiếp tục" : "Tạm nghỉ"}
+            aria-label={phase === "paused" ? t("app.pause.ariaOff") : t("app.pause.ariaOn")}
             className="press flex h-10 w-10 items-center justify-center border-[3px] border-jade-700 bg-jade-950/85 text-tumeric-400 hard-shadow-sm"
           >
             {phase === "paused" ? (
@@ -223,7 +235,7 @@ export default function App() {
           <button
             type="button"
             onClick={onMuteKey}
-            aria-label={muted ? "Bật âm" : "Tắt âm"}
+            aria-label={muted ? t("mute.turnOn") : t("mute.turnOff")}
             className="press flex h-10 w-10 items-center justify-center border-[3px] border-jade-700 bg-jade-950/85 text-brine-300 hard-shadow-sm"
           >
             {muted ? (
@@ -243,9 +255,9 @@ export default function App() {
 
       {phase === "playing" && (
         <div className="pointer-events-none absolute bottom-3 left-4 z-20 hidden lg:block">
-          <span className="font-display text-[11px] tracking-[0.22em] text-jade-500/80">LỌ CHÉO</span>
+          <span className="font-display text-[11px] tracking-[0.22em] text-jade-500/80">{t("app.wordmark")}</span>
           <span className="ml-2 font-body text-[10px] tracking-[0.14em] text-jade-700">
-            giữ 2 phím để chém chéo · SPACE lắc hũ · ESC tạm nghỉ · {MODES[mode].name}
+            {t("app.hint", { mode: t(`mode.${mode}.name` as MessageKey) })}
           </span>
         </div>
       )}

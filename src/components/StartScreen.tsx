@@ -1,36 +1,34 @@
 import { useState } from "react";
 import { APP_VERSION } from "../version";
+import { fmtNum } from "../i18n/i18n";
+import { useI18n } from "../i18n/useI18n";
+import type { MessageKey } from "../i18n/i18n";
+import LanguageSwitcher from "./LanguageSwitcher";
 import type { ModeId } from "../game/modes";
 import type { ScoreEntry } from "../game/storage";
+import { ACHIEVEMENTS } from "../game/achievements";
 import AchievementsPanel from "./AchievementsPanel";
 import ModeSelector from "./ModeSelector";
 import { GameButton, JarLogo, Keycap, Panel, ScoreBoard } from "./ui";
 
-const TICKER = [
-  "CÀ PHÁO +10",
-  "ỚT +15",
-  "TỎI +10",
-  "GỪNG +12",
-  "MUỐI +8",
-  "CẢI +18",
-  "CẢI VÀNG +45",
-  "MUỐI VÀNG +120",
-  "ỚT HIỂM ×2",
-  "ĐÁ LẠNH — CHẬM",
-  "TỎI VÀNG — KHIÊN",
-  "MỐC — NÉ!",
-  "RUỒI — NÉ!",
-  "SÂU RAU — NÉ!",
-];
+const TICKER_KEYS = [
+  "ticker.0",
+  "ticker.1",
+  "ticker.2",
+  "ticker.3",
+  "ticker.4",
+  "ticker.5",
+  "ticker.6",
+  "ticker.7",
+  "ticker.8",
+  "ticker.9",
+  "ticker.10",
+  "ticker.11",
+  "ticker.12",
+  "ticker.13",
+] as const satisfies readonly MessageKey[];
 
-const RULES: [string, string, string][] = [
-  ["01", "LƯỢT CHÉO", "Giữ 2 phím cùng lúc (hoặc kéo queo chéo) — lọ tăng tốc, phát sáng và CHÉM tan mốc, ruồi, sâu rau."],
-  ["02", "HỨNG ĐỒ MUỐI", "Cà pháo, ớt, tỏi, gừng rơi xuống. Bắt liên tục để dựng chuỗi nhân điểm tới ×9 (×18 khi cay)."],
-  ["03", "LẮC HŨ", "Phím Cách (hoặc nút đỏ góc phải) tạo sóng xung kích: dọn sạch đồ hư quanh lọ và hút đồ muối về phía mình."],
-  ["04", "KHIÊN TỎI VÀNG", "Nhặt TỎI VÀNG để tích tối đa 2 lớp khiên. Một lần đụng đồ hư, khiên vỡ thay cho vết nứt."],
-  ["05", "3 VẾT NỨT", "Đụng đồ hư khi không lướt chéo là nứt hũ. Ba vết là mất hũ, đầy hũ thì được thưởng."],
-  ["06", "3 CHẾ ĐỘ", "Cổ điển cân bằng, Thảnh Thơi không đồ hư, Ớt Lửa tốc độ +35% đổi lấy ×1.5 điểm."],
-];
+const RULE_IDS = ["0", "1", "2", "3", "4", "5"] as const;
 
 export default function StartScreen({
   scores,
@@ -49,12 +47,16 @@ export default function StartScreen({
   onModeChange: (m: ModeId) => void;
   onStart: () => void;
 }) {
+  const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
   const [achOpen, setAchOpen] = useState(false);
 
   return (
     <div className="absolute inset-0 z-40 flex flex-col overflow-hidden">
       {/* ------- ambient background layers ------- */}
+      <div className="absolute right-3 top-3 z-50 sm:right-5 sm:top-4">
+        <LanguageSwitcher compact={false} />
+      </div>
       <div className="pointer-events-none absolute inset-0 aurora-bg" />
       <div className="pointer-events-none absolute inset-0 tile-floor tile-floor-mask opacity-45" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_20%_8%,rgba(6,26,26,0.42)_0%,rgba(6,26,26,0.88)_62%,#061a1a_100%)]" />
@@ -68,11 +70,11 @@ export default function StartScreen({
                 <span className="flex items-center gap-1.5 border border-chili-500/50 bg-chili-500/10 px-2 py-0.5">
                   <span className="anim-flicker h-2 w-2 rounded-full bg-chili-500" />
                   <span className="font-body text-[9px] font-extrabold tracking-[0.4em] text-chili-400 uppercase">
-                    Trực tiếp từ bếp
+                    {t("live.badge")}
                   </span>
                 </span>
                 <span className="font-body text-[9px] font-bold tracking-[0.3em] text-jade-500 uppercase">
-                  Arcade muối dưa · 60fps · v{APP_VERSION}
+                  {t("menu.arcade")} · v{APP_VERSION}
                 </span>
               </div>
 
@@ -90,17 +92,16 @@ export default function StartScreen({
 
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <span className="inline-block -rotate-2 border-[3px] border-jade-950 bg-chili-500 px-3 py-1 font-display text-[11px] tracking-[0.2em] text-clay-100 hard-shadow-sm sm:text-xs">
-                  HŨ DƯA ĐẠI CHIẾN
+                  {t("brand.badge")}
                 </span>
                 <span className="font-body text-xs font-semibold tracking-wide text-brine-300">
-                  kỷ lục hiện tại:{" "}
-                  <b className="font-display text-sm text-tumeric-400">{best.toLocaleString("vi-VN")}</b>
+                  {t("menu.best")}{" "}
+                  <b className="font-display text-sm text-tumeric-400">{fmtNum(best, lang)}</b>
                 </span>
               </div>
 
               <p className="mt-4 max-w-xl font-body text-sm leading-relaxed text-clay-100/80 sm:text-[15px]">
-                Cái lọ này <b className="text-brine-300">chỉ chịu đi đường chéo</b>. Lượn xiên để tăng tốc và chém
-                tan mốc, ruồi, sâu rau; hứng trọn cà pháo, tỏi, ớt cho đầy hũ trước khi gốm nứt làm ba.
+                {t("menu.desc1")}<b className="text-brine-300">{t("menu.descStrong")}</b>{t("menu.desc2")}
               </p>
 
               <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -109,22 +110,22 @@ export default function StartScreen({
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
                       <path d="M7 4.5v15l13-7.5z" />
                     </svg>
-                    Vào bếp
+                    {t("menu.cta")}
                   </GameButton>
                 </div>
                 <GameButton size="lg" variant="ghost" onClick={() => setOpen((v) => !v)}>
-                  {open ? "Bớt lại" : "Cách chơi"}
+                  {open ? t("menu.howtoClose") : t("menu.howtoOpen")}
                 </GameButton>
                 <GameButton size="lg" variant="ink" onClick={() => setAchOpen((v) => !v)} aria-expanded={achOpen}>
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z" />
                     <path d="M7 6H4a1 1 0 00-1 1c0 2.2 1.3 4 4 4M17 6h3a1 1 0 011 1c0 2.2-1.3 4-4 4" />
                   </svg>
-                  Thành tựu
-                  <span className="font-display text-[10px] text-tumeric-400 tabular-nums">{achievements.length}/10</span>
+                  {t("menu.achievements")}
+                  <span className="font-display text-[10px] text-tumeric-400 tabular-nums">{achievements.length}/{ACHIEVEMENTS.length}</span>
                 </GameButton>
                 <span className="hidden items-center gap-2 font-body text-[11px] tracking-wider text-jade-500 sm:flex">
-                  hoặc nhấn <Keycap wide>ENTER</Keycap>
+                  {t("menu.orPress")} <Keycap wide>ENTER</Keycap>
                 </span>
               </div>
 
@@ -137,30 +138,30 @@ export default function StartScreen({
                 <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t-2 border-dashed border-jade-800 pt-3 font-body text-[11px] font-bold tracking-wider text-clay-100/70">
                   <span className="flex items-center gap-2">
                     <span className="inline-block h-6 w-6 rounded-full border-2 border-tumeric-500 bg-tumeric-500/20" />
-                    KÉO NGÓN TAY — lọ trượt theo
+                    {t("touch.drag")}
                   </span>
                   <span className="flex items-center gap-2">
                     <span className="inline-block font-display text-tumeric-400">⤢</span>
-                    KÉO XÉO 45° — chém mốc
+                    {t("touch.diagonal")}
                   </span>
                   <span className="flex items-center gap-2">
                     <span className="inline-block h-6 w-6 rounded-full border-2 border-chili-500 bg-chili-500/30" />
-                    NÚT LẮC — dọn sạch
+                    {t("touch.slam")}
                   </span>
                 </div>
               ) : (
                 <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t-2 border-dashed border-jade-800 pt-3">
                   <span className="flex items-center gap-1.5 font-body text-[11px] font-bold tracking-wider text-clay-100/70">
-                    DI CHUYỂN <Keycap>W</Keycap>
+                    {t("keys.move")} <Keycap>W</Keycap>
                     <Keycap>A</Keycap>
                     <Keycap>S</Keycap>
                     <Keycap>D</Keycap> / <Keycap wide>↑ ← ↓ →</Keycap>
                   </span>
                   <span className="flex items-center gap-1.5 font-body text-[11px] font-bold tracking-wider text-clay-100/70">
-                    LẮC HŨ <Keycap wide>SPACE</Keycap>
+                    {t("keys.slam")} <Keycap wide>SPACE</Keycap>
                   </span>
                   <span className="flex items-center gap-1.5 font-body text-[11px] font-bold tracking-wider text-clay-100/70">
-                    TẠM NGHỈ <Keycap>P</Keycap>
+                    {t("keys.pause")} <Keycap>P</Keycap>
                   </span>
                 </div>
               )}
@@ -168,12 +169,12 @@ export default function StartScreen({
               {open && (
                 <Panel className="anim-pop mt-4 p-4">
                   <ul className="grid gap-3 sm:grid-cols-2">
-                    {RULES.map(([n, t, d]) => (
+                    {RULE_IDS.map((n, i) => (
                       <li key={n} className="flex gap-3">
-                        <span className="font-display text-lg leading-none text-tumeric-500">{n}</span>
+                        <span className="font-display text-lg leading-none text-tumeric-500">0{i + 1}</span>
                         <span>
-                          <span className="block font-display text-[11px] tracking-[0.12em] text-brine-300">{t}</span>
-                          <span className="block font-body text-xs leading-relaxed text-clay-100/70">{d}</span>
+                          <span className="block font-display text-[11px] tracking-[0.12em] text-brine-300">{t(`rule.${n}.t` as MessageKey)}</span>
+                          <span className="block font-body text-xs leading-relaxed text-clay-100/70">{t(`rule.${n}.d` as MessageKey)}</span>
                         </span>
                       </li>
                     ))}
@@ -208,7 +209,7 @@ export default function StartScreen({
                 </div>
                 <div className="mt-3 flex items-center justify-between border-[3px] border-jade-800 bg-jade-900/70 px-3 py-2">
                   <span className="font-body text-[10px] font-extrabold tracking-[0.2em] text-jade-500 uppercase">
-                    lưu trên máy bạn
+                    {t("panel.local")}
                   </span>
                   <span className="flex items-center gap-1.5 font-display text-[11px] text-tumeric-400">
                     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
@@ -226,14 +227,14 @@ export default function StartScreen({
       {/* ingredient ticker */}
       <div className="pointer-events-none relative shrink-0 overflow-hidden border-t-[3px] border-jade-800 bg-jade-950/90 py-2">
         <div className="anim-marquee flex w-max gap-8">
-          {[...TICKER, ...TICKER].map((t, i) => (
+          {[...TICKER_KEYS, ...TICKER_KEYS].map((key, i) => (
             <span
               key={i}
               className={`font-display text-[11px] tracking-[0.18em] ${
                 i % 3 === 0 ? "text-tumeric-400" : i % 3 === 1 ? "text-brine-300" : "text-chili-400"
               }`}
             >
-              {t} <span className="text-jade-700">◆</span>
+              {t(key)} <span className="text-jade-700">◆</span>
             </span>
           ))}
         </div>
@@ -245,7 +246,7 @@ export default function StartScreen({
           <span aria-hidden="true">·</span>
           <span>Standardize Paradigm</span>
           <span aria-hidden="true">·</span>
-          <span className="hidden sm:inline">100% offline</span>
+          <span className="hidden sm:inline">{t("footer.offline")}</span>
         </div>
       </div>
     </div>

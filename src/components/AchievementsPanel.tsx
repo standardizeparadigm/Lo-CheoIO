@@ -1,4 +1,6 @@
 import { ACHIEVEMENTS, type AchievementDef } from "../game/achievements";
+import { useI18n } from "../i18n/useI18n";
+import type { MessageKey } from "../i18n/i18n";
 
 const TONE: Record<AchievementDef["tone"], string> = {
   gold: "border-tumeric-500/70 bg-tumeric-500/15 text-tumeric-400",
@@ -18,6 +20,7 @@ export default function AchievementsPanel({
   unlocked: string[];
   justUnlocked?: string[];
 }) {
+  const { t } = useI18n();
   const have = new Set(unlocked);
   const fresh = new Set(justUnlocked);
   const got = ACHIEVEMENTS.filter((a) => have.has(a.id)).length;
@@ -26,7 +29,7 @@ export default function AchievementsPanel({
     <div>
       <div className="flex items-center justify-between gap-2 px-1 pb-2">
         <span className="font-body text-[10px] font-extrabold tracking-[0.3em] text-jade-500 uppercase">
-          Thành tựu bếp dưa
+          {t("ach.title")}
         </span>
         <span className="font-display text-[11px] tracking-[0.14em] text-tumeric-400 tabular-nums">
           {got}/{ACHIEVEMENTS.length}
@@ -45,7 +48,7 @@ export default function AchievementsPanel({
           return (
             <li
               key={a.id}
-              title={owned ? a.description : "???"}
+              title={owned ? t(`ach.${a.id}.desc` as MessageKey) : "???"}
               className={`flex items-center gap-2 border-2 px-2 py-1.5 ${
                 owned ? TONE[a.tone] : "border-jade-800/80 bg-jade-950/60 text-jade-700"
               } ${pop ? "anim-badge-pop" : ""}`}
@@ -59,10 +62,10 @@ export default function AchievementsPanel({
               </span>
               <span className="min-w-0">
                 <span className="block truncate font-body text-[9px] font-extrabold tracking-[0.08em]">
-                  {owned ? a.name : "CHƯA MỞ"}
+                  {owned ? t(`ach.${a.id}.name` as MessageKey) : t("ach.locked")}
                 </span>
                 <span className="block font-body text-[8px] leading-snug text-clay-100/45">
-                  {owned ? a.description : "Hãy chơi để mở khóa"}
+                  {owned ? t(`ach.${a.id}.desc` as MessageKey) : t("ach.hint")}
                 </span>
               </span>
             </li>
