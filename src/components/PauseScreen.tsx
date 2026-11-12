@@ -1,4 +1,5 @@
 import type { RunStats } from "../game/engine";
+import { MODES, type ModeId } from "../game/modes";
 import { GameButton, Keycap, Panel, Stat } from "./ui";
 
 export function fmtTime(s: number) {
@@ -10,6 +11,7 @@ export function fmtTime(s: number) {
 export default function PauseScreen({
   stats,
   muted,
+  mode,
   onResume,
   onRestart,
   onMenu,
@@ -17,6 +19,7 @@ export default function PauseScreen({
 }: {
   stats: RunStats;
   muted: boolean;
+  mode: ModeId;
   onResume: () => void;
   onRestart: () => void;
   onMenu: () => void;
@@ -37,6 +40,12 @@ export default function PauseScreen({
             >
               TẠM NGHỈ
             </h2>
+            <span
+              className="mt-1.5 inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.18em]"
+              style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
+            >
+              {MODES[mode].name}
+            </span>
           </div>
           <button
             type="button"

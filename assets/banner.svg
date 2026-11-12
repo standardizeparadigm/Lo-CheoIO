@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-label="Lọ Chéo — Hũ Dưa Đại Chiến">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e3a35"/>
+      <stop offset="0.5" stop-color="#092723"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <radialGradient id="glowGold" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f5a81c" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#f5a81c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowChili" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e63b2e" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#e63b2e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5a81c"/>
+      <stop offset="0.32" stop-color="#f5a81c"/>
+      <stop offset="0.42" stop-color="#fff3c4"/>
+      <stop offset="0.5" stop-color="#ffc94a"/>
+      <stop offset="0.58" stop-color="#fff3c4"/>
+      <stop offset="0.68" stop-color="#f5a81c"/>
+      <stop offset="1" stop-color="#f5a81c"/>
+      <animate attributeName="x1" values="-1.2;1.2;1.2" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0;2.4;2.4" dur="3.2s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="glaze" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.45" stop-color="#f3e3c8"/>
+      <stop offset="1" stop-color="#d9c09c"/>
+    </linearGradient>
+    <linearGradient id="brine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b6e07a"/>
+      <stop offset="1" stop-color="#5f9c33"/>
+    </linearGradient>
+    <pattern id="tiles" width="64" height="64" patternUnits="userSpaceOnUse">
+      <rect width="64" height="64" fill="none" stroke="#2bb48c" stroke-opacity="0.14" stroke-width="1.4"/>
+      <rect x="19" y="19" width="26" height="26" transform="rotate(45 32 32)" fill="none" stroke="#f5a81c" stroke-opacity="0.12" stroke-width="1.2"/>
+      <circle cx="0" cy="0" r="26" fill="none" stroke="#fdf3e0" stroke-opacity="0.05" stroke-width="1.2"/>
+      <circle cx="64" cy="0" r="26" fill="none" stroke="#fdf3e0" stroke-opacity="0.05" stroke-width="1.2"/>
+      <circle cx="0" cy="64" r="26" fill="none" stroke="#fdf3e0" stroke-opacity="0.05" stroke-width="1.2"/>
+      <circle cx="64" cy="64" r="26" fill="none" stroke="#fdf3e0" stroke-opacity="0.05" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="400" rx="18" fill="url(#bgGrad)"/>
+  <rect width="1200" height="400" rx="18" fill="url(#tiles)"/>
+  <circle cx="1020" cy="330" r="210" fill="url(#glowChili)"/>
+  <circle cx="180" cy="60" r="190" fill="url(#glowGold)"/>
+
+  <!-- sparkles -->
+  <g fill="#fdf3e0">
+    <path d="M1115 70 l3.2 7.4 7.4 3.2 -7.4 3.2 -3.2 7.4 -3.2 -7.4 -7.4 -3.2 7.4 -3.2 Z">
+      <animate attributeName="opacity" values="0.15;1;0.15" dur="2.1s" repeatCount="indefinite"/>
+    </path>
+    <path d="M690 46 l2.3 5.3 5.3 2.3 -5.3 2.3 -2.3 5.3 -2.3 -5.3 -5.3 -2.3 5.3 -2.3 Z">
+      <animate attributeName="opacity" values="1;0.2;1" dur="2.8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M585 330 l2.6 6 6 2.6 -6 2.6 -2.6 6 -2.6 -6 -6 -2.6 6 -2.6 Z">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="1.7s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- ======= jar mascot ======= -->
+  <g transform="translate(150 215)">
+    <animateTransform attributeName="transform" type="translate"
+      values="150 215; 150 190; 150 215" keyTimes="0;0.5;1" dur="3.1s" repeatCount="indefinite"/>
+    <ellipse cx="0" cy="118" rx="72" ry="11" fill="#04100f" opacity="0.5"/>
+    <path d="M-42 -86 C-92 -44 -88 78 -36 106 L36 106 C88 78 92 -44 42 -86 Z"
+      fill="url(#glaze)" stroke="#0b2a28" stroke-width="9" stroke-linejoin="round"/>
+    <clipPath id="jarClip"><path d="M-42 -86 C-92 -44 -88 78 -36 106 L36 106 C88 78 92 -44 42 -86 Z"/></clipPath>
+    <g clip-path="url(#jarClip)">
+      <rect x="-95" y="8" width="190" height="120" fill="url(#brine)" opacity="0.92"/>
+      <path d="M-95 10 q24 -12 48 0 t48 0 t48 0 t48 0 V26 H-95 Z" fill="#d9f2c8" opacity="0.55"/>
+      <rect x="-95" y="52" width="190" height="14" fill="#10403a" opacity="0.9"/>
+      <circle cx="-28" cy="38" r="6" fill="#fdf3e0" opacity="0.8"/>
+      <circle cx="26" cy="30" r="5" fill="#e63b2e" opacity="0.9"/>
+      <circle cx="46" cy="66" r="4.4" fill="#fdf3e0" opacity="0.7"/>
+    </g>
+    <ellipse cx="0" cy="-88" rx="44" ry="13" fill="#f5a81c" stroke="#0b2a28" stroke-width="8"/>
+    <ellipse cx="0" cy="-88" rx="28" ry="7.5" fill="#061a1a" opacity="0.6"/>
+    <g fill="#fffdf6" stroke="#0b2a28" stroke-width="5">
+      <ellipse cx="-21" cy="-34" rx="10" ry="12"/>
+      <ellipse cx="21" cy="-34" rx="10" ry="12"/>
+    </g>
+    <circle cx="-19" cy="-32" r="4.6" fill="#0b2a28"/>
+    <circle cx="23" cy="-32" r="4.6" fill="#0b2a28"/>
+    <path d="M-12 -8 q12 10 24 0" fill="none" stroke="#0b2a28" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="-40" cy="-6" rx="7.4" ry="4.6" fill="#e63b2e" opacity="0.35"/>
+    <ellipse cx="40" cy="-6" rx="7.4" ry="4.6" fill="#e63b2e" opacity="0.35"/>
+  </g>
+
+  <!-- ======= wordmark ======= -->
+  <text x="330" y="150" font-family="'Arial Black','Bungee',sans-serif" font-weight="900"
+    font-size="104" letter-spacing="2" fill="url(#titleGrad)"
+    stroke="#061a1a" stroke-width="10" stroke-linejoin="round" paint-order="stroke">LỌ CHÉO</text>
+  <text x="334" y="216" font-family="'Arial Black','Bungee',sans-serif" font-weight="900"
+    font-size="34" letter-spacing="14" fill="#e63b2e"
+    stroke="#061a1a" stroke-width="7" stroke-linejoin="round" paint-order="stroke">HŨ DƯA ĐẠI CHIẾN</text>
+  <text x="336" y="268" font-family="'Courier New',monospace" font-weight="700"
+    font-size="17" letter-spacing="6" fill="#b6e07a">ARCADE MUỐI DƯA · OFFLINE-FIRST · V1.1.0</text>
+  <text x="336" y="312" font-family="'Courier New',monospace"
+    font-size="14" letter-spacing="3" fill="#fdf3e0" fill-opacity="0.55">3 CHẾ ĐỘ · 14 NGUYÊN LIỆU · 10 THÀNH TỰU · TOP 8</text>
+</svg>

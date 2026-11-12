@@ -1,4 +1,13 @@
 import { audio } from "./audio";
+import {
+  COMBO_WINDOW,
+  MAX_CRACKS,
+  MODES,
+  jarBonus,
+  levelForCatches,
+  multiplierForCombo,
+  type ModeId,
+} from "./modes";
 
 /* ------------------------------------------------------------------ types */
 
@@ -35,14 +44,21 @@ type ItemKind =
   | "ruoi"
   | "vang"
   | "othiem"
-  | "da";
+  | "da"
+  | "cavang"
+  | "toivang"
+  | "sau";
+
+export type { ItemKind };
 
 interface ItemDef {
   r: number;
   pts: number;
   speed: number;
   hazard?: boolean;
-  power?: "heal" | "frenzy" | "slow";
+  power?: "heal" | "frenzy" | "slow" | "shield";
+  /** Extra fill contributed toward a full jar when caught */
+  fillBoost?: number;
   color: string;
   color2: string;
   label: string;
@@ -65,6 +81,8 @@ interface Item {
   born: number;
   dead: boolean;
   deco: boolean;
+  /** Pre-generated mould spots (stable per item, no per-frame flicker) */
+  spots?: { x: number; y: number; r: number }[];
 }
 
 interface Particle {
@@ -127,7 +145,7 @@ interface Bubble {
 
 /* ------------------------------------------------------------------ defs */
 
-const DEFS: Record<ItemKind, ItemDef> = {
+const DEFS_RECORD: Record<ItemKind, ItemDef> = {
   ca: {
     r: 13, pts: 10, speed: 1, color: "#e9f0c9", color2: "#a9c46a", label: "CÀ PHÁO",
     weight: () => 3.1,
@@ -172,9 +190,23 @@ const DEFS: Record<ItemKind, ItemDef> = {
     r: 13, pts: 60, speed: 1.0, power: "slow", color: "#a8e6ff", color2: "#3d8fb8", label: "ĐÁ LẠNH",
     weight: () => 0.4,
   },
+  cavang: {
+    r: 15, pts: 45, speed: 0.9, fillBoost: 0.16, color: "#ffd766", color2: "#b8770e", label: "CẢI VÀNG",
+    weight: (l) => (l >= 2 ? 1.05 : 0),
+  },
+  toivang: {
+    r: 13, pts: 30, speed: 0.98, power: "shield", color: "#ffe9a8", color2: "#c79b2d", label: "TỎI VÀNG",
+    weight: (l) => 0.32 + l * 0.02,
+  },
+  sau: {
+    r: 14, pts: 40, speed: 0.72, hazard: true, color: "#9dbb4e", color2: "#4a5d1e", label: "SÂU RAU",
+    weight: (l) => (l >= 4 ? 0.55 + l * 0.3 : 0),
+  },
 };
 
-const KINDS = Object.keys(DEFS) as ItemKind[];
+const DEFS = DEFS_RECORD;
+const KINDS = Object.keys(DEFS_RECORD) as ItemKind[];
+export { DEFS, KINDS };
 
 const C = {
   ink: "#0b2a28",
@@ -234,6 +266,8 @@ export class LoCheoGame {
   phase: Phase = "menu";
   stats: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
   best = 0;
+  /** Selected game mode — applied on the next run */
+  mode: ModeId = "classic";
 
   onPhase: (p: Phase) => void = () => {};
   onGameOver: (s: RunStats) => void = () => {};
@@ -267,6 +301,7 @@ export class LoCheoGame {
   private slamCd = 0;
   private frenzy = 0;
   private slow = 0;
+  private shield = 0;
   private combo = 0;
   private comboT = 0;
   private squash = 0;
@@ -283,6 +318,7 @@ export class LoCheoGame {
   private rings: Ring[] = [];
   private decals: Decal[] = [];
   private bubbles: Bubble[] = [];
+  private stars: { x: number; y: number; r: number; ph: number; sp: number }[] = [];
   private bg: HTMLCanvasElement | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -323,6 +359,21 @@ export class LoCheoGame {
     this.py = clamp(this.py || ch * 0.72, this.pr, ch - this.pr);
     this.buildBackground();
     this.seedBubbles();
+    this.seedStars();
+  }
+
+  private seedStars() {
+    this.stars = [];
+    const n = Math.round(clamp((this.w * this.h) / 26000, 18, 46));
+    for (let i = 0; i < n; i++) {
+      this.stars.push({
+        x: rnd(0, this.w),
+        y: rnd(0, this.h),
+        r: rnd(0.6, 1.9) * this.S,
+        ph: rnd(0, TAU),
+        sp: rnd(0.9, 2.4),
+      });
+    }
   }
 
   private seedBubbles() {
@@ -420,6 +471,7 @@ export class LoCheoGame {
     this.slamCd = 0;
     this.frenzy = 0;
     this.slow = 0;
+    this.shield = 0;
     this.combo = 0;
     this.comboT = 0;
     this.squash = 0;
@@ -487,6 +539,11 @@ export class LoCheoGame {
     this.best = v;
   }
 
+  /** Switch the active mode. Takes effect on the next run. */
+  setMode(m: ModeId) {
+    this.mode = m;
+  }
+
   get snapshot() {
     return {
       cheo: this.cheo,
@@ -495,6 +552,8 @@ export class LoCheoGame {
       frenzy: this.frenzy,
       slow: this.slow,
       combo: this.combo,
+      shield: this.shield,
+      mode: this.mode,
     };
   }
 
@@ -743,11 +802,13 @@ export class LoCheoGame {
 
   private pickKind(deco = false): ItemKind {
     const lvl = deco ? 4 : this.stats.level;
+    const cfg = MODES[this.mode];
     let total = 0;
     const ws: number[] = [];
     for (const k of KINDS) {
       const def = DEFS[k];
       let w = def.weight(lvl);
+      if (def.hazard) w *= cfg.hazardMult;
       if (deco) {
         if (def.hazard) w *= 0.4;
         if (def.power) w *= 0.5;
@@ -766,9 +827,10 @@ export class LoCheoGame {
   private makeItem(kind: ItemKind, deco: boolean): Item {
     const def = DEFS[kind];
     const lvl = this.stats.level;
+    const cfg = MODES[this.mode];
     const margin = this.w * 0.08;
-    const speed = (186 + lvl * 18) * this.S * def.speed * (this.frenzy > 0 ? 1.12 : 1);
-    return {
+    const speed = (186 + lvl * 18) * this.S * def.speed * cfg.speedMult * (this.frenzy > 0 ? 1.12 : 1);
+    const it: Item = {
       kind, def, deco,
       x: rnd(margin, this.w - margin),
       y: -30 * this.S - rnd(0, 40),
@@ -778,18 +840,27 @@ export class LoCheoGame {
       rot: rnd(0, TAU),
       spin: rnd(-2.4, 2.4),
       sway: rnd(0, TAU),
-      swayF: rnd(0.8, 2.1),
+      swayF: kind === "sau" ? rnd(1.4, 2.0) : rnd(0.8, 2.1),
       mag: 0,
       born: this.t,
       dead: false,
     };
+    // mould speckles are fixed at spawn so they don't dance every frame
+    if (kind === "moc") {
+      it.spots = Array.from({ length: 6 }, () => {
+        const a = rnd(0, TAU);
+        const rr = rnd(0, 6.5);
+        return { x: Math.cos(a) * rr, y: Math.sin(a) * rr, r: rnd(1, 2.4) };
+      });
+    }
+    return it;
   }
 
   private updateSpawns(dt: number) {
     this.spawnT -= dt;
     if (this.spawnT > 0) return;
     const lvl = this.stats.level;
-    const base = Math.max(0.32, 1.0 - lvl * 0.06) * (this.frenzy > 0 ? 0.68 : 1);
+    const base = Math.max(0.32, 1.0 - lvl * 0.06) * (this.frenzy > 0 ? 0.68 : 1) * MODES[this.mode].spawnMult;
     this.spawnT = base * rnd(0.75, 1.25);
 
     if (Math.random() < 0.24) {
@@ -826,6 +897,9 @@ export class LoCheoGame {
         }
       } else if (it.kind === "ruoi") {
         it.vx = Math.sin(this.t * 6 + it.sway) * 130 * this.S;
+      } else if (it.kind === "sau") {
+        // caterpillar: lazy, heavy undulation
+        it.vx = Math.sin(this.t * 2.3 + it.sway) * 105 * this.S;
       } else {
         it.vx = Math.sin(it.sway + this.t * it.swayF) * 34 * this.S;
       }
@@ -868,15 +942,17 @@ export class LoCheoGame {
   }
 
   private catchGood(it: Item) {
+    const cfg = MODES[this.mode];
     const prevMult = this.multiplier();
     this.combo++;
-    this.comboT = 2.7;
+    this.comboT = COMBO_WINDOW;
     this.stats.bestCombo = Math.max(this.stats.bestCombo, this.combo);
     this.stats.catches++;
     const mult = this.multiplier();
-    const gain = Math.round(it.def.pts * mult * (this.frenzy > 0 ? 2 : 1));
+    // mult already includes the frenzy ×2 — applying it again would pay ×4
+    const gain = Math.round(it.def.pts * mult * cfg.scoreMult);
     this.stats.score += gain;
-    this.fill = Math.min(1, this.fill + 0.052);
+    this.fill = Math.min(1, this.fill + 0.052 + (it.def.fillBoost ?? 0));
     this.squash = -0.34;
     this.freeze = Math.max(this.freeze, mult >= 4 ? 0.045 : 0.02);
     this.trauma = Math.max(this.trauma, clamp(0.05 + mult * 0.02, 0, 0.34));
@@ -920,18 +996,18 @@ export class LoCheoGame {
     }
 
     if (this.fill >= 1) this.jarFull();
-    const newLevel = 1 + Math.floor(this.stats.catches / 10);
+    const newLevel = levelForCatches(this.stats.catches);
     if (newLevel > this.stats.level) this.levelUp(newLevel);
   }
 
   private destroyItem(it: Item, fromSlam: boolean, pts: number) {
     it.dead = true;
     const mult = this.multiplier();
-    const gain = Math.round(pts * mult * (this.frenzy > 0 ? 2 : 1));
+    const gain = Math.round(pts * mult * MODES[this.mode].scoreMult);
     this.stats.score += gain;
     this.stats.sliced++;
     this.combo++;
-    this.comboT = 2.7;
+    this.comboT = COMBO_WINDOW;
     this.stats.bestCombo = Math.max(this.stats.bestCombo, this.combo);
     this.popup(it.x, it.y, fromSlam ? `+${gain}` : `CHÉO +${gain}`, C.goldLight, fromSlam ? 20 : 26);
     audio.play("slice");
@@ -960,22 +1036,32 @@ export class LoCheoGame {
     this.rings.push({ x: it.x, y: it.y, r: it.r, to: 230 * this.S, life: 0.5, max: 0.5, color: it.def.color, width: 6 });
     const kind = it.def.power;
     if (kind === "heal") {
-      this.stats.score += Math.round(it.def.pts * this.multiplier());
+      const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
+      this.stats.score += gain;
       if (this.cracks > 0) {
         this.cracks--;
-        this.popup(this.px, this.py - this.pr * 2, "LÀNH VẾT NỨT!", C.brine, 24);
+        this.popup(this.px, this.py - this.pr * 2, `+${gain} · LÀNH VẾT NỨT!`, C.brine, 24);
       } else {
         this.stats.score += 150;
-        this.popup(this.px, this.py - this.pr * 2, "+300 MUỐI VÀNG", C.goldLight, 24);
+        this.popup(this.px, this.py - this.pr * 2, `+${gain + 150} MUỐI VÀNG`, C.goldLight, 24);
       }
       this.fill = Math.min(1, this.fill + 0.18);
     } else if (kind === "frenzy") {
       this.frenzy = 7;
+      const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
+      this.stats.score += gain;
       this.popup(this.px, this.py - this.pr * 2, "ỚT HIỂM! ×2 ĐIỂM", "#ff6a4d", 26);
       this.banner = { text: "CAY XÈ!", sub: "nhân đôi điểm · tự chém mốc", life: 1.2, max: 1.2, color: "#ff6a4d" };
+    } else if (kind === "shield") {
+      this.shield = Math.min(2, this.shield + 1);
+      const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
+      this.stats.score += gain;
+      this.popup(this.px, this.py - this.pr * 2, `TỎI VÀNG! KHIÊN ×${this.shield}`, "#ffe9a8", 26);
+      this.banner = { text: "KHIÊN TỎI!", sub: "chặn một vết nứt · tối đa 2 lớp", life: 1.2, max: 1.2, color: "#ffe9a8" };
     } else {
       this.slow = 5;
-      this.stats.score += Math.round(it.def.pts * this.multiplier());
+      const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
+      this.stats.score += gain;
       this.popup(this.px, this.py - this.pr * 2, "ĐÁ LẠNH! CHẬM RÃI", "#a8e6ff", 26);
       this.banner = { text: "NGÂM ĐÁ", sub: "thời gian trôi chậm lại", life: 1.2, max: 1.2, color: "#a8e6ff" };
     }
@@ -1004,6 +1090,27 @@ export class LoCheoGame {
       }
       return;
     }
+    if (this.shield > 0) {
+      // the golden garlic wards one hit off entirely — no crack, no combo loss
+      this.shield--;
+      this.invuln = Math.max(this.invuln, 0.9);
+      this.squash = 0.4;
+      this.trauma = Math.max(this.trauma, 0.4);
+      this.freeze = Math.max(this.freeze, 0.05);
+      this.flash = Math.max(this.flash, 0.3);
+      this.flashColor = "#ffe9a8";
+      audio.play("power");
+      this.popup(this.px, this.py - this.pr * 1.9, "KHIÊN TỎI! CHẶN!", "#ffe9a8", 26);
+      this.rings.push({ x: this.px, y: this.py, r: this.pr, to: this.pr * 5.6, life: 0.4, max: 0.4, color: "#ffe9a8", width: 6 });
+      for (let i = 0; i < 18; i++) {
+        const a = (i / 18) * TAU;
+        this.spawnParticle({
+          x: this.px, y: this.py, vx: Math.cos(a) * 300 * this.S, vy: Math.sin(a) * 300 * this.S,
+          life: rnd(0.3, 0.6), size: rnd(2, 4.5) * this.S, color: "#ffe9a8", kind: "spark", grav: 120, drag: 2.4,
+        });
+      }
+      return;
+    }
     this.cracks++;
     this.combo = 0;
     this.comboT = 0;
@@ -1016,7 +1123,7 @@ export class LoCheoGame {
     this.flash = 0.75;
     this.flashColor = C.chili;
     audio.play("hurt");
-    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= 3 ? "VỠ HŨ!" : `NỨT! -1`, C.chili, 28);
+    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= MAX_CRACKS ? "VỠ HŨ!" : `NỨT! -1`, C.chili, 28);
     this.rings.push({ x: this.px, y: this.py, r: this.pr, to: this.pr * 7, life: 0.4, max: 0.4, color: C.chili, width: 7 });
     for (let i = 0; i < 26; i++) {
       const a = rnd(0, TAU);
@@ -1033,7 +1140,7 @@ export class LoCheoGame {
         life: rnd(0.3, 0.7), size: rnd(2, 5) * this.S, color: it.def.color, kind: "dot", grav: 700, drag: 1.6,
       });
     }
-    if (this.cracks >= 3) this.gameOver();
+    if (this.cracks >= MAX_CRACKS) this.gameOver();
   }
 
   private missItem(it: Item) {
@@ -1058,7 +1165,7 @@ export class LoCheoGame {
   private jarFull() {
     this.stats.jars++;
     this.fill = 0;
-    const bonus = 200 + this.stats.level * 50;
+    const bonus = jarBonus(this.stats.level);
     this.stats.score += bonus;
     audio.play("full");
     this.banner = { text: `HŨ ĐẦY! +${bonus}`, sub: "dưa muối đạt chuẩn", life: 1.6, max: 1.6, color: C.brine };
@@ -1118,7 +1225,7 @@ export class LoCheoGame {
   }
 
   multiplier() {
-    return clamp(1 + Math.floor(this.combo / 4), 1, 9) * (this.frenzy > 0 ? 2 : 1);
+    return multiplierForCombo(this.combo, this.frenzy > 0);
   }
 
   /* ---------------------------------------------------- fx primitives */
@@ -1213,7 +1320,14 @@ export class LoCheoGame {
     }
 
     this.drawBubbles(ctx);
+    this.drawStars(ctx);
     this.drawDecals(ctx);
+
+    const modeTint = MODES[this.mode].tint;
+    if (modeTint && this.phase !== "menu") {
+      ctx.fillStyle = modeTint;
+      ctx.fillRect(-40, -40, this.w + 80, this.h + 80);
+    }
 
     if (this.slow > 0 && this.phase === "playing") {
       ctx.fillStyle = `rgba(120,200,255,${0.1 * clamp(this.slow, 0, 1)})`;
@@ -1272,6 +1386,30 @@ export class LoCheoGame {
       ctx.strokeStyle = C.jade;
       ctx.lineWidth = 1;
       ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  private drawStars(ctx: CanvasRenderingContext2D) {
+    for (const s of this.stars) {
+      const tw = 0.5 + 0.5 * Math.sin(this.t * s.sp + s.ph);
+      const a = 0.12 + tw * 0.55;
+      ctx.globalAlpha = a;
+      ctx.fillStyle = tw > 0.72 ? C.goldLight : C.cream;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * (0.7 + tw * 0.7), 0, TAU);
+      ctx.fill();
+      if (tw > 0.86) {
+        // sparkle cross on the brightest frames
+        ctx.globalAlpha = a * 0.8;
+        ctx.strokeStyle = C.cream;
+        ctx.lineWidth = 1;
+        const L = s.r * 3.4;
+        ctx.beginPath();
+        ctx.moveTo(s.x - L, s.y); ctx.lineTo(s.x + L, s.y);
+        ctx.moveTo(s.x, s.y - L); ctx.lineTo(s.x, s.y + L);
+        ctx.stroke();
+      }
     }
     ctx.globalAlpha = 1;
   }
@@ -1403,9 +1541,8 @@ export class LoCheoGame {
         ctx.fillStyle = it.def.color;
         ctx.beginPath(); ctx.arc(0, 0, 11, 0, TAU); ctx.fill(); this.outline(ctx);
         ctx.fillStyle = "#2b3a26";
-        for (let i = 0; i < 5; i++) {
-          const a = rnd(0, TAU), rr = rnd(0, 7);
-          ctx.beginPath(); ctx.arc(Math.cos(a) * rr, Math.sin(a) * rr, rnd(1, 2.4), 0, TAU); ctx.fill();
+        for (const sp of it.spots ?? []) {
+          ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.r, 0, TAU); ctx.fill();
         }
         // sour face
         ctx.strokeStyle = C.ink; ctx.lineWidth = 1.8; ctx.lineCap = "round";
@@ -1461,6 +1598,69 @@ export class LoCheoGame {
         this.outline(ctx, 2.2);
         ctx.strokeStyle = "rgba(255,255,255,0.85)"; ctx.lineWidth = 1.8;
         ctx.beginPath(); ctx.moveTo(-10, -7); ctx.lineTo(0, 0); ctx.lineTo(10, -7); ctx.moveTo(0, 0); ctx.lineTo(0, 13); ctx.stroke();
+        break;
+      }
+      case "cavang": {
+        // golden cabbage leaf — rare, fills the jar fast
+        ctx.shadowColor = "#ffd766"; ctx.shadowBlur = 18;
+        ctx.fillStyle = it.def.color;
+        ctx.beginPath();
+        ctx.moveTo(0, -16);
+        ctx.quadraticCurveTo(15, -4, 9, 12);
+        ctx.quadraticCurveTo(5, 17, 0, 15);
+        ctx.quadraticCurveTo(-5, 17, -9, 12);
+        ctx.quadraticCurveTo(-15, -4, 0, -16);
+        ctx.closePath(); ctx.fill();
+        ctx.shadowBlur = 0;
+        this.outline(ctx, 2.4);
+        ctx.strokeStyle = it.def.color2; ctx.lineWidth = 1.9;
+        ctx.beginPath(); ctx.moveTo(0, -13); ctx.quadraticCurveTo(3, 0, 0, 13); ctx.stroke();
+        for (const sy of [-7, -1, 5]) {
+          ctx.beginPath(); ctx.moveTo(0, sy); ctx.quadraticCurveTo(6, sy - 2, 9, sy - 6); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, sy); ctx.quadraticCurveTo(-6, sy - 2, -9, sy - 6); ctx.stroke();
+        }
+        // sparkle pip
+        ctx.fillStyle = "#fffbe8";
+        ctx.beginPath(); ctx.arc(0, -9, 2, 0, TAU); ctx.fill();
+        break;
+      }
+      case "toivang": {
+        // golden garlic — shield power-up, two cloves hugging a heart
+        ctx.shadowColor = "#ffe9a8"; ctx.shadowBlur = 24;
+        ctx.fillStyle = it.def.color;
+        ctx.beginPath(); ctx.arc(-5, 2, 8.5, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(5, 2, 8.5, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(0, -2, 8, 0, TAU); ctx.fill();
+        ctx.shadowBlur = 0;
+        this.outline(ctx, 2.2);
+        ctx.fillStyle = it.def.color2;
+        ctx.beginPath(); ctx.moveTo(-3.4, -9); ctx.lineTo(3.4, -9); ctx.lineTo(0, -16); ctx.closePath(); ctx.fill();
+        this.outline(ctx, 2);
+        ctx.strokeStyle = "rgba(199,155,45,0.9)"; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(-5, 0); ctx.quadraticCurveTo(-6, 5, -4, 9); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(5, 0); ctx.quadraticCurveTo(6, 5, 4, 9); ctx.stroke();
+        break;
+      }
+      case "sau": {
+        // caterpillar — segmented body with feelers, hazard
+        const wig = Math.sin(this.t * 9 + it.sway) * 2.2;
+        ctx.fillStyle = it.def.color2;
+        for (const [sx, sy] of [[-9, 4], [9, 4]] as const) {
+          ctx.beginPath(); ctx.arc(sx, sy + wig * 0.4, 4.6, 0, TAU); ctx.fill();
+        }
+        ctx.fillStyle = it.def.color;
+        for (const [sx, sy, rr] of [[-8, 2, 6.4], [-2.6, -2 + wig, 7], [3.2, -2 - wig, 7], [9, 2 + wig * 0.4, 6]] as const) {
+          ctx.beginPath(); ctx.arc(sx, sy, rr, 0, TAU); ctx.fill();
+        }
+        this.outline(ctx, 2.4);
+        // angry eyes
+        ctx.fillStyle = C.ink;
+        ctx.beginPath(); ctx.arc(-4.4, -3 + wig, 1.5, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(4.9, -3 - wig, 1.5, 0, TAU); ctx.fill();
+        // feelers
+        ctx.strokeStyle = it.def.color2; ctx.lineWidth = 1.8; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(-5, -8 + wig); ctx.quadraticCurveTo(-7, -13 + wig, -9.5, -14 + wig); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(5, -8 - wig); ctx.quadraticCurveTo(7, -13 - wig, 9.5, -14 - wig); ctx.stroke();
         break;
       }
     }
@@ -1644,6 +1844,23 @@ export class LoCheoGame {
     }
 
     ctx.restore();
+
+    // garlic-shield ring — rotating dashed halo, one ring per charge
+    if (this.shield > 0) {
+      ctx.save();
+      ctx.translate(this.px, this.py + bob);
+      ctx.rotate(this.t * 1.7);
+      for (let i = 0; i < this.shield; i++) {
+        ctx.strokeStyle = i === 0 ? "rgba(255,233,168,0.92)" : "rgba(255,201,74,0.75)";
+        ctx.lineWidth = i === 0 ? 3 : 2;
+        ctx.setLineDash(i === 0 ? [12, 15] : [6, 10]);
+        ctx.beginPath();
+        ctx.arc(0, 0, r * (1.42 + i * 0.22), 0, TAU);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
 
     // chéo speed streaks
     if (this.cheo && speed > 150) {
@@ -1859,7 +2076,7 @@ export class LoCheoGame {
 
     // combo
     if (this.combo > 1) {
-      const k = clamp(this.comboT / 2.7, 0, 1);
+      const k = clamp(this.comboT / COMBO_WINDOW, 0, 1);
       const pulse = 1 + Math.sin(this.t * 12) * 0.04 * (this.combo > 8 ? 1 : 0.4);
       ctx.save();
       ctx.translate(cx, pad + 96 * s);
@@ -1875,6 +2092,7 @@ export class LoCheoGame {
     const chips: [string, number, number, string][] = [];
     if (this.frenzy > 0) chips.push(["ỚT HIỂM ×2", this.frenzy, 7, "#ff6a4d"]);
     if (this.slow > 0) chips.push(["ĐÁ LẠNH", this.slow, 5, "#a8e6ff"]);
+    if (this.shield > 0) chips.push([`TỎI VÀNG ×${this.shield}`, this.shield, 2, "#ffe9a8"]);
     if (this.phase === "playing") {
       chips.push([
         this.slamCd > 0 ? "LẮC HŨ…" : "LẮC HŨ ✦ SẴN SÀNG",
@@ -1898,6 +2116,14 @@ export class LoCheoGame {
       ctx.fillStyle = C.cream;
       ctx.fillText(label, cx, y - 2 * s);
     });
+
+    // mode tag — bottom-centre, very quiet
+    ctx.textAlign = "center";
+    ctx.globalAlpha = a * 0.55;
+    ctx.font = `800 ${Math.round(9 * s)}px "Be Vietnam Pro", sans-serif`;
+    ctx.fillStyle = "rgba(253,243,224,0.9)";
+    ctx.fillText(`— ${MODES[this.mode].name} —`, cx, this.h - 10 * s);
+    ctx.globalAlpha = a;
 
     ctx.restore();
     ctx.textAlign = "left";
