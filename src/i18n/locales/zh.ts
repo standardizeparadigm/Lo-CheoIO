@@ -154,6 +154,16 @@ const zh: Record<MessageKey, string> = {
   "mode.hardcore.desc":
     "嫩窑烧出的陶罐：只能承受整整一道裂痕——摸到危险物当场粉碎。作为补偿，每只+100%分数，危险物也多出30%。唯有斜切宗师可驾驭。",
   "mode.hardcore.badge": "×2.0 · 1 缝",
+  "mode.combo.name": "连击节庆",
+  "mode.combo.tagline": "连击窗口 ×2 · 手眼连珠炮",
+  "mode.combo.desc":
+    "连击爱好者的节日：连击判定窗口延长至两倍（5.4 秒），腌菜雨略密，每颗加 15% 分数。保持节奏——倍率如烟花般蹿升。",
+  "mode.combo.badge": "×1.15 · 连击 ×2",
+  "mode.feast.name": "腌菜盛宴",
+  "mode.feast.tagline": "腌菜如夏雨倾盆 · 满罐奖励 ×2.5",
+  "mode.feast.desc":
+    "腌菜盛会：落得慢但近两倍密集，满罐奖励 ×2.5。每颗仅 ×0.6 分——农夫打法：眼疾手快，多多灌满。",
+  "mode.feast.badge": "×0.6 · 满罐 ×2.5",
 
   "ach.title": "厨房成就",
   "ach.locked": "未解锁",
@@ -186,6 +196,10 @@ const zh: Record<MessageKey, string> = {
   "ach.storm-60.desc": "在 暴雨 模式单局收获 60 只腌菜。",
   "ach.hardcore-jar.name": "钢铁陶罐",
   "ach.hardcore-jar.desc": "在 脆皮瓦罐 模式单局装满 1 个腌罐。",
+  "ach.combo-40.name": "钢铁连击",
+  "ach.combo-40.desc": "单局达成 40 连击。",
+  "ach.feast-3jars.name": "满桌盛宴",
+  "ach.feast-3jars.desc": "在腌菜盛宴单局装满 3 个罐子。",
 
   "ticker.0": "小茄子 +10",
   "ticker.1": "辣椒 +15",
@@ -212,8 +226,8 @@ const zh: Record<MessageKey, string> = {
   "rule.3.d": "拾取黄金蒜可最多储存 2 层护盾。受到撞击时护盾破裂，代替罐子受创。",
   "rule.4.t": "三条裂痕",
   "rule.4.d": "未处于斜切状态撞到危险物就会裂罐。三条裂痕即告失败——装满罐子可获奖励。",
-  "rule.5.t": "七种模式",
-  "rule.5.d": "经典均衡 · 禅意无危险 · 炼狱 +35% 速度换 ×1.5 · 60秒冲刺限时 · 黄金丰收黄金 ×2.6 · 腌菜暴雨密不透风 · 脆皮瓦罐只裂一缝。",
+  "rule.5.t": "九种模式",
+  "rule.5.d": "经典均衡 · 禅意无危险 · 炼狱 +35% 速度换 ×1.5 · 60秒冲刺限时 · 黄金丰收黄金 ×2.6 · 腌菜暴雨密不透风 · 脆皮瓦罐只裂一缝 · 连击节庆连击窗口 ×2 · 腌菜盛宴满罐 ×2.5。",
 
   "lang.label": "语言",
   "lang.vi": "Tiếng Việt",
@@ -221,6 +235,8 @@ const zh: Record<MessageKey, string> = {
   "lang.zh": "中文",
   "lang.ja": "日本語",
   "lang.ko": "한국어",
+  "lang.es": "Español",
+  "lang.fr": "Français",
 
   "footer.offline": "100% 离线",
 };

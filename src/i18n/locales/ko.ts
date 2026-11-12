@@ -154,6 +154,16 @@ const ko: Record<MessageKey, string> = {
   "mode.hardcore.desc":
     "덜 구운 가마의 도자기: 견딜 수 있는 금은 딱 하나뿐 — 위험물에 닿는 순간 산산조각. 대신 개당 ×2.0, 위험물도 30% 더 많습니다. 대각선 슬랜트의 달인만이 다룰 수 있습니다.",
   "mode.hardcore.badge": "×2.0 · 금 1회",
+  "mode.combo.name": "콤보 축제",
+  "mode.combo.tagline": "콤보 창 ×2 · 연쇄의 쾌감",
+  "mode.combo.desc":
+    "연쇄 장인을 위한 축제: 콤보 유지 시간이 두 배(5.4초), 절임 비가 조금 더 굵게 내리고, 개당 +15% 점수. 리듬을 유지하면 배율이 폭죽처럼 치솟습니다.",
+  "mode.combo.badge": "×1.15 · 콤보 ×2",
+  "mode.feast.name": "절임 대잔치",
+  "mode.feast.tagline": "절임이 빗발치는 잔치 · 항아리 보너스 ×2.5",
+  "mode.feast.desc":
+    "절임 잔치: 천천히지만 두 배 가까이 빽빽하게 떨어지고, 항아리 채우기 보너스는 ×2.5. 개당 ×0.6점 — 농부 플레이: 빠르게 담아 항아리를 많이 채우세요.",
+  "mode.feast.badge": "×0.6 · 항아리 ×2.5",
 
   "ach.title": "주방 업적",
   "ach.locked": "미해금",
@@ -186,6 +196,10 @@ const ko: Record<MessageKey, string> = {
   "ach.storm-60.desc": "절임 폭우에서 60개 받기.",
   "ach.hardcore-jar.name": "강철 도자기",
   "ach.hardcore-jar.desc": "얇은 도자기에서 항아리 1개 가득 채우기.",
+  "ach.combo-40.name": "강철 체인",
+  "ach.combo-40.desc": "한 판에서 40콤보 달성.",
+  "ach.feast-3jars.name": "만찬의 상",
+  "ach.feast-3jars.desc": "절임 대잔치에서 한 판에 항아리 3개 채우기.",
 
   "ticker.0": "가지 +10",
   "ticker.1": "고추 +15",
@@ -217,9 +231,9 @@ const ko: Record<MessageKey, string> = {
   "rule.4.t": "세 개의 금",
   "rule.4.d":
     "슬랜트 없이 위험물에 닿으면 항아리에 금이 갑니다. 세 번의 금이면 끝 — 항아리를 가득 채우면 보너스.",
-  "rule.5.t": "7가지 모드",
+  "rule.5.t": "9가지 모드",
   "rule.5.d":
-    "클래식 균형 · ZEN 무위험 · 인페르노 속도 +35%에 ×1.5 · 60초 스프린트 타임어택 · 황금 러시 황금 ×2.6 · 절임 폭우 폭풍우 속 절임 · 얇은 도자기 금 한 번에 파괴.",
+    "클래식 균형 · 선(禪) 무해 · 화염은 +35% 속도에 ×1.5 · 60초 레이스는 타임어택 · 황금 러시는 황금 ×2.6 · 절임 폭우는 밀도 폭발 · 얇은 도자기는 금 1번 · 콤보 축제는 콤보 창 ×2 · 절임 대잔치는 항아리 ×2.5.",
 
   "lang.label": "언어",
   "lang.vi": "Tiếng Việt",
@@ -227,6 +241,8 @@ const ko: Record<MessageKey, string> = {
   "lang.zh": "中文",
   "lang.ja": "日本語",
   "lang.ko": "한국어",
+  "lang.es": "Español",
+  "lang.fr": "Français",
 
   "footer.offline": "100% 오프라인",
 };

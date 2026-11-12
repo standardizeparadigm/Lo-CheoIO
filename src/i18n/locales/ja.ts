@@ -154,6 +154,16 @@ const ja: Record<MessageKey, string> = {
   "mode.hardcore.desc":
     "未熟な瓦窯の陶器：耐えられるひびはたった一つ——危険物に触れた瞬間に粉砕。その代わり1個あたり×2.0、危険物も30%増し。斜め走行の達人だけが扱える。",
   "mode.hardcore.badge": "×2.0 · ひび1つ",
+  "mode.combo.name": "コンボ大祭",
+  "mode.combo.tagline": "コンボ窓 ×2 · 連鎖の快感",
+  "mode.combo.desc":
+    "チェーン派の祭り：コンボが切れない時間が2倍（5.4秒）、漬物の雨はやや密に、1個ごとに +15% のボーナス。リズムを保てば倍率は打ち上げ花火のように高騰します。",
+  "mode.combo.badge": "×1.15 · コンボ ×2",
+  "mode.feast.name": "漬物大宴会",
+  "mode.feast.tagline": "夏祭りのような漬物雨 · 壺ボーナス ×2.5",
+  "mode.feast.desc":
+    "漬物祭り：ゆっくりだが2倍近い密度で落ちてきて、満タンボーナスは ×2.5。1個あたり ×0.6 点——農夫プレイ：手早く掴んで、壺をどんどん満たそう。",
+  "mode.feast.badge": "×0.6 · 壺 ×2.5",
 
   "ach.title": "キッチンの実績",
   "ach.locked": "未解除",
@@ -186,6 +196,10 @@ const ja: Record<MessageKey, string> = {
   "ach.storm-60.desc": "漬物暴雨で60個キャッチする。",
   "ach.hardcore-jar.name": "鉄の陶壺",
   "ach.hardcore-jar.desc": "薄手の壺で1壺を満たす。",
+  "ach.combo-40.name": "鉄のチェーン",
+  "ach.combo-40.desc": "1ランで40コンボを達成する。",
+  "ach.feast-3jars.name": "満卓の宴",
+  "ach.feast-3jars.desc": "漬物大宴会で1ランに壺を3つ満たす。",
 
   "ticker.0": "ナス +10",
   "ticker.1": "唐辛子 +15",
@@ -217,9 +231,9 @@ const ja: Record<MessageKey, string> = {
   "rule.4.t": "三つのひび",
   "rule.4.d":
     "スラントしていない状態で危険物に触れると壺にひびが入る。三つのひびで終了——壺を満たせばボーナス。",
-  "rule.5.t": "7つのモード",
+  "rule.5.t": "9つのモード",
   "rule.5.d":
-    "クラシックは均衡 · ZENは危険ゼロ · インフェルノは速度+35%で×1.5 · 60秒ダッシュはタイムアタック · 黄金ラッシュは黄金×2.6 · 漬物暴雨は暴風雨 · 薄手の壺はひび一つで終わり。",
+    "クラシック均衡 · 禅は危険なし · 業火は +35% 速度で ×1.5 · 60秒ラッシュはタイムアタック · 黄金ラッシュは金 ×2.6 · 漬物豪雨は密度抜群 · 陶器一発はひび1つ · コンボ大祭はコンボ窓 ×2 · 漬物大宴会は壺 ×2.5。",
 
   "lang.label": "言語",
   "lang.vi": "Tiếng Việt",
@@ -227,6 +241,8 @@ const ja: Record<MessageKey, string> = {
   "lang.zh": "中文",
   "lang.ja": "日本語",
   "lang.ko": "한국어",
+  "lang.es": "Español",
+  "lang.fr": "Français",
 
   "footer.offline": "100% オフライン",
 };
