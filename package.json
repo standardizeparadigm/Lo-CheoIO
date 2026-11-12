@@ -1,8 +1,8 @@
 {
   "name": "lo-cheoio",
   "private": true,
-  "version": "1.1.3",
-  "description": "Lọ Chéo — Hũ Dưa Đại Chiến: arcade muối dưa chạy 100% trong trình duyệt, gói gọn trong một file HTML duy nhất, offline-first — không CDN, không server. Chiếc lọ gốm chỉ chịu đi đường CHÉO: giữ 2 phím để lượn xiên, tăng tốc chém tan mốc, ruồi, sâu rau, hứng đầy hũ trước khi gốm nứt làm ba. 7 chế độ chơi (thêm Mưa Dưa và Gốm Mỏng), 14 nguyên liệu, 14 thành tựu, bảng vàng TOP 8, giao diện 5 ngôn ngữ (VI/EN/ZH/JA/KO).",
+  "version": "1.1.4",
+  "description": "Lọ Chéo — Hũ Dưa Đại Chiến: arcade muối dưa chạy 100% trong trình duyệt, gói gọn trong một file HTML duy nhất, offline-first — không CDN, không server. Chiếc lọ gốm chỉ chịu đi đường CHÉO: giữ 2 phím để lượn xiên, tăng tốc chém tan mốc, ruồi, sâu rau, hứng đầy hũ trước khi gốm nứt làm ba. 9 chế độ chơi (thêm Lễ Hội Combo và Đại Tiệc Dưa), 14 nguyên liệu, 16 thành tựu, bảng vàng TOP 8, giao diện 7 ngôn ngữ (VI/EN/ZH/JA/KO/ES/FR).",
   "author": "Standardize Paradigm <standardizeparadigm@donuco.com>",
   "license": "AGPL-3.0-only",
   "homepage": "https://github.com/standardizeparadigm/Lo-CheoIO",
@@ -30,9 +30,13 @@
     "blitz",
     "storm",
     "hardcore",
+    "combo",
+    "feast",
     "pickle-rain",
     "japanese",
-    "korean"
+    "korean",
+    "spanish",
+    "french"
   ],
   "engines": {
     "node": ">=20.19.0"
