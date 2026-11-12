@@ -144,6 +144,16 @@ const en: Record<MessageKey, string> = {
   "mode.goldrush.desc":
     "A glittering harvest: Golden Salt, Golden Mustard, Golden Garlic, Scorching Chili and Ice Drop all spawn ~2.6× as often. Balanced like Classic — built for gold lovers and achievement hunters.",
   "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
+  "mode.storm.name": "PICKLE RAIN",
+  "mode.storm.tagline": "Rain like a monsoon · the kitchen floods with pickles",
+  "mode.storm.desc":
+    "A force of nature for pickle masters: pickles fall slower but pour in at nearly 1.4× the rate, and hazards show up 50% more often. Each catch pays only ×0.75 — in exchange you get pickle-flood bliss and lightning-fast leveling.",
+  "mode.storm.badge": "×0.75 · STORM",
+  "mode.hardcore.name": "THIN CERAMIC",
+  "mode.hardcore.tagline": "One crack and the jar shatters · ×2.0 points",
+  "mode.hardcore.desc":
+    "Pottery from a green kiln: the jar survives exactly ONE crack — touch a hazard and it shatters on the spot. In exchange you score ×2.0 per catch and hazards rain down 30% more. Diamond-hand diagonal slashers only.",
+  "mode.hardcore.badge": "×2.0 · 1 CRACK",
 
   "ach.title": "Kitchen achievements",
   "ach.locked": "LOCKED",
@@ -172,6 +182,10 @@ const en: Record<MessageKey, string> = {
   "ach.blitz-3000.desc": "Score 3,000 points in a single 60-Second Rush run.",
   "ach.goldrush-2jars.name": "GOLDEN HAUL",
   "ach.goldrush-2jars.desc": "Fill 2 jars in a single Gold Rush run.",
+  "ach.storm-60.name": "HEAVY RAINFALL",
+  "ach.storm-60.desc": "Catch 60 pickles in a single Pickle Rain run.",
+  "ach.hardcore-jar.name": "STEEL CERAMIC",
+  "ach.hardcore-jar.desc": "Fill a jar in a single Thin Ceramic run.",
 
   "ticker.0": "EGGPLANT +10",
   "ticker.1": "CHILI +15",
@@ -203,14 +217,16 @@ const en: Record<MessageKey, string> = {
   "rule.4.t": "THREE CRACKS",
   "rule.4.d":
     "Hit a hazard without slanting and the jar cracks. Three cracks and it's over — fill the jar for a bonus.",
-  "rule.5.t": "THREE MODES",
+  "rule.5.t": "SEVEN MODES",
   "rule.5.d":
-    "Classic is balanced, Zen has no hazards, Inferno is +35% speed for ×1.5 score.",
+    "Classic is balanced · Zen has no hazards · Inferno is +35% speed for ×1.5 · 60-Second Rush is time-attack · Gold Rush rains gold ×2.6 · Pickle Rain floods the screen · Thin Ceramic cracks once.",
 
   "lang.label": "Language",
   "lang.vi": "Tiếng Việt",
   "lang.en": "English",
   "lang.zh": "中文",
+  "lang.ja": "日本語",
+  "lang.ko": "한국어",
 
   "footer.offline": "100% offline",
 };

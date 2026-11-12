@@ -156,6 +156,16 @@ const vi = {
   "mode.goldrush.desc":
     "Mùa gặt rực rỡ: Muối Vàng, Cải Vàng, Tỏi Vàng, Ớt Hiểm và Đá Lạnh rơi dày gấp khoảng 2.6 lần. Cân bằng như Cổ điển — dành cho ai thích ăn vàng và leo thành tựu.",
   "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
+  "mode.storm.name": "MƯA DƯA",
+  "mode.storm.tagline": "Dưa rơi như trút nước · lụt dưa cả bếp",
+  "mode.storm.desc":
+    "Thiên tai của dân muối dưa: dưa rơi chậm hơn một chút nhưng dày gần gấp rưỡi, đồ hư cũng nhiều hơn 50%. Điểm mỗi củ chỉ ×0.75 — đổi lấy cảm giác lụt dưa sướng tay và leo cấp cực nhanh.",
+  "mode.storm.badge": "×0.75 · STORM",
+  "mode.hardcore.name": "GỐM MỎNG",
+  "mode.hardcore.tagline": "Chỉ một vết nứt là vỡ hũ · ×2.0 điểm",
+  "mode.hardcore.desc":
+    "Gốm lò nung non tay: chỉ chịu đúng MỘT vết nứt — chạm đồ hư khi chưa gãy là vỡ hũ ngay. Đền lại ×2.0 điểm mỗi củ và đồ hư nhiều hơn 30%. Chỉ dành cho tay chéo kim cương.",
+  "mode.hardcore.badge": "×2.0 · 1 NỨT",
 
   /* achievements */
   "ach.title": "Thành tựu bếp dưa",
@@ -185,6 +195,10 @@ const vi = {
   "ach.blitz-3000.desc": "Ghi 3.000 điểm trong một ván Đua 60 Giây.",
   "ach.goldrush-2jars.name": "MÙA VÀNG BỘI THU",
   "ach.goldrush-2jars.desc": "Đầy 2 hũ trong một ván Mùa Vàng.",
+  "ach.storm-60.name": "CƠN MƯA NẶNG HẠT",
+  "ach.storm-60.desc": "Hứng được 60 củ trong một ván Mưa Dưa.",
+  "ach.hardcore-jar.name": "GỐM THÉP",
+  "ach.hardcore-jar.desc": "Đầy một hũ trong một ván Gốm Mỏng.",
 
   /* ingredient ticker */
   "ticker.0": "CÀ PHÁO +10",
@@ -218,15 +232,17 @@ const vi = {
   "rule.4.t": "3 VẾT NỨT",
   "rule.4.d":
     "Đụng đồ hư khi không lướt chéo là nứt hũ. Ba vết là mất hũ, đầy hũ thì được thưởng.",
-  "rule.5.t": "3 CHẾ ĐỘ",
+  "rule.5.t": "7 CHẾ ĐỘ",
   "rule.5.d":
-    "Cổ điển cân bằng, Thảnh Thơi không đồ hư, Ớt Lửa tốc độ +35% đổi lấy ×1.5 điểm.",
+    "Cổ điển cân bằng · Thảnh Thơi không đồ hư · Ớt Lửa +35% tốc độ đổi lấy ×1.5 điểm · Đua 60 Giây time-attack · Mùa Vàng đồ vàng ×2.6 · Mưa Dưa dày đặc · Gốm Mỏng chỉ 1 vết nứt.",
 
   /* language switcher */
   "lang.label": "Ngôn ngữ",
   "lang.vi": "Tiếng Việt",
   "lang.en": "English",
   "lang.zh": "中文",
+  "lang.ja": "日本語",
+  "lang.ko": "한국어",
 
   /* footer */
   "footer.offline": "100% offline",
