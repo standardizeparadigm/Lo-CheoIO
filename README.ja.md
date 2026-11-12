@@ -7,9 +7,9 @@
 ### 🫙 ブラウザで100%動くベトナム漬物アーケード — 単一HTMLファイル・オフラインファースト
 ### 🌐 ゲーム内UIは3言語 — Tiếng Việt · English · 中文
 
-[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
+[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-プロダクションビルド)
@@ -24,34 +24,39 @@
 
 ## 🥒 プロジェクトについて
 
-> Lọ Chéo — 酢漬け壺大戦争：ブラウザで100%動く漬物アーケード。単一の自己完結HTMLファイルに詰め込まれた、オフラインファースト設計 — CDNなし、サーバーなし。この陶壺は**斜め移動**しかできません。2つのキーを押して斜めに疾走し、加速し、カビ・ハエ・青虫を斬り刻み、陶壺が三つに割れる前に満杯にしましょう！**3モード · 14種の食材 · 10個の実績 · TOP 8 ランキング · ゲーム内3言語。**
+> Lọ Chéo — 酢漬け壺大戦争：ブラウザで100%動く漬物アーケード。単一の自己完結HTMLファイルに詰め込まれた、オフラインファースト設計 — CDNなし、サーバーなし。この陶壺は**斜め移動**しかできません。2つのキーを押して斜めに疾走し、加速し、カビ・ハエ・青虫を斬り刻み、陶壺が三つに割れる前に満杯にしましょう！**5モード · 14種の食材 · 12個の実績 · TOP 8 ランキング · ゲーム内3言語。**
 
 これはベトナムの家庭的な漬物にインスパイアされた**ワン画面アクション**です。直線的なレベルも煩雑なメニューもありません — あるのは壺と、無限に降り注ぐ漬物と、燃えるような反射神経だけ。
 
-## 🆕 v1.1.1 の新機能
+## 🆕 v1.1.2 の新機能
 
-- 🌐 **ゲーム内で言語を切り替え** — VI ⇄ EN ⇄ ZH、メインメニューまたは一時停止画面から即時反映、`locheo.lang.v1` に保存。Canvas HUD、ポップアップ、バナー、メニュー、一時停止、ゲームオーバー、実績、ティッカーまで翻訳済み。
-- 📖 **README を7言語に拡充**（🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français を新規追加）、アニメーションバナー、ゲームプレイアニメーション、14食材チャート付き。
-- 🐛 **残存バグをすべて洗い出して修正**（[CHANGELOG](CHANGELOG.md) の `[1.1.1]` 参照）。`npm run check` がグリーン、**45件のユニットテスト**。
-- 🖼️ **2つの新しいアニメーションSVG**：`assets/demo.svg`（ゲームプレイループ）と `assets/items.svg`（14食材）。
+- 🎮 **2つの新モード** — **60秒ダッシュ**（タイムアタック60秒・降ってくる量が増え・スコア×1.25・HUDの残り時間が最後の10秒は赤く点滅）と **ゴールドラッシュ**（黄金塩、黄金芥菜、黄金ニンニク、猛火チリ、氷の雫が出現率×2.6、バランスはクラシック同等）。合計 **5モード**。
+- 🏆 **2つの新実績** — **60秒キング**（1回のランで3,000点）＆ **ゴールデンハウル**（1回のランで2つ満タン）。合計 **12実績**。
+- 🔥 **コンボ12以上で炎上** — ストリークが12を超えると金/赤の炎オーラが壺に纏わりつく（純粋な演出のみ、バランスは不変）。
+- 🚀 **ダブルクリック起動ランチャー** `scripts/`：`play-mac.command`（macOS）· `play-windows.bat`（Windows）· `play-linux.sh`（Linux）—— ダブルクリックで**フルカラーメニュー**が開き、Production（ビルド＆プレイ）か Dev（HMR・localhost:5173）を選ぶだけ。コマンド入力不要。詳しくは [scripts/README.md](scripts/README.md)。
+- 🪪 **新しいライセンスアセット** `assets/license.svg`（AGPL-3.0 copyleft のアニメーション印章）＆ **5モードショーケース** `assets/modes.svg`（SMIL アニメーション）—— 直下に埋め込み済み。
+- 📖 **README が10言語に**（🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português を新規追加）。
+- 🐛 **残存バグをすべて洗い出して修正**（[CHANGELOG](CHANGELOG.md) の `[1.1.2]` 参照）。`npm run check` がグリーン、**49件のユニットテスト**。
 
-→ 詳細は [docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
+<img src="assets/modes.svg" alt="5つのモード — Classic · Zen · Inferno · 60秒ダッシュ · ゴールドラッシュ" width="100%" />
+
+→ 詳細は [docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
 
 ## ✨ ハイライト
 
 | グループ | 詳細 |
 | --- | --- |
-| 🎮 **3つのゲームモード** | **クラシック漬け**（バランス型）· **ZEN**（危険物なし、スコア×0.5）· **インフェルノチリ**（速度+35%、スコア×1.5） |
+| 🎮 **5つのゲームモード** | **クラシック漬け**（バランス型）· **ZEN**（危険物なし、×0.5）· **インフェルノチリ**（速度+35%、×1.5）· **60秒ダッシュ**（タイムアタック60s、×1.25）· **ゴールドラッシュ**（黄金出現率×2.6） |
 | 🌐 **ゲーム内 i18n** | Tiếng Việt · English · 中文 — `src/i18n/`（pureモジュール + Reactブリッジ）、補間対応の `t()`、`<html lang>` 同期、ロケール別数値表記（vi-VN / en-US / zh-CN） |
 | 🕹️ **シグネチャ「斜め切り」** | 2キー/斜め軸を同時押し — 壺が加速・発光し、危険物を斬り刻む。ちらつき防止ヒステリシス付き専用スタミナバー |
 | 🥬 **14種の食材** | 小茄子、唐辛子、ニンニク、生姜、塩、芥菜、**黄金芥菜**（素早く満タンに）· 黄金塩/黄金ニンニク · 鬼唐辛子 · アイス · カビ、ハエ、**青虫**（危険物） |
 | 🧄 **黄金ニンニクシールド** | パワーアップ：最大**2層**のシールドでひび割れを吸収。壺の周りに回転する光輪 |
-| 🏆 **10個の実績** | **ラン横断**の累計保存（localStorage）、ゲームオーバー画面に「新実績！」トースト |
+| 🏆 **12個の実績** | **ラン横断**の累計保存（localStorage）、ゲームオーバー画面に「新実績！」トースト |
 | 🔊 **手作りオーディオ** | Web Audio API による11種のシンセ効果音（ファイル不使用）+ レベルに応じて変化する五音音階BGM、`M` でミュート |
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n をカバーする45件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n をカバーする49件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -108,7 +113,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 45件のユニットテスト（modes / achievements / storage / i18n）
+npm run test       # vitest — 49件のユニットテスト（modes / achievements / storage / i18n）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -117,19 +122,27 @@ npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 lo-cheoio/
 ├─ index.html              # エントリ、SEO/OGメタ（CDNなし）
-├─ package.json            # lo-cheoio v1.1.1、dev/build/test/check スクリプト
+├─ package.json            # lo-cheoio v1.1.2、dev/build/test/check スクリプト
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；src + tests を含む
 ├─ assets/
 │  ├─ banner.svg           # READMEバナー（SMILアニメーション）
 │  ├─ demo.svg             # ゲームプレイシミュレーション（SMILアニメーション）
-│  └─ items.svg            # 14種の食材（SMILアニメーション）
+│  ├─ items.svg            # 14種の食材（SMILアニメーション）
+│  ├─ modes.svg            # 5モード（SMILアニメーション）
+│  └─ license.svg          # AGPL-3.0 copyleft 印章（SMILアニメーション）
+├─ scripts/
+│  ├─ play-mac.command     # macOS ランチャー — ダブルクリックでフルカラーメニュー
+│  ├─ play-windows.bat     # Windows ランチャー — ダブルクリックでフルカラーメニュー
+│  ├─ play-linux.sh        # Linux ランチャー — ダブルクリックでフルカラーメニュー
+│  └─ README.md            # ターミナル初心者向けランチャーガイド
 ├─ docs/
 │  ├─ DESCRIPTION.md       # 多言語のプロジェクト紹介文（vi/en/zh + SEO）
 │  └─ releases/
 │     ├─ v1.0.0.md         # 初回リリースノート
 │     ├─ v1.1.0.md         # v1.1.0 リリースノート
-│     └─ v1.1.1.md         # 現在のリリースノート
+│     ├─ v1.1.1.md         # v1.1.1 リリースノート
+│     └─ v1.1.2.md         # 現在のリリースノート（1.1.2）
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -137,10 +150,13 @@ lo-cheoio/
 ├─ README.ko.md            # 🇰🇷 한국어
 ├─ README.es.md            # 🇪🇸 Español
 ├─ README.fr.md            # 🇫🇷 Français
+├─ README.th.md            # 🇹🇭 ไทย
+├─ README.de.md            # 🇩🇪 Deutsch
+├─ README.pt.md            # 🇵🇹 Português
 ├─ src/
 │  ├─ main.tsx             # Reactルート、StrictMode
 │  ├─ App.tsx              # フェーズマシン menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.1"（唯一の真実の源）
+│  ├─ version.ts           # APP_VERSION = "1.1.2"（唯一の真実の源）
 │  ├─ index.css            # tailwind v4 テーマ + 全アニメーション/グラデーション
 │  ├─ assets/fonts/        # woff2サブセット（Be Vietnam Pro ×6、Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range、100%オフライン
@@ -151,7 +167,7 @@ lo-cheoio/
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # キャンバス + フローティングジョイスティック + キーボード
 │  │  ├─ StartScreen.tsx   # メニュー：オーロラ、シマー、モード選択、実績
-│  │  ├─ ModeSelector.tsx  # 3枚のモードカード（グラデーション + モード別アクセント）
+│  │  ├─ ModeSelector.tsx  # 5枚のモードカード（classic/zen/inferno/blitz/goldrush）
 │  │  ├─ AchievementsPanel.tsx  # ロック/解除バッジウォール
 │  │  ├─ GameOverScreen.tsx     # 壺が割れた！+ スコア + 新実績
 │  │  ├─ PauseScreen.tsx        # 一時停止 + ラン統計
@@ -160,7 +176,7 @@ lo-cheoio/
 │  ├─ game/
 │  │  ├─ engine.ts         # シミュレーションとキャンバス描画のすべて（約2100行）
 │  │  ├─ modes.ts          # ゲームモード + バランス計算（pure）
-│  │  ├─ achievements.ts   # 10バッジ + pureチェッカー（pure）
+│  │  ├─ achievements.ts   # 12バッジ + pureチェッカー（pure）
 │  │  ├─ storage.ts        # localStorage：TOP 8、進行度、実績
 │  │  └─ audio.ts          # Web Audioシンセ：効果音 + 五音音階ミュージック
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -194,11 +210,15 @@ lo-cheoio/
 **新しい言語を追加したい**
 `src/i18n/locales/xx.ts` に `vi.ts` のキー集合をミラーしたファイルを追加し、`LANGUAGES` とテストを更新してPRを — [CONTRIBUTING.md](CONTRIBUTING.md) を参照。
 
+**ターミナルが苦手？**
+[`scripts/play-mac.command`](scripts/play-mac.command)（macOS）、[`scripts/play-windows.bat`](scripts/play-windows.bat)（Windows）、[`scripts/play-linux.sh`](scripts/play-linux.sh)（Linux）をダブルクリック —— カラーメニューが開き、`1` を選ぶとビルドしてすぐ遊べます。開発時は `2`。詳しくは [scripts/README.md](scripts/README.md)。
+
 ## 📦 リリースと変更履歴
 
 | バージョン | 日付 | ノート |
 | --- | --- | --- |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 45テスト |
+| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
+| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 49テスト |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3モード · 黄金ニンニクシールド · 青虫 · 黄金芥菜 · 10実績 · 自己ホストフォント |
 | [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 初回リリース：完成したエンジン、11食材、壺叩き、コンボ×9 |
 
@@ -207,12 +227,14 @@ lo-cheoio/
 ## 🤝 コントリビュート
 
 1. リポジトリをForkし、`arena/<名前>` または `feat/<名前>` の命名規則でブランチを作成。
-2. PRを出す前に `npm run check` をグリーンに（typecheck + 45テスト + build）。
+2. PRを出す前に `npm run check` をグリーンに（typecheck + 49テスト + build）。
 3. 本当に必要な場合以外、ランタイム依存を追加しない — 理念：**1ファイル、ネットワーク不要、永遠に遊べる**。
 4. PRには影響する画面/モードを明記し、ゲームプレイ変更時はクリップを添付してください。
 
 ## 📄 ライセンスと作者
 
-- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — [LICENSE](LICENSE) を参照。
+<img src="assets/license.svg" alt="AGPL-3.0-only — copyleft ライセンス" width="400" />
+
+- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — [LICENSE](LICENSE) と [assets/license.svg](assets/license.svg) を参照。
 - フォント：[Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) と [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1（自己ホストのwoff2サブセット）。
 - ベトナムの食卓に並ぶすべての漬物壺に、乾杯。🫙🇻🇳

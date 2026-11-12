@@ -7,9 +7,9 @@
 ### 🫙 100% 在浏览器中运行的越式腌大戏 — 单个 HTML 文件，离线优先
 ### 🌐 游戏内置 3 种语言 — Tiếng Việt · English · 中文
 
-[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
+[![Version](https://img.shields.io/badge/version-1.1.2-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.2.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-生产构建)
@@ -24,34 +24,39 @@
 
 ## 🥒 关于本项目
 
-> Lọ Chéo — 酸菜腌罐大乱斗：100% 在浏览器中运行的腌菜街机，打包进单个自包含 HTML 文件，离线优先 —— 无 CDN，无服务器。这只陶罐只懂走**斜线**：按住两个方向键斜冲、加速、斩碎霉菌、苍蝇与菜虫，赶在陶罐裂成三瓣之前把它装满！**3 种模式 · 14 种食材 · 10 项成就 · TOP 8 名人堂 · 游戏内 3 种语言。**
+> Lọ Chéo — 酸菜腌罐大乱斗：100% 在浏览器中运行的腌菜街机，打包进单个自包含 HTML 文件，离线优先 —— 无 CDN，无服务器。这只陶罐只懂走**斜线**：按住两个方向键斜冲、加速、斩碎霉菌、苍蝇与菜虫，赶在陶罐裂成三瓣之前把它装满！**5 种模式 · 14 种食材 · 12 项成就 · TOP 8 名人堂 · 游戏内 3 种语言。**
 
 这是一款致敬越南家常腌菜的**单屏动作游戏**。没有线性关卡，没有繁杂菜单 —— 只有陶罐、无尽的腌菜雨，和你燃烧的反应速度。
 
-## 🆕 v1.1.1 新特性
+## 🆕 v1.1.2 新特性
 
-- 🌐 **游戏内切换语言** — VI ⇄ EN ⇄ ZH，主菜单或暂停界面即时切换，通过 `locheo.lang.v1` 记忆；画布 HUD、弹字、横幅、菜单、暂停、结算、成就、跑马灯全部完成翻译。
-- 📖 **README 扩充至 7 种语言**（新增 🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français），配备动态 banner、实战演示动画与 14 食材一览图。
-- 🐛 **全面排查并修复遗留 BUG**（见 [CHANGELOG](CHANGELOG.md) `[1.1.1]`）；`npm run check` 全绿，**45 项单元测试**。
-- 🖼️ **2 张全新动态 SVG** 文档素材：`assets/demo.svg`（实战循环）与 `assets/items.svg`（14 种食材）。
+- 🎮 **2 种全新模式** — **60秒冲刺**（限时 60 秒的时间挑战，掉落更密集更快更狠，×1.25 得分，HUD 倒计时在最后 10 秒红色闪烁）和 **黄金丰收**（金盐、金卷心菜、金蒜、魔鬼辣椒、寒冰掉落率 ×2.6，平衡性与经典模式一致）。共计 **5 种模式**。
+- 🏆 **2 枚全新成就** — **60秒之王**（单局 3,000 分）& **黄金大丰收**（单局装满 2 个腌罐）。共计 **12 项成就**。
+- 🔥 **12 连击起燃** — 连击 ≥12 时陶罐周身燃起金/红火焰光环（纯视觉效果，不改变平衡）。
+- 🚀 **双击即玩的启动器** `scripts/`：`play-mac.command`（macOS）· `play-windows.bat`（Windows）· `play-linux.sh`（Linux）—— 双击即弹出**全彩菜单**：Production（构建并游玩）或 Dev（HMR，localhost:5173），无需敲任何命令。详见 [scripts/README.md](scripts/README.md)。
+- 🪪 **全新许可证素材** `assets/license.svg`（动态 AGPL-3.0 copyleft 印章）& **5 种模式展示** `assets/modes.svg`（SMIL 动画）—— 已内嵌于下文。
+- 📖 **README 现支持 10 种语言**（新增 🇹🇭 ไทย · 🇩🇪 Deutsch · 🇵🇹 Português）。
+- 🐛 **全面排查并修复全部遗留 BUG**（见 [CHANGELOG](CHANGELOG.md) `[1.1.2]`）；`npm run check` 全绿，**49 项单元测试**。
 
-→ 完整说明：[docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
+<img src="assets/modes.svg" alt="5 种模式 — Classic · Zen · Inferno · 60秒冲刺 · 黄金丰收" width="100%" />
+
+→ 完整说明：[docs/releases/v1.1.2.md](docs/releases/v1.1.2.md)
 
 ## ✨ 亮点功能
 
 | 分类 | 详情 |
 | --- | --- |
-| 🎮 **3 种模式** | **经典腌制**（均衡）· **清心禅意**（无危险物，×0.5 得分）· **辣椒火焰**（速度 +35%，×1.5 得分） |
+| 🎮 **5 种模式** | **经典腌制**（均衡）· **清心禅意**（无危险物，×0.5）· **辣椒火焰**（速度 +35%，×1.5）· **60秒冲刺**（限时 60s，×1.25）· **黄金丰收**（黄金掉落 ×2.6） |
 | 🌐 **游戏内 i18n** | Tiếng Việt · English · 中文 —— `src/i18n/`（纯模块 + React 桥接），`t()` 支持插值，同步 `<html lang>`，数字按 locale 分组（vi-VN / en-US / zh-CN） |
 | 🕹️ **专属“斜切”机制** | 同时按住两个方向键/斜向轴 —— 陶罐加速、发光并斩碎危险物。配有独立耐力条与防闪烁回滞 |
 | 🥬 **14 种食材** | 小茄子、辣椒、大蒜、生姜、盐、芥菜、**金卷心菜**（快速装罐）· 黄金盐/黄金蒜 · 魔鬼辣椒 · 寒冰 · 霉菌、苍蝇、**菜虫**（危险物） |
 | 🧄 **黄金蒜护盾** | 道具：最多叠加 **2 层护盾**吸收裂痕；陶罐周围环绕旋转光环 |
-| 🏆 **10 项成就** | **跨局累计**存档（localStorage），结算画面弹出“新成就！” |
+| 🏆 **12 项成就** | **跨局累计**存档（localStorage），结算画面弹出“新成就！” |
 | 🔊 **手工音效** | 11 种 Web Audio API 合成音效（零音频文件）+ 随等级变调的五声音阶背景乐，`M` 键静音 |
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 45 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 49 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -108,7 +113,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 45 项单元测试（modes / achievements / storage / i18n）
+npm run test       # vitest — 49 项单元测试（modes / achievements / storage / i18n）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -117,19 +122,27 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.1，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.2，dev/build/test/check 脚本
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
 ├─ assets/
 │  ├─ banner.svg           # README 横幅（SMIL 动画）
 │  ├─ demo.svg             # 实战演示（SMIL 动画）
-│  └─ items.svg            # 14 种食材（SMIL 动画）
+│  ├─ items.svg            # 14 种食材（SMIL 动画）
+│  ├─ modes.svg            # 5 种模式（SMIL 动画）
+│  └─ license.svg          # 动态 AGPL-3.0 copyleft 印章（SMIL 动画）
+├─ scripts/
+│  ├─ play-mac.command     # macOS 启动器 — 双击弹出全彩菜单
+│  ├─ play-windows.bat     # Windows 启动器 — 双击弹出全彩菜单
+│  ├─ play-linux.sh        # Linux 启动器 — 双击弹出全彩菜单
+│  └─ README.md            # 给不熟悉终端用户的启动器指南
 ├─ docs/
 │  ├─ DESCRIPTION.md       # 多语言项目简介（vi/en/zh + SEO）
 │  └─ releases/
 │     ├─ v1.0.0.md         # 首发版本说明
 │     ├─ v1.1.0.md         # v1.1.0 版本说明
-│     └─ v1.1.1.md         # 当前版本说明
+│     ├─ v1.1.1.md         # v1.1.1 版本说明
+│     └─ v1.1.2.md         # 当前版本说明（1.1.2）
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -137,10 +150,13 @@ lo-cheoio/
 ├─ README.ko.md            # 🇰🇷 한국어
 ├─ README.es.md            # 🇪🇸 Español
 ├─ README.fr.md            # 🇫🇷 Français
+├─ README.th.md            # 🇹🇭 ไทย
+├─ README.de.md            # 🇩🇪 Deutsch
+├─ README.pt.md            # 🇵🇹 Português
 ├─ src/
 │  ├─ main.tsx             # React 入口，StrictMode
 │  ├─ App.tsx              # 阶段状态机 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.1"（唯一版本来源）
+│  ├─ version.ts           # APP_VERSION = "1.1.2"（唯一版本来源）
 │  ├─ index.css            # tailwind v4 主题 + 全部动画/渐变
 │  ├─ assets/fonts/        # woff2 子集（Be Vietnam Pro ×6，Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range，100% 离线
@@ -151,7 +167,7 @@ lo-cheoio/
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
 │  │  ├─ StartScreen.tsx   # 主菜单：极光、流光字、选模式、成就
-│  │  ├─ ModeSelector.tsx  # 3 张模式卡（渐变 + 模式主色）
+│  │  ├─ ModeSelector.tsx  # 5 张模式卡（classic/zen/inferno/blitz/goldrush）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
 │  │  ├─ GameOverScreen.tsx     # 罐子碎了！+ 分数 + 新成就
 │  │  ├─ PauseScreen.tsx        # 暂停 + 本局数据
@@ -160,7 +176,7 @@ lo-cheoio/
 │  ├─ game/
 │  │  ├─ engine.ts         # 全部模拟与画布渲染（约 2100 行）
 │  │  ├─ modes.ts          # 游戏模式 + 平衡公式（纯函数）
-│  │  ├─ achievements.ts   # 10 枚徽章 + 纯校验器（纯函数）
+│  │  ├─ achievements.ts   # 12 枚徽章 + 纯校验器（纯函数）
 │  │  ├─ storage.ts        # localStorage：TOP 8、进度、成就
 │  │  └─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
 │  └─ utils/cn.ts          # clsx + tailwind-merge
@@ -194,10 +210,14 @@ lo-cheoio/
 **想新增一种语言？**
 添加 `src/i18n/locales/xx.ts` 并镜像 `vi.ts` 的 key 集合，更新 `LANGUAGES` 与测试，然后提交 PR —— 详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+**不会敲命令？**
+双击 [`scripts/play-mac.command`](scripts/play-mac.command)（macOS）、[`scripts/play-windows.bat`](scripts/play-windows.bat)（Windows）或 [`scripts/play-linux.sh`](scripts/play-linux.sh)（Linux）—— 全彩菜单会弹出；选 `1` 即构建并立刻游玩，选 `2` 进入开发模式。详见 [scripts/README.md](scripts/README.md)。
+
 ## 📦 发行版与更新日志
 
 | 版本 | 日期 | 说明 |
 | --- | --- | --- |
+| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
 | [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | 游戏内 i18n VI/EN/ZH · README 7 种语言 · 全面修 BUG · 45 项测试 |
 | [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 种模式 · 黄金蒜护盾 · 菜虫 · 金卷心菜 · 10 项成就 · 自托管字体 |
 | [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 首发：完整引擎，11 种食材，拍罐冲击波，×9 连击 |
@@ -207,12 +227,14 @@ lo-cheoio/
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 45 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 49 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 
 ## 📄 许可证与作者
 
-- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) —— 见 [LICENSE](LICENSE)。
+<img src="assets/license.svg" alt="AGPL-3.0-only — copyleft 许可证" width="400" />
+
+- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) —— 见 [LICENSE](LICENSE) 与 [assets/license.svg](assets/license.svg)。
 - 字体：[Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) 与 [Bungee](https://fonts.google.com/specimen/Bungee) —— SIL Open Font License 1.1（自托管 woff2 子集）。
 - 致敬越南每一桌饭上的那坛腌菜。🫙🇻🇳

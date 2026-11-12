@@ -2,7 +2,7 @@
    Lọ Chéo — Game modes & balance math (pure functions, unit-tested)
    ===================================================================== */
 
-export type ModeId = "classic" | "zen" | "inferno";
+export type ModeId = "classic" | "zen" | "inferno" | "blitz" | "goldrush";
 
 export interface ModeConfig {
   id: ModeId;
@@ -22,6 +22,10 @@ export interface ModeConfig {
   hazardMult: number;
   /** Interval multiplier between spawns (lower = denser rain) */
   spawnMult: number;
+  /** Optional 60-second-style countdown (seconds); when set, the run ends at 0 */
+  timeLimit?: number;
+  /** Spawn-weight multiplier for golden powers (Muối Vàng, Ớt Hiểm, Đá Lạnh, Cải Vàng, Tỏi Vàng) */
+  goldMult?: number;
   /** Accent colour for the card glow / ring */
   accent: string;
   /** CSS gradient used for the card background */
@@ -76,12 +80,44 @@ export const MODES: Record<ModeId, ModeConfig> = {
     gradient: "linear-gradient(150deg,#3d120c 0%,#260b08 55%,#170606 100%)",
     tint: "rgba(230,59,46,0.06)",
   },
+  blitz: {
+    id: "blitz",
+    name: "ĐUA 60 GIÂY",
+    tagline: "Đồng hồ đếm ngược · chém điểm tối đa",
+    description:
+      "Chạy đua với đồng hồ: 60 giây, dưa rơi dày hơn và nhanh hơn một chút, đền lại ×1.25 điểm mỗi củ. Hết giờ là hết ván — hứng được càng nhiều càng tốt.",
+    badge: "×1.25 · 60S",
+    scoreMult: 1.25,
+    speedMult: 1.12,
+    hazardMult: 1.2,
+    spawnMult: 0.9,
+    timeLimit: 60,
+    accent: "#ffc94a",
+    gradient: "linear-gradient(150deg,#3f2c05 0%,#271e06 55%,#171105 100%)",
+    tint: "rgba(255,201,74,0.05)",
+  },
+  goldrush: {
+    id: "goldrush",
+    name: "MÙA VÀNG",
+    tagline: "Đồ vàng rơi dày đặc · mùa bội thu",
+    description:
+      "Mùa gặt rực rỡ: Muối Vàng, Cải Vàng, Tỏi Vàng, Ớt Hiểm và Đá Lạnh rơi dày gấp ~2.6 lần. Cân bằng như Cổ điển, dành cho ai thích ăn vàng và leo thành tựu.",
+    badge: "×1.0 · GOLD ×2.6",
+    scoreMult: 1,
+    speedMult: 1,
+    hazardMult: 1,
+    spawnMult: 0.95,
+    goldMult: 2.6,
+    accent: "#ffd766",
+    gradient: "linear-gradient(150deg,#3a3305 0%,#292404 55%,#161304 100%)",
+    tint: "rgba(255,215,102,0.05)",
+  },
 };
 
-export const MODE_LIST: ModeConfig[] = [MODES.classic, MODES.zen, MODES.inferno];
+export const MODE_LIST: ModeConfig[] = [MODES.classic, MODES.zen, MODES.inferno, MODES.blitz, MODES.goldrush];
 
 export function isModeId(v: unknown): v is ModeId {
-  return v === "classic" || v === "zen" || v === "inferno";
+  return v === "classic" || v === "zen" || v === "inferno" || v === "blitz" || v === "goldrush";
 }
 
 /** Combo multiplier: +1 per 4-catch streak, capped at ×9, doubled in frenzy. */

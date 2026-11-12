@@ -657,6 +657,12 @@ export class LoCheoGame {
     // -------- playing
     this.hudAlpha = lerp(this.hudAlpha, 1, Math.min(1, dt * 4));
     this.stats.time += raw;
+    const timeLimit = MODES[this.mode].timeLimit;
+    if (timeLimit && this.stats.time >= timeLimit) {
+      this.stats.time = timeLimit;
+      this.gameOver();
+      return;
+    }
     this.timeScale = lerp(this.timeScale, this.slow > 0 ? 0.52 : 1, Math.min(1, dt * 6));
     if (this.slow > 0) this.slow = Math.max(0, this.slow - dt);
     if (this.frenzy > 0) this.frenzy = Math.max(0, this.frenzy - dt);
@@ -769,6 +775,23 @@ export class LoCheoGame {
 
     this.squash = lerp(this.squash, 0, Math.min(1, dt * 9));
 
+    // combo flame aura — visual reward for red-hot streaks (12+ in a row)
+    if (this.combo >= 12 && Math.random() < 0.6) {
+      const flameColors = [C.goldLight, C.chili, "#ffd766"];
+      this.spawnParticle({
+        x: this.px + rnd(-this.pr * 0.7, this.pr * 0.7),
+        y: this.py + this.pr * 0.55,
+        vx: rnd(-45, 45),
+        vy: rnd(40, 140),
+        life: rnd(0.28, 0.55),
+        size: rnd(2.5, 5.2) * this.S,
+        color: flameColors[(Math.random() * flameColors.length) | 0],
+        kind: "spark",
+        grav: -520,
+        drag: 2.4,
+      });
+    }
+
     // chéo trail
     if (this.cheo && Math.hypot(this.pvx, this.pvy) > 120) {
       this.trail.push({ x: this.px, y: this.py, a: 0.5 });
@@ -810,6 +833,7 @@ export class LoCheoGame {
       const def = DEFS[k];
       let w = def.weight(lvl);
       if (def.hazard) w *= cfg.hazardMult;
+      if (def.power || def.fillBoost) w *= cfg.goldMult ?? 1;
       if (deco) {
         if (def.hazard) w *= 0.4;
         if (def.power) w *= 0.5;
@@ -2071,9 +2095,18 @@ export class LoCheoGame {
     // fill meter
     const fw = clamp(this.w * 0.24, 120, 240);
     this.bar(ctx, cx - fw / 2, pad + 46 * s, fw, 10, this.fill, C.brine);
-    ctx.font = `700 ${Math.round(10 * s)}px "Be Vietnam Pro", sans-serif`;
-    ctx.fillStyle = "rgba(253,243,224,0.7)";
-    ctx.fillText(t("hud.jar"), cx, pad + 70 * s);
+    const timeLimit = MODES[this.mode].timeLimit;
+    if (timeLimit) {
+      // ĐUA 60 GIÂY — countdown replaces the quiet jar label; pulses red under 10s
+      const left = Math.max(0, timeLimit - this.stats.time);
+      const urgent = left <= 10.5;
+      const pulse = urgent ? 1 + 0.18 * Math.abs(Math.sin(this.t * 6)) : 1;
+      this.txt(ctx, t("hud.timeLeft", { n: Math.ceil(left) }), cx, pad + 70 * s, Math.round((urgent ? 15 : 13) * s * pulse), urgent ? C.chili : C.goldLight, '"Be Vietnam Pro"');
+    } else {
+      ctx.font = `700 ${Math.round(10 * s)}px "Be Vietnam Pro", sans-serif`;
+      ctx.fillStyle = "rgba(253,243,224,0.7)";
+      ctx.fillText(t("hud.jar"), cx, pad + 70 * s);
+    }
 
     // combo
     if (this.combo > 1) {

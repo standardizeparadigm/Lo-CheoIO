@@ -26,10 +26,10 @@ const baseProgress: ProgressLike = {
 };
 
 describe("achievement catalogue", () => {
-  it("has 10 unique ids", () => {
-    expect(ACHIEVEMENTS).toHaveLength(10);
-    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(10);
-    expect(ACHIEVEMENT_MAP.size).toBe(10);
+  it("has 12 unique ids", () => {
+    expect(ACHIEVEMENTS).toHaveLength(12);
+    expect(new Set(ACHIEVEMENTS.map((a) => a.id)).size).toBe(12);
+    expect(ACHIEVEMENT_MAP.size).toBe(12);
   });
 
   it("every achievement has display copy", () => {
@@ -75,6 +75,18 @@ describe("checkAchievements", () => {
     expect(checkAchievements({ ...baseRun, score: 2000, mode: "classic" }, baseProgress, [])).not.toContain("inferno-1500");
     expect(checkAchievements({ ...baseRun, score: 2000, mode: "inferno" }, baseProgress, [])).toContain("inferno-1500");
     expect(checkAchievements({ ...baseRun, score: 1499, mode: "inferno" }, baseProgress, [])).not.toContain("inferno-1500");
+  });
+
+  it("grants blitz-3000 only in blitz mode with 3,000+", () => {
+    expect(checkAchievements({ ...baseRun, score: 3000, mode: "blitz" }, baseProgress, [])).toContain("blitz-3000");
+    expect(checkAchievements({ ...baseRun, score: 2999, mode: "blitz" }, baseProgress, [])).not.toContain("blitz-3000");
+    expect(checkAchievements({ ...baseRun, score: 3000, mode: "classic" }, baseProgress, [])).not.toContain("blitz-3000");
+  });
+
+  it("grants goldrush-2jars only in goldrush mode with 2+ jars", () => {
+    expect(checkAchievements({ ...baseRun, jars: 2, mode: "goldrush" }, baseProgress, [])).toContain("goldrush-2jars");
+    expect(checkAchievements({ ...baseRun, jars: 1, mode: "goldrush" }, baseProgress, [])).not.toContain("goldrush-2jars");
+    expect(checkAchievements({ ...baseRun, jars: 2, mode: "inferno" }, baseProgress, [])).not.toContain("goldrush-2jars");
   });
 
   it("never re-grants an already unlocked id", () => {

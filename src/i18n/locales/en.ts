@@ -81,6 +81,7 @@ const en: Record<MessageKey, string> = {
   "hud.best": "BEST",
   "hud.cheo": "SLANT!",
   "hud.jar": "THE JAR",
+  "hud.timeLeft": "{n}s LEFT",
   "hud.combo": "{n} STREAK",
   "hud.slamReady": "JAR SLAM ✦ READY",
   "hud.slamCd": "JAR SLAM…",
@@ -133,6 +134,16 @@ const en: Record<MessageKey, string> = {
   "mode.inferno.desc":
     "The pickle-master's hellscape: produce falls 35% faster, nearly double the hazards, but +50% score per catch. Only for slant veterans.",
   "mode.inferno.badge": "×1.5 SCORE",
+  "mode.blitz.name": "60-SECOND RUSH",
+  "mode.blitz.tagline": "Against the clock · max score rush",
+  "mode.blitz.desc":
+    "Race the clock: 60 seconds, produce falls a bit denser, faster and meaner, paying ×1.25 per catch. When the clock hits zero, the run ends — catch as much as you can.",
+  "mode.blitz.badge": "×1.25 · 60S",
+  "mode.goldrush.name": "GOLD RUSH",
+  "mode.goldrush.tagline": "Golden loot rains down · harvest time",
+  "mode.goldrush.desc":
+    "A glittering harvest: Golden Salt, Golden Mustard, Golden Garlic, Scorching Chili and Ice Drop all spawn ~2.6× as often. Balanced like Classic — built for gold lovers and achievement hunters.",
+  "mode.goldrush.badge": "×1.0 · GOLD ×2.6",
 
   "ach.title": "Kitchen achievements",
   "ach.locked": "LOCKED",
@@ -157,6 +168,10 @@ const en: Record<MessageKey, string> = {
   "ach.runs-5.desc": "Finish 5 runs (across all modes).",
   "ach.inferno-1500.name": "CHILI PROOF",
   "ach.inferno-1500.desc": "Score 1,500 points in Inferno Chili mode.",
+  "ach.blitz-3000.name": "60-SECOND KING",
+  "ach.blitz-3000.desc": "Score 3,000 points in a single 60-Second Rush run.",
+  "ach.goldrush-2jars.name": "GOLDEN HAUL",
+  "ach.goldrush-2jars.desc": "Fill 2 jars in a single Gold Rush run.",
 
   "ticker.0": "EGGPLANT +10",
   "ticker.1": "CHILI +15",

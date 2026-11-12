@@ -60,8 +60,22 @@ describe("jarBonus", () => {
 });
 
 describe("MODES", () => {
-  it("ships exactly three modes in a stable order", () => {
-    expect(MODE_LIST.map((m) => m.id)).toEqual(["classic", "zen", "inferno"]);
+  it("ships exactly five modes in a stable order", () => {
+    expect(MODE_LIST.map((m) => m.id)).toEqual(["classic", "zen", "inferno", "blitz", "goldrush"]);
+  });
+
+  it("blitz is a 60-second time attack worth ×1.25", () => {
+    expect(MODES.blitz.timeLimit).toBe(60);
+    expect(MODES.blitz.scoreMult).toBe(1.25);
+    expect(MODES.blitz.speedMult).toBeGreaterThan(1);
+    expect(MODES.blitz.spawnMult).toBeLessThanOrEqual(1);
+  });
+
+  it("goldrush boosts golden powers without touching hazards or score", () => {
+    expect(MODES.goldrush.goldMult).toBeGreaterThan(2);
+    expect(MODES.goldrush.hazardMult).toBe(1);
+    expect(MODES.goldrush.scoreMult).toBe(1);
+    expect(MODES.goldrush.timeLimit).toBeUndefined();
   });
 
   it("zen disables hazards entirely and pays half", () => {
@@ -90,10 +104,12 @@ describe("MODES", () => {
 });
 
 describe("isModeId", () => {
-  it("accepts the three known modes", () => {
+  it("accepts the five known modes", () => {
     expect(isModeId("classic")).toBe(true);
     expect(isModeId("zen")).toBe(true);
     expect(isModeId("inferno")).toBe(true);
+    expect(isModeId("blitz")).toBe(true);
+    expect(isModeId("goldrush")).toBe(true);
   });
 
   it("rejects anything else", () => {
