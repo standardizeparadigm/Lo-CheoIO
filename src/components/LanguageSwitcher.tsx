@@ -1,6 +1,6 @@
 import { LANGUAGES, setLanguage, useI18n, type Language } from "../i18n/useI18n";
 
-const SHORT: Record<Language, string> = { vi: "VI", en: "EN", zh: "中", ja: "日", ko: "한" };
+const SHORT: Record<Language, string> = { vi: "VI", en: "EN", zh: "中", ja: "日", ko: "한", es: "ES", fr: "FR" };
 
 /**
  * Segmented language switcher — switches instantly and persists the choice

@@ -4,6 +4,8 @@ import en from "../src/i18n/locales/en";
 import zh from "../src/i18n/locales/zh";
 import ja from "../src/i18n/locales/ja";
 import ko from "../src/i18n/locales/ko";
+import es from "../src/i18n/locales/es";
+import fr from "../src/i18n/locales/fr";
 import {
   detectInitialLanguage,
   localeTable,
@@ -34,6 +36,14 @@ describe("locale key parity", () => {
     expect(Object.keys(ko).sort()).toEqual([...viKeys].sort());
   });
 
+  it("es mirrors every vi key exactly", () => {
+    expect(Object.keys(es).sort()).toEqual([...viKeys].sort());
+  });
+
+  it("fr mirrors every vi key exactly", () => {
+    expect(Object.keys(fr).sort()).toEqual([...viKeys].sort());
+  });
+
   it("no message is empty in any locale", () => {
     for (const lang of LANGUAGES) {
       const table = localeTable(lang);
@@ -50,6 +60,8 @@ describe("locale key parity", () => {
       expect(ph(zh[key]), `zh:${key}`).toEqual(ph(viLocale[key]));
       expect(ph(ja[key]), `ja:${key}`).toEqual(ph(viLocale[key]));
       expect(ph(ko[key]), `ko:${key}`).toEqual(ph(viLocale[key]));
+      expect(ph(es[key]), `es:${key}`).toEqual(ph(viLocale[key]));
+      expect(ph(fr[key]), `fr:${key}`).toEqual(ph(viLocale[key]));
     }
   });
 });
@@ -70,6 +82,8 @@ describe("t()", () => {
     expect(numberLocale("zh")).toBe("zh-CN");
     expect(numberLocale("ja")).toBe("ja-JP");
     expect(numberLocale("ko")).toBe("ko-KR");
+    expect(numberLocale("es")).toBe("es-ES");
+    expect(numberLocale("fr")).toBe("fr-FR");
   });
 });
 
