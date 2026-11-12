@@ -5,16 +5,22 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 ## Nguyên tắc vàng
 
 1. **Một file — không mạng — chơi được mãi mãi.** Không thêm dependency runtime nếu không thực sự cần thiết. Game phải chạy offline 100% từ `dist/index.html`.
-2. **Đúng hồn Việt mộc mạc**: ngôn ngữ trong game là tiếng Việt, giao diện theo phong cách gạch bông/ẩm thực miền Nam, màu chủ đạo ngọc bích – nghệ – ớt.
+2. **Đúng hồn Việt mộc mạc**: ngôn ngữ gốc của game là tiếng Việt (mọi chuỗi hiển thị đi qua `src/i18n/`, không hardcode), giao diện theo phong cách gạch bông/ẩm thực miền Nam, màu chủ đạo ngọc bích – nghệ – ớt.
 3. **Hiệu năng là tính năng**: giữ budget (≤460 particles, ≤70 items, DPR ≤ 2), không re-render React trong hot loop.
 
 ## Quy trình
 
 1. Fork repo → tạo branch `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm install` rồi `npm run check` (typecheck + 36 tests + build) — tất cả phải xanh.
-3. Nếu sửa logic thuần (`modes.ts`, `achievements.ts`, `storage.ts`): thêm/sửa test trong `tests/`.
+2. `npm install` rồi `npm run check` (typecheck + 45 tests + build) — tất cả phải xanh.
+3. Nếu sửa logic thuần (`modes.ts`, `achievements.ts`, `storage.ts`, `src/i18n/i18n.ts`): thêm/sửa test trong `tests/`.
 4. Nếu sửa gameplay/cân bằng: ghi rõ chế độ ảnh hưởng (Cổ điển / Thảnh Thơi / Ớt Lửa) và đính clip trong PR.
 5. Không commit `dist/` (đã có trong `.gitignore`) — artifact release được tạo bằng `npm run build`.
+
+## Thêm ngôn ngữ mới
+
+1. Tạo `src/i18n/locales/<lang>.ts` export `Record<MessageKey, string>` với **đúng key set** của `vi.ts` (thiếu/thừa key sẽ fail test `tests/i18n.test.ts`).
+2. Cập nhật `LANGUAGES` trong `src/i18n/i18n.ts` và thêm nút vào `LanguageSwitcher.tsx` (+ key `lang.<lang>` trong cả 3 locale).
+3. Đồng bộ `<html lang>` (đã tự động) và số locale trong `numberLocale`.
 
 ## Kiểm thử
 

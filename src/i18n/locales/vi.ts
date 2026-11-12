@@ -1,0 +1,221 @@
+/* =====================================================================
+   Lọ Chéo — Vietnamese messages (source of truth for the key set).
+   en.ts and zh.ts must mirror this exact key set (enforced by tests).
+   ===================================================================== */
+
+const vi = {
+  /* live badge & version line */
+  "live.badge": "TRỰC TIẾP TỪ BẾP",
+  "menu.arcade": "Arcade muối dưa · 60fps",
+
+  /* brand */
+  "brand.badge": "HŨ DƯA ĐẠI CHIẾN",
+  "app.wordmark": "LỌ CHÉO",
+
+  /* start screen */
+  "menu.best": "kỷ lục hiện tại:",
+  "menu.desc1": "Cái lọ này ",
+  "menu.descStrong": "chỉ chịu đi đường chéo",
+  "menu.desc2":
+    ". Lượn xiên để tăng tốc và chém tan mốc, ruồi, sâu rau; hứng trọn cà pháo, tỏi, ớt cho đầy hũ trước khi gốm nứt làm ba.",
+  "menu.cta": "Vào bếp",
+  "menu.howtoOpen": "Cách chơi",
+  "menu.howtoClose": "Bớt lại",
+  "menu.achievements": "Thành tựu",
+  "menu.orPress": "hoặc nhấn",
+  "touch.drag": "KÉO NGÓN TAY — lọ trượt theo",
+  "touch.diagonal": "KÉO XÉO 45° — chém mốc",
+  "touch.slam": "NÚT LẮC — dọn sạch",
+  "keys.move": "DI CHUYỂN",
+  "keys.slam": "LẮC HŨ",
+  "keys.pause": "TẠM NGHỈ",
+  "panel.local": "lưu trên máy bạn",
+
+  /* scoreboard */
+  "scoreboard.title": "BẢNG VÀNG HŨ DƯA",
+  "scoreboard.empty": "Chưa có ai muối dưa.",
+  "scoreboard.top": "TOP {n}",
+  "scoreboard.row": "CẤP {level} · {jars} HŨ",
+
+  /* game over */
+  "gameover.kicker": "gốm không chịu nổi",
+  "gameover.title": "VỠ HŨ!",
+  "gameover.scoreLabel": "điểm ván này",
+  "gameover.best": "kỷ lục:",
+  "gameover.rank": "VÀO TOP {rank}!",
+  "gameover.saved": "ĐÃ GHI VÀO BẢNG VÀNG",
+  "gameover.again": "Muối lại ngay",
+  "gameover.menu": "Về menu",
+  "gameover.instantA": "nhấn",
+  "gameover.instantB": "để chơi lại tức thì",
+  "gameover.mode": "CHẾ ĐỘ: {name}",
+  "newAch.title": "THÀNH TỰU MỚI!",
+
+  /* stats grid */
+  "stats.catches": "Củ muối",
+  "stats.bestCombo": "Chuỗi đỉnh",
+  "stats.level": "Cấp",
+  "stats.jars": "Hũ đầy",
+  "stats.sliced": "Đã chém",
+  "stats.time": "Thời gian",
+
+  /* save score */
+  "save.label": "ghi tên vào bảng vàng",
+  "save.placeholder": "VD: BÀ TƯ",
+  "save.anonymous": "KHÔNG TÊN",
+  "save.button": "Lưu",
+
+  /* pause */
+  "pause.kicker": "hũ đang đậy nắp",
+  "pause.title": "TẠM NGHỈ",
+  "pause.score": "Điểm",
+  "pause.catches": "Củ đã muối",
+  "pause.bestCombo": "Chuỗi cao nhất",
+  "pause.levelJars": "Cấp / Hũ",
+  "pause.resume": "Muối tiếp",
+  "pause.restart": "Chơi lại",
+  "pause.menu": "Về menu",
+  "pause.hintResume": "tiếp tục",
+  "pause.hintSlam": "lắc hũ",
+  "pause.hintMute": "tắt tiếng",
+
+  /* in-run chrome */
+  "app.hint": "giữ 2 phím để chém chéo · SPACE lắc hũ · ESC tạm nghỉ · {mode}",
+  "app.pause.ariaOn": "Tạm nghỉ",
+  "app.pause.ariaOff": "Tiếp tục",
+  "mute.turnOff": "Tắt âm",
+  "mute.turnOn": "Bật âm",
+
+  /* canvas HUD */
+  "hud.best": "KỶ LỤC",
+  "hud.cheo": "CHÉO!",
+  "hud.jar": "HŨ DƯA",
+  "hud.combo": "{n} CHUỖI",
+  "hud.slamReady": "LẮC HŨ ✦ SẴN SÀNG",
+  "hud.slamCd": "LẮC HŨ…",
+  "hud.frenzy": "ỚT HIỂM ×2",
+  "hud.slow": "ĐÁ LẠNH",
+  "hud.shield": "TỎI VÀNG ×{n}",
+  "hud.level": "CẤP {n}",
+  "hud.jarsCatches": "{jars} HŨ · {catches} CỦ",
+
+  /* canvas banners */
+  "banner.start.title": "MUỐI NÀO!",
+  "banner.start.sub": "giữ 2 phím để CHÉM CHÉO",
+  "banner.jarFull": "HŨ ĐẦY! +{bonus}",
+  "banner.jarFull.sub": "dưa muối đạt chuẩn",
+  "banner.level": "CẤP {n}",
+  "banner.level.sub": "dưa rơi nhanh hơn",
+  "banner.frenzy": "CAY XÈ!",
+  "banner.frenzy.sub": "nhân đôi điểm · tự chém mốc",
+  "banner.slow": "NGÂM ĐÁ",
+  "banner.slow.sub": "thời gian trôi chậm lại",
+  "banner.shield": "KHIÊN TỎI!",
+  "banner.shield.sub": "chặn một vết nứt · tối đa 2 lớp",
+
+  /* canvas popups */
+  "popup.mult": "NHÂN ×{n}",
+  "popup.slam": "LẮC HŨ!",
+  "popup.cheo": "CHÉO +{n}",
+  "popup.miss": "TRƯỢT!",
+  "popup.cracked": "NỨT! -1",
+  "popup.broken": "VỠ HŨ!",
+  "popup.healCrack": "+{gain} · LÀNH VẾT NỨT!",
+  "popup.healFull": "+{gain} MUỐI VÀNG",
+  "popup.frenzy": "ỚT HIỂM! ×2 ĐIỂM",
+  "popup.slow": "ĐÁ LẠNH! CHẬM RÃI",
+  "popup.shieldGain": "TỎI VÀNG! KHIÊN ×{n}",
+  "popup.shieldBlock": "KHIÊN TỎI! CHẶN!",
+
+  /* mode selector */
+  "mode.choose": "Chọn chế độ",
+  "mode.switch": "đổi được trước mỗi ván",
+  "mode.classic.name": "MUỐI DƯA CỔ ĐIỂN",
+  "mode.classic.tagline": "Cân bằng hương vị truyền thống",
+  "mode.classic.desc":
+    "Toàn bộ trải nghiệm gốc: cà pháo, tỏi, ớt rơi xuống — né đồ hư, chém chéo khi hưng phấn, lắc hũ cứu nguy.",
+  "mode.classic.badge": "×1.0 ĐIỂM",
+  "mode.zen.name": "THẢNH THƠI",
+  "mode.zen.tagline": "Không đồ hư · thư thái muối dưa",
+  "mode.zen.desc":
+    "Chế độ chữa lành: mốc và ruồi biến mất, dưa rơi chậm hơn 20%, đổi lại điểm chỉ còn một nửa. Dành cho những buổi chiều mưa.",
+  "mode.zen.badge": "×0.5 ĐIỂM",
+  "mode.inferno.name": "ỚT LỬA",
+  "mode.inferno.tagline": "Dưa rơi như lửa · thưởng nửa điểm nữa",
+  "mode.inferno.desc":
+    "Địa ngục của dân muối dưa: dưa rơi nhanh hơn 35%, đồ hư nhiều gần gấp đôi, đền lại +50% điểm mỗi củ. Chỉ dành cho tay chéo cứng.",
+  "mode.inferno.badge": "×1.5 ĐIỂM",
+
+  /* achievements */
+  "ach.title": "Thành tựu bếp dưa",
+  "ach.locked": "CHƯA MỞ",
+  "ach.hint": "Hãy chơi để mở khóa",
+  "ach.first-catch.name": "MẺ MUỐI ĐẦU TIÊN",
+  "ach.first-catch.desc": "Hứng được củ dưa đầu tiên trong sự nghiệp.",
+  "ach.combo-10.name": "TAY MUỐI CHUYÊN NGHIỆP",
+  "ach.combo-10.desc": "Đạt chuỗi 10 củ liên tiếp trong một ván.",
+  "ach.combo-20.name": "CHÉO THẦN VÔ ĐỐI",
+  "ach.combo-20.desc": "Đạt chuỗi 20 củ liên tiếp trong một ván.",
+  "ach.slice-10.name": "KIẾM CHÉO THÁI MỎNG",
+  "ach.slice-10.desc": "Chém tan 10 đồ hư trong một ván.",
+  "ach.jar-1.name": "HŨ ĐẦU TAY",
+  "ach.jar-1.desc": "Đầy một hũ dưa trong một ván.",
+  "ach.level-6.name": "BẾP TRƯỞNG XÓM DƯA",
+  "ach.level-6.desc": "Đạt cấp 6 trong một ván.",
+  "ach.score-3000.name": "TÚI MUỐI 3 NÚT",
+  "ach.score-3000.desc": "Ghi 3.000 điểm trong một ván.",
+  "ach.score-6000.name": "HUYỀN THOẠI HŨ CHÉO",
+  "ach.score-6000.desc": "Ghi 6.000 điểm trong một ván.",
+  "ach.runs-5.name": "MUỐI 5 MẺ",
+  "ach.runs-5.desc": "Hoàn thành 5 ván chơi (cộng dồn mọi chế độ).",
+  "ach.inferno-1500.name": "ĂN ỚT KHÔNG CAY",
+  "ach.inferno-1500.desc": "Ghi 1.500 điểm ở chế độ Ớt Lửa.",
+
+  /* ingredient ticker */
+  "ticker.0": "CÀ PHÁO +10",
+  "ticker.1": "ỚT +15",
+  "ticker.2": "TỎI +10",
+  "ticker.3": "GỪNG +12",
+  "ticker.4": "MUỐI +8",
+  "ticker.5": "CẢI +18",
+  "ticker.6": "CẢI VÀNG +45",
+  "ticker.7": "MUỐI VÀNG +120",
+  "ticker.8": "ỚT HIỂM ×2",
+  "ticker.9": "ĐÁ LẠNH — CHẬM",
+  "ticker.10": "TỎI VÀNG — KHIÊN",
+  "ticker.11": "MỐC — NÉ!",
+  "ticker.12": "RUỒI — NÉ!",
+  "ticker.13": "SÂU RAU — NÉ!",
+
+  /* how-to rules */
+  "rule.0.t": "LƯỢT CHÉO",
+  "rule.0.d":
+    "Giữ 2 phím cùng lúc (hoặc kéo queo chéo) — lọ tăng tốc, phát sáng và CHÉM tan mốc, ruồi, sâu rau.",
+  "rule.1.t": "HỨNG ĐỒ MUỐI",
+  "rule.1.d":
+    "Cà pháo, ớt, tỏi, gừng rơi xuống. Bắt liên tục để dựng chuỗi nhân điểm tới ×9 (×18 khi cay).",
+  "rule.2.t": "LẮC HŨ",
+  "rule.2.d":
+    "Phím Cách (hoặc nút đỏ góc phải) tạo sóng xung kích: dọn sạch đồ hư quanh lọ và hút đồ muối về phía mình.",
+  "rule.3.t": "KHIÊN TỎI VÀNG",
+  "rule.3.d":
+    "Nhặt TỎI VÀNG để tích tối đa 2 lớp khiên. Một lần đụng đồ hư, khiên vỡ thay cho vết nứt.",
+  "rule.4.t": "3 VẾT NỨT",
+  "rule.4.d":
+    "Đụng đồ hư khi không lướt chéo là nứt hũ. Ba vết là mất hũ, đầy hũ thì được thưởng.",
+  "rule.5.t": "3 CHẾ ĐỘ",
+  "rule.5.d":
+    "Cổ điển cân bằng, Thảnh Thơi không đồ hư, Ớt Lửa tốc độ +35% đổi lấy ×1.5 điểm.",
+
+  /* language switcher */
+  "lang.label": "Ngôn ngữ",
+  "lang.vi": "Tiếng Việt",
+  "lang.en": "English",
+  "lang.zh": "中文",
+
+  /* footer */
+  "footer.offline": "100% offline",
+} as const;
+
+export default vi;
+export type MessageKey = keyof typeof vi;

@@ -1,4 +1,6 @@
 import { MODE_LIST, type ModeId } from "../game/modes";
+import { useI18n } from "../i18n/useI18n";
+import type { MessageKey } from "../i18n/i18n";
 
 /** Icons per mode so the three cards read at a glance. */
 function ModeGlyph({ id, className }: { id: ModeId; className?: string }) {
@@ -34,15 +36,16 @@ export default function ModeSelector({
   mode: ModeId;
   onChange: (m: ModeId) => void;
 }) {
+  const { t } = useI18n();
   return (
     <fieldset className="anim-slide">
-      <legend className="sr-only">Chọn chế độ chơi</legend>
+      <legend className="sr-only">{t("mode.choose")}</legend>
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <span className="font-body text-[10px] font-extrabold tracking-[0.3em] text-jade-500 uppercase">
-          Chọn chế độ
+          {t("mode.choose")}
         </span>
         <span className="font-body text-[9px] font-bold tracking-[0.18em] text-jade-600 uppercase">
-          đổi được trước mỗi ván
+          {t("mode.switch")}
         </span>
       </div>
       <div className="grid grid-cols-3 gap-2">
@@ -66,23 +69,23 @@ export default function ModeSelector({
                 className="font-display text-[10px] leading-tight tracking-[0.08em] sm:text-[11px]"
                 style={{ color: m.accent }}
               >
-                {m.name}
+                {t(`mode.${m.id}.name` as MessageKey)}
               </span>
               <span className="hidden font-body text-[9px] leading-snug text-clay-100/60 min-[420px]:block">
-                {m.tagline}
+                {t(`mode.${m.id}.tagline` as MessageKey)}
               </span>
               <span
                 className="mt-auto inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.14em]"
                 style={{ borderColor: m.accent, color: m.accent }}
               >
-                {m.badge}
+                {t(`mode.${m.id}.badge` as MessageKey)}
               </span>
             </button>
           );
         })}
       </div>
       <p className="mt-1.5 border-l-2 border-jade-800 pl-2 font-body text-[10px] leading-snug text-clay-100/55">
-        {MODE_LIST.find((m) => m.id === mode)?.description}
+        {t(`mode.${mode}.desc` as MessageKey)}
       </p>
     </fieldset>
   );

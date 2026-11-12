@@ -1,0 +1,218 @@
+<div align="center">
+
+<img src="assets/banner.svg" alt="Lọ Chéo — 절임항아리 대격전" width="100%" />
+
+# LỌ CHÉO — 절임항아리 대격전
+
+### 🫙 브라우저에서 100% 동작하는 베트남식 절임 아케이드 — 단일 HTML 파일, 오프라인 우선
+### 🌐 게임 내 3개 언어 지원 — Tiếng Việt · English · 中文
+
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
+
+[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
+[![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
+[![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
+[![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-프로덕션-빌드)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-언어-전환)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
+
+<img src="assets/demo.svg" alt="Lọ Chéo 플레이 장면 — 항아리가 대각선으로 돌진하고, 절임 재료를 받고, 곰팡이를 자른다" width="100%" />
+
+</div>
+
+---
+
+## 🥒 프로젝트 소개
+
+> Lọ Chéo — 절임항아리 대격전: 브라우저에서 100% 실행되는 절임 아케이드. 하나의 자기완결적 HTML 파일에 담긴 오프라인 우선 설계 — CDN 없음, 서버 없음. 이 도자기 항아리는 **대각선**으로만 움직일 수 있습니다. 두 개의 키를 눌러 대각선으로 질주하고, 가속하고, 곰팡이·파리·배추벌레를 잘게 썰며, 항아리가 세 조각 나기 전에 가득 채워보세요! **3가지 모드 · 14가지 재료 · 10개 업적 · TOP 8 순위 · 게임 내 3개 언어.**
+
+베트남의 소박한 절임 음식에서 영감을 받은 **단일 화면 액션 아케이드**입니다. 선형 레벨도, 복잡한 메뉴도 없습니다 — 오직 항아리와 끝없이 쏟아지는 절임 재료, 그리고 불꽃 같은 반사신경만 있을 뿐.
+
+## 🆕 v1.1.1 새로운 점
+
+- 🌐 **게임 내 언어 전환** — VI ⇄ EN ⇄ ZH, 메인 메뉴 또는 일시정지 화면에서 즉시 적용, `locheo.lang.v1`에 저장. Canvas HUD, 팝업, 배너, 메뉴, 일시정지, 게임 오버, 업적, 티커까지 모두 번역 완료.
+- 📖 **README 7개 언어로 확장** (🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français 신규 추가), 애니메이션 배너, 게임플레이 애니메이션, 14가지 재료 도표 포함.
+- 🐛 **잔존 버그 전량 탐색·수정** ([CHANGELOG](CHANGELOG.md) `[1.1.1]` 참조). `npm run check` 그린, **45개 단위 테스트**.
+- 🖼️ **새로운 애니메이션 SVG 2종**: `assets/demo.svg`(게임플레이 루프), `assets/items.svg`(14가지 재료).
+
+→ 전체 내용: [docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
+
+## ✨ 하이라이트
+
+| 분류 | 세부 |
+| --- | --- |
+| 🎮 **3가지 게임 모드** | **클래식 절임**(균형형) · **ZEN**(위험물 없음, 점수 ×0.5) · **인페르노 칠리**(속도 +35%, 점수 ×1.5) |
+| 🌐 **게임 내 i18n** | Tiếng Việt · English · 中文 — `src/i18n/`(pure 모듈 + React 브리지), 보간을 지원하는 `t()`, `<html lang>` 동기화, 로케일별 숫자 표기(vi-VN / en-US / zh-CN) |
+| 🕹️ **시그니처 “대각 베기(CHÉO)”** | 2개의 키/대각 축을 동시에 누르면 — 항아리가 가속·발광하며 위험물을 잘라냅니다. 깜빡임 방지 히스테리시스가 적용된 전용 스태미나 바 |
+| 🥬 **14가지 재료** | 가지, 고추, 마늘, 생강, 소금, 겨자채, **황금 겨자채**(항아리를 빠르게 채움) · 황금소금/황금마늘 · 불타는 고추 · 얼음 · 곰팡이, 파리, **배추벌레**(위험물) |
+| 🧄 **황금마늘 실드** | 파워업: 최대 **2겹** 실드를 쌓아 금이 가는 것을 흡수. 항아리 주위를 도는 회전 후광 |
+| 🏆 **10개 업적** | **판을 넘나드는** 누적 저장(localStorage), 게임 오버 화면에 “새 업적!” 토스트 |
+| 🔊 **수제 오디오** | Web Audio API로 합성한 효과음 11종(파일 없음) + 레벨에 따라 변주되는 오음계 배경음, `M`으로 음소거 |
+| 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
+| 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
+| 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 45개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+
+<img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
+
+## 🌐 언어 전환
+
+Lọ Chéo는 **3가지 UI 언어**를 내장 — 새로고침 없이, 진행 중인 판을 잃지 않고 즉시 적용됩니다:
+
+| 언어 | 위치 | 저장 키 |
+| --- | --- | --- |
+| 🇻🇳 Tiếng Việt | **VI** 버튼 (기본값; 미설정 시 브라우저 언어를 따름) | `locheo.lang.v1` |
+| 🇬🇧 English | **EN** 버튼 | `locheo.lang.v1` |
+| 🇨🇳 中文 | **中** 버튼 | `locheo.lang.v1` |
+
+- **메인 메뉴**(오른쪽 상단) 또는 **일시정지 화면**(하단 컴팩트)에서 전환.
+- 사용자에게 보이는 모든 문자열은 `src/i18n/locales/{vi,en,zh}.ts`에 있습니다 — Canvas 엔진, 화면, HUD, 팝업, 티커, 힌트.
+- 키가 없다면? `t()`는 베트남어로 폴백합니다 — 세 로케일의 키 집합과 플레이스홀더 일치는 테스트로 강제됩니다.
+
+## 🕹️ 조작 방법
+
+| 동작 | 키보드 | 터치 |
+| --- | --- | --- |
+| 이동 | `W` `A` `S` `D` 또는 `← ↑ ↓ →` | 화면 아무 곳이나 드래그(플로팅 조이스틱) |
+| **대각 베기 (CHÉO)** | **2개의 키를 동시에** 누르기(예: `A`+`W`) | **45° 대각선 드래그** — 조이스틱 링이 금색으로 |
+| 항아리 내리치기 (충격파 + 흡인) | `Space` | 오른쪽 하단 빨간 **SLAM** 버튼 |
+| 일시정지 / 계속 | `P` 또는 `Esc` | 오른쪽 상단 일시정지 버튼 |
+| 즉시 재시작 | `R` (일시정지/게임 오버 중에도 가능) | “다시 절이기” 버튼 |
+| 시작 / 확인 | `Enter` | **부엌으로** 버튼 |
+| 음소거 / 해제 | `M` | 오른쪽 상단 스피커 버튼 |
+| 언어 전환 | — (VI/EN/中 버튼 사용) | 메뉴 / 일시정지의 VI/EN/中 버튼 |
+
+## 🚀 설치 · 실행
+
+### 빌드 없이 바로 플레이
+
+```bash
+# 모든 릴리스에는 단일 자기완결 파일이 포함됩니다:
+open dist/index.html      # macOS
+xdg-open dist/index.html  # Linux
+start dist/index.html     # Windows
+```
+
+### 프로덕션 빌드
+
+```bash
+npm install        # 의존성 설치 (Node ≥ 20.19)
+npm run build      # → dist/index.html (단일 자기완결 파일)
+```
+
+> `vite-plugin-singlefile`이 모든 JS/CSS/폰트/이미지를 **하나의** `dist/index.html`(약 655 KB, gzip 약 330 KB)에 인라인합니다. 서버도 네트워크도 필요 없습니다.
+
+### 개발
+
+```bash
+npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
+npm run preview    # 프로덕션 빌드를 로컬에서 확인
+npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
+npm run test       # vitest — 45개 단위 테스트 (modes / achievements / storage / i18n)
+npm run check      # typecheck + test + build (CI 품질 게이트)
+```
+
+## 🗂️ 프로젝트 구조
+
+```
+lo-cheoio/
+├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
+├─ package.json            # lo-cheoio v1.1.1, dev/build/test/check 스크립트
+├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
+├─ tsconfig.json           # strict; src + tests 포함
+├─ assets/
+│  ├─ banner.svg           # README 배너 (SMIL 애니메이션)
+│  ├─ demo.svg             # 게임플레이 시뮬레이션 (SMIL 애니메이션)
+│  └─ items.svg            # 14가지 재료 (SMIL 애니메이션)
+├─ docs/
+│  ├─ DESCRIPTION.md       # 다국어 프로젝트 소개 (vi/en/zh + SEO)
+│  └─ releases/
+│     ├─ v1.0.0.md         # 첫 릴리스 노트
+│     ├─ v1.1.0.md         # v1.1.0 릴리스 노트
+│     └─ v1.1.1.md         # 현재 릴리스 노트
+├─ README.md               # 🇻🇳 Tiếng Việt
+├─ README.en.md            # 🇬🇧 English
+├─ README.zh.md            # 🇨🇳 中文
+├─ README.ja.md            # 🇯🇵 日本語
+├─ README.ko.md            # 🇰🇷 한국어 (이 파일)
+├─ README.es.md            # 🇪🇸 Español
+├─ README.fr.md            # 🇫🇷 Français
+├─ src/
+│  ├─ main.tsx             # React 루트, StrictMode
+│  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
+│  ├─ version.ts           # APP_VERSION = "1.1.1" (단일 진실 공급원)
+│  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
+│  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
+│  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
+│  ├─ i18n/
+│  │  ├─ i18n.ts           # pure 모듈: 감지, 저장, t() + 보간
+│  │  ├─ useI18n.ts        # React 훅: useI18n/useLanguage
+│  │  └─ locales/          # vi.ts (키 소스) · en.ts · zh.ts
+│  ├─ components/
+│  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
+│  │  ├─ StartScreen.tsx   # 메뉴: 오로라, 시머, 모드 선택, 업적
+│  │  ├─ ModeSelector.tsx  # 3개 모드 카드 (그라디언트 + 모드별 액센트)
+│  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
+│  │  ├─ GameOverScreen.tsx     # 항아리가 깨졌다! + 점수 + 새 업적
+│  │  ├─ PauseScreen.tsx        # 일시정지 + 판 통계
+│  │  ├─ LanguageSwitcher.tsx   # 공용 VI / EN / 中 스위처
+│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  ├─ game/
+│  │  ├─ engine.ts         # 시뮬레이션과 캔버스 렌더링 전부 (약 2100줄)
+│  │  ├─ modes.ts          # 게임 모드 + 밸런스 수치 (pure)
+│  │  ├─ achievements.ts   # 배지 10개 + pure 체커 (pure)
+│  │  ├─ storage.ts        # localStorage: TOP 8, 진행도, 업적
+│  │  └─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
+│  └─ utils/cn.ts          # clsx + tailwind-merge
+└─ tests/                  # vitest — modes, achievements, storage, i18n
+```
+
+## 🧱 아키텍처 & 성능
+
+- **게임 루프** `requestAnimationFrame`, 델타 타임을 `1/20초`로 클램프, `timeScale`(얼음 슬로모) 곱셈, 캐치마다 수십 ms의 **히트 스톱**으로 타격감.
+- **Canvas HUD**를 매 프레임 직접 그립니다. React는 `phase`에 따라 화면만 그립니다 — 핫 루프에서 React 재렌더 없음. 언어를 바꾸면 HUD는 다음 프레임부터 새 사전을 읽습니다.
+- **계층형 i18n**: `src/i18n/i18n.ts`는 pure 모듈(React 무의존), `useI18n`은 `locheo:languagechange` 이벤트로 재렌더만 중계. `t()`는 `{param}` 보간과 베트남어 폴백을 지원.
+- **꽃문양 바닥**은 오프스크린 캔버스에 한 번만 사전 렌더링(비네팅 + 빛 웅덩이 포함). 별 반짝임과 기포는 실시간 계산 — 매우 저렴.
+- **예산**: 파티클 ≤460, 아이템 ≤70, 팝업 ≤34, DPR ≤ 2. 히트박스 충돌 스윕. 바닥에 떨어진 절임 자국은 저절로 사라집니다.
+- **localStorage**는 입력 검증/정규화 — 잘못된 레코드 하나가 보드를 망가뜨리지 않습니다. 저장소 차단(Safari 시크릿 모드) 시에도 메모리에서 계속 플레이. 언어 설정은 `locheo.lang.v1`에 별도 저장.
+- **모션 배려**: `prefers-reduced-motion`이면 오로라/시머/회전을 끕니다. 배경 별과 화면 흔들림도 미디어 쿼리를 따릅니다.
+
+## ❓ 자주 묻는 질문
+
+**네트워크 없이 플레이할 수 있나요?**
+네 — 100%: `dist/index.html`을 열면 폰트와 오디오까지 전부 동작합니다. 네트워크 요청은 단 하나도 없습니다.
+
+**광고나 추적이 있나요?**
+없습니다. 트래킹도 애널리틱스도 없습니다 — 점수는 로컬 localStorage에만 있습니다.
+
+**언어를 바꾸면 진행 상황이 사라지나요?**
+아닙니다. 점수, 업적, 진행도, 모드 선택은 모두 `locheo.lang.v1`과 무관하게 유지됩니다.
+
+**TOP 8 순위는 어디에 저장되나요?**
+`locheo.scores.v1`(점수), `locheo.progress.v1`(누적 판수/항아리/잘라낸 수), `locheo.achievements.v1`(배지) — 저장소를 지우면 사라지니 항아리를 아껴주세요!
+
+**새 언어를 추가하고 싶다면?**
+`src/i18n/locales/xx.ts`에 `vi.ts`의 키 집합을 미러링한 파일을 추가하고, `LANGUAGES`와 테스트를 갱신한 뒤 PR을 — [CONTRIBUTING.md](CONTRIBUTING.md) 참조.
+
+## 📦 릴리스 & 변경 이력
+
+| 버전 | 날짜 | 노트 |
+| --- | --- | --- |
+| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
+| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
+| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 첫 릴리스: 완성된 엔진, 11가지 재료, 항아리 내리치기, 콤보 ×9 |
+
+[CHANGELOG.md](CHANGELOG.md)도 참고하세요.
+
+## 🤝 기여하기
+
+1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 45개 + build).
+3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
+4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
+
+## 📄 라이선스 & 만든 이
+
+- **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — [LICENSE](LICENSE) 참조.
+- 폰트: [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) & [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1 (셀프호스팅 woff2 서브셋).
+- 베트남 밥상의 모든 절임 항아리에 건배. 🫙🇻🇳

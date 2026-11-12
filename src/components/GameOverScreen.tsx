@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { AchievementDef } from "../game/achievements";
 import type { RunStats } from "../game/engine";
 import { MODES, type ModeId } from "../game/modes";
+import { fmtNum } from "../i18n/i18n";
+import { useI18n } from "../i18n/useI18n";
+import type { MessageKey } from "../i18n/i18n";
 import type { ScoreEntry } from "../game/storage";
 import { fmtTime } from "./PauseScreen";
 import { GameButton, JarLogo, Keycap, Panel, ScoreBoard, Stat } from "./ui";
@@ -31,6 +34,7 @@ export default function GameOverScreen({
   onRestart: () => void;
   onMenu: () => void;
 }) {
+  const { t, lang } = useI18n();
   const [name, setName] = useState("");
   const [done, setDone] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -43,7 +47,7 @@ export default function GameOverScreen({
 
   const submit = () => {
     if (done) return;
-    onSave((name.trim() || "KHÔNG TÊN").slice(0, 10).toUpperCase());
+    onSave((name.trim() || t("save.anonymous")).slice(0, 10).toUpperCase());
     setDone(true);
   };
 
@@ -58,13 +62,13 @@ export default function GameOverScreen({
               <JarLogo mood="hurt" className="h-16 w-auto shrink-0 sm:h-20" />
               <div>
                 <span className="font-body text-[10px] font-extrabold tracking-[0.34em] text-chili-400 uppercase">
-                  gốm không chịu nổi
+                  {t("gameover.kicker")}
                 </span>
                 <h2
                   className="font-display text-[clamp(2.6rem,9vw,5rem)] leading-[0.85] text-chili-500"
                   style={{ textShadow: "5px 5px 0 #061a1a" }}
                 >
-                  VỠ HŨ!
+                  {t("gameover.title")}
                 </h2>
               </div>
             </div>
@@ -74,46 +78,46 @@ export default function GameOverScreen({
                 className="inline-block border px-2 py-0.5 font-display text-[9px] tracking-[0.18em]"
                 style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
               >
-                CHẾ ĐỘ: {MODES[mode].name}
+                {t("gameover.mode", { name: t(`mode.${mode}.name` as MessageKey) })}
               </span>
             </div>
 
             <div className="mt-2 flex flex-wrap items-end gap-x-6 gap-y-2">
               <div>
                 <div className="font-body text-[10px] font-extrabold tracking-[0.3em] text-jade-500 uppercase">
-                  điểm ván này
+                  {t("gameover.scoreLabel")}
                 </div>
                 <div
                   className="font-display text-[clamp(3rem,11vw,6rem)] leading-[0.85] text-tumeric-400 tabular-nums"
                   style={{ textShadow: "6px 6px 0 rgba(6,26,26,0.85)" }}
                 >
-                  {stats.score.toLocaleString("vi-VN")}
+                  {fmtNum(stats.score, lang)}
                 </div>
               </div>
               <div className="mb-2 flex flex-col gap-1">
                 <span className="font-body text-xs font-bold tracking-wider text-clay-100/70">
-                  kỷ lục: <b className="font-display text-brine-300">{Math.max(best, stats.score).toLocaleString("vi-VN")}</b>
+                  {t("gameover.best")} <b className="font-display text-brine-300">{fmtNum(Math.max(best, stats.score), lang)}</b>
                 </span>
                 {isHigh && !done && (
                   <span className="inline-block w-fit -rotate-2 border-[3px] border-jade-950 bg-brine-500 px-2 py-0.5 font-display text-[11px] tracking-[0.14em] text-jade-950 hard-shadow-sm">
-                    VÀO TOP {rank}!
+                    {t("gameover.rank", { rank })}
                   </span>
                 )}
                 {done && (
                   <span className="inline-block w-fit border-[3px] border-jade-950 bg-tumeric-500 px-2 py-0.5 font-display text-[11px] tracking-[0.14em] text-jade-950 hard-shadow-sm">
-                    ĐÃ GHI VÀO BẢNG VÀNG
+                    {t("gameover.saved")}
                   </span>
                 )}
               </div>
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-              <Stat label="Củ muối" value={stats.catches} accent="text-brine-300" />
-              <Stat label="Chuỗi đỉnh" value={`×${stats.bestCombo}`} accent="text-tumeric-400" />
-              <Stat label="Cấp" value={stats.level} />
-              <Stat label="Hũ đầy" value={stats.jars} accent="text-brine-300" />
-              <Stat label="Đã chém" value={stats.sliced} accent="text-chili-400" />
-              <Stat label="Thời gian" value={fmtTime(stats.time)} />
+              <Stat label={t("stats.catches")} value={stats.catches} accent="text-brine-300" />
+              <Stat label={t("stats.bestCombo")} value={`×${stats.bestCombo}`} accent="text-tumeric-400" />
+              <Stat label={t("stats.level")} value={stats.level} />
+              <Stat label={t("stats.jars")} value={stats.jars} accent="text-brine-300" />
+              <Stat label={t("stats.sliced")} value={stats.sliced} accent="text-chili-400" />
+              <Stat label={t("stats.time")} value={fmtTime(stats.time)} />
             </div>
 
             {newAchievements.length > 0 && (
@@ -124,7 +128,7 @@ export default function GameOverScreen({
                     <path d="M7 6H4a1 1 0 00-1 1c0 2.2 1.3 4 4 4M17 6h3a1 1 0 011 1c0 2.2-1.3 4-4 4" />
                   </svg>
                   <span className="font-display text-[12px] tracking-[0.22em] text-tumeric-400">
-                    THÀNH TỰU MỚI!
+                    {t("newAch.title")}
                   </span>
                 </div>
                 <ul className="mt-2 flex flex-wrap gap-2">
@@ -132,13 +136,13 @@ export default function GameOverScreen({
                     <li
                       key={a.id}
                       className="anim-badge-pop flex items-center gap-2 border-2 border-tumeric-500/70 bg-tumeric-500/15 px-2 py-1.5"
-                      title={a.description}
+                      title={t(`ach.${a.id}.desc` as MessageKey)}
                     >
                       <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-tumeric-400 font-display text-[8px] text-tumeric-400">
                         {a.glyph}
                       </span>
                       <span className="font-body text-[9px] leading-tight font-extrabold tracking-[0.08em] text-tumeric-400">
-                        {a.name}
+                        {t(`ach.${a.id}.name` as MessageKey)}
                       </span>
                     </li>
                   ))}
@@ -149,7 +153,7 @@ export default function GameOverScreen({
             {isHigh && !done && (
               <Panel className="anim-pop mt-4 flex flex-wrap items-center gap-2 p-3">
                 <label className="font-body text-[10px] font-extrabold tracking-[0.24em] text-jade-500 uppercase">
-                  ghi tên vào bảng vàng
+                  {t("save.label")}
                 </label>
                 <input
                   ref={inputRef}
@@ -163,10 +167,10 @@ export default function GameOverScreen({
                     }
                     e.stopPropagation();
                   }}
-                  placeholder="VD: BÀ TƯ"
+                  placeholder={t("save.placeholder")}
                   className="min-w-0 flex-1 border-[3px] border-jade-700 bg-jade-950 px-3 py-2 font-display text-sm tracking-[0.14em] text-tumeric-400 placeholder-jade-700 outline-none focus:border-tumeric-500"
                 />
-                <GameButton onClick={submit}>Lưu</GameButton>
+                <GameButton onClick={submit}>{t("save.button")}</GameButton>
               </Panel>
             )}
 
@@ -176,13 +180,13 @@ export default function GameOverScreen({
                   <path d="M20 11a8 8 0 10-2.3 6.3" />
                   <path d="M20 4v7h-7" />
                 </svg>
-                Muối lại ngay
+                {t("gameover.again")}
               </GameButton>
               <GameButton size="lg" variant="ghost" onClick={onMenu}>
-                Về menu
+                {t("gameover.menu")}
               </GameButton>
               <span className="flex items-center gap-1.5 font-body text-[11px] font-bold tracking-wider text-jade-500">
-                nhấn <Keycap>R</Keycap> để chơi lại tức thì
+                {t("gameover.instantA")} <Keycap>R</Keycap> {t("gameover.instantB")}
               </span>
             </div>
           </div>

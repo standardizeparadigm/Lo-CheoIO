@@ -1,60 +1,93 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Lọ Chéo — Hũ Dưa Đại Chiến (Pickle Jar Arcade)" width="100%" />
+<img src="assets/banner.svg" alt="Lọ Chéo — Pickled Jar Showdown" width="100%" />
 
-# LỌ CHÉO — PICKLE JAR SHOWDOWN
+# LỌ CHÉO — PICKLED JAR SHOWDOWN
 
-### 🫙 A 100% in-browser pickle-jar arcade — a single HTML file, offline-first
+### 🫙 Vietnamese pickle arcade running 100% in the browser — one self-contained HTML file, offline-first
+### 🌐 In-game UI in 3 languages — Tiếng Việt · English · 中文
 
-[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md)
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.0-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.0.md)
+[![Version](https://img.shields.io/badge/version-1.1.1-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.1.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-install--run)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-production-build)
+[![Languages](https://img.shields.io/badge/UI-VI%20%C2%B7%20EN%20%C2%B7%20ZH-ffc94a.svg?style=for-the-badge&logo=googletranslate&logoColor=black)](#-switching-languages)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ffc94a.svg?style=for-the-badge)](CONTRIBUTING.md)
+
+<img src="assets/demo.svg" alt="Lọ Chéo gameplay — the jar slants diagonally, catches pickles, shreds moulds" width="100%" />
 
 </div>
 
 ---
 
-## 🥒 About
+## 🥒 About the project
 
-> Lọ Chéo — Hũ Dưa Đại Chiến: a pickle-jar arcade that runs 100% in the browser, packaged as one single HTML file, offline-first — no CDN, no server. The little clay jar only knows how to move **diagonally**: hold two keys to swerve, speed up, and slash through moulds, flies and caterpillars, and fill the jar before the ceramic cracks. 3 game modes, 14 ingredients, 10 achievements, a TOP-8 hall of fame.
+> Lọ Chéo — Pickled Jar Showdown: a pickle arcade that runs 100% in the browser, packed into a single self-contained HTML file, offline-first — no CDN, no server. The ceramic jar only knows how to move DIAGONALLY: hold two keys to slant, boost and shred moulds, flies and caterpillars, then fill the jar before the ceramic cracks in three. **3 game modes · 14 ingredients · 10 achievements · TOP 8 leaderboard · UI in 3 languages.**
 
-An **action single-screen arcade** inspired by Vietnam's beloved jar of pickled vegetables. No linear levels, no cluttered menus — just the jar, an endless rain of produce and your reflexes on full flame.
+This is a **single-screen action arcade** inspired by Vietnam's humble pickled vegetables. No linear levels, no cluttered menus — just the jar, an endless downpour of produce, and your blazing reflexes.
+
+## 🆕 What's new in v1.1.1
+
+- 🌐 **In-game language switching** — VI ⇄ EN ⇄ ZH, applied instantly from the main menu or the pause screen, remembered via `locheo.lang.v1`. Canvas HUD, popups, banners, menus, pause, game over, achievements and the ticker are all translated.
+- 📖 **README in 7 languages** (added 🇯🇵 日本語 · 🇰🇷 한국어 · 🇪🇸 Español · 🇫🇷 Français) with animated banner, gameplay animation and the 14-ingredient chart.
+- 🐛 **Every outstanding bug swept and fixed** (see [CHANGELOG](CHANGELOG.md), `[1.1.1]`); `npm run check` green with **45 unit tests**.
+- 🖼️ **2 new animated SVGs** for docs: `assets/demo.svg` (gameplay loop) and `assets/items.svg` (14 ingredients).
+
+→ Full details: [docs/releases/v1.1.1.md](docs/releases/v1.1.1.md)
 
 ## ✨ Highlights
 
-| Area | Details |
+| Group | Details |
 | --- | --- |
 | 🎮 **3 game modes** | **CLASSIC PICKLE** (balanced) · **ZEN** (no hazards, ×0.5 score) · **INFERNO CHILI** (+35% speed, ×1.5 score) |
-| 🕹️ **Signature CHÉO (diagonal) mechanic** | Hold two keys / a diagonal drag — the jar speeds up, glows and shreds hazards. Dedicated stamina bar with hysteresis so it never flickers |
-| 🥬 **14 ingredients** | White eggplant, chili, garlic, ginger, salt, mustard greens, **GOLDEN CABBAGE** (fills the jar fast) · GOLDEN SALT/GARLIC · FIERY CHILI · ICE · MOULD, FLY, **CATERPILLAR** (hazards) |
-| 🧄 **Golden Garlic Shield** | New power-up: stack up to **2 shield charges** that absorb cracks, with a rotating halo around the jar |
-| 🏆 **10 achievements** | Saved **cumulatively across runs** (localStorage), a "NEW ACHIEVEMENT!" toast on the game-over screen, and a badge wall in the menu |
-| 🔊 **Hand-made audio** | 11 pure Web Audio API synthesized effects (zero files) + a pentatonic bed that re-tunes per level, mute with `M` |
-| 💾 **TOP 8 hall of fame** | Scores persist locally with input validation & normalization; names auto-uppercase; the beaten entry is highlighted |
-| 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered cement-tile background, star twinkles + aurora menu |
-| 📴 **Truly offline-first** | Self-hosted font subsets (latin + vietnamese, woff2), no CDN, no API — open `dist/index.html` and play |
+| 🌐 **In-game i18n** | Tiếng Việt · English · 中文 — `src/i18n/` (pure module + React bridge), `t()` with interpolation, syncs `<html lang>`, locale-aware numbers (vi-VN / en-US / zh-CN) |
+| 🕹️ **Signature SLANT mechanic** | Hold 2 keys/axes diagonally — the jar boosts, glows and shreds hazards. Dedicated stamina bar with anti-flicker hysteresis |
+| 🥬 **14 ingredients** | Eggplant, chili, garlic, ginger, salt, greens, **GOLD GREENS** (fills the jar fast) · GOLD SALT/GARLIC · FIERY CHILI · ICE · MOULD, FLY, **CATERPILLAR** (hazards) |
+| 🧄 **Gold Garlic shield** | Power-up: stack up to **2 shield charges** that absorb cracks; a rotating halo orbits the jar |
+| 🏆 **10 achievements** | Persist **across runs** (localStorage), with a "NEW ACHIEVEMENT!" toast on the game-over screen |
+| 🔊 **Hand-built audio** | 11 synthesized Web Audio API effects (zero files) + pentatonic score that shifts with level; mute with `M` |
+| 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
+| 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
+| 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
+| 🧪 **Quality gates** | 45 unit tests (vitest) for modes / achievements / storage / i18n — `npm run check` is the CI gate |
+
+<img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
+
+## 🌐 Switching languages
+
+Lọ Chéo ships with **3 UI languages**, applied instantly — no reload, no lost run:
+
+| Language | Where | Stored in |
+| --- | --- | --- |
+| 🇻🇳 Tiếng Việt | **VI** button (default; follows browser locale when unset) | `locheo.lang.v1` |
+| 🇬🇧 English | **EN** button | `locheo.lang.v1` |
+| 🇨🇳 中文 | **中** button | `locheo.lang.v1` |
+
+- Switch from the **main menu** (top-right) or the **pause screen** (bottom, compact mode).
+- Every user-facing string lives in `src/i18n/locales/{vi,en,zh}.ts` — canvas engine, screens, HUD, popups, ticker, hints.
+- Missing key? `t()` falls back to Vietnamese — the three locale key sets (and their placeholders) are enforced by tests.
 
 ## 🕹️ Controls
 
 | Action | Keyboard | Touch |
 | --- | --- | --- |
-| Move | `W` `A` `S` `D` or `← ↑ ↓ →` | Drag anywhere — a floating joystick appears |
-| **Chéo (diagonal slash)** | Hold **two keys at once** (e.g. `A`+`W`) | Drag at **45°** — the joystick ring turns gold |
-| Jar slam (shockwave + magnet) | `Space` | Red **LẮC** button, bottom-right |
+| Move | `W` `A` `S` `D` or `← ↑ ↓ →` | Drag anywhere (floating joystick) |
+| **Slant (CHÉO)** | Hold **2 keys at once** (e.g. `A`+`W`) | Drag at **45°** — joystick ring turns gold |
+| Jar slam (shockwave + vacuum) | `Space` | Red **SLAM** button, bottom-right |
 | Pause / resume | `P` or `Esc` | Pause button, top-right |
-| Instant restart | `R` (works mid-pause and on game over) | "Muối lại ngay" button |
-| Start / confirm | `Enter` | **VÀO BẾP** button |
+| Instant restart | `R` (even while paused/game-over) | “Pickle again” button |
+| Start / confirm | `Enter` | **ENTER THE KITCHEN** button |
 | Mute / unmute | `M` | Speaker button, top-right |
+| Switch language | — (use VI/EN/中 buttons) | VI/EN/中 buttons on menu / pause |
 
 ## 🚀 Install & run
 
-### Play right now (no build needed)
+### Play right away (no build)
 
 ```bash
+# every release ships a single self-contained file:
 open dist/index.html      # macOS
 xdg-open dist/index.html  # Linux
 start dist/index.html     # Windows
@@ -64,78 +97,122 @@ start dist/index.html     # Windows
 
 ```bash
 npm install        # install dependencies (Node ≥ 20.19)
-npm run build      # → dist/index.html (everything inlined in one file)
+npm run build      # → dist/index.html (one self-contained file)
 ```
 
-> `vite-plugin-singlefile` inlines all JS/CSS/fonts/images into **one** `dist/index.html` (~640 KB, ~330 KB gzipped). No server, no network.
+> `vite-plugin-singlefile` inlines all JS/CSS/fonts/images into **one** `dist/index.html` (~655 KB, gzip ~330 KB). No server, no network.
 
 ### Development
 
 ```bash
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
-npm run typecheck  # tsc --noEmit (strict)
-npm run test       # vitest — 36 unit tests (modes / achievements / storage)
+npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
+npm run test       # vitest — 45 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
-## 🗂️ Project layout
+## 🗂️ Project structure
 
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (no CDN)
-├─ package.json            # lo-cheoio v1.1.0, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.1, scripts dev/build/test/check
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
-├─ tsconfig.json           # strict; covers src + tests
-├─ assets/banner.svg       # README banner (SMIL animation)
+├─ tsconfig.json           # strict; includes src + tests
+├─ assets/
+│  ├─ banner.svg           # README banner (SMIL animation)
+│  ├─ demo.svg             # gameplay simulation (SMIL animation)
+│  └─ items.svg            # the 14 ingredients (SMIL animation)
 ├─ docs/
-│  ├─ DESCRIPTION.md       # 351-char project description (vi/en/zh)
-│  └─ releases/            # v1.0.0.md · v1.1.0.md
+│  ├─ DESCRIPTION.md       # multi-language project blurbs (vi/en/zh + SEO)
+│  └─ releases/
+│     ├─ v1.0.0.md         # first release notes
+│     ├─ v1.1.0.md         # v1.1.0 release notes
+│     └─ v1.1.1.md         # current release notes
+├─ README.md               # 🇻🇳 Tiếng Việt
+├─ README.en.md            # 🇬🇧 English (this file)
+├─ README.zh.md            # 🇨🇳 中文
+├─ README.ja.md            # 🇯🇵 日本語
+├─ README.ko.md            # 🇰🇷 한국어
+├─ README.es.md            # 🇪🇸 Español
+├─ README.fr.md            # 🇫🇷 Français
 ├─ src/
-│  ├─ App.tsx              # phase machine: menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.0" (single source of truth)
-│  ├─ index.css            # tailwind v4 theme + all animations/gradients
+│  ├─ main.tsx             # React root, StrictMode
+│  ├─ App.tsx              # phase machine menu/playing/paused/gameover
+│  ├─ version.ts           # APP_VERSION = "1.1.1" (single source of truth)
+│  ├─ index.css            # tailwind v4 theme + all animation/gradient
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
-│  ├─ components/          # GameCanvas, StartScreen, ModeSelector,
-│  │                       # AchievementsPanel, GameOverScreen, PauseScreen, ui
+│  ├─ i18n/
+│  │  ├─ i18n.ts           # pure module: detect, persist, t() + interpolation
+│  │  ├─ useI18n.ts        # React hook: useI18n/useLanguage
+│  │  └─ locales/          # vi.ts (key source) · en.ts · zh.ts
+│  ├─ components/
+│  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
+│  │  ├─ StartScreen.tsx   # menu: aurora, shimmer, mode picker, achievements
+│  │  ├─ ModeSelector.tsx  # 3 mode cards (gradient, per-mode accent)
+│  │  ├─ AchievementsPanel.tsx  # locked/unlocked badge wall
+│  │  ├─ GameOverScreen.tsx     # JAR SHATTERED! + score + new achievements
+│  │  ├─ PauseScreen.tsx        # PAUSED + run stats
+│  │  ├─ LanguageSwitcher.tsx   # shared VI / EN / 中 switcher
+│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # full simulation + canvas renderer (~2100 lines)
+│  │  ├─ engine.ts         # entire simulation + canvas rendering (~2100 lines)
 │  │  ├─ modes.ts          # game modes + balance math (pure)
-│  │  ├─ achievements.ts   # 10 badges + pure unlock checker (pure)
+│  │  ├─ achievements.ts   # 10 badges + pure checker (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
-│  │  └─ audio.ts          # Web Audio synth: sfx + pentatonic bed
-│  └─ utils/cn.ts
-└─ tests/                  # vitest — modes, achievements, storage
+│  │  └─ audio.ts          # Web Audio synth: sfx + pentatonic music
+│  └─ utils/cn.ts          # clsx + tailwind-merge
+└─ tests/                  # vitest — modes, achievements, storage, i18n
 ```
 
 ## 🧱 Architecture & performance
 
-- **Game loop** on `requestAnimationFrame` with delta clamped to `1/20s`, scaled by `timeScale` (slow-mo during ICE) and short **hit-stop** freezes on every catch for that punchy feel.
-- **Canvas-drawn HUD** every frame; React only renders screens on phase changes — the hot loop never re-renders React.
-- **Cement-tile background** is pre-rendered once to an offscreen canvas (vignette + warm pool); star twinkles and brine bubbles are cheap time-based draws.
-- **Budgets**: ≤460 particles, ≤70 items, ≤34 popups, DPR ≤ 2; hitbox-swept collisions; splat decals fade on their own.
-- **localStorage** with input validation & normalization — one corrupt row can't poison the board; blocked storage (Safari private mode) degrades to in-memory play.
-- **Reduced motion**: `prefers-reduced-motion` disables aurora/shimmer/spin flourishes.
+- **Game loop** on `requestAnimationFrame` with delta-time clamped to `1/20s`, multiplied by `timeScale` (ICE slow-mo) and a short **hit-stop** freeze on each catch for that “punch”.
+- **Canvas HUD** drawn directly each frame; React only renders screens per `phase` — no React re-renders in the hot loop; on language change the HUD picks up the new dictionary on the very next frame.
+- **Layered i18n**: `src/i18n/i18n.ts` is a pure module (no React), `useI18n` merely bridges re-renders via the `locheo:languagechange` event; `t()` supports `{param}` interpolation and falls back to Vietnamese.
+- **Tile floor** pre-rendered once to an offscreen canvas (with vignette + light pools); star twinkle and bubbles are computed in real time — very cheap.
+- **Budget**: ≤460 particles, ≤70 items, ≤34 popups, DPR ≤ 2; hitbox collision sweep; pickle splats on the floor clean themselves up.
+- **localStorage** with input validation/normalisation — one bad record never corrupts the board; when storage is blocked (Safari private mode) the game keeps playing in memory; the language choice lives separately in `locheo.lang.v1`.
+- **Motion chill**: `prefers-reduced-motion` disables aurora/shimmer/spin; both the background stars and screen shake respect media queries.
+
+## ❓ FAQ
+
+**Can I play without a network?**
+Yes — 100%: open `dist/index.html` and everything works, fonts and audio included. There is not a single network request.
+
+**Ads or telemetry?**
+None. No tracking, no analytics — your scores never leave your localStorage.
+
+**Does switching language lose my progress?**
+No. Scores, achievements, progress and mode selection are all independent of `locheo.lang.v1`.
+
+**Where are the TOP 8 scores stored?**
+`locheo.scores.v1` (scores), `locheo.progress.v1` (lifetime runs/jars/shreds), `locheo.achievements.v1` (badges) — wiping storage wipes them, so cherish the jar!
+
+**Want to add another language?**
+Add `src/i18n/locales/xx.ts` mirroring `vi.ts` key set, update `LANGUAGES` + tests, open a PR — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📦 Releases & changelog
 
 | Version | Date | Notes |
 | --- | --- | --- |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 game modes · Golden Garlic Shield · Caterpillar · Golden Cabbage · 10 achievements · trilingual README · truly offline · 6 logic fixes |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | First release: complete engine, 11 ingredients, jar slam, ×9 combo, TOP 8 board |
+| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | In-game i18n VI/EN/ZH · README in 7 languages · full bug sweep · 45 tests |
+| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 game modes · Gold Garlic shield · Caterpillar · Gold Greens · 10 achievements · self-hosted fonts |
+| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | First release: complete engine, 11 ingredients, JAR SLAM, ×9 combo |
 
 See also [CHANGELOG.md](CHANGELOG.md).
 
 ## 🤝 Contributing
 
-1. Fork, branch as `arena/<name>` or `feat/<name>`.
-2. `npm run check` must be green before a PR (typecheck + 36 tests + build).
-3. No new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
-4. Describe which mode/screen is affected; attach a clip for gameplay changes.
+1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
+2. `npm run check` must be green before opening a PR (typecheck + 45 tests + build).
+3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
+4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 
 ## 📄 License & author
 
 - **AGPL-3.0-only** © 2026 [Standardize Paradigm](mailto:standardizeparadigm@donuco.com) — see [LICENSE](LICENSE).
-- Fonts: [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) & [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1 (self-hosted subsets).
-- With love to every jar of pickles gracing Vietnamese family meals. 🫙🇻🇳
+- Fonts: [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) & [Bungee](https://fonts.google.com/specimen/Bungee) — SIL Open Font License 1.1 (self-hosted woff2 subsets).
+- To every pickled jar on every Vietnamese rice tray — cheers. 🫙🇻🇳

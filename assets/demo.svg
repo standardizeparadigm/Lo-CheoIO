@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-label="Lọ Chéo — gameplay in action: the jar slants diagonally, catches pickles, shreds moulds">
+  <defs>
+    <linearGradient id="demoBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e3a35"/>
+      <stop offset="0.55" stop-color="#092723"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <radialGradient id="goldAura" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f5a81c" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#f5a81c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="demoGlaze" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.45" stop-color="#f3e3c8"/>
+      <stop offset="1" stop-color="#d9c09c"/>
+    </linearGradient>
+    <linearGradient id="demoBrine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b6e07a"/>
+      <stop offset="1" stop-color="#5f9c33"/>
+    </linearGradient>
+    <pattern id="demoTiles" width="72" height="72" patternUnits="userSpaceOnUse">
+      <rect width="72" height="72" fill="none" stroke="#2bb48c" stroke-opacity="0.12" stroke-width="1.3"/>
+      <rect x="22" y="22" width="28" height="28" transform="rotate(45 36 36)" fill="none" stroke="#f5a81c" stroke-opacity="0.1" stroke-width="1.1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="340" rx="16" fill="url(#demoBg)"/>
+  <rect width="1200" height="340" rx="16" fill="url(#demoTiles)"/>
+
+  <!-- floor glow line -->
+  <line x1="0" y1="296" x2="1200" y2="296" stroke="#f5a81c" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="16 10"/>
+
+  <!-- aura behind the jar -->
+  <circle cx="600" cy="180" r="150" fill="url(#goldAura)">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="1.6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ===== falling pickles (staggered) ===== -->
+  <g>
+    <circle r="12" fill="#e63b2e" stroke="#8f1a1c" stroke-width="2.4">
+      <animateTransform attributeName="transform" type="translate"
+        values="372 -40; 372 322" dur="2.35s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="11" fill="#e9f0c9" stroke="#a9c46a" stroke-width="2.4">
+      <animateTransform attributeName="transform" type="translate"
+        values="540 -40; 540 322" dur="2.7s" begin="0.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="10" fill="#f6ecd9" stroke="#c9b193" stroke-width="2.4">
+      <animateTransform attributeName="transform" type="translate"
+        values="760 -40; 760 322" dur="2.15s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="10" fill="#8cc63f" stroke="#3f7d2a" stroke-width="2.4">
+      <animateTransform attributeName="transform" type="translate"
+        values="900 -40; 900 322" dur="2.95s" begin="0.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ===== mould hazard shredded on the 45° slash ===== -->
+  <g>
+    <circle r="13" fill="#7d8f6a" stroke="#3b4a33" stroke-width="2.6">
+      <animateTransform attributeName="transform" type="translate"
+        values="660 -40; 640 190; 640 190" keyTimes="0;0.55;1" dur="3.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.62;1" dur="3.6s" repeatCount="indefinite"/>
+    </circle>
+    <!-- slash streak -->
+    <line x1="560" y1="250" x2="740" y2="70" stroke="#fff3c4" stroke-width="7" stroke-linecap="round" stroke-dasharray="260" stroke-dashoffset="260">
+      <animate attributeName="stroke-dashoffset" values="260;0;0" keyTimes="0;0.35;1" dur="3.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.1;0.4;0.55;1" dur="3.6s" repeatCount="indefinite"/>
+    </line>
+    <!-- shard burst -->
+    <g stroke="#b6e07a" stroke-width="4" stroke-linecap="round" opacity="0">
+      <line x1="640" y1="190" x2="600" y2="158">
+        <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.55;0.78;1" dur="3.6s" repeatCount="indefinite"/>
+      </line>
+      <line x1="640" y1="190" x2="672" y2="152">
+        <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.55;0.78;1" dur="3.6s" repeatCount="indefinite"/>
+      </line>
+      <line x1="640" y1="190" x2="606" y2="226">
+        <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.59;0.8;1" dur="3.6s" repeatCount="indefinite"/>
+      </line>
+      <line x1="640" y1="190" x2="676" y2="224">
+        <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.61;0.82;1" dur="3.6s" repeatCount="indefinite"/>
+      </line>
+    </g>
+    <!-- CHÉO popup -->
+    <text x="640" y="128" text-anchor="middle" font-family="'Arial Black',sans-serif" font-weight="900"
+      font-size="34" letter-spacing="3" fill="#ffc94a" stroke="#061a1a" stroke-width="5"
+      stroke-linejoin="round" paint-order="stroke" opacity="0">CHÉO! +50
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.58;0.72;0.85;1" dur="3.6s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate"
+        values="0 8; 0 8; 0 -14; 0 -14" keyTimes="0;0.52;0.85;1" dur="3.6s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- ===== the jar, slanting diagonally ===== -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="330 208; 505 148; 330 208" keyTimes="0;0.42;1" dur="4.4s" repeatCount="indefinite"/>
+    <ellipse cx="0" cy="96" rx="56" ry="9" fill="#04100f" opacity="0.45"/>
+    <path d="M-34 -70 C-74 -36 -70 62 -29 86 L29 86 C70 62 74 -36 34 -70 Z"
+      fill="url(#demoGlaze)" stroke="#0b2a28" stroke-width="7" stroke-linejoin="round"/>
+    <g>
+      <clipPath id="demoJarClip"><path d="M-34 -70 C-74 -36 -70 62 -29 86 L29 86 C70 62 74 -36 34 -70 Z"/></clipPath>
+      <g clip-path="url(#demoJarClip)">
+        <rect x="-75" y="8" width="150" height="100" fill="url(#demoBrine)" opacity="0.92"/>
+        <rect x="-75" y="42" width="150" height="11" fill="#10403a" opacity="0.9"/>
+        <circle cx="-21" cy="32" r="4.8" fill="#fdf3e0" opacity="0.85"/>
+        <circle cx="19" cy="26" r="4" fill="#e63b2e" opacity="0.9"/>
+      </g>
+    </g>
+    <ellipse cx="0" cy="-72" rx="35" ry="10.5" fill="#f5a81c" stroke="#0b2a28" stroke-width="6"/>
+    <g fill="#fffdf6" stroke="#0b2a28" stroke-width="4">
+      <ellipse cx="-17" cy="-28" rx="8" ry="9.5"/>
+      <ellipse cx="17" cy="-28" rx="8" ry="9.5"/>
+    </g>
+    <circle cx="-15" cy="-26.5" r="3.7" fill="#0b2a28"/>
+    <circle cx="19" cy="-26.5" r="3.7" fill="#0b2a28"/>
+    <path d="M-10 -8 q10 8 20 0" fill="none" stroke="#0b2a28" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== HUD overlay ===== -->
+  <text x="28" y="46" font-family="'Courier New',monospace" font-weight="700" font-size="21"
+    letter-spacing="2" fill="#fdf3e0">1,280</text>
+  <text x="28" y="66" font-family="'Courier New',monospace" font-size="10.5"
+    letter-spacing="2.4" fill="#f5a81c">BEST 6,420</text>
+
+  <text x="1172" y="46" text-anchor="end" font-family="'Arial Black',sans-serif" font-weight="900"
+    font-size="19" letter-spacing="2" fill="#f5a81c">LEVEL 4</text>
+
+  <!-- combo meter -->
+  <text x="600" y="52" text-anchor="middle" font-family="'Arial Black',sans-serif" font-weight="900"
+    font-size="24" letter-spacing="2" fill="#ffc94a" stroke="#061a1a" stroke-width="4"
+    stroke-linejoin="round" paint-order="stroke">7 STREAK ×2</text>
+  <rect x="520" y="60" width="160" height="7" rx="3.5" fill="#0b2a28"/>
+  <rect x="520" y="60" height="7" rx="3.5" fill="#ffc94a">
+    <animate attributeName="width" values="160;40;160" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- caption -->
+  <text x="28" y="322" font-family="'Courier New',monospace" font-size="12.5" letter-spacing="2.6"
+    fill="#b6e07a" fill-opacity="0.9">HOLD 2 KEYS FOR THE SLANT — SHRED EVERYTHING MOULDY</text>
+</svg>

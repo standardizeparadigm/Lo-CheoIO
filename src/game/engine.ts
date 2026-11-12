@@ -1,4 +1,5 @@
 import { audio } from "./audio";
+import { t, fmtNum } from "../i18n/i18n";
 import {
   COMBO_WINDOW,
   MAX_CRACKS,
@@ -494,7 +495,7 @@ export class LoCheoGame {
     this.resetRun();
     this.phase = "playing";
     this.onPhase(this.phase);
-    this.banner = { text: "MUỐI NÀO!", sub: "giữ 2 phím để CHÉM CHÉO", life: 1.4, max: 1.4, color: C.goldLight };
+    this.banner = { text: t("banner.start.title"), sub: t("banner.start.sub"), life: 1.4, max: 1.4, color: C.goldLight };
     // action inside the first second: a staggered opening volley
     for (let i = 0; i < 4; i++) {
       const it = this.makeItem(this.pickKind(), false);
@@ -570,7 +571,7 @@ export class LoCheoGame {
       x: this.px, y: this.py, r: this.pr, to: 200 * this.S, life: 0.66, max: 0.66, color: C.brine, width: 4,
     });
     audio.play("shake");
-    this.popup(this.px, this.py - this.pr * 1.6, "LẮC HŨ!", C.goldLight, 26);
+    this.popup(this.px, this.py - this.pr * 1.6, t("popup.slam"), C.goldLight, 26);
     const rad = 260 * this.S;
     for (const it of this.items) {
       if (it.deco) continue;
@@ -976,7 +977,7 @@ export class LoCheoGame {
     if (mult > prevMult) {
       // multiplier milestone — the sweetest sound in the game
       audio.play("level");
-      this.popup(this.px, this.py - this.pr * 2.5, `NHÂN ×${mult}`, mult >= 6 ? C.chili : C.goldLight, 34);
+      this.popup(this.px, this.py - this.pr * 2.5, t("popup.mult", { n: mult }), mult >= 6 ? C.chili : C.goldLight, 34);
       this.rings.push({
         x: this.px, y: this.py, r: this.pr, to: this.pr * 6.5, life: 0.45, max: 0.45,
         color: mult >= 6 ? C.chili : C.goldLight, width: 5,
@@ -1009,7 +1010,7 @@ export class LoCheoGame {
     this.combo++;
     this.comboT = COMBO_WINDOW;
     this.stats.bestCombo = Math.max(this.stats.bestCombo, this.combo);
-    this.popup(it.x, it.y, fromSlam ? `+${gain}` : `CHÉO +${gain}`, C.goldLight, fromSlam ? 20 : 26);
+    this.popup(it.x, it.y, fromSlam ? `+${gain}` : t("popup.cheo", { n: gain }), C.goldLight, fromSlam ? 20 : 26);
     audio.play("slice");
     this.trauma = Math.max(this.trauma, fromSlam ? 0.1 : 0.24);
     this.freeze = Math.max(this.freeze, fromSlam ? 0.01 : 0.045);
@@ -1040,30 +1041,30 @@ export class LoCheoGame {
       this.stats.score += gain;
       if (this.cracks > 0) {
         this.cracks--;
-        this.popup(this.px, this.py - this.pr * 2, `+${gain} · LÀNH VẾT NỨT!`, C.brine, 24);
+        this.popup(this.px, this.py - this.pr * 2, t("popup.healCrack", { gain }), C.brine, 24);
       } else {
         this.stats.score += 150;
-        this.popup(this.px, this.py - this.pr * 2, `+${gain + 150} MUỐI VÀNG`, C.goldLight, 24);
+        this.popup(this.px, this.py - this.pr * 2, t("popup.healFull", { gain: gain + 150 }), C.goldLight, 24);
       }
       this.fill = Math.min(1, this.fill + 0.18);
     } else if (kind === "frenzy") {
       this.frenzy = 7;
       const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
       this.stats.score += gain;
-      this.popup(this.px, this.py - this.pr * 2, "ỚT HIỂM! ×2 ĐIỂM", "#ff6a4d", 26);
-      this.banner = { text: "CAY XÈ!", sub: "nhân đôi điểm · tự chém mốc", life: 1.2, max: 1.2, color: "#ff6a4d" };
+      this.popup(this.px, this.py - this.pr * 2, t("popup.frenzy"), "#ff6a4d", 26);
+      this.banner = { text: t("banner.frenzy"), sub: t("banner.frenzy.sub"), life: 1.2, max: 1.2, color: "#ff6a4d" };
     } else if (kind === "shield") {
       this.shield = Math.min(2, this.shield + 1);
       const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
       this.stats.score += gain;
-      this.popup(this.px, this.py - this.pr * 2, `TỎI VÀNG! KHIÊN ×${this.shield}`, "#ffe9a8", 26);
-      this.banner = { text: "KHIÊN TỎI!", sub: "chặn một vết nứt · tối đa 2 lớp", life: 1.2, max: 1.2, color: "#ffe9a8" };
+      this.popup(this.px, this.py - this.pr * 2, t("popup.shieldGain", { n: this.shield }), "#ffe9a8", 26);
+      this.banner = { text: t("banner.shield"), sub: t("banner.shield.sub"), life: 1.2, max: 1.2, color: "#ffe9a8" };
     } else {
       this.slow = 5;
       const gain = Math.round(it.def.pts * this.multiplier() * MODES[this.mode].scoreMult);
       this.stats.score += gain;
-      this.popup(this.px, this.py - this.pr * 2, "ĐÁ LẠNH! CHẬM RÃI", "#a8e6ff", 26);
-      this.banner = { text: "NGÂM ĐÁ", sub: "thời gian trôi chậm lại", life: 1.2, max: 1.2, color: "#a8e6ff" };
+      this.popup(this.px, this.py - this.pr * 2, t("popup.slow"), "#a8e6ff", 26);
+      this.banner = { text: t("banner.slow"), sub: t("banner.slow.sub"), life: 1.2, max: 1.2, color: "#a8e6ff" };
     }
     for (let i = 0; i < 30; i++) {
       const a = rnd(0, TAU);
@@ -1100,7 +1101,7 @@ export class LoCheoGame {
       this.flash = Math.max(this.flash, 0.3);
       this.flashColor = "#ffe9a8";
       audio.play("power");
-      this.popup(this.px, this.py - this.pr * 1.9, "KHIÊN TỎI! CHẶN!", "#ffe9a8", 26);
+      this.popup(this.px, this.py - this.pr * 1.9, t("popup.shieldBlock"), "#ffe9a8", 26);
       this.rings.push({ x: this.px, y: this.py, r: this.pr, to: this.pr * 5.6, life: 0.4, max: 0.4, color: "#ffe9a8", width: 6 });
       for (let i = 0; i < 18; i++) {
         const a = (i / 18) * TAU;
@@ -1123,7 +1124,7 @@ export class LoCheoGame {
     this.flash = 0.75;
     this.flashColor = C.chili;
     audio.play("hurt");
-    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= MAX_CRACKS ? "VỠ HŨ!" : `NỨT! -1`, C.chili, 28);
+    this.popup(this.px, this.py - this.pr * 1.9, this.cracks >= MAX_CRACKS ? t("popup.broken") : t("popup.cracked"), C.chili, 28);
     this.rings.push({ x: this.px, y: this.py, r: this.pr, to: this.pr * 7, life: 0.4, max: 0.4, color: C.chili, width: 7 });
     for (let i = 0; i < 26; i++) {
       const a = rnd(0, TAU);
@@ -1147,7 +1148,7 @@ export class LoCheoGame {
     const before = this.combo;
     this.combo = Math.floor(this.combo * 0.5);
     if (this.combo === 0) this.comboT = 0;
-    if (before >= 6) this.popup(it.x, this.h - 30 * this.S, "TRƯỢT!", "#cfe3ea", 20);
+    if (before >= 6) this.popup(it.x, this.h - 30 * this.S, t("popup.miss"), "#cfe3ea", 20);
     audio.play("miss");
     this.decals.push({
       x: it.x, y: this.h - rnd(4, 16), rx: rnd(14, 26) * this.S, ry: rnd(5, 9) * this.S,
@@ -1168,7 +1169,7 @@ export class LoCheoGame {
     const bonus = jarBonus(this.stats.level);
     this.stats.score += bonus;
     audio.play("full");
-    this.banner = { text: `HŨ ĐẦY! +${bonus}`, sub: "dưa muối đạt chuẩn", life: 1.6, max: 1.6, color: C.brine };
+    this.banner = { text: t("banner.jarFull", { bonus }), sub: t("banner.jarFull.sub"), life: 1.6, max: 1.6, color: C.brine };
     this.flash = 0.5;
     this.flashColor = C.brine;
     this.trauma = Math.max(this.trauma, 0.4);
@@ -1186,7 +1187,7 @@ export class LoCheoGame {
     this.stats.level = lvl;
     audio.setIntensity(lvl);
     audio.play("level");
-    this.banner = { text: `CẤP ${lvl}`, sub: "dưa rơi nhanh hơn", life: 1.3, max: 1.3, color: C.goldLight };
+    this.banner = { text: t("banner.level", { n: lvl }), sub: t("banner.level.sub"), life: 1.3, max: 1.3, color: C.goldLight };
     this.trauma = Math.max(this.trauma, 0.3);
     this.rings.push({ x: this.px, y: this.py, r: this.pr, to: 320 * this.S, life: 0.6, max: 0.6, color: C.goldLight, width: 5 });
     for (let i = 0; i < 24; i++) {
@@ -2016,9 +2017,9 @@ export class LoCheoGame {
 
     // ---- score (top-left)
     ctx.textAlign = "left";
-    const score = Math.round(this.stats.score).toLocaleString("vi-VN");
+    const score = fmtNum(this.stats.score);
     this.txt(ctx, score, pad, pad + 34 * s, Math.round(36 * s), C.cream);
-    this.txt(ctx, `KỶ LỤC ${Math.max(this.best, Math.round(this.stats.score)).toLocaleString("vi-VN")}`, pad, pad + 54 * s, Math.round(13 * s), C.goldLight, '"Be Vietnam Pro"');
+    this.txt(ctx, `${t("hud.best")} ${fmtNum(Math.max(this.best, Math.round(this.stats.score)))}`, pad, pad + 54 * s, Math.round(13 * s), C.goldLight, '"Be Vietnam Pro"');
 
     // stamina (chéo)
     const sy = pad + 68 * s;
@@ -2029,7 +2030,7 @@ export class LoCheoGame {
     ctx.fillRect(-2.5, -7, 5, 14);
     ctx.restore();
     this.bar(ctx, pad + 18, sy, 118 * s, 11, this.stamina, this.stamina < 0.25 ? C.chili : C.goldLight);
-    if (this.cheo) this.txt(ctx, "CHÉO!", pad + 142 * s, sy + 11, Math.round(14 * s), C.goldLight);
+    if (this.cheo) this.txt(ctx, t("hud.cheo"), pad + 142 * s, sy + 11, Math.round(14 * s), C.goldLight);
 
     // ---- cracks (top-right)
     ctx.textAlign = "right";
@@ -2060,10 +2061,10 @@ export class LoCheoGame {
     // ---- centre column: level, combo, fill
     const cx = this.w / 2;
     ctx.textAlign = "center";
-    this.txt(ctx, `CẤP ${this.stats.level}`, cx, pad + 20 * s, Math.round(15 * s), C.goldLight);
+    this.txt(ctx, t("hud.level", { n: this.stats.level }), cx, pad + 20 * s, Math.round(15 * s), C.goldLight);
     this.txt(
       ctx,
-      `${this.stats.jars} HŨ · ${this.stats.catches} CỦ`,
+      t("hud.jarsCatches", { jars: this.stats.jars, catches: this.stats.catches }),
       cx, pad + 38 * s, Math.round(12 * s), "rgba(253,243,224,0.75)", '"Be Vietnam Pro"',
     );
 
@@ -2072,7 +2073,7 @@ export class LoCheoGame {
     this.bar(ctx, cx - fw / 2, pad + 46 * s, fw, 10, this.fill, C.brine);
     ctx.font = `700 ${Math.round(10 * s)}px "Be Vietnam Pro", sans-serif`;
     ctx.fillStyle = "rgba(253,243,224,0.7)";
-    ctx.fillText("HŨ DƯA", cx, pad + 70 * s);
+    ctx.fillText(t("hud.jar"), cx, pad + 70 * s);
 
     // combo
     if (this.combo > 1) {
@@ -2081,7 +2082,7 @@ export class LoCheoGame {
       ctx.save();
       ctx.translate(cx, pad + 96 * s);
       ctx.scale(pulse, pulse);
-      this.txt(ctx, `${this.combo} CHUỖI`, 0, 0, Math.round(clamp(18 + this.combo * 0.7, 18, 34) * s), this.multiplier() >= 6 ? C.chili : C.goldLight);
+      this.txt(ctx, t("hud.combo", { n: this.combo }), 0, 0, Math.round(clamp(18 + this.combo * 0.7, 18, 34) * s), this.multiplier() >= 6 ? C.chili : C.goldLight);
       ctx.restore();
       this.bar(ctx, cx - 46 * s, pad + 104 * s, 92 * s, 5, k, "rgba(255,201,74,0.8)");
       ctx.textAlign = "center";
@@ -2090,12 +2091,12 @@ export class LoCheoGame {
 
     // power chips
     const chips: [string, number, number, string][] = [];
-    if (this.frenzy > 0) chips.push(["ỚT HIỂM ×2", this.frenzy, 7, "#ff6a4d"]);
-    if (this.slow > 0) chips.push(["ĐÁ LẠNH", this.slow, 5, "#a8e6ff"]);
-    if (this.shield > 0) chips.push([`TỎI VÀNG ×${this.shield}`, this.shield, 2, "#ffe9a8"]);
+    if (this.frenzy > 0) chips.push([t("hud.frenzy"), this.frenzy, 7, "#ff6a4d"]);
+    if (this.slow > 0) chips.push([t("hud.slow"), this.slow, 5, "#a8e6ff"]);
+    if (this.shield > 0) chips.push([t("hud.shield", { n: this.shield }), this.shield, 2, "#ffe9a8"]);
     if (this.phase === "playing") {
       chips.push([
-        this.slamCd > 0 ? "LẮC HŨ…" : "LẮC HŨ ✦ SẴN SÀNG",
+        this.slamCd > 0 ? t("hud.slamCd") : t("hud.slamReady"),
         6 - this.slamCd,
         6,
         this.slamCd > 0 ? "#7fa396" : C.goldLight,
@@ -2122,7 +2123,7 @@ export class LoCheoGame {
     ctx.globalAlpha = a * 0.55;
     ctx.font = `800 ${Math.round(9 * s)}px "Be Vietnam Pro", sans-serif`;
     ctx.fillStyle = "rgba(253,243,224,0.9)";
-    ctx.fillText(`— ${MODES[this.mode].name} —`, cx, this.h - 10 * s);
+    ctx.fillText(`— ${t(`mode.${this.mode}.name`)} —`, cx, this.h - 10 * s);
     ctx.globalAlpha = a;
 
     ctx.restore();
