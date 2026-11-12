@@ -1,0 +1,42 @@
+# =====================================================================
+#  Lọ Chéo — chuẩn hóa line endings theo từng loại file.
+#  Lý do: scripts/play-windows.bat BẮT BUỘC phải chạy được trên
+#  cmd.exe của Windows. LF thuần (không CR) + byte đa ngôn ngữ đã
+#  khiến cmd.exe báo "'Ọ' is not recognized as an internal or
+#  external command" — xem CHANGELOG [1.1.4]. CRLF + UTF-8 BOM +
+#  chcp 65001 là tổ hợp chuẩn cho .bat tiếng Việt có dấu.
+# =====================================================================
+
+# Mặc định: tự suy luận text, chuẩn hoá LF khi commit
+* text=auto
+
+# Scripts Windows: LUÔN checkout với CRLF
+*.bat        text eol=crlf
+*.cmd        text eol=crlf
+
+# Scripts Unix/macOS: LUÔN LF
+*.sh         text eol=lf
+*.command    text eol=lf
+*.bash       text eol=lf
+
+# Web/docs/source: LF
+*.ts         text eol=lf
+*.tsx        text eol=lf
+*.js         text eol=lf
+*.css        text eol=lf
+*.html       text eol=lf
+*.json       text eol=lf
+*.md         text eol=lf
+*.svg        text eol=lf
+*.yml        text eol=lf
+*.yaml       text eol=lf
+
+# Nhị phân — không bao giờ convert
+*.png        binary
+*.jpg        binary
+*.jpeg       binary
+*.ico        binary
+*.woff2      binary
+*.ttf        binary
+*.gif        binary
+*.webp       binary
