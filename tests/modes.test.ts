@@ -60,7 +60,7 @@ describe("jarBonus", () => {
 });
 
 describe("MODES", () => {
-  it("ships exactly seven modes in a stable order", () => {
+  it("ships exactly nine modes in a stable order", () => {
     expect(MODE_LIST.map((m) => m.id)).toEqual([
       "classic",
       "zen",
@@ -69,7 +69,23 @@ describe("MODES", () => {
       "goldrush",
       "storm",
       "hardcore",
+      "combo",
+      "feast",
     ]);
+  });
+
+  it("combo doubles the combo window and pays a small premium", () => {
+    expect(MODES.combo.comboWindowMult).toBe(2);
+    expect(MODES.combo.scoreMult).toBeGreaterThan(1);
+    expect(MODES.combo.spawnMult).toBeLessThanOrEqual(1);
+  });
+
+  it("feast is a dense slow drizzle with double jar bonus", () => {
+    expect(MODES.feast.spawnMult).toBeLessThan(0.7);
+    expect(MODES.feast.speedMult).toBeLessThan(1);
+    expect(MODES.feast.jarBonusMult).toBe(2.5);
+    expect(MODES.feast.scoreMult).toBeLessThan(1);
+    expect(MODES.feast.timeLimit).toBeUndefined();
   });
 
   it("blitz is a 60-second time attack worth ×1.25", () => {
@@ -127,7 +143,7 @@ describe("MODES", () => {
 });
 
 describe("isModeId", () => {
-  it("accepts the seven known modes", () => {
+  it("accepts the nine known modes", () => {
     expect(isModeId("classic")).toBe(true);
     expect(isModeId("zen")).toBe(true);
     expect(isModeId("inferno")).toBe(true);
@@ -135,6 +151,8 @@ describe("isModeId", () => {
     expect(isModeId("goldrush")).toBe(true);
     expect(isModeId("storm")).toBe(true);
     expect(isModeId("hardcore")).toBe(true);
+    expect(isModeId("combo")).toBe(true);
+    expect(isModeId("feast")).toBe(true);
   });
 
   it("rejects anything else", () => {

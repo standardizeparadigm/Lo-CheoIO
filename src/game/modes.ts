@@ -2,7 +2,16 @@
    Lọ Chéo — Game modes & balance math (pure functions, unit-tested)
    ===================================================================== */
 
-export type ModeId = "classic" | "zen" | "inferno" | "blitz" | "goldrush" | "storm" | "hardcore";
+export type ModeId =
+  | "classic"
+  | "zen"
+  | "inferno"
+  | "blitz"
+  | "goldrush"
+  | "storm"
+  | "hardcore"
+  | "combo"
+  | "feast";
 
 export interface ModeConfig {
   id: ModeId;
@@ -28,6 +37,10 @@ export interface ModeConfig {
   goldMult?: number;
   /** Optional cap on cracks before the jar shatters (defaults to MAX_CRACKS) */
   maxCracks?: number;
+  /** Multiplier for how long a combo survives without a fresh catch (defaults to 1) */
+  comboWindowMult?: number;
+  /** Multiplier for the jar-fill bonus (defaults to 1) */
+  jarBonusMult?: number;
   /** Accent colour for the card glow / ring */
   accent: string;
   /** CSS gradient used for the card background */
@@ -145,6 +158,38 @@ export const MODES: Record<ModeId, ModeConfig> = {
     gradient: "linear-gradient(150deg,#330d16 0%,#22060d 55%,#130409 100%)",
     tint: "rgba(255,77,109,0.06)",
   },
+  combo: {
+    id: "combo",
+    name: "LỄ HỘI COMBO",
+    tagline: "Cửa sổ combo rộng gấp đôi · kéo dây thả ga",
+    description:
+      "Lễ hội dành cho tay kéo dây: cửa sổ combo sống gấp đôi (5.4 giây), dưa rơi dày hơn một chút, đền lại +15% điểm mỗi củ. Cứ giữ nhịp hứng — multiplier nhảy vọt như pháo bông.",
+    badge: "×1.15 · COMBO ×2",
+    scoreMult: 1.15,
+    speedMult: 1.05,
+    hazardMult: 1.25,
+    spawnMult: 0.92,
+    comboWindowMult: 2,
+    accent: "#ff8ad4",
+    gradient: "linear-gradient(150deg,#3a0f2e 0%,#260a1f 55%,#160512 100%)",
+    tint: "rgba(255,138,212,0.05)",
+  },
+  feast: {
+    id: "feast",
+    name: "ĐẠI TIỆC DƯA",
+    tagline: "Dưa rơi như trẩy hội · thưởng hũ ×2.5",
+    description:
+      "Trẩy hội muối dưa: dưa rơi chậm mà dày đặc gấp gần hai lần, thưởng đổ đầy hũ tăng ×2.5. Điểm mỗi củ chỉ ×0.6 — chơi kiểu «trồng lúa»: nhặt nhanh tay, đổ thật nhiều hũ.",
+    badge: "×0.6 · HŨ ×2.5",
+    scoreMult: 0.6,
+    speedMult: 0.78,
+    hazardMult: 1.15,
+    spawnMult: 0.6,
+    jarBonusMult: 2.5,
+    accent: "#5eead4",
+    gradient: "linear-gradient(150deg,#08332f 0%,#052422 55%,#031412 100%)",
+    tint: "rgba(94,234,212,0.05)",
+  },
 };
 
 export const MODE_LIST: ModeConfig[] = [
@@ -155,6 +200,8 @@ export const MODE_LIST: ModeConfig[] = [
   MODES.goldrush,
   MODES.storm,
   MODES.hardcore,
+  MODES.combo,
+  MODES.feast,
 ];
 
 export function isModeId(v: unknown): v is ModeId {
@@ -165,7 +212,9 @@ export function isModeId(v: unknown): v is ModeId {
     v === "blitz" ||
     v === "goldrush" ||
     v === "storm" ||
-    v === "hardcore"
+    v === "hardcore" ||
+    v === "combo" ||
+    v === "feast"
   );
 }
 
@@ -190,3 +239,17 @@ export const COMBO_WINDOW = 2.7;
 
 /** Max cracks before the jar breaks. */
 export const MAX_CRACKS = 3;
+
+/** Effective combo window for a mode (COMBO_WINDOW × the mode's comboWindowMult). */
+export function comboWindowFor(mode: { comboWindowMult?: number } | ModeId): number {
+  const mult =
+    typeof mode === "string" ? MODES[mode].comboWindowMult ?? 1 : mode.comboWindowMult ?? 1;
+  return COMBO_WINDOW * mult;
+}
+
+/** Effective jar bonus for a mode (jarBonus × the mode's jarBonusMult). */
+export function jarBonusFor(level: number, mode: { jarBonusMult?: number } | ModeId): number {
+  const mult =
+    typeof mode === "string" ? MODES[mode].jarBonusMult ?? 1 : mode.jarBonusMult ?? 1;
+  return Math.round(jarBonus(level) * mult);
+}
