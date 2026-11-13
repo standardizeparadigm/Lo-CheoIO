@@ -1,6 +1,6 @@
 import { useI18n } from "../../i18n/useI18n";
 import type { SavedRun } from "../../game/runSave";
-import { MODES } from "../../game/modes";
+import { MODE_LIST } from "../../game/modes";
 import { fmtNum } from "../../i18n/i18n";
 import type { MessageKey } from "../../i18n/i18n";
 import CornerPanel from "./CornerPanel";
@@ -58,7 +58,7 @@ export default function GameMenu({
         hint={t("game.modesHint")}
         onClick={onModes}
         trailing={
-          <span className="font-display text-[9px] text-brine-400/80">{MODES ? "9" : ""}</span>
+          <span className="font-display text-[9px] text-brine-400/80 tabular-nums">{MODE_LIST.length}</span>
         }
       />
       <MenuItemButton
