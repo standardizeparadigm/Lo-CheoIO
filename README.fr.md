@@ -259,6 +259,17 @@ Double-clique sur [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 Voir aussi [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Feuille de route (brouillon — susceptible de changer selon les retours)
+
+| Étape | ETA | Idées |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Bande-son procédurale par mode · tests de régression visuelle (Playwright) dans la CI · sous-ensemblage de polices plus poussé pour alléger le bundle |
+| **v1.3.0** | 2026 Q1–Q2 | 10e mode de jeu (candidat : **TEMPÊTE DE MOUCHES** — uniquement des mouches, survis en tranchant) · mode seedé pour les défis quotidiens |
+| **v1.4.0** | 2026 Q2 | Tableau d'élite en ligne **opt-in** (serverless, chiffré) — le hors-ligne reste le défaut |
+| Backlog | — | Ghost replay de votre meilleure run · mode photo (masquez le HUD, exportez en PNG) · locale thaï (ไทย) à l'étude |
+
+*Une feuille de route n'est pas une promesse — la priorité est toujours : stabilité → plus facile à jouer → plus de contenu.*
+
 ## 📚 Pour aller plus loin & docs dev
 
 Notes de conception et documentation technique approfondie :
