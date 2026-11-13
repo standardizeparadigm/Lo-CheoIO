@@ -113,12 +113,12 @@ node scripts/check-readme-sync.mjs
 
 Bản CI (không cần build) của bộ test parity i18n — đọc thẳng file locale dạng text nên chạy trong ~40 ms, không import TypeScript:
 
-1. **đủ key**: 6 bản dịch phải có đúng bộ key của `vi` (302 key), không thiếu không thừa
+1. **đủ key**: 6 bản dịch phải có đúng bộ key của `vi` (304 key), không thiếu không thừa
 2. **placeholder**: `{n}`, `{jars}`… phải khớp từng key với bản gốc
 3. **không rỗng**: value `""` bị chặn
 4. **không trùng key**: hai dòng cùng key trong một file bị chặn
 
 ```bash
 npm run check:i18n
-# → ✓ vi/en/zh/ja/ko/es/fr — 302 keys · "All 7 locales in parity."
+# → ✓ vi/en/zh/ja/ko/es/fr — 304 keys · "All 7 locales in parity."
 ```
