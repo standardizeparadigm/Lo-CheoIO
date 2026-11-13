@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-프로덕션-빌드)
@@ -32,23 +32,18 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.4 새로운 점
+## 🆕 v1.1.5 새로운 점
 
-- 🎮 **새 모드 2종 — 총 9가지** — **콤보 축제**(콤보 유지 시간 **2배인 5.4초**, 개당 +15%, 절임 비가 조금 더 짙게, 위험 ×1.25 — 배율이 폭죽처럼 치솟음)와 **절임 대잔치**(낙하 ×0.78이지만 거의 2배 밀도, **항아리 보너스 ×2.5**, 개당 ×0.6 — '농부 플레이'로 항아리를 마구 채우세요). 두 모드 모두 전용 메뉴 글리프와 카드 발광 적용.
-- 🏆 **새 업적 2개** — **강철 체인**(아무 모드에서나 40콤보) & **만찬의 상**(절임 대잔치에서 항아리 3개). 총 **16개 업적**.
-- 🌐 **게임 내 7개 언어** — **Español**과 **Français**를 VI/EN/中/日/한/ES/FR에 추가: 언어당 207개 키, `<html lang>` 동기화, locale별 숫자(es-ES / fr-FR 추가).
-- 🐛 **Windows 런처 크래시 완전 수정** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat`은 이제 **CRLF + UTF-8 BOM**, `chcp 65001`, 지연 확장 `!TSTR!`, 베트남어 **다이어크리틱 완전 보존**. 새 `.gitattributes`가 모든 `*.bat`/`*.cmd`에 CRLF를 강제 — 절대 재발하지 않습니다.
-- 🚀 **다국어 애니메이션 런처** — 세 런처(`play-linux.sh` · `play-mac.command` · `play-windows.bat`)가 **7개 언어** 지원(VI/EN/中/日/한/ES/FR), `L`키로 7개 언어 순환, 스파클 구분선이 골드/핑크/시안으로 회전; 베트남어 메뉴는 **다이어크리틱 완전 보존**. [scripts/README.md](scripts/README.md) 참조.
-- 📖 **10개 언어 README 전면 개편** — 배너, 9모드 그리드, 7언어 리본, 스파클 구분선(모두 SMIL)으로 더 아름답고, 더 상세하고, 더 완전하게.
-- 🧪 **단위 테스트 61개**(55 → 61) — `npm run check` 그린.
+- 🧭 **메인 메뉴 대수술** —— 게임 관련은 모두 **왼쪽 아래 GAME 패널**로: **플레이** · **이어하기** · **게임 모드** · **랭킹**(TOP 8) · **업적**(16) · **설정**. 프로젝트 관련은 모두 **오른쪽 아래 INFO 패널**로: **제작자 소개** · **변경 이력**(게임 안에서 확인 가능) · **종료**.
+- ⏸️ **「이어하기」 — 중단한 판이 원클릭** —— 판이 진행 중 메뉴로 나오면(일시정지 → 메뉴로) `locheo.run.v1`에 스냅샷. **이어하기**를 누르면 점수·항아리·금·스태미나·콤보·실드 그대로 복원. 중단된 판이 있을 때만 활성화됩니다.
+- ⚙️ **게임 내 설정** —— **효과음** · **배경 음악** · **화면 흔들림** · **동작 줄이기** —— 즉시 적용, 새로고침 불필요. 2단계 확인의 **「저장 데이터 삭제」** 위험 구역 포함.
+- 🐛 **모달 너머 단축키 누출 수정** —— Enter/R/P/M/Space가 모달 뒤의 게임을 발동하지 않습니다. **「이어하기」 stale closure**, **`prefers-reduced-motion`이 모든 애니메이션 차단**.
+- 📖 **10개 언어 README 더 아름답게** —— V1.1.5 배너, 새로운 코너 패널 SMIL 애니메이션, 더 상세하고 충실한 내용.
+- 🧪 **유닛 테스트 76개**(61에서 증가) —— `npm run check` 그린; 새 **GitHub Actions CI**(npm ci → npm run check).
 
-<img src="assets/new-modes.svg" alt="v1.1.4 새 모드 — 콤보 축제와 절임 대잔치" width="100%" />
+<img src="assets/corner-menu.svg" alt="왼쪽 아래 GAME 패널과 오른쪽 아래 INFO 패널이 슬라이드인(SMIL 애니메이션)" width="100%" />
 
-<img src="assets/modes.svg" alt="9가지 모드 — Classic · Zen · Inferno · 60초 스프린트 · 골드 러시 · 절임비 대폭풍 · 얇은 도자기 · 콤보 축제 · 절임 대잔치" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="Lọ Chéo 파비콘 — 금색 뚜껑의 기울어진 절임 항아리 (SMIL 애니메이션)" width="150" /></div>
-
-→ 전체 내용: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ 전체 내용: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ 하이라이트
 
@@ -64,7 +59,7 @@
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 61개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 76개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -127,7 +122,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 61개 단위 테스트 (modes / achievements / storage / i18n)
+npm run test       # vitest — 76개 단위 테스트 (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -136,7 +131,7 @@ npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 lo-cheoio/
 ├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
-├─ package.json            # lo-cheoio v1.1.4, dev/build/test/check 스크립트
+├─ package.json            # lo-cheoio v1.1.5, dev/build/test/check 스크립트
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; src + tests 포함
@@ -149,6 +144,7 @@ lo-cheoio/
 │  ├─ modes.svg            # 9가지 모드 (SMIL 애니메이션)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # AGPL-3.0 copyleft 인장 (SMIL 애니메이션)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -165,7 +161,8 @@ lo-cheoio/
 │     ├─ v1.1.1.md         # v1.1.1 릴리스 노트
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
-│     └─ v1.1.4.md         # current release notes (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -179,7 +176,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 루트, StrictMode
 │  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4" (단일 진실 공급원)
+│  ├─ version.ts           # APP_VERSION = "1.1.5" (단일 진실 공급원)
 │  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
 │  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
@@ -189,7 +186,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (키 소스) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
-│  │  ├─ StartScreen.tsx   # 메뉴: 오로라, 시머, 모드 선택, 업적
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # 9개 모드 카드 (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
 │  │  ├─ GameOverScreen.tsx     # 항아리가 깨졌다! + 점수 + 새 업적
@@ -201,7 +199,10 @@ lo-cheoio/
 │  │  ├─ modes.ts          # 게임 모드 + 밸런스 수치 (pure)
 │  │  ├─ achievements.ts   # 배지 14개 + pure 체커 (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, 진행도, 업적
-│  │  └─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
+│  │  ├─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
 └─ tests/                  # vitest — modes, achievements, storage, i18n
 ```
@@ -244,6 +245,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | 버전 | 날짜 | 노트 |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **76개 테스트** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
@@ -256,7 +258,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 ## 🤝 기여하기
 
 1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
-2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 61개 + build).
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 76개 + build).
 3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
 4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
 
