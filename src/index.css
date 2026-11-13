@@ -715,4 +715,4 @@
 [data-reduced-motion="true"] :is(.sheen, .cta-shine)::after { animation: none !important; transition: none !important; }
 
 /* On wider screens the corner panels do not steal the hero’s vertical space. */
-@media (min-width: 768px) { .menu-panels { position: absolute; left: 0; right: 0; bottom: 0; } }
+@media (min-width: 1024px) { .menu-panels { position: absolute; left: 0; right: 0; bottom: 0; } }
