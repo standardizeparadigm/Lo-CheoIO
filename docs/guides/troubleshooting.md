@@ -20,6 +20,27 @@
 - Ván **kết thúc** (game over) hoặc **bắt đầu ván mới** sẽ xóa snapshot — «Chơi tiếp» đúng là không còn gì để tiếp.
 - Chế độ **private/incognito** hoặc storage bị chặn → không lưu được giữa phiên — đây là giới hạn cố hữu, không phải bug.
 
+## Cài đặt không lưu / tự quay về mặc định
+
+- **Private mode / storage bị chặn**: game vẫn chạy nhưng cài đặt chỉ sống trong phiên — đây là giới hạn cố hữu.
+  Từ v1.1.6 thay đổi vẫn **giữ nguyên trong phiên** (trước đó mỗi lần bấm là quay về mặc định).
+- Mở DevTools → Application → Local Storage → kiểm tra `locheo.settings.v1`. Nếu trống hoàn toàn mà bạn
+  vừa đổi cài đặt → storage đang bị chặn (chế độ ẩn danh, hoặc site data bị khoá).
+- Nút **«Khôi phục mặc định»** trong Settings → *Dữ liệu* đặt lại mọi thứ **trừ ngôn ngữ** — đây là chủ ý.
+
+## Nút «Xuất» báo đã copy nhưng dán ra rỗng
+
+- Clipboard API cần **secure context** (`https://` hoặc `file://`/`localhost`). Trên `http://` nội bộ nó không tồn tại.
+- Từ v1.1.6 nút chỉ báo "Đã copy vào clipboard" khi copy **thành công thật**; nếu không nó báo "Đã nhập cấu hình"
+  và **textarea ngay dưới** vẫn giữ JSON để bạn bôi đen copy tay.
+- Có thể dán tay JSON vào textarea rồi bấm **NHẬP** — đường nhập không cần clipboard.
+
+## Đổi ngôn ngữ không thấy đổi gì
+
+- Ngôn ngữ nằm trong **Cài đặt → NGÔN NGỮ** từ v1.1.6 (không còn nút nổi góc phải).
+- Chọn xong hộp thoại tự render lại ngay; `<html lang>` cũng đổi theo cho screen reader.
+- Nếu chữ vẫn là ngôn ngữ cũ sau khi tải lại → kiểm tra `locheo.lang.v1` và `settings.language` trong storage.
+
 ## Điểm / thành tựu mất sạch
 
 - Kiểm tra bạn có bấm **«Xóa dữ liệu đã lưu»** trong Cài đặt không (vùng nguy hiểm, 2 bước xác nhận).
