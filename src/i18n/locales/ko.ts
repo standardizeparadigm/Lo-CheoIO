@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — 한국어 메시지. vi.ts와 동일한 키 세트 (테스트로 검증).
+   Lọ Chéo — Korean messages (한국어)
+   =====================================================================
+   302 keys · number locale: ko-KR
+
+   Mirrors vi.ts 1:1. Uses the polite 해요체 register in body copy and
+   noun-phrase labels in buttons, which is the convention for game UI.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
