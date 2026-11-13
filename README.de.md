@@ -255,6 +255,19 @@ Doppelklick auf [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 Siehe auch [CHANGELOG.md](CHANGELOG.md).
 
+## 📚 Weiterführende Doku & Dev-Notes
+
+Design-Notizen und tiefergehende technische Doku:
+
+| Doc | What it covers |
+| --- | --- |
+| [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | Release v1.1.5 — menu góc, lưu/tiếp tục ván dở, cài đặt, fixes |
+| [docs/design/menu-corners.md](docs/design/menu-corners.md) | Thiết kế menu góc GAME/INFO — nguyên tắc, a11y, responsive |
+| [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — snapshot ván dở (schema + lifecycle) |
+| [docs/design/settings-format.md](docs/design/settings-format.md) | Spec `locheo.settings.v1` — cài đặt game (schema + wiring) |
+| [scripts/smoke-ssr.tsx](scripts/smoke-ssr.tsx) | Headless render smoke test (toàn bộ menu/modal) |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | CI: npm ci → npm run check (Node 22) |
+
 ## 🤝 Mitwirken
 
 1. Forke das Repo, Branch nach dem Schema `arena/<name>` oder `feat/<name>`.
