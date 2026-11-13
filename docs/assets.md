@@ -32,7 +32,8 @@ Tất cả hình là **SVG tự chứa có animation SMIL** — không JS, khôn
 7. **Không dùng `clip-path="inset(...)"`** như thuộc tính — không hợp lệ trên SVG; dùng `<clipPath>` +
    `<rect>` hoặc các hình đã dịch bên trong `<g opacity>`.
 8. **Kiểm tra XML well-formed** trước khi commit:
-   `python3 -c "import xml.etree.ElementTree as ET; ET.parse('assets/x.svg')"`.
+   `python3 -c "import xml.etree.ElementTree as ET; ET.parse('<đường-dẫn>')"` (đổi thành file thật trước khi chạy —
+   `check-assets` quét mọi chuỗi `assets/*.svg` trong docs và sẽ báo thiếu nếu bạn để tên giả).
 
 ## Thời gian biểu hình minh hoạ
 
