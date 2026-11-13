@@ -299,6 +299,8 @@ const ko: Record<MessageKey, string> = {
   "quit.hint": "탭이 자동으로 닫히지 않으면 Ctrl+W(Windows/Linux) 또는 Cmd+W(macOS)를 누르세요.",
   "quit.back": "메뉴로",
   "quit.close": "이 탭 닫기",
+  "settings.decrease": "줄이기",
+  "settings.increase": "늘리기",
   "settings.section.presets": "빠른 프리셋",
   "settings.preset.performance": "부드럽게",
   "settings.preset.performanceDesc": "저사양: 파티클 최소, 발광 끔",

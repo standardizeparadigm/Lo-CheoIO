@@ -299,6 +299,8 @@ const en: Record<MessageKey, string> = {
   "quit.hint": "If this tab doesn't close itself, use Ctrl+W (Windows/Linux) or Cmd+W (macOS).",
   "quit.back": "BACK TO MENU",
   "quit.close": "CLOSE THIS TAB",
+  "settings.decrease": "Decrease",
+  "settings.increase": "Increase",
   "settings.section.presets": "QUICK PRESETS",
   "settings.preset.performance": "SMOOTH",
   "settings.preset.performanceDesc": "Weak GPU: fewer particles, no glow",

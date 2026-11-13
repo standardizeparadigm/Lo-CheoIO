@@ -299,6 +299,8 @@ const ja: Record<MessageKey, string> = {
   "quit.hint": "タブが自動で閉じない場合は Ctrl+W（Windows/Linux）または Cmd+W（macOS）。",
   "quit.back": "メニューにもどる",
   "quit.close": "このタブを閉じる",
+  "settings.decrease": "下げる",
+  "settings.increase": "上げる",
   "settings.section.presets": "クイックプリセット",
   "settings.preset.performance": "スムーズ",
   "settings.preset.performanceDesc": "低スペック向け：粒子少なめ・グロー無し",

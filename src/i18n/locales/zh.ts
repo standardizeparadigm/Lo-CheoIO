@@ -293,6 +293,8 @@ const zh: Record<MessageKey, string> = {
   "quit.hint": "如果标签页没有自动关闭，请按 Ctrl+W（Windows/Linux）或 Cmd+W（macOS）。",
   "quit.back": "返回菜单",
   "quit.close": "关闭此标签页",
+  "settings.decrease": "减小",
+  "settings.increase": "增大",
   "settings.section.presets": "快速预设",
   "settings.preset.performance": "流畅",
   "settings.preset.performanceDesc": "低配机：粒子少、无辉光",

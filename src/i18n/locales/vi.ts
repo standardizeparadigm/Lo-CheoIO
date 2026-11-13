@@ -329,6 +329,8 @@ const vi = {
   "quit.hint": "Nếu tab này không tự đóng, hãy dùng Ctrl+W (Windows/Linux) hoặc Cmd+W (macOS).",
   "quit.back": "QUAY LẠI MENU",
   "quit.close": "ĐÓNG TAB NÀY",
+  "settings.decrease": "Giảm",
+  "settings.increase": "Tăng",
   "settings.section.presets": "CẤU HÌNH NHANH",
   "settings.preset.performance": "MƯỢT",
   "settings.preset.performanceDesc": "Máy yếu: ít hạt, tắt phát sáng",

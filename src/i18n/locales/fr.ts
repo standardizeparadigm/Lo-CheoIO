@@ -299,6 +299,8 @@ const fr: Record<MessageKey, string> = {
   "quit.hint": "Si l'onglet ne se ferme pas tout seul, utilise Ctrl+W (Windows/Linux) ou Cmd+W (macOS).",
   "quit.back": "RETOUR AU MENU",
   "quit.close": "FERMER CET ONGLET",
+  "settings.decrease": "Diminuer",
+  "settings.increase": "Augmenter",
   "settings.section.presets": "PRÉRÉGLAGES RAPIDES",
   "settings.preset.performance": "FLUIDE",
   "settings.preset.performanceDesc": "GPU faible : moins de particules, sans lueur",

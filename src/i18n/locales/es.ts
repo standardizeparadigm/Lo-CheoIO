@@ -299,6 +299,8 @@ const es: Record<MessageKey, string> = {
   "quit.hint": "Si la pestaña no se cierra sola, usa Ctrl+W (Windows/Linux) o Cmd+W (macOS).",
   "quit.back": "VOLVER AL MENÚ",
   "quit.close": "CERRAR ESTA PESTAÑA",
+  "settings.decrease": "Bajar",
+  "settings.increase": "Subir",
   "settings.section.presets": "AJUSTES RÁPIDOS",
   "settings.preset.performance": "FLUIDO",
   "settings.preset.performanceDesc": "GPU débil: menos partículas, sin brillo",
