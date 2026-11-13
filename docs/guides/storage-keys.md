@@ -12,6 +12,20 @@ Mọi dữ liệu đều nằm trên máy người chơi — game **không gửi
 | `locheo.settings.v1` | `settings.ts` | `{sfx, sfxVolume, music, musicVolume, shake, shakeLevel, reducedMotion, visualQuality, autoPauseOnBlur, language}` (v1.1.6) — xem `docs/design/settings-format.md` | Xóa thủ công · Settings → Khôi phục mặc định (giữ ngôn ngữ) |
 | `locheo.run.v1` | `runSave.ts` | Snapshot ván dở (xem `docs/design/save-format.md`) | Game over · ván mới · Resume · Xóa dữ liệu |
 
+## Một cửa duy nhất — `src/game/safeStorage.ts`
+
+Từ v1.1.6, **mọi** truy cập `localStorage` đi qua `safeStorage.ts`:
+
+| Hàm | Việc | Khi storage bị chặn |
+| --- | --- | --- |
+| `STORAGE_KEYS` | Danh mục key duy nhất (nguồn sự thật của bảng trên) | — |
+| `storageAvailable()` | Probe ghi/xoá thật → `boolean` | `false` |
+| `readRaw` / `writeRaw` / `removeRaw` | Đọc/ghi/xoá thô | `null` / `false` / no-op |
+| `readJSON` / `writeJSON` | Đọc-parse & stringify-ghi gộp một bước | `null` / `false` |
+| `clearAllGameKeys()` | Xoá đúng 8 key của game, không đụng key khác | no-op |
+
+Trước đây mỗi module tự bọc `try/catch` — `settings.ts` và `runSave.ts` thậm chí parse JSON hai lần. Giờ tất cả đi qua một lớp, và `tests/safeStorage.test.ts` (7 test) khoá hành vi: Safari private mode, quota, JSON hỏng, object circular.
+
 ## Ghi chú an toàn
 
 - Tất cả reader đều **chịu dữ liệu rác**: JSON hỏng / kiểu sai / thiếu field → fallback default, không bao giờ crash.
