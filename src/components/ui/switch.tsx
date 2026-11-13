@@ -1,10 +1,13 @@
 /**
- * Switch — the on/off switch used by Settings.
+ * Switch — the on/off switch used by six-section Settings.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * Implemented as a real `<button role="switch">` with `aria-checked`, not a
+ * checkbox with hidden styling, so the announced state matches the visual one.
+ * The knob is a transform-only animation (no layout thrash) and is disabled
+ * entirely under `prefers-reduced-motion`.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
-
 
 export function Switch({
   checked,
