@@ -1,4 +1,4 @@
-# Thiết kế: nền menu nhiều lớp (v1.1.6)
+# Thiết kế: nền menu nhiều lớp (v1.1.6 → chỉnh tương phản ở v1.1.7)
 
 Menu v1.1.6 không dùng ảnh nền — **toàn bộ scene là CSS thuần**, xếp lớp từ xa tới gần, mỗi lớp có
 tốc độ và chu kỳ riêng để mắt không bắt được "vòng lặp". Mục tiêu: menu **sống** nhưng không tranh
@@ -16,6 +16,30 @@ chấp sự chú ý với hai panel góc và nút CHƠI.
 | 6 | Sàn gạch | `tile-floor` + `tile-floor-mask` | trôi dọc, mask mờ dần về đỉnh | 12 s |
 | 7 | Vòng sáng quanh lọ | `glow-ring` · `jar-glow` | `lc-ring-rotate` + `lc-jar-glow` | 22 s / 4.5 s |
 | 8 | Vệt sáng nút CHƠI | `cta-shine` (qua `MenuItemButton shine`) | `lc-cta-shine` — vệt trắng chạy ngang | 3.2 s |
+
+## Độ tương phản — bài học v1.1.7
+
+v1.1.6 thêm lớp nền nhưng **không đo lại tổng độ tối**, nên kết quả bị "mờ/đục".
+Bốn lớp cộng hưởng:
+
+| Lớp | v1.1.6 | v1.1.7 | Ghi chú |
+| --- | --- | --- | --- |
+| `.nebula-a/b` | `filter: blur(64px)`, opacity đỉnh `1.0` | `blur(22px)`, đỉnh `0.80` | 64px > nửa bán kính khối 46vw → mép biến mất |
+| Vignette menu | nội tuyến `rgba(6,26,26,0.42→0.88→1.0)` phủ toàn màn hình | `.menu-vignette`: `0.30` góc trên-trái, `0.62` mép dưới | trung bình ~70% đen → còn ~20% |
+| Khung CRT | `inset 0 0 140px rgba(6,26,26,0.9)` | `.app-vignette`: `inset 0 0 90px rgba(6,26,26,0.55)` | 140px ăn gần hết bốn góc |
+| `.tile-floor` | `opacity-45` | `opacity-70` | dưới vignette cũ sàn gần như vô hình |
+
+**Quy tắc mới (bắt buộc khi thêm lớp):**
+
+6. **Lớp trang trí không bao giờ đục 100%** — tinh vân, quầng sáng, tia sáng đều phải ≤ 0.85 ở đỉnh.
+7. **Blur ≤ 24px cho khối trang trí lớn** — blur lớn hơn làm mất hình khối và tạo cảm giác "sương".
+8. **Vignette chỉ ở góc/viền, không phủ giữa màn hình** — nếu cần tối, dùng hai radial ở góc như
+   `.menu-vignette`, không dùng một radial phủ 100%.
+9. **Mọi lớp phủ tối phải là CSS có tên**, không phải utility viết thẳng trong JSX — để còn đo, còn
+   chỉnh một chỗ, và để `prefers-reduced-motion` với tới được.
+
+Trước khi merge một thay đổi nền: chụp màn hình ở 1280×720 và ở 800×600, so sánh độ sáng trung bình
+vùng giữa (phải sáng hơn vùng góc ít nhất 1.5×).
 
 ## Quy tắc
 
