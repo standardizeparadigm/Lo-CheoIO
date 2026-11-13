@@ -9,7 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
+[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
+[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-instalación-y-ejecución)
@@ -20,6 +22,8 @@
 <img src="assets/demo.svg" alt="Lọ Chéo en acción — la orza avanza en diagonal, atrapa encurtidos y despedaza moho" width="100%" />
 
 <img src="assets/languages.svg" alt="7 idiomas — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+<img src="assets/palette-ribbon.svg" alt="La paleta de Lọ Chéo — siete bandas que respiran por turnos (animación SMIL)" width="100%" />
 
 </div>
 
@@ -33,23 +37,72 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Novedades de v1.1.6
+## 🆕 Novedades de v1.1.7
 
-- ⚙️ **Ajustes reestructurados en seis secciones** — **Ajustes rápidos** · **Audio** · **Pantalla y movimiento** · **Idioma** · **Copia** · **Datos**, con tres tipos de control: interruptores, selectores de dos opciones y niveles 0–100.
-- 🔊 **Controles de verdad, no solo interruptores** — volumen de efectos y música **0–100** (10 segmentos inclinados), **intensidad de sacudida** suave/fuerte, **calidad visual** baja/alta (230 vs 460 partículas, sin brillo), **pausa automática al cambiar de pestaña**.
-- 🌐 **El idioma se muda a Ajustes** — el selector flotante de arriba a la derecha y la fila de la pantalla de pausa desaparecen; ahora es una rejilla de dos columnas con 7 idiomas (bandera · nombre nativo · marca).
-- 🎛️ **Cuatro preajustes de un toque + copia JSON** — **FLUIDO** · **EQUILIBRADO** · **CINE** · **SPEEDRUN** (nunca tocan el idioma) y exportación/importación para llevar la configuración a otra máquina.
-- ✨ **El menú es ahora un escenario** — nebulosas a la deriva, un haz de luz que respira, **dos capas de estrellas parpadeantes**, un anillo de luz girando alrededor del tarro, halo del tarro, un destello que cruza JUGAR; la **tarjeta del autor** tiene un borde degradado en movimiento perpetuo.
-- 🐛 **Once fallos reales corregidos** — música más alta de lo configurado tras recargar · Tab escapando de los modales · la pista del changelog fijada en v1.1.5 · `updateSettings` devolviendo valores sin normalizar · el foco no se retenía en el diálogo · exportar decía «copiado» con el portapapeles vacío · los interruptores volvían a los valores por defecto con el almacenamiento bloqueado · el sonido se reactivaba tras recargar · objetos de peso cero aparecían en niveles bajos · la puntuación mostraba «NaN» · un botón de confirmación que era solo un glifo ←.
-- 🧪 **222 pruebas unitarias** (29 archivos, antes 113/14) — nueva cobertura del esquema de ajustes, preajustes, códec de copia, matemática de ganancia y un test de contrato i18n↔UI.
+> El **último parche** antes de 1.2.0. Sin modos nuevos — solo lo que aún molestaba, arreglado de raíz.
 
-<img src="assets/settings-sections.svg" alt="Ajustes de v1.1.6 — seis secciones con interruptores, barras de nivel y selectores (animación SMIL)" width="100%" />
+### 🌫️ El fondo del menú ya no está borroso — arreglado en la raíz
+
+Los jugadores tenían razón: *«el fondo detrás del menú sigue borroso»*. La causa no era una capa, sino **cuatro superposiciones que se amplificaban**:
+
+| Capa | Antes | Ahora | Por qué |
+| --- | --- | --- | --- |
+| Nebulosa `.nebula-*` | `blur(64px)`, pico `1.0` | **`blur(22px)`, pico `0.80`** | 64px es más de la mitad del radio de una mancha de 46vw — el borde deja de existir y todo se vuelve niebla |
+| Viñeta del menú | en línea, **pantalla completa**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`**, solo esquinas, `0.30 → 0.62` | de «oscurecer todo el marco por igual» a «oscuro en las esquinas, claro en el centro» |
+| Marco CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px se comía casi todas las esquinas en una ventana pequeña |
+| Suelo de baldosas | `opacity-45` | **`opacity-70`** | al 45% el suelo era ruido gris, no un detalle reconocible |
+
+`.menu-vignette` y `.app-vignette` ahora son **reglas CSS con nombre** en lugar de utilidades enterradas en el JSX — un solo lugar que ajustar, y `prefers-reduced-motion` llega hasta ellas.
+
+### 🏷️ Niveles del changelog — un color por nivel
+
+| Nivel | Etiqueta | Color | Significado | Ejemplo |
+| --- | --- | --- | --- | --- |
+| `major` | **MAJOR** | 🩷 rosa `#ff5fb0` | versión grande — nuevos sistemas | 1.0.0 |
+| `minor` | **UPDATE** | 🟡 dorado `#f5a81c` | mejora — contenido nuevo | 1.1.0 |
+| `patch` | **PATCH** | 🟣 violeta `#9d6bff` | correcciones y limpieza | 1.1.1 → 1.1.7 |
+
+El nivel se **deriva del SemVer** con `tierFor(version)`, nunca se escribe a mano — así la etiqueta jamás puede contradecir la versión impresa al lado. El panel ganó un **filtro**: TODAS · MAJOR · UPDATE · PATCH con el recuento por nivel.
+
+<img src="assets/release-tiers.svg" alt="Los tres niveles MAJOR/UPDATE/PATCH con sus colores y la línea de tiempo de nueve versiones (animación SMIL)" width="100%" />
+
+### 📖 Ocho versiones antiguas: de una línea a una página
+
+Seis de las nueve versiones tenían la **lista de viñetas vacía** — el panel solo podía mostrar un resumen de una línea. v1.1.7 las reescribió todas:
+
+- **96 viñetas en vietnamita + 96 en inglés** escritas o ampliadas
+- Contenido tomado de `docs/releases/v1.1.x.md` **y** del propio código (9 modos, 16 logros)
+- **Fechas reordenadas**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — cada dos días, sin dos versiones el mismo día
+
+### 🗂️ El proyecto creció en carpetas
+
+```
+src/game/changelog/        ← sustituye a un único archivo de 300 líneas
+├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
+├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
+├── entries/               un archivo por versión — v1_0_0.ts … v1_1_7.ts
+└── index.ts               CHANGELOG_ENTRIES + 5 ayudantes
+```
+
+Añadir 1.2.0 más adelante es ahora **un archivo nuevo** y una línea de import.
+
+### 🐛 Correcciones
+
+| # | Fallo | Arreglo |
+| --- | --- | --- |
+| 1 | Fondo del menú borroso y turbio | los cuatro cambios de arriba |
+| 2 | Suelo de baldosas invisible | `opacity-45` → `opacity-70` |
+| 3 | Etiquetas del changelog que describían otra cosa (`kind` a mano) | `tierFor(version)` lo deriva del SemVer |
+| 4 | Descripciones demasiado delgadas (6 versiones con `items: []`) | 96 viñetas reescritas |
+| 5 | Fechas duplicadas e ilógicas | nueve días consecutivos, sin colisiones |
+| 6 | Docs/SVG/lanzadores desfasados de la versión | barrido completo → 1.1.7 |
+| 7 | El comentario de `check-readme-sync` fijaba 1.1.6 | ahora lee `package.json` |
+
+→ Detalles completos: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · Versión anterior: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+<img src="assets/settings-sections.svg" alt="Ajustes en seis secciones (desde v1.1.6) — interruptores, barras y selectores (animación SMIL)" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="Paneles GAME (abajo-izquierda) e INFO (abajo-derecha) deslizándose (animación SMIL)" width="100%" />
-
-→ Detalles completos: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
-
-→ Versión anterior: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Lo destacado
 
@@ -65,7 +118,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 | 💾 **Clasificación TOP 8** | Guardado local, validado y normalizado al leer, nombres en mayúsculas automáticas, highlight para el récord recién marcado |
 | 🎨 **Gráficos 60fps** | Canvas 2D, presupuesto de 460 partículas, DPR tope 2, suelo de losetas pre-renderizado offscreen, titileo de estrellas + aurora en el menú |
 | 📴 **Offline-first de verdad** | Fuentes auto-alojadas (subsets latin + vietnamita, woff2), sin CDN ni APIs — abre `dist/index.html` y a jugar |
-| 🧪 **Calidad** | 222 tests unitarios (vitest) para modes / achievements / storage / i18n / settings — `npm run check` es la puerta de CI |
+| 🧪 **Calidad** | 235 tests unitarios (vitest) para modes / achievements / storage / i18n / settings — `npm run check` es la puerta de CI |
 
 <img src="assets/items.svg" alt="Los 14 ingredientes — encurtidos para atrapar, poderes dorados para agarrar, peligros para esquivar" width="100%" />
 
@@ -128,7 +181,7 @@ npm run build      # → dist/index.html (un único archivo autocontenido)
 npm run dev        # servidor de desarrollo con HMR (http://localhost:5173)
 npm run preview    # sirve el build de producción localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 222 tests unitarios (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 235 tests unitarios (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 
@@ -220,10 +273,12 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # foco atrapado en modales (v1.1.6)
-└─ tests/                  # vitest — 29 archivos · 222 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 30 archivos · 235 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Arquitectura y rendimiento
+<img src="assets/architecture.svg" alt="Arquitectura de Lọ Chéo v1.1.7 — entrada → motor → estado → render y servicios (animación SMIL)" width="100%" />
+
 
 - **Bucle de juego** con `requestAnimationFrame`, delta-time clampeado a `1/20s`, multiplicado por `timeScale` (cámara lenta de HIELO) y un breve **hit-stop** por captura para ese “golpe”.
 - **HUD en canvas** dibujado directamente cada frame; React solo renderiza pantallas según `phase` — sin re-renders en el bucle caliente; al cambiar de idioma, el HUD toma el nuevo diccionario en el frame siguiente.
@@ -259,16 +314,17 @@ Doble clic en [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`
 
 ## 📦 Releases y changelog
 
-| Versión | Fecha | Notas |
-| --- | --- | --- |
-| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **Ajustes en 6 secciones** (rápidos · audio · pantalla · idioma · copia · datos) · volúmenes 0–100 · intensidad de sacudida · calidad visual · pausa al cambiar de pestaña · idioma dentro de Ajustes · 4 preajustes · exportar/importar JSON · menú multicapa animado · degradado en la tarjeta del autor · foco atrapado en modales · fix de música al recargar · **150 tests** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menús de esquina GAME/INFO** (Jugar · Continuar · Modos · Clasificación · Logros · Ajustes / Sobre el autor · Changelog · Salir) · **guardar y reanudar partida** (`locheo.run.v1`) · ajustes in-game (SFX/música/sacudida/movimiento) · fix fuga de atajos por modales · prefers-reduced-motion global · **113 pruebas** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modos** (Combo Festival · Gran Festín) · **16 logros** · **7 idiomas** (ES/FR añadidos) · fix play-windows.bat (CRLF+BOM) · lanzadores en 7 idiomas · 61 tests |
-| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modos (Lluvia de Conservas · Cerámica Fina) · 14 logros · 5 idiomas · favicon · lanzadores multilingües · 55 tests |
-| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modos (60 Segundos · Fiebre de Oro) · 12 logros · combo en llamas · lanzadores de doble clic · README en 10 idiomas · 49 tests |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n en el juego VI/EN/ZH · README en 7 idiomas · barrido total de bugs · 49 tests |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 modos · Escudo de Ajo Dorado · Oruga · Mostaza Dorada · 10 logros · fuentes auto-alojadas |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | Primer release: motor completo, 11 ingredientes, GOLPE DE ORZA, combo ×9 |
+| Versión | Tier | Fecha | Notas |
+| --- | --- | --- | --- |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Fondo del menú sin niebla** (cuatro capas: `blur 64→22px`, viñeta de esquinas en vez de pantalla completa, marco CRT 140→90px, suelo 45→70%) · **changelog por niveles con color** · **96 viñetas nuevas** para 8 versiones · fechas reordenadas · `src/game/changelog/` dividido · 10 READMEs rehechos · **235 tests** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Ajustes en 6 secciones** (rápidos · audio · pantalla · idioma · copia · datos) · volúmenes 0–100 · intensidad de sacudida · calidad visual · pausa al cambiar de pestaña · idioma dentro de Ajustes · 4 preajustes · exportar/importar JSON · menú multicapa animado · degradado en la tarjeta del autor · foco atrapado en modales · fix de música al recargar · **150 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Menús de esquina GAME/INFO** (Jugar · Continuar · Modos · Clasificación · Logros · Ajustes / Sobre el autor · Changelog · Salir) · **guardar y reanudar partida** (`locheo.run.v1`) · ajustes in-game (SFX/música/sacudida/movimiento) · fix fuga de atajos por modales · prefers-reduced-motion global · **113 pruebas** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 modos** (Combo Festival · Gran Festín) · **16 logros** · **7 idiomas** (ES/FR añadidos) · fix play-windows.bat (CRLF+BOM) · lanzadores en 7 idiomas · 61 tests |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 modos (Lluvia de Conservas · Cerámica Fina) · 14 logros · 5 idiomas · favicon · lanzadores multilingües · 55 tests |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 modos (60 Segundos · Fiebre de Oro) · 12 logros · combo en llamas · lanzadores de doble clic · README en 10 idiomas · 49 tests |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | i18n en el juego VI/EN/ZH · README en 7 idiomas · barrido total de bugs · 49 tests |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 modos · Escudo de Ajo Dorado · Oruga · Mostaza Dorada · 10 logros · fuentes auto-alojadas |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | Primer release: motor completo, 11 ingredientes, GOLPE DE ORZA, combo ×9 |
 
 Ver también [CHANGELOG.md](CHANGELOG.md).
 
@@ -301,7 +357,7 @@ Notas de diseño y documentación técnica más profunda:
 ## 🤝 Contribuir
 
 1. Haz fork, crea una rama con la convención `arena/<nombre>` o `feat/<nombre>`.
-2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 222 tests + build).
+2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 235 tests + build).
 3. Evita nuevas dependencias de runtime salvo necesidad real — filosofía: **un archivo, sin red, jugable para siempre**.
 4. En el PR indica las pantallas/modos afectados y adjunta un clip si cambia el gameplay.
 
