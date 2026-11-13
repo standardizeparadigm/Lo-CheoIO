@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Sơ đồ kiến trúc Lọ Chéo v1.1.7 — input, engine, state, render, audio, i18n, storage và UI, kèm luồng dữ liệu chạy (hoạt họa SMIL)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Sơ đồ kiến trúc Lọ Chéo v1.1.8 — input, engine, state, render, audio, i18n, storage và UI, kèm luồng dữ liệu chạy (hoạt họa SMIL)">
   <defs>
     <linearGradient id="arBg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#0a2422"/>
@@ -12,7 +12,7 @@
   <rect width="1200" height="420" rx="18" fill="url(#arBg)"/>
   <rect x="1" y="1" width="1198" height="418" rx="18" fill="none" stroke="#123f38" stroke-width="2"/>
 
-  <text x="600" y="34" text-anchor="middle" font-family="'Arial Black','Bungee',sans-serif" font-weight="900" font-size="20" letter-spacing="4" fill="#fdf3e0">KIẾN TRÚC <tspan fill="#f5a81c">v1.1.7</tspan></text>
+  <text x="600" y="34" text-anchor="middle" font-family="'Arial Black','Bungee',sans-serif" font-weight="900" font-size="20" letter-spacing="4" fill="#fdf3e0">KIẾN TRÚC <tspan fill="#f5a81c">v1.1.8</tspan></text>
   <text x="600" y="54" text-anchor="middle" font-family="'Courier New',monospace" font-size="10" letter-spacing="3" fill="#2bb48c">MỘT CHIỀU DỮ LIỆU · KHÔNG PHỤ THUỘC VÒNG</text>
 
   <g font-family="'Courier New',monospace" font-size="10" font-weight="700" letter-spacing="1.4" text-anchor="middle">
