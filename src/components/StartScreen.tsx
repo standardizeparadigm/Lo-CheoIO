@@ -98,7 +98,9 @@ export default function StartScreen({
       <div className="light-ray" aria-hidden="true" />
       <div className="star-field-far" aria-hidden="true" />
       <div className="star-field" aria-hidden="true" />
-      <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-45" />
+      {/* v1.1.7: 45% opacity made the floor invisible under the old vignette;
+          with the vignette fixed it rides at 70% and the tiles read again. */}
+      <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-70" />
       {/* v1.1.7: this vignette used to run 0.42 → 0.88 → 1.0 across the whole
           viewport, which flattened every layer above into a dark smear. It is
           now a corner-only falloff (0.30 → 0.62) so the scene stays visible
