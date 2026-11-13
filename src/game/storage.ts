@@ -18,6 +18,11 @@ const PROGRESS_KEY = "locheo.progress.v1";
 const ACHIEVEMENTS_KEY = "locheo.achievements.v1";
 const SIZE = 8;
 
+/** Deep-enough clone so callers can't mutate the module-level SEED rows. */
+function seedCopy(): ScoreEntry[] {
+  return SEED.map((e) => ({ ...e }));
+}
+
 const SEED: ScoreEntry[] = [
   { id: "s1", name: "BÀ TƯ", score: 6420, level: 9, jars: 5, combo: 24, date: Date.now() - 86400000 * 2 },
   { id: "s2", name: "CÔ HẠNH", score: 5180, level: 8, jars: 4, combo: 19, date: Date.now() - 86400000 * 4 },
@@ -59,11 +64,11 @@ export function normalizeScores(v: unknown): ScoreEntry[] {
 export function loadScores(): ScoreEntry[] {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return [...SEED];
+    if (!raw) return seedCopy();
     const normalized = normalizeScores(JSON.parse(raw));
-    return normalized.length > 0 ? normalized : [...SEED];
+    return normalized.length > 0 ? normalized : seedCopy();
   } catch {
-    return [...SEED];
+    return seedCopy();
   }
 }
 
