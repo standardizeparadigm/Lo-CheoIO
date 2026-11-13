@@ -19,15 +19,15 @@ Bản **vá cuối trước 1.2.0**: tinh gọn màn hình chính, chuyển hư�
 
 → Chi tiết: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md)
 
-## [1.1.7] — 2026-11-12
+## [1.1.7] — 2026-11-13
 
-Bản **vá nền menu**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
+Bản **vá nền menu**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành được đối chiếu lại theo GitHub trong 1.1.8 · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 ### Fixed
 - **Nền sau menu vẫn mờ** — bốn lớp phủ cộng hưởng: `.nebula-*` `blur(64px)` + opacity đỉnh `1.0`; vignette nội tuyến `rgba(6,26,26, 0.42 → 0.88 → 1.0)` phủ toàn màn hình; khung CRT `inset 0 0 140px rgba(6,26,26,0.9)`; `.tile-floor` chỉ `opacity-45` nên gần như vô hình. Sửa: `blur(22px)`, đỉnh `0.80`, `.menu-vignette` chỉ tối ở góc (`0.30` / `0.62`), `.app-vignette` `90px @ 0.55`, sàn `opacity-70`
-- **Ngày phát hành trùng và phi logic** — bảy bản liền nhau đều ghi `2026-11-12`, riêng 1.1.6 ghi `2026-11-13` (sau thời điểm phát hành). Chuỗi mới: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 (nhịp 2 ngày, không bản nào trùng ngày)
+- **Đính chính ngày (v1.1.8)** — chuỗi ngày cách đều từng ghi tại đây không khớp GitHub Releases. Ngày hiện tại lấy theo thời điểm phát hành UTC; nhiều bản có thể cùng ngày.
 - **Nhãn changelog sai bản chất** — trường `kind` viết tay (`feature`/`fix`/`polish`) không suy ra từ SemVer nên đã từng lệch. Nay `tierFor(version)` suy tầng trực tiếp từ số phiên bản; `kind` còn đó nhưng `@deprecated` và không còn được đọc khi render
 - **Năm chuỗi chưa dịch lọt qua mọi cổng** — `changelog.title` / `info.changelog` ở es và fr, `scoreboard.top` ở es/fr/ko vẫn là tiếng Anh. Bật luật thứ 5 trong `check:i18n` (một locale không được mang nguyên văn chuỗi tiếng Anh) và dịch: **CAMBIOS** / **NOUVEAUTÉS** / **MEJORES** / **MEILLEURS** / **상위**
 - **Comment của `scripts/check-readme-sync.mjs` ghi cứng `1.1.6`** — đọc từ `package.json` thay vì sao chép tay qua từng bản
@@ -40,7 +40,7 @@ Bản **vá nền menu**: **nền menu hết mờ (sửa bốn lớp chồng nha
 - **`src/game/changelog/`** thay cho `src/game/changelog.ts` — `types.ts` · `tiers.ts` · `entries/v1_0_0.ts … v1_1_7.ts` (9 file) · `index.ts`
 - **Helper mới** — `latestEntry()` · `entryFor(version)` · `copyFor(entry, vi)` · `TIER_ORDER` · `TIER_LABEL_KEY`
 - **6 khoá i18n mới × 7 locale** — `changelog.tier.{major,minor,patch}` · `changelog.filter.all` · `changelog.releases` · `changelog.filterHint` (302 khoá mỗi locale)
-- **`tests/changelog-tiers.test.ts`** — 13 test khoá ánh xạ tầng, độ dài mô tả tối thiểu, tính duy nhất của từng gạch và thứ tự ngày nghiêm ngặt
+- **`tests/changelog-tiers.test.ts`** — 13 test khoá ánh xạ tầng, độ dài mô tả tối thiểu, tính duy nhất của từng gạch và thứ tự ngày không giảm
 - **`tests/changelog-ui.test.ts` · `tests/menu-background.test.ts` · `tests/modes-split.test.ts`** — 21 test mới khoá màu theo tầng, bốn luật tương phản nền menu và cấu trúc 9 chế độ sau khi tách file
 
 ### Changed
@@ -50,7 +50,7 @@ Bản **vá nền menu**: **nền menu hết mờ (sửa bốn lớp chồng nha
 - **`.menu-vignette` / `.app-vignette`** thành rule CSS có tên thay cho utility viết thẳng trong JSX — chỉnh một chỗ, và `prefers-reduced-motion` áp dụng được
 - Build ~831 KB (`dist/index.html`, gzip ~388 KB)
 
-## [1.1.6] — 2026-11-10
+## [1.1.6] — 2026-11-13
 
 Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · lớp truy cập storage duy nhất · bảng màu canvas/CSS dùng chung · README 10 ngôn ngữ làm mới · 222 unit tests (29 file)**.
 
@@ -95,7 +95,7 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - Reduced-motion bao phủ **toàn bộ** animation mới (nebula, starfield, light-ray, glow-ring, jar-glow, about-card, cta-shine)
 - Build ~771 KB
 
-## [1.1.5] — 2026-11-08
+## [1.1.5] — 2026-11-13
 
 Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 113 unit tests**.
 
@@ -131,7 +131,7 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 - README 10 ngôn ngữ: badge 1.1.5, mục "Mới trong v1.1.5", releases table, cây thư mục (menu/ · changelog.ts · runSave.ts · settings.ts · smoke-ssr), 113 tests
 - Build ~766 KB (gzip ~368 KB) — tăng do modal layer
 
-## [1.1.4] — 2026-11-06
+## [1.1.4] — 2026-11-12
 
 Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc**: **2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 16 thành tựu · 7 ngôn ngữ trong game (thêm Español · Français) · sửa crash `play-windows.bat` (CRLF + UTF-8 BOM) · launcher 7 ngôn ngữ · README 10 ngôn ngữ làm mới · assets SMIL mới (languages/new-modes/divider) · modes.svg 9 chế độ · 61 unit tests**.
 
@@ -156,7 +156,7 @@ Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc*
 - `ModeSelector` grid → 9 thẻ (`lg:grid-cols-9`); `ModeConfig` thêm optional `comboWindowMult?` / `jarBonusMult?` (mặc định 1)
 - Test suite: **61/61** (modes 22 · achievements 15 · storage 11 · i18n 13)
 
-## [1.1.3] — 2026-11-04
+## [1.1.3] — 2026-11-12
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mưa Dưa · Gốm Mỏng) · 14 thành tựu · 5 ngôn ngữ trong game (thêm 日本語 · 한국어) · launcher đa ngôn ngữ + animation cho macOS/Windows/Linux · favicon web · modes.svg showcase 7 chế độ · README 10 ngôn ngữ đồng bộ · 55 unit tests**.
 
@@ -184,7 +184,7 @@ Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mư
 - ModeSelector grid: `lg:grid-cols-5` → `lg:grid-cols-7` (vừa 7 thẻ)
 - `npm run check` (typecheck + 55 tests + build) xanh — cổng CI bắt buộc trước PR
 
-## [1.1.2] — 2026-11-02
+## [1.1.2] — 2026-11-12
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Đua 60 Giây · Mùa Vàng) · 12 thành tựu · combo 12+ bốc lửa · launcher double-click cho macOS/Windows/Linux · README 10 ngôn ngữ · license asset mới · 49 unit tests**.
 
@@ -211,7 +211,7 @@ Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Đu
 - ModeSelector grid: `grid-cols-3` → `grid-cols-2 md… lg:grid-cols-5` để vừa 5 thẻ chế độ mọi cỡ màn hình
 - `npm run check` (typecheck + 49 tests + build) là gate bắt buộc trước khi mở PR
 
-## [1.1.1] — 2026-10-31
+## [1.1.1] — 2026-11-12
 
 Bản tập trung **sửa lỗi & mở rộng**: **chuyển đổi ngôn ngữ VI/EN/ZH ngay trong game · README 7 ngôn ngữ · banner/animation mới · rà quét và sửa toàn bộ lỗi tồn đọng · 45 unit tests**.
 
@@ -233,7 +233,7 @@ Bản tập trung **sửa lỗi & mở rộng**: **chuyển đổi ngôn ngữ V
 ### Changed
 - `APP_VERSION` → **1.1.1**; README badges/cấu trúc cập nhật; `assets/banner.svg` hiển thị V1.1.1
 
-## [1.1.0] — 2026-10-29
+## [1.1.0] — 2026-11-12
 
 Bản đại tu: **3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau & Cải Vàng mới · 10 thành tựu cộng dồn · menu gradient/aurora · README 3 ngôn ngữ có animation · fonts tự host (offline thật) · 6 lỗi logic được sửa · 36 unit tests**.
 
@@ -259,7 +259,7 @@ Bản đại tu: **3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau & Cải
 - Storage: 1 entry lỗi kéo sập cả bảng điểm; dữ liệu không được validate đầy đủ
 - README mô tả sai hoàn toàn dự án; fonts CDN phá offline-first; package.json mặc định; theme-color lệch
 
-## [1.0.0] — 2026-10-26
+## [1.0.0] — 2026-11-12
 
 Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CHÉO, LẮC HŨ, combo ×9, bảng vàng TOP 8, âm thanh Web Audio procedural.
 

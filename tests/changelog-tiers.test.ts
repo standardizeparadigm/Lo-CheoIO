@@ -81,17 +81,17 @@ describe("changelog copy quality (v1.1.7 backfill)", () => {
     }
   });
 
-  it("release dates form a strictly increasing timeline", () => {
-    // Newest-first array, so timestamps must strictly decrease.
+  it("release dates are ordered, allowing same-day releases", () => {
+    // Newest-first array, so timestamps must not increase.
     const times = CHANGELOG_ENTRIES.map((e) => Date.parse(e.date));
     for (let i = 1; i < times.length; i++) {
-      expect(times[i], `${CHANGELOG_ENTRIES[i].version}`).toBeLessThan(times[i - 1]);
+      expect(times[i], `${CHANGELOG_ENTRIES[i].version}`).toBeLessThanOrEqual(times[i - 1]);
     }
   });
 
   it("the timeline starts at the 1.0.0 release and ends today-ish", () => {
     const oldest = CHANGELOG_ENTRIES[CHANGELOG_ENTRIES.length - 1];
     expect(oldest.version).toBe("1.0.0");
-    expect(oldest.date).toBe("2026-10-26");
+    expect(oldest.date).toBe("2026-11-12");
   });
 });

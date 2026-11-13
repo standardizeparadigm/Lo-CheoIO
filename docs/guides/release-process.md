@@ -12,7 +12,7 @@
 8. **Smoke** — `npx vite-node scripts/smoke-ssr.tsx` (headless render) khi có UI mới.
 9. **PR** — một nhánh `arena/<id>` → base `main`; **user merge**, không tự merge.
 10. **Kiểm tra chéo trước khi mở PR** — ba cổng phải xanh **cùng lúc**:
-    `npm run check` (typecheck + 256 test + build), `npm run smoke`, và
+    `npm run check` (typecheck + test + build), `npm run smoke`, và
     `npm run check:readme` + `npm run check:i18n` (10 README đồng bộ, 7 locale parity).
     Ghi lại output của cả ba vào phần *verification* của release notes.
 
@@ -31,8 +31,7 @@ Hệ quả cho người làm bản phát hành:
 
 1. **Không tự đặt tầng.** Nếu bạn thấy mình muốn gọi một bản là UPDATE nhưng số là
    `1.1.7`, thì số đang sai — hãy bump `1.2.0`.
-2. **Ngày phải tăng nghiêm ngặt.** `tests/changelog-tiers.test.ts` bắt buộc điều này;
-   trước 1.1.7 có bảy bản ghi cùng một ngày và không test nào bắt được.
+2. **Ngày phải đúng thực tế và không giảm.** Đối chiếu `publishedAt` của GitHub Releases theo UTC; nhiều bản có thể cùng ngày.
 3. **Mỗi bản ≥ 5 gạch mô tả.** Một dòng tóm tắt là chưa đủ cho panel trong game.
 4. **Cập nhật cả ba nơi**: `src/game/changelog/entries/<bản>.ts`, `CHANGELOG.md`, và
    bảng "Releases" trong 10 README — cả ba đều mang cột tầng.
@@ -48,8 +47,7 @@ Hệ quả cho người làm bản phát hành:
   theo **mọi** biến thể ngôn ngữ, không chỉ tiếng Anh.
 - **Đừng cộng dồn lớp phủ tối mà không đo.** v1.1.6 thêm bốn lớp nền đẹp nhưng không kiểm tra tổng độ
   tối → v1.1.7 phải sửa. Xem `docs/design/menu-scene.md` § Độ tương phản.
-- **Đừng để ngày phát hành trùng.** Bảy bản từng ghi chung `2026-11-12`; khi mọi bản cùng ngày thì
-  không thể sắp lịch sử, không thể viết "2 ngày sau bản trước", và panel trong game trông như bị lỗi.
+- **Đừng tạo ngày giả để tránh trùng.** Thứ tự SemVer phân biệt các bản phát hành cùng ngày.
 - **Đừng viết cứng số phiên bản trong script.** `scripts/check-readme-sync.mjs` từng hardcode `1.1.6`
   trong cả comment lẫn hai literal; giờ nó đọc `src/version.ts`.
 - **Đừng thêm code không được gọi.** Một `JarLogo` "chuẩn bị dùng" từng vào lịch sử rồi phải soft-reset;

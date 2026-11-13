@@ -1,7 +1,7 @@
 import type { ChangelogEntry } from "../types";
 
 /**
- * v1.1.7 — released 2026-11-12 — tier: PATCH
+ * v1.1.7 — released 2026-11-13 — tier: PATCH
  *
  * Bản vá nền menu — nền menu hết mờ, changelog có tầng bản phát hành và mô tả đầy đủ cho cả 8 bản cũ, README làm mới toàn bộ
  *
@@ -11,7 +11,7 @@ import type { ChangelogEntry } from "../types";
  */
 export const V1_1_7: ChangelogEntry = {
   version: "1.1.7",
-  date: "2026-11-12",
+  date: "2026-11-13",
   kind: "fix",
   vi: "Bản vá nền menu — nền menu hết mờ, changelog có tầng bản phát hành và mô tả đầy đủ cho cả 8 bản cũ, README làm mới toàn bộ",
   en: "A menu background patch — the foggy menu background is gone, the changelog gains release tiers and full descriptions for all 8 older releases, every README rebuilt",
@@ -21,7 +21,7 @@ export const V1_1_7: ChangelogEntry = {
     "CHANGELOG: tag phiên bản theo tầng SemVer — PATCH màu tím, UPDATE màu vàng, MAJOR màu hồng; tầng suy ra từ chính số phiên bản nên không thể lệch",
     "CHANGELOG: cả 8 bản cũ (1.0.0 → 1.1.6) có danh sách thay đổi thật thay vì một dòng tóm tắt",
     "CHANGELOG: thêm thanh lọc theo tầng (TẤT CẢ · MAJOR · UPDATE · PATCH) kèm số bản mỗi tầng",
-    "Ngày phát hành cả 9 bản được xếp lại thành một dòng thời gian liền mạch, không còn hai bản trùng ngày",
+    "Ngày phát hành được đối chiếu lại với GitHub Releases trong bản 1.1.8; nhiều bản có thể cùng ngày",
     "README: dải màu động theo palette, sơ đồ kiến trúc SVG, bảng so sánh 8 bản phát hành, mục kiểm chứng chất lượng",
     "Thêm tests/changelog-tiers.test.ts — khoá tầng SemVer, độ dài mô tả tối thiểu và tính duy nhất của từng gạch đầu dòng",
     "Dọn dẹp: bỏ `kind` khỏi đường render, giữ lại dưới dạng @deprecated để không phá call site cũ",
@@ -32,7 +32,7 @@ export const V1_1_7: ChangelogEntry = {
     "CHANGELOG: SemVer-tiered version tags — PATCH in violet, UPDATE in gold, MAJOR in pink; the tier is derived from the version string so it cannot drift",
     "CHANGELOG: all 8 older releases (1.0.0 → 1.1.6) now carry real change lists instead of a one-line summary",
     "CHANGELOG: tier filter (ALL · MAJOR · UPDATE · PATCH) with per-tier release counts",
-    "All 9 release dates re-sequenced into one unbroken timeline — no two releases share a day any more",
+    "Release dates were reconciled with GitHub Releases in 1.1.8; multiple releases can share a day",
     "README: animated palette ribbon, an SVG architecture map, an eight-release comparison table and a quality-gate section",
     "New tests/changelog-tiers.test.ts — locks the SemVer tier mapping, a minimum description length and bullet uniqueness",
     "Cleanup: `kind` is no longer read on the render path; it stays as @deprecated so older call sites keep compiling",
