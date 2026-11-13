@@ -40,7 +40,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 - ⚙️ **Ajustes in-game** — **SFX** · **Música** · **Sacudida de pantalla** · **Reducir movimiento** — aplicación instantánea, sin recargar; zona de peligro de dos pasos para **borrar datos guardados**.
 - 🐛 **Atajos que se fugaban por los modales** — Enter/R/P/M/Space ya no disparan el juego tras un modal; **stale closure en Continuar**; **`prefers-reduced-motion` ahora anula todas las animaciones**.
 - 📖 **READMEs todavía más bonitos** — banner V1.1.5, nueva animación SMIL de paneles de esquina, más detalle en los 10 idiomas.
-- 🧪 **107 pruebas unitarias** (antes 61) — `npm run check` verde; nuevo **CI con GitHub Actions** (npm ci → npm run check).
+- 🧪 **113 pruebas unitarias** (antes 61) — `npm run check` verde; nuevo **CI con GitHub Actions** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="Paneles GAME (abajo-izquierda) e INFO (abajo-derecha) deslizándose (animación SMIL)" width="100%" />
 
@@ -60,7 +60,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 | 💾 **Clasificación TOP 8** | Guardado local, validado y normalizado al leer, nombres en mayúsculas automáticas, highlight para el récord recién marcado |
 | 🎨 **Gráficos 60fps** | Canvas 2D, presupuesto de 460 partículas, DPR tope 2, suelo de losetas pre-renderizado offscreen, titileo de estrellas + aurora en el menú |
 | 📴 **Offline-first de verdad** | Fuentes auto-alojadas (subsets latin + vietnamita, woff2), sin CDN ni APIs — abre `dist/index.html` y a jugar |
-| 🧪 **Calidad** | 107 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
+| 🧪 **Calidad** | 113 tests unitarios (vitest) para modes / achievements / storage / i18n — `npm run check` es la puerta de CI |
 
 <img src="assets/items.svg" alt="Los 14 ingredientes — encurtidos para atrapar, poderes dorados para agarrar, peligros para esquivar" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (un único archivo autocontenido)
 npm run dev        # servidor de desarrollo con HMR (http://localhost:5173)
 npm run preview    # sirve el build de producción localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 107 tests unitarios (modes / achievements / storage / i18n)
+npm run test       # vitest — 113 tests unitarios (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 
@@ -208,7 +208,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — 13 archivos · 107 tests (modes · achievements · storage · i18n · runSave · settings · changelog…)
+└─ tests/                  # vitest — 13 archivos · 113 tests (modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 Arquitectura y rendimiento
@@ -249,7 +249,7 @@ Doble clic en [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`
 
 | Versión | Fecha | Notas |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menús de esquina GAME/INFO** (Jugar · Continuar · Modos · Clasificación · Logros · Ajustes / Sobre el autor · Changelog · Salir) · **guardar y reanudar partida** (`locheo.run.v1`) · ajustes in-game (SFX/música/sacudida/movimiento) · fix fuga de atajos por modales · prefers-reduced-motion global · **107 pruebas** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menús de esquina GAME/INFO** (Jugar · Continuar · Modos · Clasificación · Logros · Ajustes / Sobre el autor · Changelog · Salir) · **guardar y reanudar partida** (`locheo.run.v1`) · ajustes in-game (SFX/música/sacudida/movimiento) · fix fuga de atajos por modales · prefers-reduced-motion global · **113 pruebas** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modos** (Combo Festival · Gran Festín) · **16 logros** · **7 idiomas** (ES/FR añadidos) · fix play-windows.bat (CRLF+BOM) · lanzadores en 7 idiomas · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modos (Lluvia de Conservas · Cerámica Fina) · 14 logros · 5 idiomas · favicon · lanzadores multilingües · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modos (60 Segundos · Fiebre de Oro) · 12 logros · combo en llamas · lanzadores de doble clic · README en 10 idiomas · 49 tests |
@@ -286,7 +286,7 @@ Notas de diseño y documentación técnica más profunda:
 ## 🤝 Contribuir
 
 1. Haz fork, crea una rama con la convención `arena/<nombre>` o `feat/<nombre>`.
-2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 107 tests + build).
+2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 113 tests + build).
 3. Evita nuevas dependencias de runtime salvo necesidad real — filosofía: **un archivo, sin red, jugable para siempre**.
 4. En el PR indica las pantallas/modos afectados y adjunta un clip si cambia el gameplay.
 
