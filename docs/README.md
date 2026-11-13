@@ -6,7 +6,7 @@
 
 | Bản | Nội dung chính | Tests lúc phát hành |
 | --- | --- | --- |
-| [v1.1.6](releases/v1.1.6.md) | Settings 6 mục · preset · backup JSON · a11y pass | 177 / 23 file |
+| [v1.1.6](releases/v1.1.6.md) | Settings 6 mục · preset · backup JSON · a11y pass | 222 / 29 file |
 | [v1.1.5](releases/v1.1.5.md) | Panel góc GAME/INFO, menu mới | 113 |
 | [v1.1.4](releases/v1.1.4.md) | 2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) | 61 |
 | v1.1.3 → v1.0.0 | Xem từng file trong `releases/` | — |
