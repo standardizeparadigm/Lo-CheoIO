@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
@@ -33,18 +33,23 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.5 の新機能
+## 🆕 v1.1.6 の新機能
 
-- 🧭 **メインメニューを徹底整理** —— ゲーム関連はすべて**左下 GAME パネル**へ：**プレイ** · **つづきから** · **ゲームモード** · **ランキング**（TOP 8）· **実績**（16）· **設定**。プロジェクト関連はすべて**右下 INFO パネル**へ：**作者について** · **更新履歴**（ゲーム内で閲覧可）· **終了**。
-- ⏸️ **「つづきから」—— 中断ランがワンクリック** —— ラン中にメニューへ戻ると（ポーズ → メニュー）`locheo.run.v1` にスナップショット。**つづきから**でスコア・壺・ヒビ・スタミナ・コンボ・シールドをそのまま復元。中断中のランが存在する時だけ有効になります。
-- ⚙️ **ゲーム内設定** —— **効果音** · **BGM** · **画面の揺れ** · **動作を減らす** —— 即時反映・リロード不要。二段階確認の**「保存データを消去」**危険ゾーン付き。
-- 🐛 **モーダル越しにショートカットが漏れる問題を修正** —— Enter/R/P/M/Space がモーダル背後のゲームを発動しなくなりました。**「つづきから」の stale closure**、**`prefers-reduced-motion` が全アニメーションを無効化**するように。
-- 📖 **10言語 README をさらに美しく** —— V1.1.5 バナー、新しいコーナーパネルの SMIL アニメーション、より詳細で充実した内容。
-- 🧪 **ユニットテスト 113 件**（61 から増加）—— `npm run check` グリーン。新しい **GitHub Actions CI**（npm ci → npm run check）。
+- ⚙️ **設定を6つのセクションに再構成** —— **クイックプリセット** · **サウンド** · **表示とアニメーション** · **言語** · **バックアップ** · **データ**。3種類の操作：オン/オフスイッチ、2択ピッカー、0–100 のレベル。
+- 🔊 **オン/オフだけでなく本物の調整** —— 効果音と音楽の音量 **0–100**（斜め10分割バー）、**揺れの強さ** 弱/強、**画質** 低/高（粒子 230 対 460、グロー無効）、**タブ切替で自動一時停止**。
+- 🌐 **言語を設定の中へ完全移設** —— メニュー右上の浮遊スイッチャーとポーズ画面の行を削除。7言語の2列グリッド（国旗 · 母語名 · チェック）に。
+- 🎛️ **ワンタップの4プリセット + JSON バックアップ** —— **スムーズ** · **バランス** · **シネマ** · **RTA**（言語は絶対に変えない）と、設定の書き出し/読み込み。
+- ✨ **メニューが舞台に** —— 漂う星雲、呼吸する光線、**2層の瞬く星空**、壺を回る光のリング、壺のハロー、「プレイ」を横切る光沢。**作者カード**は無限に流れるグラデーション枠。
+- 🐛 **実バグ5件を修正** —— 再読み込み後に音楽が設定より大きい · Tab がモーダルを抜ける · 更新履歴のヒントが v1.1.5 固定 · `updateSettings` が正規化前の値を返す · ダイアログ内でフォーカスが保持されない。
+- 🧪 **ユニットテスト 150 件**（18ファイル、113/14 から増加）—— 設定スキーマ、プリセット、バックアップコーデック、オーディオゲインのテストを追加。
+
+<img src="assets/settings-sections.svg" alt="v1.1.6 の設定 — スイッチ・レベルバー・ピッカーを備えた6セクション（SMIL アニメーション）" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="左下 GAME パネルと右下 INFO パネルがスライドイン（SMIL アニメーション）" width="100%" />
 
-→ 詳細は [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+→ 詳細は [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+→ 前回のリリース：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ ハイライト
 
@@ -60,7 +65,7 @@
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n をカバーする113件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする150件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -80,7 +85,7 @@ Lọ Chéo はゲーム内で **7 言語のUI** を搭載 — リロード不要
 | 🇪🇸 Español | **ES** ボタン | `locheo.lang.v1` |
 | 🇫🇷 Français | **FR** ボタン | `locheo.lang.v1` |
 
-- **メインメニュー**（右上）または**一時停止画面**（下部・コンパクト版）から切り替え。
+- 言語の切り替えは **設定 → 言語**（7つの国旗ボタンのグリッド）—— 唯一の場所。メニュー上の浮遊スイッチャーは廃止。
 - ユーザー向け文字列はすべて `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts` — Canvasエンジン、各画面、HUD、ポップアップ、ティッカー、ヒント。
 - 欠けたキーは？`t()` がベトナム語へフォールバック — 7つのロケールのキー集合とプレースホルダの一致はテストで強制されています。
 
@@ -123,7 +128,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 113件のユニットテスト（modes / achievements / storage / i18n）
+npm run test       # vitest — 150件のユニットテスト（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -132,7 +137,7 @@ npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 lo-cheoio/
 ├─ index.html              # エントリ、SEO/OGメタ（CDNなし）
-├─ package.json            # lo-cheoio v1.1.5、dev/build/test/check スクリプト
+├─ package.json            # lo-cheoio v1.1.6、dev/build/test/check スクリプト
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；src + tests を含む
@@ -145,7 +150,8 @@ lo-cheoio/
 │  ├─ modes.svg            # 9モード（SMILアニメーション）
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # AGPL-3.0 copyleft 印章（SMILアニメーション）
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -166,7 +172,8 @@ lo-cheoio/
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
-│     └─ v1.1.5.md         # current release notes (1.1.5)
+│     ├─ v1.1.5.md         # release notes (1.1.5)
+│     └─ v1.1.6.md         # current release notes (1.1.6)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -180,7 +187,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # Reactルート、StrictMode
 │  ├─ App.tsx              # フェーズマシン menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.5"（唯一の真実の源）
+│  ├─ version.ts           # APP_VERSION = "1.1.6"（唯一の真実の源）
 │  ├─ index.css            # tailwind v4 テーマ + 全アニメーション/グラデーション
 │  ├─ assets/fonts/        # woff2サブセット（Be Vietnam Pro ×6、Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range、100%オフライン
@@ -190,25 +197,30 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts（キー源）· en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # キャンバス + フローティングジョイスティック + キーボード
-│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
-│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
+│  │  ├─ StartScreen.tsx   # メニュー：ヒーロー + 多層アニメ + コーナーパネル
+│  │  ├─ menu/              # コーナー GAME/INFO パネル + モーダル + icons/
 │  │  ├─ ModeSelector.tsx  # 9枚のモードカード（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # ロック/解除バッジウォール
 │  │  ├─ GameOverScreen.tsx     # 壺が割れた！+ スコア + 新実績
 │  │  ├─ PauseScreen.tsx        # 一時停止 + ラン統計
-│  │  ├─ LanguageSwitcher.tsx   # 共通の VI / EN / 中 / 日 / 한 / ES / FR スイッチャー
+│  │  ├─ settings/           # 6セクションの設定モジュール + 部品（v1.1.6）
 │  │  └─ ui.tsx            # GameButton、Panel、Keycap、Stat、ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # シミュレーションとキャンバス描画のすべて（約2100行）
+│  │  ├─ engine.ts         # シミュレーションとキャンバス描画のすべて（約2260行）
 │  │  ├─ modes.ts          # ゲームモード + バランス計算（pure）
 │  │  ├─ achievements.ts   # 16バッジ + pureチェッカー（pure）
 │  │  ├─ storage.ts        # localStorage：TOP 8、進行度、実績
 │  │  ├─ audio.ts          # Web Audioシンセ：効果音 + 五音音階ミュージック
-│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
-│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
-│  │  └─ settings.ts        # game settings persistence (v1.1.5)
-│  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes、achievements、storage、i18n
+│  │  ├─ changelog.ts        # ゲーム内アップデート履歴データ
+│  │  ├─ runSave.ts         # 中断ランの保存
+│  │  ├─ settings.ts        # 設定スキーマ・既定値・正規化
+│  │  ├─ settingsIO.ts      # バックアップ/復元コーデック（v1.1.6）
+│  │  ├─ settingsPresets.ts # 4つのクイックプリセット（v1.1.6）
+│  │  └─ audioLevels.ts     # 純粋なゲイン計算（v1.1.6）
+│  └─ utils/
+│     ├─ cn.ts             # clsx + tailwind-merge
+│     └─ useFocusTrap.ts   # モーダルのフォーカス封じ込め（v1.1.6）
+└─ tests/                  # vitest — 18ファイル · 150テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 アーキテクチャとパフォーマンス
@@ -249,6 +261,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | バージョン | 日付 | ノート |
 | --- | --- | --- |
+| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
@@ -276,6 +289,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | リリース v1.1.6 — 6セクション設定、プリセット、バックアップ、多層メニュー |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | リリース v1.1.5 — 四隅メニュー、保存/再開、設定、修正 |
 | [docs/design/menu-corners.md](docs/design/menu-corners.md) | 四隅 GAME/INFO メニュー設計 — 原則、a11y、レスポンシブ |
 | [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — 中断ランのスナップショット（schema + ライフサイクル） |
