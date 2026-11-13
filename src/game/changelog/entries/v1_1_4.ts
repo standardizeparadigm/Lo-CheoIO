@@ -1,8 +1,13 @@
 import type { ChangelogEntry } from "../types";
 
 /**
- * v1.1.4 — see docs/releases/v1.1.4.md for the long-form release notes.
- * One release per file keeps the history easy to diff and to translate.
+ * v1.1.4 — released 2026-11-06 — tier: PATCH
+ *
+ * Hai chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa), đủ 16 thành tựu, thêm tiếng Tây Ban Nha và Pháp
+ *
+ * 9 bullets (vi) / 9 (en). Keep the two lists the same length:
+ * tests/changelog-tiers.test.ts asserts it, and the panel would show an
+ * uneven list otherwise.
  */
 export const V1_1_4: ChangelogEntry = {
   version: "1.1.4",
