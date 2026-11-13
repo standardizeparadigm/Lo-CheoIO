@@ -1,4 +1,5 @@
 import { useI18n } from "../../i18n/useI18n";
+import { APP_VERSION } from "../../version";
 import CornerPanel from "./CornerPanel";
 import MenuItemButton from "./MenuItemButton";
 import { InfoIcon, ScrollIcon, DoorIcon } from "./icons";
@@ -29,7 +30,7 @@ export default function InfoMenu({
       <MenuItemButton
         icon={<ScrollIcon className="h-5 w-5" />}
         label={t("info.changelog")}
-        hint="v1.1.5"
+        hint={`v${APP_VERSION}`}
         onClick={onChangelog}
       />
       <MenuItemButton
