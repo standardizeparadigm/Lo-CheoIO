@@ -49,11 +49,11 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | **1) Chơi ngay (Production)** | `npm run build` → mở `dist/index.html` | Build bản tự chứa rồi mở game bằng trình duyệt mặc định |
 | **2) Dev mode** | `npm run dev` | Server HMR tại <http://localhost:5173>; <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng |
 | **3) Build production** | `npm run build` | Tạo đúng 1 file `dist/index.html` (single-file) |
-| **4) Chạy tests** | `npm run test` | vitest — **256 tests / 33 file** |
+| **4) Chạy tests** | `npm run test` | vitest — **286 tests / 35 file** |
 | **5) Kiểm tra toàn bộ** | `npm run check` | typecheck + tests + build — cổng chất lượng |
 | **6) Cài đặt dependencies** | `npm install` | Cài/cập nhật `node_modules` |
 | **7) Dọn dẹp** | xoá `node_modules/` và `dist/` | Yêu cầu gõ `YES` để xác nhận; không đụng mã nguồn |
-| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.7, tác giả, nơi lưu dữ liệu |
+| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.8, tác giả, nơi lưu dữ liệu |
 | **0) Thoát** | — | Đóng trình chạy |
 | **L) Đổi ngôn ngữ** | — | VI ⇄ EN ⇄ 中文 ⇄ 日本語 ⇄ 한국어 ⇄ ES ⇄ FR (hint hiển thị ngay cạnh mục 0) |
 
@@ -101,7 +101,7 @@ Bảo vệ 10 README bản địa khỏi lệch version/nội dung:
 2. link `docs/releases/v<phiên bản>.md`
 3. hàng `| [v<phiên bản>](…)` phải tồn tại và **có chip tầng** (🩷 MAJOR · 🟡 UPDATE · 🟣 PATCH)
 4. nhúng `assets/corner-menu.svg` (panel góc v1.1.5) + `assets/settings-sections.svg` (tour 6 mục v1.1.6)
-5. nhúng ba SVG của v1.1.7: `palette-ribbon.svg` · `architecture.svg` · `release-tiers.svg`
+5. nhúng năm SVG: `palette-ribbon.svg` · `architecture.svg` · `release-tiers.svg` (v1.1.7) và `layout-fix.svg` · `test-matrix.svg` (v1.1.8)
 6. hàng lịch sử `v1.1.5` giữ nguyên claim 113 tests, `v1.1.4` giữ 61 tests
 7. hàng `v1.0.0` phải gắn 🩷 **MAJOR**
 8. không còn badge phiên bản cũ (`version-1.1.6-f5a81c` / `version-1.1.5-f5a81c` / …)
@@ -124,3 +124,26 @@ Bản CI (không cần build) của bộ test parity i18n — đọc thẳng fil
 npm run check:i18n
 # → ✓ vi/en/zh/ja/ko/es/fr — 296 keys · "All 7 locales in parity."
 ```
+
+## `probe-menu-layout.tsx`
+
+Render `StartScreen` thành markup thật bằng `react-dom/server` rồi kiểm **11 tính chất bố cục** trên DOM sinh ra — thứ mà test đọc mã nguồn không thấy được.
+
+```bash
+npx vite-node scripts/probe-menu-layout.tsx
+# ✓ 11/11 · in bảng reserve/scene cho 5 kích thước màn hình
+```
+
+Nó tồn tại vì lỗi v1.1.7 (chữ CHÉO và chú lọ bị cắt ngang) là lỗi **số học**: `414 + 55 = 469` chiếm mất `720 − 469 = 251px` của scene. Không có cách nào bắt được nó bằng mắt trên mã nguồn, và không có trình duyệt nào trong CI. Probe in bảng bố cục nên một hồi quy hiện ra ngay trong log.
+
+| Kiểm | Vì sao |
+| --- | --- |
+| `menu-scene` tồn tại và có `padding-bottom: 338px` | scene phải tự giữ chỗ cho hàng nổi |
+| chrome là `absolute inset-x-0 bottom-0` | nếu là flex sibling thì lỗi quay lại |
+| `.menu-chrome-band` có mặt | nền mờ dần để chữ không đụng panel |
+| `.menu-ticker` có mặt | band cao cố định, một hàng |
+| 2 × `menu-panel-body` + 2 × `menu-panel-header` | cả GAME lẫn INFO giữ chiều cao khai báo |
+| ≥18 class `menu-row(-rich)` | mỗi dòng có chiều cao cố định |
+| `menu-wordmark` có mặt | cỡ chữ bị chặn theo cả `20vh` |
+| không còn `flex shrink-0 items-end justify-between` | đúng lớp gây lỗi 1.1.7 |
+| `AGPL-3.0` xuất hiện đúng 1 lần | không còn dòng bản quyền thứ hai bị cắt |
