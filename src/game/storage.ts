@@ -178,3 +178,14 @@ export function unlockAchievements(ids: string[]): string[] {
   }
   return merged;
 }
+
+/** Danger zone: wipe persisted scores/progress/achievements from this device. */
+export function clearAllProgress(): void {
+  try {
+    localStorage.removeItem(KEY);
+    localStorage.removeItem(PROGRESS_KEY);
+    localStorage.removeItem(ACHIEVEMENTS_KEY);
+  } catch {
+    /* storage blocked — nothing to wipe */
+  }
+}
