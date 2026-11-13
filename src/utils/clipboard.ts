@@ -21,12 +21,3 @@ export async function copyText(text: string): Promise<boolean> {
     return false;
   }
 }
-
-/** True when the async clipboard API looks available (no permission probe). */
-export function canCopy(): boolean {
-  try {
-    return typeof navigator !== "undefined" && !!navigator.clipboard && typeof navigator.clipboard.writeText === "function";
-  } catch {
-    return false;
-  }
-}

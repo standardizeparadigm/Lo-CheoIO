@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { canCopy, copyText } from "../src/utils/clipboard";
+import { copyText } from "../src/utils/clipboard";
 
 const original = Object.getOwnPropertyDescriptor(globalThis, "navigator");
 
@@ -38,16 +38,5 @@ describe("copyText", () => {
       },
     });
     await expect(copyText("hello")).resolves.toBe(false);
-  });
-});
-
-describe("canCopy", () => {
-  it("is true only when writeText exists", () => {
-    setClipboard({ clipboard: { writeText: () => {} } });
-    expect(canCopy()).toBe(true);
-    setClipboard({ clipboard: {} });
-    expect(canCopy()).toBe(false);
-    setClipboard(undefined);
-    expect(canCopy()).toBe(false);
   });
 });
