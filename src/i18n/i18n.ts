@@ -131,7 +131,18 @@ export function numberLocale(lang: Language = activeLanguage): string {
   }
 }
 
-/** Group a number for the active language (used for score readouts). */
+/**
+ * Group a number for the active language (used for score readouts).
+ * `toLocaleString` throws on some stripped-down JS engines and renders
+ * "NaN" for junk input — both would leak into the HUD and the leaderboard,
+ * so the value is normalised first and the Intl call is guarded.
+ */
 export function fmtNum(n: number, lang: Language = activeLanguage): string {
-  return Math.round(n).toLocaleString(numberLocale(lang));
+  const v = typeof n === "number" && Number.isFinite(n) ? Math.round(n) : 0;
+  try {
+    return v.toLocaleString(numberLocale(lang));
+  } catch {
+    // thousands separators by hand when Intl is unavailable
+    return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 }

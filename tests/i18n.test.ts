@@ -8,6 +8,7 @@ import es from "../src/i18n/locales/es";
 import fr from "../src/i18n/locales/fr";
 import {
   detectInitialLanguage,
+  fmtNum,
   localeTable,
   numberLocale,
   setLanguage,
@@ -118,5 +119,19 @@ describe("language persistence", () => {
 
   it("detectInitialLanguage returns a supported language", () => {
     expect(LANGUAGES).toContain(detectInitialLanguage());
+  });
+});
+
+describe("fmtNum", () => {
+  it("never renders NaN/Infinity and rounds before grouping", () => {
+    expect(fmtNum(0)).toBe("0");
+    expect(fmtNum(NaN)).toBe("0");
+    expect(fmtNum(Infinity)).toBe("0");
+    expect(fmtNum(-Infinity)).toBe("0");
+    expect(fmtNum(1234.6, "en")).toBe((1235).toLocaleString("en-US"));
+  });
+
+  it("accepts every supported language", () => {
+    for (const lang of LANGUAGES) expect(typeof fmtNum(1234, lang)).toBe("string");
   });
 });
