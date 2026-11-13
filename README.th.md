@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Tests](https://img.shields.io/badge/tests-286%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-ติดตั้ง--เริ่มเล่น)
@@ -37,68 +37,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 สิ่งใหม่ใน v1.1.7
+## 🆕 มีอะไรใหม่ใน v1.1.8
 
-> **แพตช์สุดท้าย**ก่อน 1.2.0 ไม่มีโหมดใหม่ — แก้เฉพาะสิ่งที่ยังรบกวนอยู่ ให้จบที่ต้นเหตุ
+> **แพตช์สุดท้าย**ก่อน 1.2.0 ไม่มีโหมดใหม่ — หน้าเริ่มเกมหยุดล้น ทุกอย่างอยู่ในกรอบ เพิ่มสามโฟลเดอร์ และซิงก์เอกสารทั้งหมด
 
-### 🌫️ พื้นหลังเมนูไม่เบลอแล้ว — แก้ที่ต้นเหตุ
+### 📐 หน้าเริ่มเกมไม่ล้นอีกต่อไป
 
-ผู้เล่นพูดถูก: *«พื้นหลังหลังเมนูยังเบลออยู่»* ต้นเหตุไม่ใช่ชั้นเดียว แต่เป็น**สี่ชั้นซ้อนที่ขยายกันเอง**:
+ภาพหน้าจอแสดง **สี่อาการพร้อมกัน** โลโก้ `CHÉO` ถูกตัดกลาง หม้อมาสคอตหายครึ่งล่าง แผง GAME ถูกตัดที่ขอบล่าง และบรรทัดลิขสิทธิ์ใต้แถบเลื่อนก็ถูกตัด ทั้งสี่มี **สาเหตุเดียว** — การบวกที่ไม่มีใครรับผิดชอบ
 
-| ชั้น | ก่อน | หลัง | ทำไม |
+```
+คอลัมน์ flex เดิมที่ 1280×720:
+  scene      flex-1     →  ได้เพียง 250px  (ต้องการ ~700px)
+  panel row  shrink-0   →       415px
+  ticker     shrink-0   →        55px
+                          ─────────────
+                          720 − 415 − 55 = 250
+```
+
+`shrink-0` ทำให้สองส่วนหลังหดไม่ได้ ฉากจึงเหลือเพียง **250px** อะไรที่สูงกว่านั้น — โลโก้ หม้อ — ถูกตัดโดย `overflow-y-auto` ที่ `y≈247px` รอยต่อที่วัดได้จากภาพคือ **247.3px** ส่วนการคำนวณให้ **250.0px** ต่างกันเพียง 2.7px
+
+<img src="assets/layout-fix.svg" alt="เทียบเลย์เอาต์ v1.1.7 กับ v1.1.8 — ฉาก 250px ที่ถูกตัด เทียบกับฉาก 720px พร้อม chrome ลอย (แอนิเมชัน SMIL)" width="100%" />
+
+**วิธีแก้** — ย้าย chrome ออกจากโฟลว์ และมอบหมายเจ้าของให้ผลรวม:
+
+| การเปลี่ยน | ผลลัพธ์ |
+| --- | --- |
+| `MenuChrome` เป็น `position: absolute` | บีบฉากไม่ได้ — ฉากได้ 720px เต็มเสมอ |
+| ฉากมี `padding-bottom: plan.reserve` | เนื้อหาไม่ซ่อนใต้แผง แต่ฉาก *สามารถ* สูงเต็มได้ |
+| `.menu-ticker` สูงคงที่ 48px + `overflow: hidden` | บรรทัดลิขสิทธิ์อยู่ในแถวเดียวกับมาร์คี |
+
+ที่ขนาดเดียวกับภาพ ฉากเปลี่ยนจาก **250px เป็น 382px** หม้อและโลโก้สมบูรณ์ — และ **ไม่ได้แตะ SVG เลย** เพราะ `jar.tsx` วาด `viewBox 0 0 120 140` เต็มอยู่แล้ว แค่ครึ่งล่างอยู่นอกพื้นที่มองเห็น
+
+### 🔍 สี่บั๊กที่พบระหว่างวัด
+
+| # | บั๊ก | สาเหตุ | วิธีแก้ |
 | --- | --- | --- | --- |
-| เนบิวลา `.nebula-*` | `blur(64px)` สูงสุด `1.0` | **`blur(22px)` สูงสุด `0.80`** | 64px เกินครึ่งรัศมีของก้อน 46vw — ขอบหายไปทั้งก้อนกลายเป็นหมอก |
-| วิชเน็ตต์เมนู | อินไลน์ **เต็มจอ** `0.42 → 0.88 → 1.0` | **`.menu-vignette`** เฉพาะมุม `0.30 → 0.62` | จาก «มืดทั้งกรอบเท่ากัน» เป็น «มุมมืด กลางสว่าง» |
-| กรอบ CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px กลืนเกือบทุกมุมเมื่อหน้าต่างเล็ก |
-| พื้นกระเบื้อง | `opacity-45` | **`opacity-70`** | ที่ 45% พื้นเป็นแค่สัญญาณรบกวนสีเทา ไม่ใช่รายละเอียดที่จำได้ |
+| 1 | **แถบเลื่อนสีเขียวน้ำทะเล** ทับเนบิวลา | ฉากเผยราง 8px เมื่อเนื้อหาล้น | ซ่อน แล้วกันที่ด้วย `padding-bottom` |
+| 2 | **แผงซ้อนกัน** บนมือถือ | `208 + 224px` ไม่พอดี `375px` | ต่ำกว่า 520px เรียงแนวตั้ง |
+| 3 | **`CHÉO` สูงเกิน** ในหน้าต่างเตี้ยกว้าง | ขนาดอิงแค่ `17vw` ไม่ดูความสูง | `clamp(3.4rem, min(17vw, 20vh), 10.5rem)` |
+| 4 | **ความสูงแผงขึ้นกับภาษา** | ความสูงแถวเท่ากับจำนวนบรรทัดของคำใบ้ | `--menu-row-h` คงที่ + จำกัดคำใบ้สองบรรทัด |
 
-`.menu-vignette` และ `.app-vignette` ตอนนี้เป็น**กฎ CSS ที่มีชื่อ** ไม่ใช่ยูทิลิตี้ที่ฝังใน JSX — ปรับที่เดียว และ `prefers-reduced-motion` เข้าถึงได้
+### 🗂️ สามโฟลเดอร์ใหม่ — 22 ไฟล์
 
-### 🏷️ ชั้นของ changelog — หนึ่งชั้นหนึ่งสี
+ความสำเร็จแต่ละอันมี **ไฟล์ของตัวเอง** บอกเงื่อนไขปลดล็อกและเหตุผลที่มีอยู่ — คำถามที่ตารางสิบหกแถวเดิมตอบไม่ได้
 
-| ชั้น | ป้าย | สี | ความหมาย | ตัวอย่าง |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 ชมพู `#ff5fb0` | เวอร์ชันใหญ่ — ระบบใหม่ | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 ทอง `#f5a81c` | อัปเกรด — เนื้อหาใหม่ | 1.1.0 |
-| `patch` | **PATCH** | 🟣 ม่วง `#9d6bff` | แก้บั๊กและจัดระเบียบ | 1.1.1 → 1.1.7 |
+### 🧪 เทสต์ใหม่ 30 รายการล็อกไว้
 
-ชั้นนี้**อนุมานจาก SemVer** ด้วย `tierFor(version)` ไม่มีการพิมพ์มือ — ป้ายจึงขัดกับเลขเวอร์ชันที่พิมพ์ข้าง ๆ ไม่ได้เลย แผงมี**ตัวกรอง**เพิ่ม: ทั้งหมด · MAJOR · UPDATE · PATCH พร้อมจำนวนแต่ละชั้น
-
-<img src="assets/release-tiers.svg" alt="สามชั้น MAJOR/UPDATE/PATCH กับสี และเส้นเวลาของเก้าเวอร์ชัน (แอนิเมชัน SMIL)" width="100%" />
-
-### 📖 แปดเวอร์ชันเก่า: จากหนึ่งบรรทัดเป็นหนึ่งหน้า
-
-เก้าเวอร์ชันมีหกตัวที่**อาร์เรย์หัวข้อว่างเปล่า** — แผงแสดงได้แค่สรุปหนึ่งบรรทัด v1.1.7 เขียนใหม่ทั้งหมด:
-
-- **96 หัวข้อภาษาเวียดนาม + 96 ภาษาอังกฤษ** เขียนใหม่หรือขยาย
-- เนื้อหาจาก `docs/releases/v1.1.x.md` **และ**จากโค้ดจริง (9 โหมด 16 ความสำเร็จ)
-- **จัดวันวางจำหน่ายใหม่**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — ห่างกันสองวัน ไม่มีสองเวอร์ชันวันเดียวกัน
-
-### 🗂️ โปรเจกต์แยกเป็นโฟลเดอร์มากขึ้น
-
-```
-src/game/changelog/        ← แทนไฟล์เดียว 300 บรรทัด
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               หนึ่งไฟล์ต่อหนึ่งเวอร์ชัน — v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 ตัวช่วย
-```
-
-การเพิ่ม 1.2.0 ต่อไปคือ**ไฟล์ใหม่หนึ่งไฟล์**กับ import อีกหนึ่งบรรทัด
-
-### 🐛 การแก้ไข
-
-| # | บั๊ก | การแก้ |
+| ไฟล์ | เทสต์ | ล็อกอะไร |
 | --- | --- | --- |
-| 1 | พื้นหลังเมนูเบลอ/ขุ่น | สี่การเปลี่ยนแปลงข้างบน |
-| 2 | พื้นกระเบื้องมองไม่เห็น | `opacity-45` → `opacity-70` |
-| 3 | ป้าย changelog บอกผิด (`kind` พิมพ์มือ) | `tierFor(version)` อนุมานจาก SemVer |
-| 4 | คำอธิบายบางเกินไป (6 เวอร์ชันมี `items: []`) | เขียนใหม่ 96 หัวข้อ |
-| 5 | วันวางจำหน่ายซ้ำและไม่สมเหตุสมผล | เก้าวันต่อเนื่อง ไม่ซ้ำ |
-| 6 | เอกสาร/SVG/ตัวเรียกเกมล้าหลังเวอร์ชัน | ตรวจทั้งหมด → 1.1.7 |
-| 7 | คอมเมนต์ `check-readme-sync` ฝัง 1.1.6 | อ่านจาก `package.json` แทน |
+| `tests/menu-layout.test.ts` | **22** | การบวกที่เคยล้น, CSS ↔ TypeScript ตรงกันทุกค่าคงที่, แถวลอยไม่มี `shrink-0` |
+| `tests/achievements-split.test.ts` | **8** | แยกเป็นสิบหกไฟล์แล้วลำดับ id ไม่เปลี่ยน ทุก id ยังถูก `grant` |
+| `scripts/probe-menu-layout.tsx` | **11** | คุณสมบัติเดียวกัน ตรวจบน **DOM จริง** ที่ `react-dom/server` สร้าง |
 
-→ รายละเอียดเต็ม: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · เวอร์ชันก่อน: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+### 🐛 รายการที่แก้
+
+| # | บั๊ก | วิธีแก้ |
+| --- | --- | --- |
+| 1 | `CHÉO` ถูกตัดกลาง | chrome ออกจากโฟลว์ + ฉากกันที่เอง |
+| 2 | หม้อหายครึ่งล่าง | สาเหตุเดียวกัน — **ไม่ใช่** SVG |
+| 3 | แผง GAME ถูกตัดล่าง | คอลัมน์ flex 732px ในกล่อง 720px |
+| 4 | บรรทัดลิขสิทธิ์ถูกตัด | ticker สูงคงที่ 48px แถวเดียว |
+| 5 | แถบเลื่อนทับภาพ | `scrollbar-width: none` |
+| 6 | แผงซ้อนบนมือถือ | ต่ำกว่า 520px เรียงแนวตั้ง |
+| 7 | `CHÉO` สูงกว่ากล่อง | จำกัดเพิ่มด้วย `20vh` |
+| 8 | ความสูงแผงขึ้นกับภาษา | `--menu-row-h` คงที่ + จำกัดคำใบ้ |
+
+→ รายละเอียดเต็ม: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · ก่อนหน้า: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 <img src="assets/settings-sections.svg" alt="การตั้งค่าหกส่วน (ตั้งแต่ v1.1.6) — สวิตช์ แถบระดับ และตัวเลือก (แอนิเมชัน SMIL)" width="100%" />
 
@@ -118,7 +122,7 @@ src/game/changelog/        ← แทนไฟล์เดียว 300 บร�
 | 💾 **ตาราง TOP 8** | เก็บลงเครื่อง ตรวจสอบ/ปรับค่าเมื่ออ่าน ชื่อตัวพิมพ์ใหญ่ ไฮไลต์สถิติใหม่ |
 | 🎨 **กราฟิก 60fps** | Canvas 2D งบอนุภาค ≤460 จำกัด DPR ≤ 2 พื้นกระเบื้องพรีเรนเดอร์ลง offscreen ดาวระยิบ + ออโรร่าในเมนู |
 | 📴 **ออฟไลน์จริง** | ฟอนต์โฮสเอง (subset latin + vietnamese woff2) ไม่มี CDN ไม่มี API — ดับเบิลคลิก `dist/index.html` แล้วเล่นได้เลย |
-| 🧪 **คุณภาพ** | 256 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
+| 🧪 **คุณภาพ** | 286 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
 
 <img src="assets/items.svg" alt="14 วัตถุดิบ — ผักดองให้รับ พลังทองให้คว้า อันตรายให้หลบ" width="100%" />
 
@@ -181,7 +185,7 @@ npm run build      # → dist/index.html (ไฟล์เดียวจบ)
 npm run dev        # dev server พร้อม HMR (http://localhost:5173)
 npm run preview    # เสิร์ฟ production build ในเครื่อง
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256 เทสต์ (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 286 เทสต์ (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (ประตูคุณภาพ CI)
 ```
 
@@ -190,7 +194,7 @@ npm run check      # typecheck + test + build (ประตูคุณภาพ
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (ไม่มี CDN)
-├─ package.json            # lo-cheoio v1.1.7, สคริปต์ dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.8, สคริปต์ dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; ครอบคลุม src + tests
@@ -203,8 +207,13 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 โหมด (SMIL animation)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ corner-menu.svg      # corner GAME/INFO panels (SMIL animation)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
+│  ├─ palette-ribbon.svg   # 7-slice palette ribbon, sheen sweep (SMIL, v1.1.7)
+│  ├─ architecture.svg     # architecture + data flow diagram (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tiers + 10-release timeline (SMIL, v1.1.7)
+│  ├─ layout-fix.svg       # v1.1.7 vs v1.1.8 layout, side by side (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # ตรา copyleft AGPL-3.0 แบบเคลื่อนไหว (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -227,7 +236,8 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     ├─ v1.1.7.md         # release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -253,7 +263,9 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
 │  │  ├─ StartScreen.tsx   # เมนู: ฮีโร่ + ฉากหลายชั้น + พาเนลมุม
 │  │  ├─ menu/              # พาเนล GAME/INFO + โมดัล + icons/
-│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ layout/         # metrics · fit · planMenuLayout, 22 tests (v1.1.8)
+│  │  │  └─ ticker/         # bottom ticker band, 14 strings (v1.1.8)
 │  │  ├─ ModeSelector.tsx  # การ์ด 9 โหมด (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # กำแพงป้าย locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # ไหแตก! + คะแนน + ความสำเร็จใหม่
@@ -267,13 +279,14 @@ lo-cheoio/
 │  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
 │  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
 │  │  ├─ modes.ts          # barrel — keeps every old import working
-│  │  ├─ achievements.ts   # 16 ป้าย + ตัวตรวจ (pure)
+│  │  ├─ achievements/      # 16 ป้าย + ตัวตรวจ (pure, v1.1.8)
+│  │  │  └─ defs/           # one file per achievement
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + เพลง pentatonic
 │  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
-│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_8.ts
 │  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # บันทึกเกมที่ค้างไว้
 │  │  ├─ settings.ts        # สคีมาตั้งค่า ค่าเริ่มต้น normalize
@@ -283,11 +296,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # กักโฟกัสในโมดัล (v1.1.6)
-└─ tests/                  # vitest — 33 ไฟล์ · 256 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 35 ไฟล์ · 286 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 สถาปัตยกรรม & ประสิทธิภาพ
-<img src="assets/architecture.svg" alt="สถาปัตยกรรม Lọ Chéo v1.1.7 — อินพุต → เอนจิน → สถานะ → เรนเดอร์ พร้อมชั้นบริการ (แอนิเมชัน SMIL)" width="100%" />
+<img src="assets/architecture.svg" alt="สถาปัตยกรรม Lọ Chéo v1.1.8 — อินพุต → เอนจิน → สถานะ → เรนเดอร์ พร้อมชั้นบริการ (แอนิเมชัน SMIL)" width="100%" />
 
 
 - **Game loop** บน `requestAnimationFrame` delta-time จำกัดที่ `1/20s` คูณ `timeScale` (สโลว์โมชันจากน้ำแข็ง) และ **hit-stop** แช่แข็งสั้น ๆ ทุกครั้งที่รับของ ให้ความรู้สึก "หนักแน่น"
@@ -322,11 +335,16 @@ lo-cheoio/
 **ไม่ถนัดเทอร์มินัล?**
 ดับเบิลคลิก [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`scripts/play-windows.bat`](scripts/play-windows.bat) (Windows) หรือ [`scripts/play-linux.sh`](scripts/play-linux.sh) (Linux) — เมนูสีสันจะเปิดขึ้น เลือก `1` เพื่อ build & เล่นทันที หรือ `2` สำหรับ dev server รายละเอียด: [scripts/README.md](scripts/README.md)
 
+<img src="assets/release-tiers.svg" alt="Three tiers MAJOR/UPDATE/PATCH with their colours and a ten-release timeline (SMIL animation)" width="100%" />
+
+<img src="assets/test-matrix.svg" alt="เมทริกซ์เทสต์ v1.1.8 — แปดด่านผ่าน 286 เทสต์ใน 35 ไฟล์ แบ่งตามหมวด (แอนิเมชัน SMIL)" width="100%" />
+
 ## 📦 รีลีส & เช็งต์ล็อก
 
 | เวอร์ชัน | Tier | วันที่ | บันทึก |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **พื้นหลังเมนูหมอกหาย** (สี่ชั้นซ้อน: `blur 64→22px`, วิชเน็ตต์เฉพาะมุมแทนเต็มจอ, กรอบ CRT 140→90px, พื้น 45→70%) · **changelog แบ่งชั้นมีสี** · **96 หัวข้อใหม่** ให้ 8 เวอร์ชัน · จัดวันใหม่ · แยก `src/game/changelog/` · ทำ README 10 ภาษใหม่ · **256 เทสต์** |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-14 | **หน้าเริ่มเกมไม่ล้นอีก** (chrome ออกจากโฟลว์ flex: ฉาก `250px → 382px` โลโก้และหม้อสมบูรณ์) · **ticker สูงคงที่ 48px** · **ซ่อนแถบเลื่อน** · **เรียงแผงแนวตั้งบนมือถือ** · **`menu/layout/` + `menu/ticker/` + `achievements/` 16 ไฟล์** · **เทสต์ใหม่ 30 รายการ** · ซิงก์ทั้งหมดเป็น 1.1.8 · **286 เทสต์** |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **พื้นหลังเมนูหมอกหาย** (สี่ชั้นซ้อน: `blur 64→22px`, วิชเน็ตต์เฉพาะมุมแทนเต็มจอ, กรอบ CRT 140→90px, พื้น 45→70%) · **changelog แบ่งชั้นมีสี** · **96 หัวข้อใหม่** ให้ 8 เวอร์ชัน · จัดวันใหม่ · แยก `src/game/changelog/` · ทำ README 10 ภาษใหม่ · **286 เทสต์** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **ตั้งค่า 6 หมวด** (พรีเซ็ต · เสียง · ภาพ · ภาษา · สำรอง · ข้อมูล) · ความดัง 0–100 · ความแรงสั่น · คุณภาพภาพ · หยุดเมื่อสลับแท็บ · ย้ายภาษาเข้าตั้งค่า · พรีเซ็ต 4 แบบ · นำเข้า/ส่งออก JSON · เมนูหลายชั้นเคลื่อนไหว · การ์ดผู้สร้างไล่ระดับ · กักโฟกัสในโมดัล · แก้เพลงหลังรีโหลด · **150 เทสต์** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **113 เทสต์** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 โหมด** (เทศกาลคอมโบ · งานเลี้ยงใหญ่) · **16 ความสำเร็จ** · **7 ภาษา** (เพิ่ม ES/FR) · แก้ play-windows.bat (CRLF+BOM) · ตัวเปิด 7 ภาษา · 61 เทสต์ |
@@ -367,7 +385,7 @@ lo-cheoio/
 ## 🤝 ร่วมพัฒนา
 
 1. Fork repo แล้วแตก branch ตามรูปแบบ `arena/<name>` หรือ `feat/<name>`
-2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 256 เทสต์ + build)
+2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 286 เทสต์ + build)
 3. เลี่ยงการเพิ่ม dependency ตอน runtime ถ้าไม่จำเป็นจริง ๆ — ปรัชญา: **ไฟล์เดียว ไม่มีเน็ต เล่นได้ตลอดกาล**
 4. ใน PR ระบุหน้าจอ/โหมดที่ได้รับผลกระทบ และแนบคลิปถ้ามีการเปลี่ยน gameplay
 
