@@ -255,6 +255,17 @@ Nhấn đúp vào [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 Xem thêm [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Lộ trình (nháp — có thể thay đổi theo phản hồi)
+
+| Mốc | Dự kiến | Ý tưởng |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Nhạc nền procedural theo từng chế độ · visual regression tests (Playwright) trong CI · bản thu nhỏ bundle (font subsetting sâu) |
+| **v1.3.0** | 2026 Q1–Q2 | Chế độ chơi thứ 10 (đề cử: **BÃO RUỒI** — chỉ toàn ruồi, chém sạch để sống sót) · chế độ seed cho daily challenge |
+| **v1.4.0** | 2026 Q2 | Bảng vàng online **opt-in** (serverless, mã hóa) — giữ nguyên triết lý offline-first mặc định |
+| Backlog | — | Ghost replay của best run · photo mode (ẩn HUD, xuất PNG) · thêm locale ไทย (đang cân nhắc do chi phí bản dịch) |
+
+*Lộ trình không phải cam kết — ưu tiên luôn nghiêng về: game ổn định → dễ chơi hơn → nhiều nội dung hơn.*
+
 ## 📚 Đọc thêm & tài liệu dev
 
 Tài liệu thiết kế & hướng dẫn kỹ thuật sâu hơn:
