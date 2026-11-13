@@ -17,8 +17,8 @@
   <rect width="1200" height="300" fill="#061a1a"/>
 
   <!-- header -->
-  <text x="40" y="40" font-family="Bungee, sans-serif" font-size="17" fill="#ffc94a" letter-spacing="1.5">MA TRẬN KIỂM THỬ · v1.1.8</text>
-  <text x="40" y="60" font-family="system-ui, sans-serif" font-size="11" fill="#7d9d94">286 test · 35 file · 8 cổng · mọi cổng xanh trước khi phát hành</text>
+  <text x="40" y="40" font-family="Bungee, sans-serif" font-size="17" fill="#ffc94a" letter-spacing="1.5">TEST MATRIX · v1.1.8</text>
+  <text x="40" y="60" font-family="system-ui, sans-serif" font-size="11" fill="#7d9d94">286 tests · 35 files · 8 gates · all green before release</text>
 
   <!-- the big number, breathing -->
   <g transform="translate(1050,30)" filter="url(#tmGlow)">
@@ -34,7 +34,7 @@
     <g transform="translate(40,84)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">tsc --noEmit</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">không lỗi kiểu</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">no type errors</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" repeatCount="indefinite"/>
@@ -47,7 +47,7 @@
     <g transform="translate(330,84)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">vitest run</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">286 / 286 · 35 file</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">286 / 286 · 35 files</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="0.6s" repeatCount="indefinite"/>
@@ -60,7 +60,7 @@
     <g transform="translate(620,84)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-readme-sync</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">10 README đồng bộ</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">10 READMEs in sync</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
@@ -73,7 +73,7 @@
     <g transform="translate(910,84)">
       <rect width="250" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-i18n</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">7 locale × 302 key</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">7 locales × 302 keys</text>
       <rect x="150" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="150" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="1.8s" repeatCount="indefinite"/>
@@ -87,7 +87,7 @@
     <g transform="translate(40,142)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-assets</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">14 SVG, kiểm hai chiều</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">16 SVGs, both directions</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="2.4s" repeatCount="indefinite"/>
@@ -100,7 +100,7 @@
     <g transform="translate(330,142)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">smoke-ssr</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">mọi modal render được</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">every modal renders</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="3s" repeatCount="indefinite"/>
@@ -113,7 +113,7 @@
     <g transform="translate(620,142)">
       <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#9d6bff" stroke-width="1.4"/>
       <text x="12" y="19" font-size="10.5" fill="#c39bff" font-weight="700">probe-menu-layout</text>
-      <text x="12" y="33" font-size="8.5" fill="#7d9d94">11/11 trên DOM thật · mới 1.1.8</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">11/11 on real DOM · new in 1.1.8</text>
       <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
       <rect x="170" y="14" width="0" height="7" rx="3.5" fill="#9d6bff">
         <animate attributeName="width" values="0;88;88;0" dur="9s" begin="3.6s" repeatCount="indefinite"/>
@@ -138,24 +138,24 @@
   </g>
 
   <!-- distribution bar: where the 286 tests live -->
-  <text x="40" y="216" font-family="system-ui, sans-serif" font-size="9.5" fill="#7d9d94" letter-spacing="1">PHÂN BỐ 286 TEST THEO NHÓM</text>
+  <text x="40" y="216" font-family="system-ui, sans-serif" font-size="9.5" fill="#7d9d94" letter-spacing="1">WHERE THE 286 TESTS LIVE</text>
   <g transform="translate(40,224)">
     <rect width="1120" height="22" rx="11" fill="#0b2a28"/>
     <!-- gameplay 91 -->
-    <rect x="0" y="0" width="0" height="22" fill="#f5a81c">
-      <animate attributeName="width" values="0;356;356;0" dur="9s" begin="0.0s" repeatCount="indefinite"/>
+    <rect x="0" y="0" width="356" height="22" fill="#f5a81c">
+      <animate attributeName="opacity" values="0.55;1;1;0.55" dur="9s" begin="0.0s" repeatCount="indefinite"/>
     </rect>
     <!-- i18n 42 -->
-    <rect x="356" y="0" width="0" height="22" fill="#2bb48c">
-      <animate attributeName="width" values="0;164;164;0" dur="9s" begin="0.8s" repeatCount="indefinite"/>
+    <rect x="356" y="0" width="164" height="22" fill="#2bb48c">
+      <animate attributeName="opacity" values="0.55;1;1;0.55" dur="9s" begin="0.8s" repeatCount="indefinite"/>
     </rect>
     <!-- ui/layout 60 -->
-    <rect x="520" y="0" width="0" height="22" fill="#9d6bff">
-      <animate attributeName="width" values="0;235;235;0" dur="9s" begin="1.6s" repeatCount="indefinite"/>
+    <rect x="520" y="0" width="235" height="22" fill="#9d6bff">
+      <animate attributeName="opacity" values="0.55;1;1;0.55" dur="9s" begin="1.6s" repeatCount="indefinite"/>
     </rect>
     <!-- storage/settings 93 -->
-    <rect x="755" y="0" width="0" height="22" rx="11" fill="#8cc63f">
-      <animate attributeName="width" values="0;364;364;0" dur="9s" begin="2.4s" repeatCount="indefinite"/>
+    <rect x="755" y="0" width="364" height="22" rx="11" fill="#8cc63f">
+      <animate attributeName="opacity" values="0.55;1;1;0.55" dur="9s" begin="2.4s" repeatCount="indefinite"/>
     </rect>
   </g>
 
@@ -166,5 +166,5 @@
     <circle cx="218" cy="266" r="4" fill="#9d6bff"/><text x="228" y="269">ui · layout</text>
     <circle cx="320" cy="266" r="4" fill="#8cc63f"/><text x="330" y="269">storage · settings</text>
   </g>
-  <text x="1160" y="269" text-anchor="end" font-family="system-ui, sans-serif" font-size="8.5" fill="#166153">tests/ · 35 file ngang</text>
+  <text x="1160" y="269" text-anchor="end" font-family="system-ui, sans-serif" font-size="8.5" fill="#166153">tests/ · 35 files</text>
 </svg>
