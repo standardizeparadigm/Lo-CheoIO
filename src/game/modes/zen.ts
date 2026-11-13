@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * THẢNH THƠI — badge "×0.5 ĐIỂM".
+ *
+ * "Không đồ hư · thư thái muối dưa"
+ *
+ * score ×0.5 · speed ×0.8 · hazard ×0 · spawn ×1.08.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const zen: ModeConfig = {
   id: "zen",
   name: "THẢNH THƠI",
