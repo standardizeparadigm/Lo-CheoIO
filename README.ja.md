@@ -9,7 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
+[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
+[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
@@ -20,6 +22,8 @@
 <img src="assets/demo.svg" alt="Lọ Chéo プレイ画面 — 壺が斜めに突進し、漬物をキャッチし、カビを斬る" width="100%" />
 
 <img src="assets/languages.svg" alt="7つの言語 — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+<img src="assets/palette-ribbon.svg" alt="Lọ Chéo のパレット——七つの帯が交互に息づく（SMIL アニメーション）" width="100%" />
 
 </div>
 
@@ -33,23 +37,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.6 の新機能
+## 🆕 v1.1.7 の新機能
 
-- ⚙️ **設定を6つのセクションに再構成** —— **クイックプリセット** · **サウンド** · **表示とアニメーション** · **言語** · **バックアップ** · **データ**。3種類の操作：オン/オフスイッチ、2択ピッカー、0–100 のレベル。
-- 🔊 **オン/オフだけでなく本物の調整** —— 効果音と音楽の音量 **0–100**（斜め10分割バー）、**揺れの強さ** 弱/強、**画質** 低/高（粒子 230 対 460、グロー無効）、**タブ切替で自動一時停止**。
-- 🌐 **言語を設定の中へ完全移設** —— メニュー右上の浮遊スイッチャーとポーズ画面の行を削除。7言語の2列グリッド（国旗 · 母語名 · チェック）に。
-- 🎛️ **ワンタップの4プリセット + JSON バックアップ** —— **スムーズ** · **バランス** · **シネマ** · **RTA**（言語は絶対に変えない）と、設定の書き出し/読み込み。
-- ✨ **メニューが舞台に** —— 漂う星雲、呼吸する光線、**2層の瞬く星空**、壺を回る光のリング、壺のハロー、「プレイ」を横切る光沢。**作者カード**は無限に流れるグラデーション枠。
-- 🐛 **実バグ11件を修正** —— 再読み込み後に音楽が設定より大きい · Tab がモーダルを抜ける · 更新履歴のヒントが v1.1.5 固定 · `updateSettings` が正規化前の値を返す · ダイアログ内でフォーカスが保持されない · クリップボードが空でも「コピー済み」と表示 · ストレージ停止時にトグルが既定値へ戻る · 再読み込みで音が勝手に復帰 · 重み0のアイテムが低レベルで出現 · スコアが「NaN」 · 確認ボタンが ← だけ。
-- 🧪 **ユニットテスト 222 件**（29ファイル、113/14 から増加）—— 設定スキーマ、プリセット、バックアップコーデック、オーディオゲイン、i18n↔UI 契約テストを追加。
+> 1.2.0 前の**最後のパッチ**。新しいゲームモードはありません——まだ引っかかっていた点を根本から直しました。
 
-<img src="assets/settings-sections.svg" alt="v1.1.6 の設定 — スイッチ・レベルバー・ピッカーを備えた6セクション（SMIL アニメーション）" width="100%" />
+### 🌫️ メニュー背景のかすみが消えました——根本から修正
 
-<img src="assets/corner-menu.svg" alt="左下 GAME パネルと右下 INFO パネルがスライドイン（SMIL アニメーション）" width="100%" />
+プレイヤーの指摘は正しかった：*「メニューの後ろがまだぼやけている」*。原因は一層ではなく、**四つのレイヤーが重なって増幅していた**ことです：
 
-→ 詳細は [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+| レイヤー | 変更前 | 変更後 | 理由 |
+| --- | --- | --- | --- |
+| 星雲 `.nebula-*` | `blur(64px)`、ピーク `1.0` | **`blur(22px)`、ピーク `0.80`** | 64px は 46vw の光の半径の半分以上——輪郭が消え、塊全体が霧になる |
+| メニュー・ヴィネット | インライン、**全画面**、`0.42 → 0.88 → 1.0` | **`.menu-vignette`**、四隅だけ、`0.30 → 0.62` | 「画面全体を均一に暗く」から「隅は暗く、中央は明るく」へ |
+| CRT フレーム | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px は小さい窓で四隅をほぼ飲み込んでいた |
+| タイル床 | `opacity-45` | **`opacity-70`** | 45% では床は灰色のノイズで、識別できるディテールではなかった |
 
-→ 前回のリリース：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+`.menu-vignette` と `.app-vignette` は JSX に埋まったユーティリティではなく**名前付き CSS ルール**になりました——調整は一か所、しかも `prefers-reduced-motion` が届きます。
+
+### 🏷️ 変更履歴の階層——一階層に一色
+
+| 階層 | ラベル | 色 | 意味 | 例 |
+| --- | --- | --- | --- | --- |
+| `major` | **MAJOR** | 🩷 ピンク `#ff5fb0` | 大きな版——新しい仕組み | 1.0.0 |
+| `minor` | **UPDATE** | 🟡 ゴールド `#f5a81c` | アップグレード——新内容 | 1.1.0 |
+| `patch` | **PATCH** | 🟣 ヴァイオレット `#9d6bff` | 修正と整理 | 1.1.1 → 1.1.7 |
+
+階層は `tierFor(version)` が **SemVer から導出**し、手書きしません——だからラベルが隣に印字されたバージョンと食い違うことはありません。パネルには**フィルター**（すべて · MAJOR · UPDATE · PATCH、階層ごとの件数付き）が加わりました。
+
+<img src="assets/release-tiers.svg" alt="三つの階層 MAJOR/UPDATE/PATCH と配色、九つのリリースの時間軸（SMIL アニメーション）" width="100%" />
+
+### 📖 八つの旧リリース：一行から一ページへ
+
+九つのうち六つは箇条書き配列が**空**で、パネルは一行の要約しか出せませんでした。v1.1.7 ですべて書き直しました：
+
+- **ベトナム語 96 項目 + 英語 96 項目**を新規作成または拡充
+- 内容は `docs/releases/v1.1.x.md` **と**ソースコードそのもの（9 モード、16 実績）から
+- **リリース日を再整列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——二日おき、同じ日のリリースはゼロ
+
+### 🗂️ プロジェクトがさらに多くのフォルダに
+
+```
+src/game/changelog/        ← 300 行の単一ファイルを置き換え
+├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
+├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
+├── entries/               リリースごとに 1 ファイル —— v1_0_0.ts … v1_1_7.ts
+└── index.ts               CHANGELOG_ENTRIES + 5 ヘルパー
+```
+
+今後 1.2.0 を足すのは**新しいファイル 1 つ**と import 一行だけです。
+
+### 🐛 修正
+
+| # | 不具合 | 修正 |
+| --- | --- | --- |
+| 1 | メニュー背景のかすみ・濁り | 上記四つの変更 |
+| 2 | タイル床が見えない | `opacity-45` → `opacity-70` |
+| 3 | 履歴ラベルが実態と違う（`kind` 手書き） | `tierFor(version)` が SemVer から導出 |
+| 4 | 履歴の説明が薄い（6 リリースが `items: []`） | 96 項目を書き直し |
+| 5 | リリース日の重複と不整合 | 九つの連続した日付、重複なし |
+| 6 | ドキュメント/SVG/ランチャーが版に遅れ | 全数走査 → 1.1.7 |
+| 7 | `check-readme-sync` のコメントが 1.1.6 固定 | `package.json` から読むよう変更 |
+
+→ 詳細：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 前回：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+<img src="assets/settings-sections.svg" alt="六つの設定セクション（v1.1.6 以降）——スイッチ、レベルバー、ピッカー（SMIL アニメーション）" width="100%" />
+
+<img src="assets/corner-menu.svg" alt="GAME（左下）と INFO（右下）パネルがスライドイン（SMIL アニメーション）" width="100%" />
 
 ## ✨ ハイライト
 
@@ -224,6 +277,8 @@ lo-cheoio/
 ```
 
 ## 🧱 アーキテクチャとパフォーマンス
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 のアーキテクチャ——入力 → エンジン → 状態 → 描画と各サービス（SMIL アニメーション）" width="100%" />
+
 
 - **ゲームループ** `requestAnimationFrame`、デルタ時間を `1/20秒` にクランプ、`timeScale`（アイススローモー）を乗算し、キャッチ毎に数十msの **ヒットストップ** で「ズン」とした手応え。
 - **Canvas HUD** を毎フレーム直描画。React は `phase` ごとに画面を描画するだけ — ホットループでReactは再レンダーされません。言語変更後、HUDは次のフレームから新しい辞書を参照します。
@@ -259,16 +314,17 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 ## 📦 リリースと変更履歴
 
-| バージョン | 日付 | ノート |
-| --- | --- | --- |
-| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
-| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
-| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 49テスト |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3モード · 黄金ニンニクシールド · 青虫 · 黄金芥菜 · 10実績 · 自己ホストフォント |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 初回リリース：完成したエンジン、11食材、壺叩き、コンボ×9 |
+| バージョン | Tier | 日付 | ノート |
+| --- | --- | --- | --- |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · 日付再整列 · `src/game/changelog/` 分割 · README 10 本刷新 · **235 テスト** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 49テスト |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3モード · 黄金ニンニクシールド · 青虫 · 黄金芥菜 · 10実績 · 自己ホストフォント |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 初回リリース：完成したエンジン、11食材、壺叩き、コンボ×9 |
 
 [CHANGELOG.md](CHANGELOG.md) も参照。
 
