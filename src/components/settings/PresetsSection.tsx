@@ -31,6 +31,9 @@ export default function PresetsSection({
           <button
             key={p.id}
             type="button"
+            // aria-pressed so a screen reader announces which preset is live;
+            // data-active alone only drives the CSS highlight
+            aria-pressed={active === p.id}
             data-active={active === p.id}
             onClick={() => onApply(p.id)}
             className="press flex items-center gap-2 border-2 border-jade-800 bg-jade-900/50 px-2.5 py-1.5 text-left transition-colors hover:border-jade-600 data-[active=true]:border-tumeric-500 data-[active=true]:bg-tumeric-500/15"
