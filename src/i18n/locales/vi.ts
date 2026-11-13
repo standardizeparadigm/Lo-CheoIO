@@ -262,6 +262,73 @@ const vi = {
 
   /* footer */
   "footer.offline": "100% offline",
+
+  /* banner — resume suspended run */
+  "banner.resume.title": "CHƠI TIẾP NÀO!",
+  "banner.resume.sub": "ván dở được khôi phục nguyên trạng",
+
+  /* corner menus — GAME / INFO */
+  "menu.game": "GAME",
+  "menu.info": "THÔNG TIN",
+  "game.play": "CHƠI NGAY",
+  "game.continue": "CHƠI TIẾP",
+  "game.continueNone": "Chưa có ván nào đang dở",
+  "game.continueHint": "{mode} · {score} điểm · {jars} hũ",
+  "game.modes": "CHẾ ĐỘ CHƠI",
+  "game.modesHint": "9 chế độ — chọn phong cách của bạn",
+  "game.leaderboard": "BẢNG XẾP HẠNG",
+  "game.leaderboardHint": "TOP 8 trên máy bạn",
+  "game.achievements": "THÀNH TỰU",
+  "game.achievementsHint": "{n}/{total} đã mở khóa",
+  "game.settings": "CÀI ĐẶT",
+  "game.settingsHint": "Âm thanh · nhạc · rung · chuyển động",
+  "info.about": "GIỚI THIỆU TÁC GIẢ",
+  "info.aboutHint": "Standardize Paradigm",
+  "info.changelog": "CHANGELOG",
+  "info.quit": "THOÁT",
+  "close.aria": "Đóng",
+
+  /* mode select screen */
+  "modes.title": "CHỌN CHẾ ĐỘ CHƠI",
+  "modes.subtitle": "9 chế độ — mỗi chế độ một phong cách muối dưa",
+  "modes.back": "QUAY LẠI",
+  "modes.playing": "Đang chọn: {name}",
+
+  /* settings panel */
+  "settings.title": "CÀI ĐẶT",
+  "settings.sfx": "Âm thanh",
+  "settings.sfxDesc": "Tiếng hứng dưa, chém, vỡ hũ và SLAM",
+  "settings.music": "Nhạc nền",
+  "settings.musicDesc": "Giai điệu pentatonic khi đang chơi",
+  "settings.shake": "Rung màn hình",
+  "settings.shakeDesc": "Lắc hũ, SLAM và nứt hũ tạo chấn động",
+  "settings.reducedMotion": "Giảm chuyển động",
+  "settings.reducedMotionDesc": "Tắt lắc mạnh, làm dịu nhấp nháy trắng",
+  "settings.clearData": "XÓA DỮ LIỆU ĐÃ LƯU",
+  "settings.clearDataDesc": "Xóa bảng điểm, tiến trình và thành tựu trên máy này",
+  "settings.clearDataConfirm": "Xóa toàn bộ điểm, tiến trình, thành tựu? Không thể hoàn tác!",
+  "settings.saved": "Đã lưu cài đặt",
+
+  /* about author panel */
+  "about.title": "GIỚI THIỆU TÁC GIẢ",
+  "about.role": "Nhà phát triển độc lập — Standardize Paradigm",
+  "about.craft": "Lọ Chéo là dự án đam mê: một game arcade muối dưa chạy hoàn toàn trong trình duyệt, một file HTML duy nhất, không cần mạng, không cần server. Vẽ tay, code tay, chép tay từng dấu tiếng Việt.",
+  "about.contact": "Liên hệ: standardizeparadigm@donuco.com",
+  "about.source": "Mã nguồn: github.com/standardizeparadigm/Lo-CheoIO",
+  "about.license": "Giấy phép: AGPL-3.0-only © 2026",
+  "about.fonts": "Fonts: Be Vietnam Pro & Bungee — SIL Open Font License 1.1",
+  "about.thanks": "Cảm ơn bạn đã ghé bếp muối dưa! 🫙",
+
+  /* changelog panel */
+  "changelog.title": "CHANGELOG",
+  "changelog.current": "hiện tại",
+
+  /* quit screen */
+  "quit.title": "TẠM BIỆT!",
+  "quit.thanks": "Cảm ơn bạn đã ghé bếp muối dưa.",
+  "quit.hint": "Nếu tab này không tự đóng, hãy dùng Ctrl+W (Windows/Linux) hoặc Cmd+W (macOS).",
+  "quit.back": "QUAY LẠI MENU",
+  "quit.close": "ĐÓNG TAB NÀY",
 } as const;
 
 export default vi;
