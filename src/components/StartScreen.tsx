@@ -99,7 +99,11 @@ export default function StartScreen({
       <div className="star-field-far" aria-hidden="true" />
       <div className="star-field" aria-hidden="true" />
       <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-45" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_20%_8%,rgba(6,26,26,0.42)_0%,rgba(6,26,26,0.88)_62%,#061a1a_100%)]" />
+      {/* v1.1.7: this vignette used to run 0.42 → 0.88 → 1.0 across the whole
+          viewport, which flattened every layer above into a dark smear. It is
+          now a corner-only falloff (0.30 → 0.62) so the scene stays visible
+          in the middle and the edges still frame the hero. */}
+      <div className="menu-vignette pointer-events-none absolute inset-0" />
 
       <div className="relative flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center px-4 pt-12 pb-4 sm:px-8">

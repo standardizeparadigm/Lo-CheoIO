@@ -246,12 +246,25 @@
    rotating mascot ring, animated About gradient, CTA shine.
    ===================================================================== */
 
-/* Two drifting nebula glows (brine + turmeric) — huge, blurred, slow */
+/* Menu vignette (v1.1.7). Was an inline `bg-[radial-gradient(...0.42/0.88/1.0)]`
+   that dimmed the entire scene; now a corner-weighted falloff so the nebula,
+   starfield and tile floor actually read. Kept as a rule (not a utility) so
+   the contrast can be tuned in one place. */
+.menu-vignette {
+  background:
+    radial-gradient(120% 92% at 18% 6%, rgba(6, 26, 26, 0.30) 0%, rgba(6, 26, 26, 0.16) 38%, transparent 66%),
+    radial-gradient(140% 110% at 50% 118%, rgba(6, 26, 26, 0.62) 0%, rgba(6, 26, 26, 0.22) 45%, transparent 78%);
+}
+
+/* Two drifting nebula glows (brine + turmeric) — huge, softly blurred, slow */
 .nebula-a,
 .nebula-b {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(64px);
+  /* v1.1.7: the old blur(64px) smeared the glow into a flat haze that covered
+     the starfield and tile floor behind it — the whole menu read as "foggy".
+     22px keeps the soft edge while letting the layers underneath show. */
+  filter: blur(22px);
   pointer-events: none;
   will-change: transform, opacity;
 }
@@ -276,12 +289,12 @@
   animation: lc-nebula-b 19s ease-in-out infinite alternate;
 }
 @keyframes lc-nebula-a {
-  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.85; }
-  100% { transform: translate3d(9vw, 7vh, 0) scale(1.18); opacity: 1; }
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.55; }
+  100% { transform: translate3d(9vw, 7vh, 0) scale(1.18); opacity: 0.8; }
 }
 @keyframes lc-nebula-b {
-  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.8; }
-  100% { transform: translate3d(-8vw, -6vh, 0) scale(1.22); opacity: 1; }
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.5; }
+  100% { transform: translate3d(-8vw, -6vh, 0) scale(1.22); opacity: 0.78; }
 }
 
 /* Twinkling starfield — two parallax layers of round dots */
