@@ -117,3 +117,15 @@ describe("load/save roundtrip", () => {
     expect(loadSettings().language).toBe("ja");
   });
 });
+
+describe("loadSettings — first-run OS defaults", () => {
+  it("uses OS defaults only when nothing is stored", () => {
+    expect(loadSettings("vi", { reducedMotion: true }).reducedMotion).toBe(true);
+    expect(loadSettings("vi")).toEqual(DEFAULT_SETTINGS);
+  });
+
+  it("stored settings always beat OS defaults (even a partial object)", () => {
+    saveSettings({ ...DEFAULT_SETTINGS, reducedMotion: false });
+    expect(loadSettings("vi", { reducedMotion: true }).reducedMotion).toBe(false);
+  });
+});
