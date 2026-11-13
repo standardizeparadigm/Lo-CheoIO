@@ -81,6 +81,18 @@ npx vite-node scripts/smoke-ssr.tsx
 
 Mọi render error đều làm exit code khác 0.
 
+## `check-assets.mjs`
+
+Kiểm tra tài nguyên SVG 2 chiều:
+
+1. Mọi `assets/<name>.svg` được nhắc trong README/index.html/docs đều tồn tại trên đĩa.
+2. Mọi SVG trong `assets/` đều được nhắc ở đâu đó (không orphan).
+
+```bash
+node scripts/check-assets.mjs
+# → ✓ N SVGs all referenced
+```
+
 ## `check-readme-sync.mjs`
 
 Bảo vệ 10 README bản địa khỏi lệch version/nội dung:
