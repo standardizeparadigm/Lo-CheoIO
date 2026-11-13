@@ -50,7 +50,8 @@
     "test": "vitest run",
     "check": "tsc --noEmit && vitest run && vite build",
     "smoke": "vite-node scripts/smoke-ssr.tsx",
-    "check:readme": "node scripts/check-readme-sync.mjs"
+    "check:readme": "node scripts/check-readme-sync.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
