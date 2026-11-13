@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — Simplified Chinese messages. Must mirror vi.ts exactly.
+   Lọ Chéo — Chinese (Simplified) messages (中文)
+   =====================================================================
+   302 keys · number locale: zh-CN
+
+   Mirrors vi.ts 1:1. Uses full-width punctuation (，。：「」) rather than
+   ASCII so lines break naturally; numbers stay half-width via `fmtNum`.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
