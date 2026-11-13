@@ -5,7 +5,7 @@ Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến đ
 
 ## [1.1.6] — 2026-11-13
 
-Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · README 10 ngôn ngữ làm mới · 150 unit tests (18 file)**.
+Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · README 10 ngôn ngữ làm mới · 172 unit tests (22 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
 
@@ -24,7 +24,7 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - **`useFocusTrap`** (`src/utils/useFocusTrap.ts`): Tab/Shift+Tab quấn trong modal, focus trả về phần tử trước khi mở
 - **Changelog trong game** có mục 1.1.6 (`src/game/changelog.ts`)
 - **21 + 10 + 9 key i18n mới × 7 locale** (settings viền/mức/chất lượng/auto-pause/reset · preset · sao lưu) — parity test giữ nguyên
-- Tests: **150/150** (18 files) — 5 file mới: `i18n-v116` 8 · `settings-v116` 9 · `settingsIO` 6 · `settingsPresets` 9 · `audioLevels` 6
+- Tests: **172/172** (22 files) — 8 file mới: `i18n-v116` 8 · `settings-v116` 9 · `settingsIO` 6 · `settingsPresets` 9 · `audioLevels` 6 · `i18n-settings-ui` 4 · `settings-wiring` 6 · `mediaQuery` 6
 
 ### Fixed
 - **Nhạc phát to hơn mức đã đặt sau khi tải lại trang** — `audio.unlock()` mở bus nhạc ở `0.5` cố định, bỏ qua `musicVolume` cho tới lần setter kế tiếp; giờ mở đúng `musicBusGain(musicEnabled, musicVolume)`
@@ -38,7 +38,7 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - **`APP_VERSION` → 1.1.6**; `package.json` + lock, `src/version.ts`, badge 10 README
 - **`docs/design/settings-format.md`** viết lại theo schema mới; `docs/guides/storage-keys.md` thêm dòng settings mới + ghi chú `locheo.lang.v1` là gương của `settings.language`
 - **`docs/guides/adding-a-locale.md`** — ngôn ngữ chọn trong Settings (`LanguageSection`), không còn `LanguageSwitcher`
-- **`tests/README.md`** — bảng 18 file / 150 test
+- **`tests/README.md`** — bảng 22 file / 172 test
 - Reduced-motion bao phủ **toàn bộ** animation mới (nebula, starfield, light-ray, glow-ring, jar-glow, about-card, cta-shine)
 - Build ~771 KB
 
