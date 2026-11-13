@@ -372,6 +372,7 @@ const vi = {
   "settings.resetDefaults": "Khôi phục mặc định",
   "settings.resetDefaultsDesc": "Đặt lại mọi cài đặt về mặc định (giữ ngôn ngữ)",
   "settings.resetDefaultsConfirm": "Về mặc định? Ngôn ngữ vẫn giữ nguyên.",
+  "common.cancel": "HUỶ",
 } as const;
 
 export default vi;

@@ -342,6 +342,7 @@ const ja: Record<MessageKey, string> = {
   "settings.resetDefaults": "既定に戻す",
   "settings.resetDefaultsDesc": "すべての設定を既定に戻します（言語は維持）",
   "settings.resetDefaultsConfirm": "既定に戻しますか？言語はそのままです。",
+  "common.cancel": "キャンセル",
 };
 
 export default ja;

@@ -336,6 +336,7 @@ const zh: Record<MessageKey, string> = {
   "settings.resetDefaults": "恢复默认设置",
   "settings.resetDefaultsDesc": "把所有设置恢复默认（保留语言选择）",
   "settings.resetDefaultsConfirm": "恢复默认？语言会保留。",
+  "common.cancel": "取消",
 };
 
 export default zh;

@@ -42,7 +42,7 @@ export default function DataSection({
           </p>
           <div className="mt-2 flex justify-end gap-2">
             <GameButton size="sm" variant="ghost" onClick={() => setConfirmClear(false)}>
-              ←
+              {t("common.cancel")}
             </GameButton>
             <GameButton
               size="sm"
@@ -80,7 +80,7 @@ export default function DataSection({
           </p>
           <div className="mt-2 flex justify-end gap-2">
             <GameButton size="sm" variant="ghost" onClick={() => setConfirmReset(false)}>
-              ←
+              {t("common.cancel")}
             </GameButton>
             <GameButton
               size="sm"

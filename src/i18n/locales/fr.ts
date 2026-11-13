@@ -342,6 +342,7 @@ const fr: Record<MessageKey, string> = {
   "settings.resetDefaults": "Réinitialiser",
   "settings.resetDefaultsDesc": "Réinitialise tout (garde la langue)",
   "settings.resetDefaultsConfirm": "Réinitialiser ? La langue est conservée.",
+  "common.cancel": "ANNULER",
 };
 
 export default fr;
