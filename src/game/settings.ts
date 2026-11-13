@@ -15,6 +15,8 @@
    every read is validated + clamped — corrupt data never crashes the game.
    ===================================================================== */
 
+import { STORAGE_KEYS, readJSON, writeJSON } from "./safeStorage";
+
 export type ShakeLevel = "low" | "high";
 export type VisualQuality = "low" | "high";
 
@@ -47,7 +49,7 @@ export interface GameSettings {
   language: SettingLanguage;
 }
 
-export const SETTINGS_KEY = "locheo.settings.v1";
+export const SETTINGS_KEY = STORAGE_KEYS.settings;
 
 export const DEFAULT_SETTINGS: GameSettings = {
   sfx: true,
@@ -100,22 +102,13 @@ export function normalizeSettings(v: unknown, languageFallback: string = DEFAULT
 }
 
 export function loadSettings(languageFallback?: string): GameSettings {
-  try {
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return normalizeSettings(null, languageFallback);
-    return normalizeSettings(JSON.parse(raw), languageFallback);
-  } catch {
-    return normalizeSettings(null, languageFallback);
-  }
+  return normalizeSettings(readJSON(SETTINGS_KEY), languageFallback);
 }
 
 export function saveSettings(settings: GameSettings): GameSettings {
   const clean = normalizeSettings(settings);
-  try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(clean));
-  } catch {
-    /* storage blocked — keep in memory */
-  }
+  // writeJSON swallows quota/private-mode failures — settings stay in memory
+  writeJSON(SETTINGS_KEY, clean);
   return clean;
 }
 
