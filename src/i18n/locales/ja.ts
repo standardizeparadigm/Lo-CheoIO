@@ -235,14 +235,6 @@ const ja: Record<MessageKey, string> = {
   "rule.5.d":
     "クラシック均衡 · 禅は危険なし · 業火は +35% 速度で ×1.5 · 60秒ラッシュはタイムアタック · 黄金ラッシュは金 ×2.6 · 漬物豪雨は密度抜群 · 陶器一発はひび1つ · コンボ大祭はコンボ窓 ×2 · 漬物大宴会は壺 ×2.5。",
 
-  "lang.label": "言語",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% オフライン",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */

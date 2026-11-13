@@ -235,14 +235,6 @@ const fr: Record<MessageKey, string> = {
   "rule.5.d":
     "Classique équilibré · Zen sans dangers · Inferno +35% vitesse pour ×1.5 · 60 Secondes contre la montre · Ruée vers l'Or ×2.6 · Pluie de Pickles · Céramique Fine une fissure · Festival des Combos fenêtre ×2 · Grand Festin bocaux ×2.5.",
 
-  "lang.label": "Langue",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% hors ligne",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */

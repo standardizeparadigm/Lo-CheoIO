@@ -235,14 +235,6 @@ const es: Record<MessageKey, string> = {
   "rule.5.d":
     "Clásico equilibrado · Zen sin peligros · Inferno +35% velocidad por ×1.5 · 60 Segundos contrarreloj · Fiebre del Oro ×2.6 · Lluvia de Encurtidos · Cerámica Fina una sola grieta · Festival de Combos ventana ×2 · Gran Festín tarros ×2.5.",
 
-  "lang.label": "Idioma",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% sin conexión",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */

@@ -251,14 +251,6 @@ const vi = {
     "Cổ điển cân bằng · Thảnh Thơi không đồ hư · Ớt Lửa +35% tốc đổi ×1.5 điểm · Đua 60 Giây time-attack · Mùa Vàng đồ vàng ×2.6 · Mưa Dưa dày đặc · Gốm Mỏng 1 vết nứt · Lễ Hội Combo cửa sổ combo ×2 · Đại Tiệc Dưa hũ thưởng ×2.5.",
 
   /* language switcher */
-  "lang.label": "Ngôn ngữ",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   /* footer */
   "footer.offline": "100% offline",

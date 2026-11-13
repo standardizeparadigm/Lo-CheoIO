@@ -229,14 +229,6 @@ const zh: Record<MessageKey, string> = {
   "rule.5.t": "九种模式",
   "rule.5.d": "经典均衡 · 禅意无危险 · 炼狱 +35% 速度换 ×1.5 · 60秒冲刺限时 · 黄金丰收黄金 ×2.6 · 腌菜暴雨密不透风 · 脆皮瓦罐只裂一缝 · 连击节庆连击窗口 ×2 · 腌菜盛宴满罐 ×2.5。",
 
-  "lang.label": "语言",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% 离线",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */

@@ -235,14 +235,6 @@ const en: Record<MessageKey, string> = {
   "rule.5.d":
     "Classic is balanced · Zen has no hazards · Inferno is +35% speed for ×1.5 · 60-Second Rush is time-attack · Gold Rush rains gold ×2.6 · Pickle Rain floods the screen · Thin Ceramic cracks once · Combo Festival doubles the combo window · Grand Feast pays jars ×2.5.",
 
-  "lang.label": "Language",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% offline",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */

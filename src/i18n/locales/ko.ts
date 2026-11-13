@@ -235,14 +235,6 @@ const ko: Record<MessageKey, string> = {
   "rule.5.d":
     "클래식 균형 · 선(禪) 무해 · 화염은 +35% 속도에 ×1.5 · 60초 레이스는 타임어택 · 황금 러시는 황금 ×2.6 · 절임 폭우는 밀도 폭발 · 얇은 도자기는 금 1번 · 콤보 축제는 콤보 창 ×2 · 절임 대잔치는 항아리 ×2.5.",
 
-  "lang.label": "언어",
-  "lang.vi": "Tiếng Việt",
-  "lang.en": "English",
-  "lang.zh": "中文",
-  "lang.ja": "日本語",
-  "lang.ko": "한국어",
-  "lang.es": "Español",
-  "lang.fr": "Français",
 
   "footer.offline": "100% 오프라인",
   /* v1.1.5 — corner menus, settings, about, changelog, quit */
