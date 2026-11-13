@@ -22,7 +22,9 @@ Bảy bản: `releases/v1.0.0.md` → `releases/v1.1.5.md`. Bản hiện hành l
 | `adding-a-locale.md` | Thêm/sửa 1 ngôn ngữ (parity rules) |
 | `release-process.md` | Playbook phát hành 1 version (học từ v1.1.5) |
 | `glossary.md` | Từ vựng game cho translator |
+| `troubleshooting.md` | Sự cố thường gặp — đen màn hình, audio, «Chơi tiếp», launcher, build |
 
 ## Khác
 
+- `assets.md` — kho SVG SMIL (banner, corner-menu…) + quy ước thêm/sửa.
 - `DESCRIPTION.md` — mô tả ngắn cho dev/cộng đồng.
