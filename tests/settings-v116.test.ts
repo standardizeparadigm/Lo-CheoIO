@@ -24,7 +24,7 @@ describe("v1.1.6 settings — deep coverage", () => {
   });
 
   it("updateSettings() persist path: load(reload) round-trips a full patch", () => {
-    const { map, stub } = freshStorage();
+    const { stub } = freshStorage();
     const g = globalThis as unknown as { localStorage?: typeof stub };
     g.localStorage = stub;
     try {
