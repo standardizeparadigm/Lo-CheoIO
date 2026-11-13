@@ -39,7 +39,7 @@ const ko: Record<MessageKey, string> = {
 
   "scoreboard.title": "절임항아리 명예의 전당",
   "scoreboard.empty": "아직 절임장이 없습니다.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "상위 {n}",
   "scoreboard.row": "Lv {level} · {jars}항아리",
 
   "gameover.kicker": "도자기가 버티지 못했습니다",

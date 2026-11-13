@@ -39,7 +39,7 @@ const es: Record<MessageKey, string> = {
 
   "scoreboard.title": "SALÓN DE LA FAMA DEL ENCURTIDO",
   "scoreboard.empty": "Aún nadie ha encurtido nada.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "MEJORES {n}",
   "scoreboard.row": "NIVEL {level} · {jars} TARROS",
 
   "gameover.kicker": "la cerámica aguantó lo suyo",
@@ -264,7 +264,7 @@ const es: Record<MessageKey, string> = {
   "game.settingsHint": "SFX · música · sacudida · movimiento",
   "info.about": "SOBRE EL AUTOR",
   "info.aboutHint": "Standardize Paradigm",
-  "info.changelog": "CHANGELOG",
+  "info.changelog": "CAMBIOS",
   "info.quit": "SALIR",
   "close.aria": "Cerrar",
   "modes.title": "ELIGE TU MODO",
@@ -292,7 +292,7 @@ const es: Record<MessageKey, string> = {
   "about.license": "Licencia: AGPL-3.0-only © 2026",
   "about.fonts": "Fuentes: Be Vietnam Pro & Bungee — SIL Open Font License 1.1",
   "about.thanks": "¡Gracias por pasar por la cocina de encurtidos! 🫙",
-  "changelog.title": "CHANGELOG",
+  "changelog.title": "CAMBIOS",
   "changelog.current": "actual",
   "quit.title": "¡HASTA LUEGO!",
   "quit.thanks": "Gracias por visitar la cocina de encurtidos.",

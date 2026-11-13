@@ -39,7 +39,7 @@ const fr: Record<MessageKey, string> = {
 
   "scoreboard.title": "PANTHÉON DES PICKLES",
   "scoreboard.empty": "Personne n'a encore picklé.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "MEILLEURS {n}",
   "scoreboard.row": "NIV {level} · {jars} BOCAUX",
 
   "gameover.kicker": "la céramique a cédé",
@@ -264,7 +264,7 @@ const fr: Record<MessageKey, string> = {
   "game.settingsHint": "SFX · musique · tremblement · mouvement",
   "info.about": "À PROPOS DE L'AUTEUR",
   "info.aboutHint": "Standardize Paradigm",
-  "info.changelog": "CHANGELOG",
+  "info.changelog": "NOUVEAUTÉS",
   "info.quit": "QUITTER",
   "close.aria": "Fermer",
   "modes.title": "CHOISIS TON MODE",
@@ -292,7 +292,7 @@ const fr: Record<MessageKey, string> = {
   "about.license": "Licence : AGPL-3.0-only © 2026",
   "about.fonts": "Polices : Be Vietnam Pro & Bungee — SIL Open Font License 1.1",
   "about.thanks": "Merci de passer à la cuisine à pickles ! 🫙",
-  "changelog.title": "CHANGELOG",
+  "changelog.title": "NOUVEAUTÉS",
   "changelog.current": "actuel",
   "quit.title": "À BIENTÔT !",
   "quit.thanks": "Merci de ta visite à la cuisine à pickles.",
