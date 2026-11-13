@@ -175,8 +175,17 @@ export function Modal({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        e.stopPropagation();
+        e.stopImmediatePropagation();
         onClose();
+        return;
+      }
+      // Keep gameplay shortcuts from leaking through an open modal
+      // (Enter=start, R=restart, P=pause, M=mute, Space=slam).
+      // Native button activation still works — no preventDefault.
+      const swallowCodes = ["Enter", "KeyP", "KeyR", "KeyM", "Space"];
+      const swallowKeys = ["Enter", " ", "Spacebar"];
+      if (swallowCodes.includes(e.code) || swallowKeys.includes(e.key)) {
+        e.stopImmediatePropagation();
       }
     };
     window.addEventListener("keydown", onKey, true);
