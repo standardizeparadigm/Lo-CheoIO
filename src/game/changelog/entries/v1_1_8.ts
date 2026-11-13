@@ -29,7 +29,7 @@ export const V1_1_8: ChangelogEntry = {
     "MỚI `src/components/menu/ticker/` — dải chạy chữ tách riêng, 14 chuỗi nguyên liệu + hàm `tickerTone()` thuần",
     "TÁCH `src/game/achievements/` — 16 thành tựu thành 16 file, mỗi file ghi rõ điều kiện mở khoá và lý do tồn tại; API công khai không đổi",
     "Chiều cao mỗi dòng menu giờ khai báo bằng custom property (`--menu-row-h`, `--menu-row-rich-h`) nên sáu dòng luôn là 268px hoặc 388px ở mọi ngôn ngữ, không còn phụ thuộc độ dài bản dịch",
-    "Đồng bộ toàn bộ 10 README, docs, SVG và launcher sang 1.1.8; thêm `docs/releases/v1.1.8.md`",
+    "MỚI `scripts/check-svg-text.mjs` — cổng thứ 9: đọc mọi chuỗi trong 16 SVG, đối chiếu con số với nguồn sự thật (286 test · 10 bản · 16 SVG · 8 lớp nền) và chặn sơ đồ trộn hai ngôn ngữ; ba quy tắc đều được kiểm chứng bằng cách phá file rồi chạy lại",
   ],
   itemsEn: [
     "LAYOUT FIX: the GAME/INFO corner row and the ticker were `shrink-0` flex siblings taking 415px + 55px of a 720px window, leaving the scene 250px — the CHÉO wordmark and the mascot jar were sliced at y≈247px; both now float over the scene, which keeps its full height",
@@ -43,6 +43,6 @@ export const V1_1_8: ChangelogEntry = {
     "NEW `src/components/menu/ticker/` — the scrolling band as its own module, fourteen ingredient strings plus a pure `tickerTone()`",
     "SPLIT `src/game/achievements/` — sixteen achievements into sixteen files, each stating its unlock condition and its rationale; the public API is unchanged",
     "Menu row heights are declared as custom properties (`--menu-row-h`, `--menu-row-rich-h`), so six rows are always 268px or 388px in every language instead of depending on how long a translation runs",
-    "All ten READMEs, the docs, the SVGs and the launchers synced to 1.1.8; `docs/releases/v1.1.8.md` added",
+    "NEW `scripts/check-svg-text.mjs` — the ninth gate: reads every string in the 16 SVGs, checks each stated count against its source of truth (286 tests · 10 releases · 16 SVGs · 8 background layers) and rejects a diagram that mixes two languages; each of its three rules verified by breaking a file and re-running",
   ],
 };
