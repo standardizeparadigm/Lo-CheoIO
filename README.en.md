@@ -253,6 +253,17 @@ Double-click [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`s
 
 See also [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Roadmap (draft — subject to change with feedback)
+
+| Milestone | ETA | Ideas |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Procedural soundtrack per mode · visual regression tests (Playwright) in CI · deeper font subsetting to shrink the bundle |
+| **v1.3.0** | 2026 Q1–Q2 | 10th game mode (candidate: **FLY SWARM** — flies only, survive by slashing) · seeded mode for daily challenges |
+| **v1.4.0** | 2026 Q2 | **Opt-in** online leaderboard (serverless, encrypted) — offline-first stays the default |
+| Backlog | — | Ghost replay of your best run · photo mode (hide HUD, export PNG) · Thai (ไทย) locale under consideration |
+
+*A roadmap is not a promise — priority order is always: stability → easier to play → more content.*
+
 ## 📚 Further reading & dev docs
 
 Design notes and deeper technical docs:
