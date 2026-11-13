@@ -65,6 +65,8 @@ function settingsUiKeys(): string[] {
     "settings.clearDataConfirm",
     // shared confirm/cancel wording used by the two-step danger zone
     "common.cancel",
+    // pause header countdown suffix (timed modes)
+    "pause.leftSuffix",
     // presets (generated from the catalogue — stays in sync automatically)
     ...PRESET_LIST.flatMap((p) => [`settings.preset.${p.id}`, `settings.preset.${p.id}Desc`]),
     "settings.preset.custom",
