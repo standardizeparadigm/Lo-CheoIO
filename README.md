@@ -183,7 +183,7 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 222 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 235 unit tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 
