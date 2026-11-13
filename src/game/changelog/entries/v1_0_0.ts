@@ -1,8 +1,13 @@
 import type { ChangelogEntry } from "../types";
 
 /**
- * v1.0.0 — see docs/releases/v1.0.0.md for the long-form release notes.
- * One release per file keeps the history easy to diff and to translate.
+ * v1.0.0 — released 2026-10-26 — tier: MAJOR
+ *
+ * Bản đầu tiên — Lọ Chéo: Hũ Dưa Đại Chiến
+ *
+ * 9 bullets (vi) / 9 (en). Keep the two lists the same length:
+ * tests/changelog-tiers.test.ts asserts it, and the panel would show an
+ * uneven list otherwise.
  */
 export const V1_0_0: ChangelogEntry = {
   version: "1.0.0",
