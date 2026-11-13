@@ -41,7 +41,7 @@
 - 🎛️ **원터치 프리셋 4종 + JSON 백업** —— **부드럽게** · **균형** · **시네마틱** · **스피드런**(언어는 절대 건드리지 않음)과 설정 내보내기/가져오기.
 - ✨ **메뉴가 무대가 되다** —— 떠도는 성운, 호흡하는 광선, **두 겹의 반짝이는 별밭**, 항아리를 도는 빛의 링, 항아리 후광, PLAY를 스치는 광택; **제작자 카드**에는 끝없이 흐르는 그라데이션 테두리.
 - 🐛 **실제 버그 5건 수정** —— 새로고침 후 음악이 설정보다 큼 · Tab이 모달을 벗어남 · 변경 이력 힌트가 v1.1.5로 고정 · `updateSettings`가 정규화 전 값을 반환 · 대화상자 안에서 포커스가 유지되지 않음.
-- 🧪 **유닛 테스트 172개**(22개 파일, 113/14에서 증가) —— 설정 스키마, 프리셋, 백업 코덱, 오디오 게인 계산, i18n↔UI 계약 테스트를 추가로 검증.
+- 🧪 **유닛 테스트 177개**(23개 파일, 113/14에서 증가) —— 설정 스키마, 프리셋, 백업 코덱, 오디오 게인 계산, i18n↔UI 계약 테스트를 추가로 검증.
 
 <img src="assets/settings-sections.svg" alt="v1.1.6 설정 — 스위치·레벨 바·피커가 있는 6개 섹션(SMIL 애니메이션)" width="100%" />
 
@@ -65,7 +65,7 @@
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 172개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 177개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 172개 단위 테스트 (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 177개 단위 테스트 (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 모달 포커스 가둠 (v1.1.6)
-└─ tests/                  # vitest — 22개 파일 · 172개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 23개 파일 · 177개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 아키텍처 & 성능
