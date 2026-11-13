@@ -1,3 +1,5 @@
+import { useI18n } from "../../i18n/useI18n";
+
 /**
  * Level control for 0–100 values (SFX / music loudness):
  * −/+ buttons, segmented bar, numeric readout. Steps of 10, min/max clamp.
@@ -17,6 +19,7 @@ export default function VolumeStepper({
   onChange: (v: number) => void;
   step?: number;
 }) {
+  const { t } = useI18n();
   const v = Math.min(100, Math.max(0, Math.round(value)));
   const set = (next: number) => onChange(Math.min(100, Math.max(0, Math.round(next))));
   const segs = 10;
@@ -33,14 +36,14 @@ export default function VolumeStepper({
       <div className="flex shrink-0 items-center gap-2" role="group" aria-labelledby={`${id}-label`}>
         <button
           type="button"
-          aria-label="decrease"
+          aria-label={t("settings.decrease")}
           onClick={() => set(v - step)}
           disabled={v <= 0}
           className="press flex h-8 w-8 items-center justify-center border-2 border-jade-700 bg-jade-950 text-brine-300 disabled:opacity-30"
         >
           −
         </button>
-        <div className="flex items-center gap-[3px]" aria-hidden="true">
+        <div className="flex items-center gap-[3px]" role="img" aria-label={`${label} ${v}/100`}>
           {Array.from({ length: segs }, (_, i) => (
             <span
               key={i}
@@ -52,7 +55,7 @@ export default function VolumeStepper({
         </div>
         <button
           type="button"
-          aria-label="increase"
+          aria-label={t("settings.increase")}
           onClick={() => set(v + step)}
           disabled={v >= 100}
           className="press flex h-8 w-8 items-center justify-center border-2 border-jade-700 bg-jade-950 text-brine-300 disabled:opacity-30"
