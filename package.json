@@ -48,7 +48,9 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "tsc --noEmit && vitest run && vite build"
+    "check": "tsc --noEmit && vitest run && vite build",
+    "smoke": "vite-node scripts/smoke-ssr.tsx",
+    "check:readme": "node scripts/check-readme-sync.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
