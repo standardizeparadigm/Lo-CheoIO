@@ -1587,7 +1587,7 @@ export class LoCheoGame {
       case "ot":
       case "othiem": {
         if (it.kind === "othiem") {
-          if (this.quality === "high") ctx.shadowColor = "#ff6a4d"; if (this.quality === "high") ctx.shadowBlur = 22;
+          if (this.quality === "high") { ctx.shadowColor = "#ff6a4d"; ctx.shadowBlur = 22; }
         }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
@@ -1692,7 +1692,7 @@ export class LoCheoGame {
         break;
       }
       case "vang": {
-        if (this.quality === "high") ctx.shadowColor = "#ffc94a"; if (this.quality === "high") ctx.shadowBlur = 26;
+        if (this.quality === "high") { ctx.shadowColor = "#ffc94a"; ctx.shadowBlur = 26; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
         for (let i = 0; i < 8; i++) {
@@ -1708,7 +1708,7 @@ export class LoCheoGame {
         break;
       }
       case "da": {
-        if (this.quality === "high") ctx.shadowColor = "#a8e6ff"; if (this.quality === "high") ctx.shadowBlur = 22;
+        if (this.quality === "high") { ctx.shadowColor = "#a8e6ff"; ctx.shadowBlur = 22; }
         ctx.fillStyle = "rgba(168,230,255,0.85)";
         ctx.beginPath();
         ctx.moveTo(-10, -7); ctx.lineTo(0, -13); ctx.lineTo(10, -7); ctx.lineTo(10, 7);
@@ -1721,7 +1721,7 @@ export class LoCheoGame {
       }
       case "cavang": {
         // golden cabbage leaf — rare, fills the jar fast
-        if (this.quality === "high") ctx.shadowColor = "#ffd766"; if (this.quality === "high") ctx.shadowBlur = 18;
+        if (this.quality === "high") { ctx.shadowColor = "#ffd766"; ctx.shadowBlur = 18; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
         ctx.moveTo(0, -16);
@@ -1745,7 +1745,7 @@ export class LoCheoGame {
       }
       case "toivang": {
         // golden garlic — shield power-up, two cloves hugging a heart
-        if (this.quality === "high") ctx.shadowColor = "#ffe9a8"; if (this.quality === "high") ctx.shadowBlur = 24;
+        if (this.quality === "high") { ctx.shadowColor = "#ffe9a8"; ctx.shadowBlur = 24; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath(); ctx.arc(-5, 2, 8.5, 0, TAU); ctx.fill();
         ctx.beginPath(); ctx.arc(5, 2, 8.5, 0, TAU); ctx.fill();
