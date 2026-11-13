@@ -15,6 +15,7 @@
 
 - `menu-corners.md` — triết lý 2 panel góc GAME/INFO, a11y, responsive.
 - `menu-icons.md` — bộ icon SVG tự vẽ cho panel góc (grid 24px, stroke 2.2).
+- `menu-scene.md` — 8 lớp nền menu (tinh vân, sao, sàn gạch, vòng sáng…) + ngân sách render.
 - `modes-balance.md` — bảng cân bằng 9 chế độ + cách chỉnh số.
 - `save-format.md` — spec `locheo.run.v1` (snapshot ván dở).
 - `settings-format.md` — spec `locheo.settings.v1` (v1.1.6: 10 field, 6 mục UI).
