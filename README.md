@@ -58,7 +58,7 @@ Cột flex cũ ở 1280×720:
 
 `shrink-0` khiến hai phần sau không thể co, nên scene chỉ còn **250px** — chữ CHÉO và lọ cao hơn thế nên bị `overflow-y-auto` cắt ở `y≈247px`. Đường cắt đo được trong ảnh là **247.3px**; phép tính cho **250.0px**. Khớp tới 2.7px.
 
-<img src="assets/layout-fix.svg" alt="So sánh bố cục v1.1.7 và v1.1.8 — scene 250px bị cắt so với scene 720px với chrome nổi (hoạt họa SMIL)" width="100%" />
+<img src="assets/layout-fix.svg" alt="So sánh bố cục v1.1.7 và v1.1.8 — scene 250px bị cắt so với scene 382px + reserve 338px, chrome nổi (hoạt họa SMIL)" width="100%" />
 
 **Cách sửa** — đưa chrome ra khỏi luồng, có người sở hữu tổng:
 
@@ -245,7 +245,7 @@ lo-cheoio/
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ palette-ribbon.svg   # 7 dải màu chạy sáng (SMIL, v1.1.7)
 │  ├─ architecture.svg     # sơ đồ kiến trúc + luồng dữ liệu (SMIL, v1.1.7)
-│  ├─ release-tiers.svg    # 3 tầng + thời gian biểu 9 bản (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tầng + thời gian biểu 10 bản (SMIL, v1.1.7)
 │  ├─ layout-fix.svg       # v1.1.7 vs 1.1.8 layout, side by side (SMIL, v1.1.8)
 │  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # divider lóe sáng (SMIL animation)
