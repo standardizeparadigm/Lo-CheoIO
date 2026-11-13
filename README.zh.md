@@ -40,7 +40,7 @@
 - ⚙️ **游戏内设置** —— **音效** · **背景音乐** · **屏幕震动** · **减少动态效果** —— 即时生效、无需重启；另有两步确认的**「清除本地数据」**危险区。
 - 🐛 **修复快捷键穿透弹窗** —— Enter/R/P/M/Space 不再从弹窗后方触发游戏；**「继续游戏」stale closure**；**`prefers-reduced-motion` 现在禁用全部动画**。
 - 📖 **10 种语言 README 全面美化** —— V1.1.5 横幅、全新角落面板 SMIL 动画，更详细更完整。
-- 🧪 **99 项单元测试**（从 61 增至 99）—— `npm run check` 全绿；新增 **GitHub Actions CI**（npm ci → npm run check）。
+- 🧪 **107 项单元测试**（从 61 增至 107）—— `npm run check` 全绿；新增 **GitHub Actions CI**（npm ci → npm run check）。
 
 <img src="assets/corner-menu.svg" alt="左下 GAME 面板与右下 INFO 面板滑入（SMIL 动画）" width="100%" />
 
@@ -60,7 +60,7 @@
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 99 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 107 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 99 项单元测试（modes / achievements / storage / i18n）
+npm run test       # vitest — 107 项单元测试（modes / achievements / storage / i18n）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -246,7 +246,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | 版本 | 日期 | 说明 |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **99 项测试** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **107 项测试** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
@@ -272,7 +272,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 99 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 107 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 
