@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { APP_VERSION } from "../version";
+import { MenuBackground } from "./menu/background";
 import { fmtNum } from "../i18n/i18n";
 import { useI18n } from "../i18n/useI18n";
 import type { MessageKey } from "../i18n/i18n";
@@ -91,21 +92,8 @@ export default function StartScreen({
 
   return (
     <div className="absolute inset-0 z-40 flex flex-col overflow-hidden">
-      {/* ------- ambient background layers ------- */}
-      <div className="aurora-bg pointer-events-none absolute inset-0" />
-      <div className="nebula-a" aria-hidden="true" />
-      <div className="nebula-b" aria-hidden="true" />
-      <div className="light-ray" aria-hidden="true" />
-      <div className="star-field-far" aria-hidden="true" />
-      <div className="star-field" aria-hidden="true" />
-      {/* v1.1.7: 45% opacity made the floor invisible under the old vignette;
-          with the vignette fixed it rides at 70% and the tiles read again. */}
-      <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-70" />
-      {/* v1.1.7: this vignette used to run 0.42 → 0.88 → 1.0 across the whole
-          viewport, which flattened every layer above into a dark smear. It is
-          now a corner-only falloff (0.30 → 0.62) so the scene stays visible
-          in the middle and the edges still frame the hero. */}
-      <div className="menu-vignette pointer-events-none absolute inset-0" />
+      {/* ------- ambient background layers (see background/layers.ts) ------- */}
+      <MenuBackground />
 
       <div className="relative flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center px-4 pt-12 pb-4 sm:px-8">
