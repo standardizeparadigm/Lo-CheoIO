@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
@@ -33,18 +33,23 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.5 新特性
+## 🆕 v1.1.6 新特性
 
-- 🧭 **主菜单彻底精简** —— 所有游戏相关功能都在**左下角 GAME 面板**：**开始游戏** · **继续游戏** · **游戏模式** · **排行榜**（TOP 8）· **成就**（16）· **设置**。所有项目信息都在**右下角 INFO 面板**：**关于作者** · **更新日志**（游戏内直达）· **退出**。
-- ⏸️ **「继续游戏」—— 未完成的对局一键复活** —— 对局中途离开（暂停 → 返回菜单）会自动快照到 `locheo.run.v1`；按**继续游戏**即原样恢复：分数、罐子、裂纹、体力、连击、护盾。仅当确有未完成对局时按钮才会亮起。
-- ⚙️ **游戏内设置** —— **音效** · **背景音乐** · **屏幕震动** · **减少动态效果** —— 即时生效、无需重启；另有两步确认的**「清除本地数据」**危险区。
-- 🐛 **修复快捷键穿透弹窗** —— Enter/R/P/M/Space 不再从弹窗后方触发游戏；**「继续游戏」stale closure**；**`prefers-reduced-motion` 现在禁用全部动画**。
-- 📖 **10 种语言 README 全面美化** —— V1.1.5 横幅、全新角落面板 SMIL 动画，更详细更完整。
-- 🧪 **113 项单元测试**（从 61 增至 113）—— `npm run check` 全绿；新增 **GitHub Actions CI**（npm ci → npm run check）。
+- ⚙️ **设置重做为 6 个分区** —— **快速预设** · **音频** · **画面与动态效果** · **语言** · **备份** · **数据**，三种控件：开关、二选一选择器、0–100 级别。
+- 🔊 **真正的调节，而不只是开关** —— 音效与音乐音量 **0–100**（10 格斜切条）、**震动强度** 弱/强、**画质** 低/高（粒子 230 vs 460、关闭辉光）、**切换标签页自动暂停**。
+- 🌐 **语言彻底移入设置** —— 主菜单右上浮动切换器和暂停界面的选择行都已移除；现在是 7 种语言的 2 列网格（国旗 · 本族语名称 · 勾选标记）。
+- 🎛️ **4 个一键预设 + JSON 备份** —— **流畅** · **均衡** · **电影感** · **速通**（永不改变语言），并可导出/导入配置带到别的机器。
+- ✨ **菜单变成舞台** —— 漂移星云、呼吸光束、**两层闪烁星空**、环绕陶罐的旋转光环、罐体光晕、掠过「开始」按钮的扫光；**作者卡片**带无限流动的渐变边框。
+- 🐛 **修复 5 个真实缺陷** —— 刷新后音乐比设定更响 · Tab 逃出弹窗 · 更新日志提示硬编码 v1.1.5 · `updateSettings` 返回未归一化值 · 焦点不受限于对话框。
+- 🧪 **150 项单元测试**（18 个文件，从 113/14 增加）—— 新增设置 schema、预设、备份编解码与音频增益计算的测试。
+
+<img src="assets/settings-sections.svg" alt="v1.1.6 设置 —— 6 个分区，含开关、级别条与选择器（SMIL 动画）" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="左下 GAME 面板与右下 INFO 面板滑入（SMIL 动画）" width="100%" />
 
-→ 完整细节：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+→ 完整细节：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+→ 上一版：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ 亮点功能
 
@@ -60,7 +65,7 @@
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 113 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 150 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -80,7 +85,7 @@ Lọ Chéo 内置 **7 种界面语言**，即时生效 —— 无需刷新、不
 | 🇪🇸 Español | **ES** 按钮 | `locheo.lang.v1` |
 | 🇫🇷 Français | **FR** 按钮 | `locheo.lang.v1` |
 
-- 在**主菜单**（右上角）或**暂停界面**（底部紧凑版）切换。
+- 在**设置 → 语言**中切换（7 个国旗按钮的网格）—— 唯一入口，菜单上不再有浮动切换器。
 - 所有用户可见文案都在 `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts` —— 画布引擎、各界面、HUD、弹字、跑马灯、提示。
 - 缺少 key？`t()` 自动回退到越南语 —— 七套 locale 的 key 集合与占位符一致性由测试强制保证。
 
@@ -123,7 +128,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 113 项单元测试（modes / achievements / storage / i18n）
+npm run test       # vitest — 150 项单元测试（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -132,7 +137,7 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.5，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.6，dev/build/test/check 脚本
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
@@ -146,6 +151,7 @@ lo-cheoio/
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
 │  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # 动态 AGPL-3.0 copyleft 印章（SMIL 动画）
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -166,7 +172,8 @@ lo-cheoio/
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
-│     └─ v1.1.5.md         # current release notes (1.1.5)
+│     ├─ v1.1.5.md         # release notes (1.1.5)
+│     └─ v1.1.6.md         # current release notes (1.1.6)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -180,7 +187,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 入口，StrictMode
 │  ├─ App.tsx              # 阶段状态机 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.5"（唯一版本来源）
+│  ├─ version.ts           # APP_VERSION = "1.1.6"（唯一版本来源）
 │  ├─ index.css            # tailwind v4 主题 + 全部动画/渐变
 │  ├─ assets/fonts/        # woff2 子集（Be Vietnam Pro ×6，Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range，100% 离线
@@ -190,13 +197,13 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts（key 源）· en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
-│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
-│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
+│  │  ├─ StartScreen.tsx   # 菜单：主视觉 + 多层动效 + 角落面板
+│  │  ├─ menu/              # 角落 GAME/INFO 面板 + 弹窗 + icons/
 │  │  ├─ ModeSelector.tsx  # 9 张模式卡（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
 │  │  ├─ GameOverScreen.tsx     # 罐子碎了！+ 分数 + 新成就
 │  │  ├─ PauseScreen.tsx        # 暂停 + 本局数据
-│  │  ├─ LanguageSwitcher.tsx   # 通用 VI / EN / 中 / 日 / 한 / ES / FR 切换器
+│  │  ├─ settings/           # 六个分区设置模块 + 控件（v1.1.6）
 │  │  └─ ui.tsx            # GameButton、Panel、Keycap、Stat、ScoreBoard…
 │  ├─ game/
 │  │  ├─ engine.ts         # 全部模拟与画布渲染（约 2100 行）
@@ -204,11 +211,16 @@ lo-cheoio/
 │  │  ├─ achievements.ts   # 16 枚徽章 + 纯校验器（纯函数）
 │  │  ├─ storage.ts        # localStorage：TOP 8、进度、成就
 │  │  ├─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
-│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
-│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
-│  │  └─ settings.ts        # game settings persistence (v1.1.5)
-│  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes、achievements、storage、i18n
+│  │  ├─ changelog.ts        # 游戏内更新日志数据
+│  │  ├─ runSave.ts         # 中断对局持久化
+│  │  ├─ settings.ts        # 设置 schema、默认值、归一化
+│  │  ├─ settingsIO.ts      # 备份/恢复编解码（v1.1.6）
+│  │  ├─ settingsPresets.ts # 四个快速预设（v1.1.6）
+│  │  └─ audioLevels.ts     # 纯音频增益计算（v1.1.6）
+│  └─ utils/
+│     ├─ cn.ts             # clsx + tailwind-merge
+│     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
+└─ tests/                  # vitest — 18 个文件 · 150 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
@@ -249,6 +261,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | 版本 | 日期 | 说明 |
 | --- | --- | --- |
+| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
@@ -276,6 +289,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | 发行版 v1.1.6 —— 六分区设置、预设、备份、多层菜单场景 |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | 发行版 v1.1.5 — 四角菜单、保存/继续、设置、修复 |
 | [docs/design/menu-corners.md](docs/design/menu-corners.md) | 四角 GAME/INFO 菜单设计 — 原则、a11y、响应式 |
 | [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — 暂停对局快照（schema + 生命周期） |
