@@ -97,11 +97,12 @@ node scripts/check-assets.mjs
 
 Bảo vệ 10 README bản địa khỏi lệch version/nội dung:
 
-1. badge version phải là `1.1.5`
-2. link `docs/releases/v1.1.5.md`
-3. nhúng `assets/corner-menu.svg`
-4. dòng release v1.1.4 lịch sử giữ nguyên claim 61 tests
-5. không còn badge `version-1.1.4-f5a81c`
+1. badge version phải là `1.1.6`
+2. link `docs/releases/v1.1.6.md`
+3. nhúng `assets/corner-menu.svg` (panel góc v1.1.5 giữ nguyên)
+4. nhúng `assets/settings-sections.svg` (tour 6 mục cài đặt v1.1.6)
+5. hàng lịch sử `v1.1.5` giữ nguyên claim 113 tests, `v1.1.4` giữ 61 tests
+6. không còn badge phiên bản cũ (`version-1.1.5-f5a81c` / `version-1.1.4-f5a81c`)
 
 ```bash
 node scripts/check-readme-sync.mjs
