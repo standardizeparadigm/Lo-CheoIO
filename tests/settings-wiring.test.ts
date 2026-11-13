@@ -56,6 +56,14 @@ describe("settings → runtime wiring (v1.1.6)", () => {
     expect(read("src/index.css")).toContain('[data-reduced-motion="true"]');
   });
 
+  it("settings patches persist prev+patch instead of re-reading storage", () => {
+    // Regression: updateSettings() re-read storage, so a blocked/full
+    // localStorage reverted every toggle to defaults on the next click.
+    expect(app).toContain("saveSettings({ ...prev, ...patch })");
+    expect(app).toContain("saveSettings({ ...prev, language: lang })");
+    expect(app).not.toContain("updateSettings(");
+  });
+
   it("mute state is persisted instead of reset every boot", () => {
     expect(app).toContain('readRaw(STORAGE_KEYS.muted) === "1"');
     expect(app).toContain("writeRaw(STORAGE_KEYS.muted, muted ? \"1\" : \"0\")");
