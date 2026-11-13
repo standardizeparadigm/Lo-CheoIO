@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * ĐẠI TIỆC DƯA — badge "×0.6 · HŨ ×2.5".
+ *
+ * "Dưa rơi như trẩy hội · thưởng hũ ×2.5"
+ *
+ * score ×0.6 · speed ×0.78 · hazard ×1.15 · spawn ×0.6 · `jarBonusMult: 2.5`.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const feast: ModeConfig = {
   id: "feast",
   name: "ĐẠI TIỆC DƯA",
