@@ -5,7 +5,7 @@ Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến đ
 
 ## [1.1.5] — 2026-11-12
 
-Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 72 unit tests**.
+Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 76 unit tests**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
@@ -20,7 +20,7 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 - `scripts/smoke-ssr.tsx` — headless render smoke test toàn bộ menu/modal tree (`react-dom/server`)
 - `assets/corner-menu.svg` — animation SMIL minh họa 2 panel góc (nhúng trong README)
 - CI GitHub Actions (`.github/workflows/ci.yml`): npm ci → npm run check
-- Tests: **72/72** (thêm runSave 5 · storage clearAllProgress 1 · changelog 2 · i18n v1.1.5 keys 2)
+- Tests: **76/76** (thêm runSave 5 · settings 5 · storage clearAllProgress 1 · changelog 2 · i18n v1.1.5 keys 2)
 
 ### Fixed
 - **Phím tắt rò rỉ qua modal**: Enter (bắt đầu), R (restart), P (pause), M (mute), Space (slam) vẫn kích hoạt game khi đang mở modal từ menu — `Modal` chặn ở capture phase (`stopImmediatePropagation`), phím Escape đóng modal
