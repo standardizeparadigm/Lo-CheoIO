@@ -63,6 +63,8 @@ function settingsUiKeys(): string[] {
     "settings.clearData",
     "settings.clearDataDesc",
     "settings.clearDataConfirm",
+    // shared confirm/cancel wording used by the two-step danger zone
+    "common.cancel",
     // presets (generated from the catalogue — stays in sync automatically)
     ...PRESET_LIST.flatMap((p) => [`settings.preset.${p.id}`, `settings.preset.${p.id}Desc`]),
     "settings.preset.custom",
