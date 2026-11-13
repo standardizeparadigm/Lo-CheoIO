@@ -6,7 +6,7 @@
 
 1. **Copy `src/i18n/locales/vi.ts`** → `src/i18n/locales/<lang>.ts`, dịch toàn bộ value (không đổi key, không đổi thứ tự).
 2. Đăng ký trong `src/i18n/i18n.ts`: thêm vào `LANGUAGES`, `detectInitialLanguage()` (prefix trình duyệt), `numberLocale()` nếu cần locale số riêng.
-3. Thêm vào `LanguageSwitcher.tsx` danh sách hiển thị (chữ ngắn gọn: `VI · EN · …`).
+3. Thêm mã vào `LANGUAGES` (`src/i18n/i18n.ts`) — `LanguageSection` trong Settings tự sinh nút (cờ + tên bản ngữ), không còn `LanguageSwitcher` riêng từ v1.1.6.
 4. Chạy `npm run check` — parity test sẽ **fail** nếu thiếu key nào.
 5. Cập nhật docs: README (10 ngôn ngữ + mục languages), `docs/DESCRIPTION.md`, launcher (nếu muốn menu launcher dịch theo).
 
