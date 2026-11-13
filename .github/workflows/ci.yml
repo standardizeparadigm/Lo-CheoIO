@@ -21,3 +21,6 @@ jobs:
 
       - name: Typecheck + unit tests + single-file build
         run: npm run check
+
+      - name: README sync (10 locales)
+        run: node scripts/check-readme-sync.mjs
