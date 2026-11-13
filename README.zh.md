@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-生产构建)
@@ -32,23 +32,18 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.4 新特性
+## 🆕 v1.1.5 新特性
 
-- 🎮 **全新 2 种模式 — 共 9 种** — **连击节庆**（连击判定窗口**延长至两倍** 5.4 秒，每颗 +15% 分数，腌菜雨略密，危险物 ×1.25 — 倍率如烟花般蹿升）与**腌菜盛宴**（落得慢 ×0.78 却近两倍密集，**满罐奖励 ×2.5**，每颗 ×0.6 — «农夫打法»，多多灌满）。两种模式都有专属菜单图标与卡面辉光。
-- 🏆 **2 枚全新成就** — **钢铁连击**（任意模式单局 40 连击）& **满桌盛宴**（腌菜盛宴单局装满 3 罐）。共计 **16 项成就**。
-- 🌐 **游戏内 7 种语言** — 新增 **Español** 与 **Français**，与 VI/EN/中/日/한/ES/FR 并列：每个语言约 207 个翻译键，`t()` 越南语回退，同步 `<html lang>`，数字按 locale 分组（新增 es-ES / fr-FR）。
-- 🐛 **彻底修复 Windows 启动器闪退** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`：`play-windows.bat` 现为 **CRLF + UTF-8 BOM**，配合 `chcp 65001`，延迟展开 `!TSTR!`，越南语**保留完整声调**。新增 `.gitattributes` 强制所有 `*.bat`/`*.cmd` 使用 CRLF —— 永不回潮。
-- 🚀 **多语言动画启动器** — 三大启动器（`play-linux.sh` · `play-mac.command` · `play-windows.bat`）现支持 **7 种语言**（VI/EN/中/日/한/ES/FR），`L` 键七种语言循环切换，闪光分隔条在金/粉/青之间轮转；越南语菜单保留**完整声调**。详见 [scripts/README.md](scripts/README.md)。
-- 📖 **10 种语言的 README 全部美化** — 横幅、9 模式网格、7 语言彩带、闪光分隔条（全部 SMIL 动画）—— 更详细、更完整。
-- 🧪 **61 项单元测试**（55 → 61）— `npm run check` 全绿。
+- 🧭 **主菜单彻底精简** —— 所有游戏相关功能都在**左下角 GAME 面板**：**开始游戏** · **继续游戏** · **游戏模式** · **排行榜**（TOP 8）· **成就**（16）· **设置**。所有项目信息都在**右下角 INFO 面板**：**关于作者** · **更新日志**（游戏内直达）· **退出**。
+- ⏸️ **「继续游戏」—— 未完成的对局一键复活** —— 对局中途离开（暂停 → 返回菜单）会自动快照到 `locheo.run.v1`；按**继续游戏**即原样恢复：分数、罐子、裂纹、体力、连击、护盾。仅当确有未完成对局时按钮才会亮起。
+- ⚙️ **游戏内设置** —— **音效** · **背景音乐** · **屏幕震动** · **减少动态效果** —— 即时生效、无需重启；另有两步确认的**「清除本地数据」**危险区。
+- 🐛 **修复快捷键穿透弹窗** —— Enter/R/P/M/Space 不再从弹窗后方触发游戏；**「继续游戏」stale closure**；**`prefers-reduced-motion` 现在禁用全部动画**。
+- 📖 **10 种语言 README 全面美化** —— V1.1.5 横幅、全新角落面板 SMIL 动画，更详细更完整。
+- 🧪 **76 项单元测试**（从 61 增至 76）—— `npm run check` 全绿；新增 **GitHub Actions CI**（npm ci → npm run check）。
 
-<img src="assets/new-modes.svg" alt="v1.1.4 新模式 — 连击节庆与腌菜盛宴" width="100%" />
+<img src="assets/corner-menu.svg" alt="左下 GAME 面板与右下 INFO 面板滑入（SMIL 动画）" width="100%" />
 
-<img src="assets/modes.svg" alt="9 种模式 — Classic · Zen · Inferno · 60秒冲刺 · 黄金丰收 · 腌菜暴雨 · 薄瓷 · 连击节庆 · 腌菜盛宴" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="Lọ Chéo 图标 — 倾斜的腌菜罐配金盖（SMIL 动画）" width="150" /></div>
-
-→ 完整说明：[docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ 完整细节：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ 亮点功能
 
@@ -64,7 +59,7 @@
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 61 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 76 项单元测试（vitest）覆盖 modes / achievements / storage / i18n —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -127,7 +122,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 61 项单元测试（modes / achievements / storage / i18n）
+npm run test       # vitest — 76 项单元测试（modes / achievements / storage / i18n）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -136,7 +131,7 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.4，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.5，dev/build/test/check 脚本
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
@@ -149,6 +144,7 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 种模式（SMIL 动画）
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # 动态 AGPL-3.0 copyleft 印章（SMIL 动画）
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -165,7 +161,8 @@ lo-cheoio/
 │     ├─ v1.1.1.md         # v1.1.1 版本说明
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
-│     └─ v1.1.4.md         # current release notes (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -179,7 +176,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 入口，StrictMode
 │  ├─ App.tsx              # 阶段状态机 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4"（唯一版本来源）
+│  ├─ version.ts           # APP_VERSION = "1.1.5"（唯一版本来源）
 │  ├─ index.css            # tailwind v4 主题 + 全部动画/渐变
 │  ├─ assets/fonts/        # woff2 子集（Be Vietnam Pro ×6，Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range，100% 离线
@@ -189,7 +186,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts（key 源）· en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
-│  │  ├─ StartScreen.tsx   # 主菜单：极光、流光字、选模式、成就
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # 9 张模式卡（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
 │  │  ├─ GameOverScreen.tsx     # 罐子碎了！+ 分数 + 新成就
@@ -201,7 +199,10 @@ lo-cheoio/
 │  │  ├─ modes.ts          # 游戏模式 + 平衡公式（纯函数）
 │  │  ├─ achievements.ts   # 16 枚徽章 + 纯校验器（纯函数）
 │  │  ├─ storage.ts        # localStorage：TOP 8、进度、成就
-│  │  └─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
+│  │  ├─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
 └─ tests/                  # vitest — modes、achievements、storage、i18n
 ```
@@ -244,6 +245,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | 版本 | 日期 | 说明 |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **76 项测试** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
@@ -256,7 +258,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 61 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 76 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 
