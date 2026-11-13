@@ -444,3 +444,13 @@
     transition: none !important;
   }
 }
+
+/* Keyboard focus ring — turmeric on jade, visible on every interactive surface */
+:focus-visible {
+  outline: 3px solid #ffc94a;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
