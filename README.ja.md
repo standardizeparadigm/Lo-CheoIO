@@ -40,7 +40,7 @@
 - ⚙️ **ゲーム内設定** —— **効果音** · **BGM** · **画面の揺れ** · **動作を減らす** —— 即時反映・リロード不要。二段階確認の**「保存データを消去」**危険ゾーン付き。
 - 🐛 **モーダル越しにショートカットが漏れる問題を修正** —— Enter/R/P/M/Space がモーダル背後のゲームを発動しなくなりました。**「つづきから」の stale closure**、**`prefers-reduced-motion` が全アニメーションを無効化**するように。
 - 📖 **10言語 README をさらに美しく** —— V1.1.5 バナー、新しいコーナーパネルの SMIL アニメーション、より詳細で充実した内容。
-- 🧪 **ユニットテスト 107 件**（61 から増加）—— `npm run check` グリーン。新しい **GitHub Actions CI**（npm ci → npm run check）。
+- 🧪 **ユニットテスト 113 件**（61 から増加）—— `npm run check` グリーン。新しい **GitHub Actions CI**（npm ci → npm run check）。
 
 <img src="assets/corner-menu.svg" alt="左下 GAME パネルと右下 INFO パネルがスライドイン（SMIL アニメーション）" width="100%" />
 
@@ -60,7 +60,7 @@
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n をカバーする107件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n をカバーする113件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 107件のユニットテスト（modes / achievements / storage / i18n）
+npm run test       # vitest — 113件のユニットテスト（modes / achievements / storage / i18n）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -249,7 +249,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | バージョン | 日付 | ノート |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **107テスト** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
@@ -286,7 +286,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 ## 🤝 コントリビュート
 
 1. リポジトリをForkし、`arena/<名前>` または `feat/<名前>` の命名規則でブランチを作成。
-2. PRを出す前に `npm run check` をグリーンに（typecheck + 107テスト + build）。
+2. PRを出す前に `npm run check` をグリーンに（typecheck + 113テスト + build）。
 3. 本当に必要な場合以外、ランタイム依存を追加しない — 理念：**1ファイル、ネットワーク不要、永遠に遊べる**。
 4. PRには影響する画面/モードを明記し、ゲームプレイ変更時はクリップを添付してください。
 
