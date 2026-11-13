@@ -336,6 +336,12 @@ const en: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "Restore defaults? Language stays as chosen.",
   "common.cancel": "CANCEL",
   "pause.leftSuffix": "LEFT",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "ALL",
+  "changelog.releases": "{n} releases",
+  "changelog.filterHint": "Filter by release tier",
 };
 
 export default en;

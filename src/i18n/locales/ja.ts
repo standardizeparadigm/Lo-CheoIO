@@ -336,6 +336,12 @@ const ja: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "既定に戻しますか？言語はそのままです。",
   "common.cancel": "キャンセル",
   "pause.leftSuffix": "残り",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "すべて",
+  "changelog.releases": "{n} リリース",
+  "changelog.filterHint": "リリース層で絞り込み",
 };
 
 export default ja;

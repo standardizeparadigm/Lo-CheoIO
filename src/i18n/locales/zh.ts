@@ -330,6 +330,12 @@ const zh: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "恢复默认？语言会保留。",
   "common.cancel": "取消",
   "pause.leftSuffix": "剩余",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "全部",
+  "changelog.releases": "{n} 个版本",
+  "changelog.filterHint": "按发布层级筛选",
 };
 
 export default zh;

@@ -25,6 +25,13 @@
   --color-brine-500: #8cc63f;
 
   --color-plum-500: #6b2d5c;
+  /* v1.1.7 — release tiers: PATCH violet, UPDATE gold (turmeric), MAJOR pink */
+  --color-violet-400: #c39bff;
+  --color-violet-500: #9d6bff;
+  --color-violet-600: #7442d6;
+  --color-pink-400: #ff8fd0;
+  --color-pink-500: #ff5fb0;
+  --color-pink-600: #d92e86;
   --color-clay-100: #fdf3e0;
 }
 

@@ -336,6 +336,12 @@ const es: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "¿Restablecer? El idioma se conserva.",
   "common.cancel": "CANCELAR",
   "pause.leftSuffix": "RESTANTE",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "TODAS",
+  "changelog.releases": "{n} versiones",
+  "changelog.filterHint": "Filtrar por nivel de versión",
 };
 
 export default es;

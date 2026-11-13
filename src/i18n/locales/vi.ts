@@ -366,6 +366,12 @@ const vi = {
   "settings.resetDefaultsConfirm": "Về mặc định? Ngôn ngữ vẫn giữ nguyên.",
   "common.cancel": "HUỶ",
   "pause.leftSuffix": "CÒN LẠI",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "TẤT CẢ",
+  "changelog.releases": "{n} bản",
+  "changelog.filterHint": "Lọc theo tầng phát hành",
 } as const;
 
 export default vi;

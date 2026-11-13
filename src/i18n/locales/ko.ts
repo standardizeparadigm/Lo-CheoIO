@@ -336,6 +336,12 @@ const ko: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "기본값으로 되돌릴까요? 언어는 그대로 유지됩니다.",
   "common.cancel": "취소",
   "pause.leftSuffix": "남음",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "전체",
+  "changelog.releases": "{n}개 릴리스",
+  "changelog.filterHint": "릴리스 등급으로 필터",
 };
 
 export default ko;
