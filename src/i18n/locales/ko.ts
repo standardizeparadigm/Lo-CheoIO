@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — 한국어 메시지. vi.ts와 동일한 키 세트 (테스트로 검증).
+   Lọ Chéo — Korean messages (한국어)
+   =====================================================================
+   302 keys · number locale: ko-KR
+
+   Mirrors vi.ts 1:1. Uses the polite 해요체 register in body copy and
+   noun-phrase labels in buttons, which is the convention for game UI.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
@@ -31,7 +39,7 @@ const ko: Record<MessageKey, string> = {
 
   "scoreboard.title": "절임항아리 명예의 전당",
   "scoreboard.empty": "아직 절임장이 없습니다.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "상위 {n}",
   "scoreboard.row": "Lv {level} · {jars}항아리",
 
   "gameover.kicker": "도자기가 버티지 못했습니다",
@@ -336,6 +344,12 @@ const ko: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "기본값으로 되돌릴까요? 언어는 그대로 유지됩니다.",
   "common.cancel": "취소",
   "pause.leftSuffix": "남음",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "전체",
+  "changelog.releases": "{n}개 릴리스",
+  "changelog.filterHint": "릴리스 등급으로 필터",
 };
 
 export default ko;

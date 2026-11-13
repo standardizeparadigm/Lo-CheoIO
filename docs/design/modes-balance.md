@@ -1,6 +1,26 @@
 # Modes balance — công thức & triết lý cân bằng 9 chế độ
 
-Nguồn sự thật: `src/game/modes.ts` + test `tests/modes.test.ts` & `tests/modes-balance.test.ts`.
+Nguồn sự thật: `src/game/modes/<id>.ts` (một file mỗi chế độ, từ v1.1.7 — trước đó là `src/game/modes.ts`) ·
+công thức trong `src/game/modeMath.ts` · test `tests/modes.test.ts` & `tests/modes-balance.test.ts` &
+`tests/modes-split.test.ts`.
+
+## Bảng số nhanh (đọc trực tiếp từ 9 file record)
+
+| # | Chế độ | `id` | score | speed | hazard | spawn | knob riêng |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | MUỐI DƯA CỔ ĐIỂN | `classic` | ×1.0 | ×1.0 | ×1.0 | ×1.0 | — |
+| 2 | THẢNH THƠI | `zen` | ×0.5 | ×0.8 | ×0 | ×1.1 | hazard tắt hẳn |
+| 3 | ỚT LỬA | `inferno` | ×1.5 | ×1.35 | ×1.8 | ×0.85 | — |
+| 4 | ĐUA 60 GIÂY | `blitz` | ×1.25 | ×1.12 | ×1.2 | ×0.9 | `timeLimit: 60` |
+| 5 | MÙA VÀNG | `goldrush` | ×1.0 | ×1.0 | ×1.0 | ×1.0 | `goldMult: 2.6` |
+| 6 | MƯA DƯA | `storm` | ×0.75 | ×0.88 | ×1.5 | ×0.72 | — |
+| 7 | GỐM MỎNG | `hardcore` | ×2.0 | ×1.1 | ×1.3 | ×0.95 | `maxCracks: 1` |
+| 8 | LỄ HỘI COMBO | `combo` | ×1.15 | ×1.0 | ×1.0 | ×1.0 | `comboWindowMult: 2` |
+| 9 | ĐẠI TIỆC DƯA | `feast` | ×0.6 | ×1.0 | ×1.0 | ×0.5 | `jarBonusMult: 2.5` |
+
+> Bảng này **phải khớp** `src/game/modes/*.ts`; `tests/modes-split.test.ts` khoá sự tồn tại và
+> thứ tự, `tests/modes-balance.test.ts` khoá các con số. Khi chỉnh cân bằng, sửa file record —
+> đừng sửa engine.
 
 ## Công thức lõi
 

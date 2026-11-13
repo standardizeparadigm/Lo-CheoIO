@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — Spanish (Español) messages. Must mirror vi.ts exactly (tested).
+   Lọ Chéo — Spanish messages (Español)
+   =====================================================================
+   302 keys · number locale: es-ES
+
+   Mirrors vi.ts 1:1. Peninsular Spanish: «tú» imperatives in instructions,
+   «ajustes» for settings, «récord» for best score.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
@@ -31,7 +39,7 @@ const es: Record<MessageKey, string> = {
 
   "scoreboard.title": "SALÓN DE LA FAMA DEL ENCURTIDO",
   "scoreboard.empty": "Aún nadie ha encurtido nada.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "MEJORES {n}",
   "scoreboard.row": "NIVEL {level} · {jars} TARROS",
 
   "gameover.kicker": "la cerámica aguantó lo suyo",
@@ -256,7 +264,7 @@ const es: Record<MessageKey, string> = {
   "game.settingsHint": "SFX · música · sacudida · movimiento",
   "info.about": "SOBRE EL AUTOR",
   "info.aboutHint": "Standardize Paradigm",
-  "info.changelog": "CHANGELOG",
+  "info.changelog": "CAMBIOS",
   "info.quit": "SALIR",
   "close.aria": "Cerrar",
   "modes.title": "ELIGE TU MODO",
@@ -284,7 +292,7 @@ const es: Record<MessageKey, string> = {
   "about.license": "Licencia: AGPL-3.0-only © 2026",
   "about.fonts": "Fuentes: Be Vietnam Pro & Bungee — SIL Open Font License 1.1",
   "about.thanks": "¡Gracias por pasar por la cocina de encurtidos! 🫙",
-  "changelog.title": "CHANGELOG",
+  "changelog.title": "CAMBIOS",
   "changelog.current": "actual",
   "quit.title": "¡HASTA LUEGO!",
   "quit.thanks": "Gracias por visitar la cocina de encurtidos.",
@@ -336,6 +344,12 @@ const es: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "¿Restablecer? El idioma se conserva.",
   "common.cancel": "CANCELAR",
   "pause.leftSuffix": "RESTANTE",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "TODAS",
+  "changelog.releases": "{n} versiones",
+  "changelog.filterHint": "Filtrar por nivel de versión",
 };
 
 export default es;

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Sơ đồ kiến trúc Lọ Chéo v1.1.7 — input, engine, state, render, audio, i18n, storage và UI, kèm luồng dữ liệu chạy (hoạt họa SMIL)">
+  <defs>
+    <linearGradient id="arBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a2422"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <marker id="arArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2bb48c"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="420" rx="18" fill="url(#arBg)"/>
+  <rect x="1" y="1" width="1198" height="418" rx="18" fill="none" stroke="#123f38" stroke-width="2"/>
+
+  <text x="600" y="34" text-anchor="middle" font-family="'Arial Black','Bungee',sans-serif" font-weight="900" font-size="20" letter-spacing="4" fill="#fdf3e0">KIẾN TRÚC <tspan fill="#f5a81c">v1.1.7</tspan></text>
+  <text x="600" y="54" text-anchor="middle" font-family="'Courier New',monospace" font-size="10" letter-spacing="3" fill="#2bb48c">MỘT CHIỀU DỮ LIỆU · KHÔNG PHỤ THUỘC VÒNG</text>
+
+  <g font-family="'Courier New',monospace" font-size="10" font-weight="700" letter-spacing="1.4" text-anchor="middle">
+
+    <!-- row 1 : input → engine -->
+    <g>
+      <rect x="40" y="86" width="220" height="62" rx="10" fill="#123f38" stroke="#2bb48c" stroke-width="1.6"/>
+      <text x="150" y="112" fill="#b6e07a">INPUT</text>
+      <text x="150" y="130" fill="#fdf3e0" fill-opacity="0.65" font-size="9">bàn phím · cảm ứng · hotkey</text>
+    </g>
+
+    <g>
+      <rect x="320" y="86" width="240" height="62" rx="10" fill="#0f322c" stroke="#2bb48c" stroke-width="1.6"/>
+      <text x="440" y="112" fill="#f5a81c">ENGINE</text>
+      <text x="440" y="130" fill="#fdf3e0" fill-opacity="0.65" font-size="9">update() · spawn() · physics</text>
+    </g>
+
+    <g>
+      <rect x="620" y="86" width="240" height="62" rx="10" fill="#0f322c" stroke="#2bb48c" stroke-width="1.6"/>
+      <text x="740" y="112" fill="#f5a81c">STATE</text>
+      <text x="740" y="130" fill="#fdf3e0" fill-opacity="0.65" font-size="9">điểm · hũ · combo · cấp</text>
+    </g>
+
+    <g>
+      <rect x="920" y="86" width="240" height="62" rx="10" fill="#123f38" stroke="#2bb48c" stroke-width="1.6"/>
+      <text x="1040" y="112" fill="#b6e07a">RENDER</text>
+      <text x="1040" y="130" fill="#fdf3e0" fill-opacity="0.65" font-size="9">canvas 2D · hạt · rung</text>
+    </g>
+
+    <!-- row 2 : services -->
+    <g>
+      <rect x="40" y="212" width="260" height="62" rx="10" fill="#0f322c" stroke="#8cc63f" stroke-width="1.6"/>
+      <text x="170" y="238" fill="#8cc63f">AUDIO</text>
+      <text x="170" y="256" fill="#fdf3e0" fill-opacity="0.65" font-size="9">WebAudio · ngũ cung · không file</text>
+    </g>
+
+    <g>
+      <rect x="330" y="212" width="260" height="62" rx="10" fill="#0f322c" stroke="#8cc63f" stroke-width="1.6"/>
+      <text x="460" y="238" fill="#8cc63f">I18N</text>
+      <text x="460" y="256" fill="#fdf3e0" fill-opacity="0.65" font-size="9">7 locale · t() · 302 khoá</text>
+    </g>
+
+    <g>
+      <rect x="620" y="212" width="260" height="62" rx="10" fill="#0f322c" stroke="#8cc63f" stroke-width="1.6"/>
+      <text x="750" y="238" fill="#8cc63f">STORAGE</text>
+      <text x="750" y="256" fill="#fdf3e0" fill-opacity="0.65" font-size="9">safeStorage · locheo.*.v1</text>
+    </g>
+
+    <g>
+      <rect x="910" y="212" width="250" height="62" rx="10" fill="#0f322c" stroke="#8cc63f" stroke-width="1.6"/>
+      <text x="1035" y="238" fill="#8cc63f">CHANGELOG</text>
+      <text x="1035" y="256" fill="#fdf3e0" fill-opacity="0.65" font-size="9">tierFor() · 9 bản · 3 tầng</text>
+    </g>
+
+    <!-- row 3 : surfaces -->
+    <g>
+      <rect x="120" y="338" width="300" height="56" rx="10" fill="#123f38" stroke="#f5a81c" stroke-width="1.8"/>
+      <text x="270" y="362" fill="#f5a81c">MENU</text>
+      <text x="270" y="380" fill="#fdf3e0" fill-opacity="0.65" font-size="9">panel góc GAME · INFO · nền 6 lớp</text>
+    </g>
+    <g>
+      <rect x="450" y="338" width="300" height="56" rx="10" fill="#123f38" stroke="#f5a81c" stroke-width="1.8"/>
+      <text x="600" y="362" fill="#f5a81c">HUD + MODAL</text>
+      <text x="600" y="380" fill="#fdf3e0" fill-opacity="0.65" font-size="9">cài đặt 6 mục · focus trap</text>
+    </g>
+    <g>
+      <rect x="780" y="338" width="300" height="56" rx="10" fill="#123f38" stroke="#f5a81c" stroke-width="1.8"/>
+      <text x="930" y="362" fill="#f5a81c">PERSISTENCE</text>
+      <text x="930" y="380" fill="#fdf3e0" fill-opacity="0.65" font-size="9">ván dở · điểm · thành tựu</text>
+    </g>
+
+    <!-- connectors, drawn under the pulse dots -->
+    <g stroke="#2bb48c" stroke-width="1.6" fill="none" marker-end="url(#arArrow)" opacity="0.75">
+      <path d="M260 117 H316"/>
+      <path d="M560 117 H616"/>
+      <path d="M860 117 H916"/>
+      <path d="M440 148 C440 180 300 175 200 208"/>
+      <path d="M470 148 C470 180 470 175 460 208"/>
+      <path d="M740 148 C740 180 760 175 750 208"/>
+      <path d="M1040 148 C1040 180 1040 175 1035 208"/>
+      <path d="M180 274 C180 310 250 305 265 334"/>
+      <path d="M460 274 C460 300 520 300 570 334"/>
+      <path d="M750 274 C750 300 830 300 900 334"/>
+    </g>
+
+    <!-- data pulses travelling along the connectors -->
+    <circle r="3.2" fill="#fff3c4">
+      <animateMotion dur="2.4s" repeatCount="indefinite" path="M260 117 H316"/>
+    </circle>
+    <circle r="3.2" fill="#fff3c4">
+      <animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite" path="M560 117 H616"/>
+    </circle>
+    <circle r="3.2" fill="#fff3c4">
+      <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M860 117 H916"/>
+    </circle>
+    <circle r="2.8" fill="#b6e07a">
+      <animateMotion dur="3.2s" begin="0.3s" repeatCount="indefinite" path="M440 148 C440 180 300 175 200 208"/>
+    </circle>
+    <circle r="2.8" fill="#b6e07a">
+      <animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite" path="M740 148 C740 180 760 175 750 208"/>
+    </circle>
+    <circle r="2.8" fill="#ff8fd0">
+      <animateMotion dur="3.6s" begin="0.7s" repeatCount="indefinite" path="M460 274 C460 300 520 300 570 334"/>
+    </circle>
+
+    <!-- legend -->
+    <g font-size="9" letter-spacing="1.2">
+      <circle cx="60" cy="70" r="3.4" fill="#2bb48c"/><text x="72" y="73.5" fill="#fdf3e0" fill-opacity="0.6" text-anchor="start">luồng chính</text>
+      <circle cx="180" cy="70" r="3.4" fill="#8cc63f"/><text x="192" y="73.5" fill="#fdf3e0" fill-opacity="0.6" text-anchor="start">dịch vụ</text>
+      <circle cx="270" cy="70" r="3.4" fill="#f5a81c"/><text x="282" y="73.5" fill="#fdf3e0" fill-opacity="0.6" text-anchor="start">mặt hiển thị</text>
+    </g>
+  </g>
+</svg>

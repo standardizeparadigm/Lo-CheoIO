@@ -1,6 +1,14 @@
 /* =====================================================================
-   Lọ Chéo — Vietnamese messages (source of truth for the key set).
-   en.ts and zh.ts must mirror this exact key set (enforced by tests).
+   Lọ Chéo — Vietnamese messages (Tiếng Việt)
+   =====================================================================
+   302 keys · number locale: vi-VN
+
+   This file IS the key set: every other locale is checked against it, and a
+   key that exists here but nowhere else will fail `npm run check:i18n`.
+   Dấu tiếng Việt phải đầy đủ — không viết tắt, không bỏ thanh.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 const vi = {
@@ -366,6 +374,12 @@ const vi = {
   "settings.resetDefaultsConfirm": "Về mặc định? Ngôn ngữ vẫn giữ nguyên.",
   "common.cancel": "HUỶ",
   "pause.leftSuffix": "CÒN LẠI",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "TẤT CẢ",
+  "changelog.releases": "{n} bản",
+  "changelog.filterHint": "Lọc theo tầng phát hành",
 } as const;
 
 export default vi;

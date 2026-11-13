@@ -1,5 +1,14 @@
 /* =====================================================================
-   Lọ Chéo — English messages. Must mirror vi.ts exactly (tested).
+   Lọ Chéo — English messages (English)
+   =====================================================================
+   302 keys · number locale: en-US
+
+   Mirrors vi.ts 1:1. This is also the fallback language for the in-game
+   changelog bullets (the panel shows `en` for every locale except vi).
+   Prefer short verbs: the corner panels are narrow.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
@@ -336,6 +345,12 @@ const en: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "Restore defaults? Language stays as chosen.",
   "common.cancel": "CANCEL",
   "pause.leftSuffix": "LEFT",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "ALL",
+  "changelog.releases": "{n} releases",
+  "changelog.filterHint": "Filter by release tier",
 };
 
 export default en;

@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — 日本語メッセージ。vi.ts と同一のキーセット（テストで検証）。
+   Lọ Chéo — Japanese messages (日本語)
+   =====================================================================
+   302 keys · number locale: ja-JP
+
+   Mirrors vi.ts 1:1. Katakana for loanwords (モード, コンボ), kanji for
+   verbs. Mixed full-width punctuation; keep labels short for the panels.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
@@ -336,6 +344,12 @@ const ja: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "既定に戻しますか？言語はそのままです。",
   "common.cancel": "キャンセル",
   "pause.leftSuffix": "残り",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "すべて",
+  "changelog.releases": "{n} リリース",
+  "changelog.filterHint": "リリース層で絞り込み",
 };
 
 export default ja;

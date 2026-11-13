@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { APP_VERSION } from "../version";
+import { MenuBackground } from "./menu/background";
 import { fmtNum } from "../i18n/i18n";
 import { useI18n } from "../i18n/useI18n";
 import type { MessageKey } from "../i18n/i18n";
@@ -91,15 +92,8 @@ export default function StartScreen({
 
   return (
     <div className="absolute inset-0 z-40 flex flex-col overflow-hidden">
-      {/* ------- ambient background layers ------- */}
-      <div className="aurora-bg pointer-events-none absolute inset-0" />
-      <div className="nebula-a" aria-hidden="true" />
-      <div className="nebula-b" aria-hidden="true" />
-      <div className="light-ray" aria-hidden="true" />
-      <div className="star-field-far" aria-hidden="true" />
-      <div className="star-field" aria-hidden="true" />
-      <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-45" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_20%_8%,rgba(6,26,26,0.42)_0%,rgba(6,26,26,0.88)_62%,#061a1a_100%)]" />
+      {/* ------- ambient background layers (see background/layers.ts) ------- */}
+      <MenuBackground />
 
       <div className="relative flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col justify-center px-4 pt-12 pb-4 sm:px-8">

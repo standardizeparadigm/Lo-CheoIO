@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — French (Français) messages. Must mirror vi.ts exactly (tested).
+   Lọ Chéo — French messages (Français)
+   =====================================================================
+   302 keys · number locale: fr-FR
+
+   Mirrors vi.ts 1:1. Uses «vous» throughout, non-breaking space before
+   « : » and « ! » as French typography requires; labels stay short.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
@@ -31,7 +39,7 @@ const fr: Record<MessageKey, string> = {
 
   "scoreboard.title": "PANTHÉON DES PICKLES",
   "scoreboard.empty": "Personne n'a encore picklé.",
-  "scoreboard.top": "TOP {n}",
+  "scoreboard.top": "MEILLEURS {n}",
   "scoreboard.row": "NIV {level} · {jars} BOCAUX",
 
   "gameover.kicker": "la céramique a cédé",
@@ -256,7 +264,7 @@ const fr: Record<MessageKey, string> = {
   "game.settingsHint": "SFX · musique · tremblement · mouvement",
   "info.about": "À PROPOS DE L'AUTEUR",
   "info.aboutHint": "Standardize Paradigm",
-  "info.changelog": "CHANGELOG",
+  "info.changelog": "NOUVEAUTÉS",
   "info.quit": "QUITTER",
   "close.aria": "Fermer",
   "modes.title": "CHOISIS TON MODE",
@@ -284,7 +292,7 @@ const fr: Record<MessageKey, string> = {
   "about.license": "Licence : AGPL-3.0-only © 2026",
   "about.fonts": "Polices : Be Vietnam Pro & Bungee — SIL Open Font License 1.1",
   "about.thanks": "Merci de passer à la cuisine à pickles ! 🫙",
-  "changelog.title": "CHANGELOG",
+  "changelog.title": "NOUVEAUTÉS",
   "changelog.current": "actuel",
   "quit.title": "À BIENTÔT !",
   "quit.thanks": "Merci de ta visite à la cuisine à pickles.",
@@ -336,6 +344,12 @@ const fr: Record<MessageKey, string> = {
   "settings.resetDefaultsConfirm": "Réinitialiser ? La langue est conservée.",
   "common.cancel": "ANNULER",
   "pause.leftSuffix": "RESTANT",
+  "changelog.tier.major": "MAJOR",
+  "changelog.tier.minor": "UPDATE",
+  "changelog.tier.patch": "PATCH",
+  "changelog.filter.all": "TOUTES",
+  "changelog.releases": "{n} versions",
+  "changelog.filterHint": "Filtrer par niveau de version",
 };
 
 export default fr;
