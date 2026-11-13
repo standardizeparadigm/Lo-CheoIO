@@ -3,6 +3,37 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.8] — 2026-11-14
+
+Bản **vá cuối cùng trước 1.2.0**: **màn hình bắt đầu hết tràn bố cục — chữ CHÉO và chú lọ không còn bị cắt ngang · dải ticker cao cố định, dòng bản quyền không còn bị mép dưới cắt · ẩn scrollbar vẽ đè lên nền · mobile xếp dọc panel · achievements tách thành 16 file · thêm thư mục `menu/layout/` và `menu/ticker/` · 286 unit tests (35 file) · toàn bộ 10 README, docs, SVG, launcher đồng bộ 1.1.8**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md)
+
+### Fixed
+- **Chữ CHÉO và chú lọ bị cắt ngang** — hàng panel GAME/INFO và dải ticker là hai flex sibling `shrink-0` của scene nên chiếm `415px + 55px` trong cửa sổ `720px`, chỉ để lại cho scene **250px**; mọi thứ cao hơn 250px bị cắt bởi một đường may vô hình ở `y≈247px`. Nay cả hai **nổi trên scene** (`position: absolute`) và scene tự giữ chỗ bằng `padding-bottom` đúng bằng chiều cao hàng nổi
+- **Chú lọ mascot mất nửa thân** — không phải lỗi SVG: `JarLogo` vẫn vẽ đủ `viewBox 0 0 120 140`, nhưng phần dưới nằm ngoài 250px của scene. Sửa bố cục là lọ tự hiện đủ; **không đụng vào file SVG**
+- **Dòng bản quyền dưới ticker bị cắt** — band không có chiều cao cố định nên cột flex cộng dồn thành `732px` trong hộp `720px`. Nay `.menu-ticker` cao cố định `48px` (`--menu-ticker-h`) và dòng `v1.1.8 · AGPL-3.0 · …` nằm **cùng hàng** với marquee thay vì xuống hàng thứ hai
+- **Scrollbar teal vẽ đè lên tinh vân** — `.menu-scene` để lộ track 8px ở mép phải, chồng lên lớp `nebula-a`. Nay ẩn hẳn (`scrollbar-width: none` + `::-webkit-scrollbar { display: none }`)
+- **Hai panel đè nhau trên điện thoại** — `208px + 224px` không thể vừa màn `375px`. Dưới `520px` hàng panel **xếp dọc** thay vì nằm ngang
+- **`CHÉO` cao quá khung ở cửa sổ thấp mà rộng** — cỡ chữ cũ chỉ co theo `17vw`, nên `1920×720` cho glyph `168px` và hai dòng tới `~290px` trong scene `250px`. Nay chặn thêm theo chiều cao: `clamp(3.4rem, min(17vw, 20vh), 10.5rem)`
+- **Chiều cao panel phụ thuộc độ dài bản dịch** — dòng menu cao bao nhiêu là tuỳ hint xuống mấy hàng; tiếng Việt/Đức 3 hàng làm panel `415px`. Nay mỗi dòng khai báo `--menu-row-h` (34px) hoặc `--menu-row-rich-h` (54px), label và hint bị clamp thay vì làm dòng phình ra
+
+### Added
+- **`src/components/menu/layout/`** — `metrics.ts` (mọi con số đo được) · `fit.ts` (`planMenuLayout()` + luật breakpoint, thuần tuý) · `README.md` · `index.ts`. Đây là nơi **duy nhất** biết tổng chiều cao, sau khi lỗi 1.1.7 chứng minh rằng "mỗi phần đều hợp lý" không bảo đảm "tổng hợp lý"
+- **`src/components/menu/ticker/`** — `keys.ts` (14 chuỗi nguyên liệu + `tickerTone()` thuần) · `MenuTicker.tsx` (band cao cố định) · `index.ts`
+- **`src/components/menu/MenuChrome.tsx`** — gộp hàng panel góc + ticker thành một khối `absolute`, tự chuyển sang bố cục xếp dọc dưới `520px`
+- **`tests/menu-layout.test.ts`** — **22 test** khoá phép cộng từng gây tràn, đối chiếu từng hằng số TypeScript với custom property CSS, và khẳng định không còn `shrink-0` trong hàng nổi
+- **`scripts/probe-menu-layout.tsx`** — render `StartScreen` bằng `react-dom/server` rồi kiểm 11 tính chất trên DOM thật; in bảng bố cục cho 5 kích thước màn hình
+- **`src/game/achievements/`** thay cho `achievements.ts` — `types.ts` · `defs/` (**16 file**, mỗi file ghi điều kiện mở khoá và lý do tồn tại) · `index.ts`. API công khai `ACHIEVEMENTS` · `ACHIEVEMENT_MAP` · `checkAchievements` **không đổi**
+- **`tests/achievements-split.test.ts`** — **8 test** chứng minh việc tách 16 file không đổi hành vi: thứ tự id, ánh xạ file ↔ achievement, và mọi id còn xuất hiện trong checker
+
+### Changed
+- **`APP_VERSION` → 1.1.8**; `package.json` + lock, `src/version.ts`, `<meta name="version">`, badge 10 README, ba launcher
+- **Toàn bộ 10 README, `docs/**`, SVG và launcher đồng bộ 1.1.8** — không còn file, ảnh hay SVG nào quảng cáo 1.1.7 như bản hiện tại
+- **Changelog trong game có bản 1.1.8** — 12 gạch đầu dòng vi/en, nằm đầu danh sách
+- **Chuỗi ngày phát hành nối dài** — 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 · **11-14** (nhịp 2 ngày)
+- **286 unit tests trên 35 file** (từ 256/33), `tsc --noEmit` sạch, build ~840 KB (gzip ~391 KB)
+
 ## [1.1.7] — 2026-11-12
 
 Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
@@ -249,6 +280,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.8]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.8
 [1.1.7]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.7
 [1.1.6]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.6
 [1.1.5]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.5
