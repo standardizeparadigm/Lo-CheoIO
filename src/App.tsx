@@ -24,6 +24,7 @@ import {
 import { loadSettings, resetSettingsKeepingLanguage, updateSettings, type GameSettings, type SettingLanguage } from "./game/settings";
 import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
+import { prefersCoarsePointer } from "./utils/mediaQuery";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
@@ -60,7 +61,7 @@ export default function App() {
 
   /* ---------------------------------------------------- boot listeners */
   useEffect(() => {
-    if (window.matchMedia?.("(pointer: coarse)").matches) setTouchMode(true);
+    if (prefersCoarsePointer()) setTouchMode(true);
     // audio unlock only — a mouse click or keypress must NOT flip touch UI on
     const unlock = () => audio.unlock();
     const coarse = () => setTouchMode(true);
