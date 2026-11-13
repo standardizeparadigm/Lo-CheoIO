@@ -5,12 +5,7 @@ import { APP_VERSION } from "../version";
 import { fmtNum } from "../i18n/i18n";
 import type { MessageKey } from "../i18n/i18n";
 import { GameButton, Keycap, Panel, Stat } from "./ui";
-
-export function fmtTime(s: number) {
-  const m = Math.floor(s / 60);
-  const r = Math.floor(s % 60);
-  return `${m}:${r.toString().padStart(2, "0")}`;
-}
+import { fmtTime } from "../utils/time";
 
 export default function PauseScreen({
   stats,
@@ -45,11 +40,17 @@ export default function PauseScreen({
             >
               {t("pause.title")}
             </h2>
-            <span
-              className="mt-1.5 inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.18em]"
-              style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
-            >
-              {t(`mode.${mode}.name` as MessageKey)}
+            <span className="mt-1.5 flex flex-wrap items-center gap-1.5">
+              <span
+                className="inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.18em]"
+                style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
+              >
+                {t(`mode.${mode}.name` as MessageKey)}
+              </span>
+              {/* elapsed run time — was only visible after the run ended */}
+              <span className="inline-block border border-jade-700 px-1.5 py-0.5 font-body text-[9px] font-extrabold tracking-[0.14em] text-clay-100/70 tabular-nums">
+                {fmtTime(stats.time)}
+              </span>
             </span>
           </div>
           <button

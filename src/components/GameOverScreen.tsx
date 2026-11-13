@@ -6,7 +6,7 @@ import { fmtNum } from "../i18n/i18n";
 import { useI18n } from "../i18n/useI18n";
 import type { MessageKey } from "../i18n/i18n";
 import type { ScoreEntry } from "../game/storage";
-import { fmtTime } from "./PauseScreen";
+import { fmtTime } from "../utils/time";
 import { GameButton, JarLogo, Keycap, Panel, ScoreBoard, Stat } from "./ui";
 
 export default function GameOverScreen({
