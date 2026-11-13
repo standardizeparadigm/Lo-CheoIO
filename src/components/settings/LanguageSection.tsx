@@ -1,26 +1,8 @@
 import { useI18n } from "../../i18n/useI18n";
 import { LANGUAGES } from "../../i18n/useI18n";
 import SettingsSection from "./SettingsSection";
+import { metaFor } from "../../i18n/languageMeta";
 import type { SettingLanguage } from "../../game/settings";
-
-const FLAG: Record<SettingLanguage, string> = {
-  vi: "🇻🇳",
-  en: "🇬🇧",
-  zh: "🇨🇳",
-  ja: "🇯🇵",
-  ko: "🇰🇷",
-  es: "🇪🇸",
-  fr: "🇫🇷",
-};
-const NATIVE: Record<SettingLanguage, string> = {
-  vi: "Tiếng Việt",
-  en: "English",
-  zh: "中文",
-  ja: "日本語",
-  ko: "한국어",
-  es: "Español",
-  fr: "Français",
-};
 
 /** Section NGÔN NGỮ — the language switcher lives here since v1.1.6. */
 export default function LanguageSection({
@@ -48,9 +30,9 @@ export default function LanguageSection({
                   : "border-jade-800 bg-jade-900/50 hover:border-jade-600"
               }`}
             >
-              <span aria-hidden="true" className="text-base leading-none">{FLAG[code as SettingLanguage]}</span>
+              <span aria-hidden="true" className="text-base leading-none">{metaFor(code).flag}</span>
               <span className="min-w-0">
-                <span className="block font-body text-[10px] font-extrabold tracking-wide text-clay-100">{NATIVE[code as SettingLanguage]}</span>
+                <span className="block font-body text-[10px] font-extrabold tracking-wide text-clay-100">{metaFor(code).native}</span>
                 <span className="block font-body text-[8px] font-bold tracking-[0.22em] text-jade-500 uppercase">{code}</span>
               </span>
               {active && (
