@@ -19,8 +19,9 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 - 53 i18n keys mới × **7 locale** (VI/EN/ZH/JA/KO/ES/FR); parity test giữ nguyên
 - `scripts/smoke-ssr.tsx` — headless render smoke test toàn bộ menu/modal tree (`react-dom/server`)
 - `assets/corner-menu.svg` — animation SMIL minh họa 2 panel góc (nhúng trong README)
-- CI GitHub Actions (`.github/workflows/ci.yml`): npm ci → npm run check
-- Tests: **99/99** (thêm runSave 5 · settings 5 · storage clearAllProgress 1 · changelog 2 · i18n v1.1.5 keys 2)
+- CI GitHub Actions (`.github/workflows/ci.yml`): npm ci → npm run check → `scripts/check-readme-sync.mjs` (10 READMEs)
+- npm scripts mới: `npm run smoke` (SSR smoke), `npm run check:readme` (README drift gate)
+- Tests: **99/99** (13 files) — +5 runSave · +5 settings · +2 changelog · +2 i18n-v115 · +1 storage clearAllProgress · **+23 hardening**: modes-balance 10 · achievements-defs 5 · version-bump 5 · storage-seed 3
 
 ### Fixed
 - **Phím tắt rò rỉ qua modal**: Enter (bắt đầu), R (restart), P (pause), M (mute), Space (slam) vẫn kích hoạt game khi đang mở modal từ menu — `Modal` chặn ở capture phase (`stopImmediatePropagation`), phím Escape đóng modal
@@ -29,6 +30,8 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 - **`prefers-reduced-motion` thiếu hầu hết animation** — giờ vô hiệu hóa toàn bộ `.anim-*`, marquee, scanlines, shake/flash
 - GameMenu hiển thị số chế độ hardcode `9` → đọc từ `MODE_LIST.length`
 - `docs/releases/v1.1.4.md` tiêu đề còn "(Bản phát hành hiện tại)" — chuyển nhãn sang bản 1.1.5
+- **SEED board bị mutate chéo session** (`loadScores()` trả shallow spread `[...SEED]`) — entry có thể bị ghi đè và lọt vào mọi lần load sau; giờ `seedCopy()` deep-copy từng row
+- **Focus không nhìn thấy được khi bàn phím tab** — thêm `:focus-visible` ring nghệ vàng trên nền ngọc bích; suppression cho focus bằng chuột
 
 ### Changed
 - **`APP_VERSION` → 1.1.5**; `package.json`/lock, `src/version.ts`, launcher ×3 (bat/sh/command), banner V1.1.5
