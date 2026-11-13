@@ -38,7 +38,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 - 🌐 **Language moved all the way into Settings** — the floating top-right switcher and the pause-screen row are gone; it is now a 2-column grid of 7 languages (flag · native name · check mark).
 - 🎛️ **Four one-tap presets + JSON backup** — **SMOOTH** · **BALANCED** · **CINEMATIC** · **SPEEDRUN** (never touching your language) plus export/import so a config can travel between machines.
 - ✨ **The menu became a stage** — drifting nebulae, a breathing light ray, **two twinkling starfields**, a rotating glow ring around the jar, a jar halo, a shine sweep across PLAY; the **author card** gets a perpetually panning gradient border.
-- 🐛 **Five real fixes** — music louder than configured after a reload · Tab escaping modals · the changelog hint hardcoded to v1.1.5 · `updateSettings` returning un-normalised values · focus not held inside a dialog.
+- 🐛 **Eleven real fixes** — music louder than configured after a reload · Tab escaping modals · the changelog hint hardcoded to v1.1.5 · `updateSettings` returning un-normalised values · focus not held inside a dialog · export claiming “copied” with an empty clipboard · toggles reverting when storage is blocked · sound turning itself back on after a reload · zero-weight items spawning at low levels · “NaN” printed for scores · a confirm button that was just a ← glyph.
 - 🧪 **222 unit tests** (29 files, up from 113/14) — new coverage for the settings schema, presets, the backup codec, audio gain math and an i18n↔UI contract test.
 
 <img src="assets/settings-sections.svg" alt="Settings in v1.1.6 — six sections with switches, level bars and pickers (SMIL animation)" width="100%" />
