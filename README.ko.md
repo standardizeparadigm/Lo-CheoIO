@@ -155,7 +155,10 @@ lo-cheoio/
 │  ├─ play-linux.sh        # Linux 런처 — 더블클릭, 풀 컬러 메뉴
 │  └─ README.md            # 터미널 초보자를 위한 런처 가이드
 ├─ docs/
+│  ├─ README.md            # 문서 색인 (v1.1.5)
 │  ├─ DESCRIPTION.md       # 다국어 프로젝트 소개 (vi/en/zh + SEO)
+│  ├─ design/              # menu-corners / save-format / settings-format 스펙
+│  ├─ guides/              # engine 개요 · a11y · 성능 · storage keys · 릴리스 절차…
 │  └─ releases/
 │     ├─ v1.0.0.md         # 첫 릴리스 노트
 │     ├─ v1.1.0.md         # v1.1.0 릴리스 노트
@@ -205,7 +208,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13개 파일 · 107개 테스트(modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 아키텍처 & 성능
