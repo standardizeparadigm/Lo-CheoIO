@@ -25,25 +25,30 @@ export default function InfoMenu({
   onAbout,
   onChangelog,
   onQuit,
+  density = "compact",
 }: {
   onAbout: () => void;
   onChangelog: () => void;
   onQuit: () => void;
+  /** v1.1.8: `rich` shows each row's hint, `compact` drops it */
+  density?: "compact" | "rich";
 }) {
   const { t, lang } = useI18n();
 
   return (
-    <CornerPanel title={t("menu.info")} corner="right">
+    <CornerPanel title={t("menu.info")} corner="right" density={density}>
       <MenuItemButton
         icon={<InfoIcon className="h-5 w-5" />}
         label={t("info.about")}
         hint={t("info.aboutHint")}
+        dense={density === "compact"}
         onClick={onAbout}
       />
       <MenuItemButton
         icon={<ScrollIcon className="h-5 w-5" />}
         label={t("info.changelog")}
         hint={changelogHint(lang === "vi")}
+        dense={density === "compact"}
         onClick={onChangelog}
       />
       <MenuItemButton
