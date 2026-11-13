@@ -10,7 +10,7 @@ import StartScreen from "../src/components/StartScreen";
 import GameMenu from "../src/components/menu/GameMenu";
 import InfoMenu from "../src/components/menu/InfoMenu";
 import ModeSelectModal from "../src/components/menu/ModeSelectModal";
-import SettingsModal from "../src/components/menu/SettingsModal";
+import SettingsModal from "../src/components/settings/SettingsModal";
 import LeaderboardModal from "../src/components/menu/LeaderboardModal";
 import AchievementsModal from "../src/components/menu/AchievementsModal";
 import AboutModal from "../src/components/menu/AboutModal";
@@ -36,6 +36,8 @@ const html = renderToString(
     onResume: noop,
     settings: DEFAULT_SETTINGS,
     onPatchSettings: noop,
+    onChangeLanguage: noop,
+    onResetDefaults: noop,
     onClearAllData: noop,
   } as never),
 );
@@ -45,7 +47,7 @@ const pieces: Array<[string, () => string]> = [
   ["GameMenu", () => renderToString(createElement(GameMenu as never, { resume: null, achievementsUnlocked: 1, achievementsTotal: 16, onPlay: noop, onResume: noop, onModes: noop, onLeaderboard: noop, onAchievements: noop, onSettings: noop } as never))],
   ["InfoMenu", () => renderToString(createElement(InfoMenu as never, { onAbout: noop, onChangelog: noop, onQuit: noop } as never))],
   ["ModeSelectModal", () => renderToString(createElement(ModeSelectModal as never, { mode: "classic", onChange: noop, onClose: noop } as never))],
-  ["SettingsModal", () => renderToString(createElement(SettingsModal as never, { settings: DEFAULT_SETTINGS, onPatch: noop, onClearAllData: noop, onClose: noop } as never))],
+  ["SettingsModal", () => renderToString(createElement(SettingsModal as never, { settings: DEFAULT_SETTINGS, onPatch: noop, onChangeLanguage: noop, onResetDefaults: noop, onClearAllData: noop, onClose: noop } as never))],
   ["LeaderboardModal", () => renderToString(createElement(LeaderboardModal as never, { scores, onClose: noop } as never))],
   ["AchievementsModal", () => renderToString(createElement(AchievementsModal as never, { unlocked: ["first-catch"], onClose: noop } as never))],
   ["AboutModal", () => renderToString(createElement(AboutModal as never, { onClose: noop } as never))],

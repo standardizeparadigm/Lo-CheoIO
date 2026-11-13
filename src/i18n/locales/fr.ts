@@ -299,6 +299,28 @@ const fr: Record<MessageKey, string> = {
   "quit.hint": "Si l'onglet ne se ferme pas tout seul, utilise Ctrl+W (Windows/Linux) ou Cmd+W (macOS).",
   "quit.back": "RETOUR AU MENU",
   "quit.close": "FERMER CET ONGLET",
+
+  "settings.section.audio": "AUDIO",
+  "settings.section.display": "AFFICHAGE & MOUVEMENT",
+  "settings.section.language": "LANGUE",
+  "settings.section.data": "DONNÉES",
+  "settings.sfxVolume": "Volume des effets",
+  "settings.sfxVolumeDesc": "Sons d'attraper, trancher, toucher, SLAM",
+  "settings.musicVolume": "Volume de la musique",
+  "settings.musicVolumeDesc": "Thème pentatonique de fond",
+  "settings.shakeLevel": "Intensité des secousses",
+  "settings.shakeLevelDesc": "Secousses douces ou à pleine puissance",
+  "settings.shakeLevel.low": "FAIBLE",
+  "settings.shakeLevel.high": "FORTE",
+  "settings.visualQuality": "Qualité visuelle",
+  "settings.visualQualityDesc": "FAIBLE : moins de particules, lueur coupée",
+  "settings.visualQuality.low": "FAIBLE",
+  "settings.visualQuality.high": "HAUTE",
+  "settings.autoPauseOnBlur": "Pause auto au changement d'onglet",
+  "settings.autoPauseOnBlurDesc": "Met la partie en pause quand la fenêtre perd le focus",
+  "settings.resetDefaults": "Réinitialiser",
+  "settings.resetDefaultsDesc": "Réinitialise tout (garde la langue)",
+  "settings.resetDefaultsConfirm": "Réinitialiser ? La langue est conservée.",
 };
 
 export default fr;

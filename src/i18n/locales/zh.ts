@@ -293,6 +293,28 @@ const zh: Record<MessageKey, string> = {
   "quit.hint": "如果标签页没有自动关闭，请按 Ctrl+W（Windows/Linux）或 Cmd+W（macOS）。",
   "quit.back": "返回菜单",
   "quit.close": "关闭此标签页",
+
+  "settings.section.audio": "音频",
+  "settings.section.display": "画面与动态效果",
+  "settings.section.language": "语言",
+  "settings.section.data": "数据",
+  "settings.sfxVolume": "音效音量",
+  "settings.sfxVolumeDesc": "接住、切碎、受伤、SLAM 的声音",
+  "settings.musicVolume": "音乐音量",
+  "settings.musicVolumeDesc": "游戏内五声音阶背景乐",
+  "settings.shakeLevel": "震动强度",
+  "settings.shakeLevelDesc": "轻柔的或全力的屏幕震动",
+  "settings.shakeLevel.low": "轻",
+  "settings.shakeLevel.high": "强",
+  "settings.visualQuality": "画质",
+  "settings.visualQualityDesc": "低：减少粒子数量、关闭辉光",
+  "settings.visualQuality.low": "低",
+  "settings.visualQuality.high": "高",
+  "settings.autoPauseOnBlur": "切换标签页时自动暂停",
+  "settings.autoPauseOnBlurDesc": "窗口失去焦点时自动暂停当前对局",
+  "settings.resetDefaults": "恢复默认设置",
+  "settings.resetDefaultsDesc": "把所有设置恢复默认（保留语言选择）",
+  "settings.resetDefaultsConfirm": "恢复默认？语言会保留。",
 };
 
 export default zh;

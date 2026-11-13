@@ -329,6 +329,28 @@ const vi = {
   "quit.hint": "Nếu tab này không tự đóng, hãy dùng Ctrl+W (Windows/Linux) hoặc Cmd+W (macOS).",
   "quit.back": "QUAY LẠI MENU",
   "quit.close": "ĐÓNG TAB NÀY",
+
+  "settings.section.audio": "ÂM THANH",
+  "settings.section.display": "GIAO DIỆN & CHUYỂN ĐỘNG",
+  "settings.section.language": "NGÔN NGỮ",
+  "settings.section.data": "DỮ LIỆU",
+  "settings.sfxVolume": "Âm lượng SFX",
+  "settings.sfxVolumeDesc": "Tiếng hứng dưa, chém, đau hũ…",
+  "settings.musicVolume": "Âm lượng nhạc",
+  "settings.musicVolumeDesc": "Nhạc ngũ cung nền trong ván",
+  "settings.shakeLevel": "Mức rung",
+  "settings.shakeLevelDesc": "Lắc nhẹ hay lắc hết cỡ khi chơi",
+  "settings.shakeLevel.low": "NHẸ",
+  "settings.shakeLevel.high": "MẠNH",
+  "settings.visualQuality": "Chất lượng hình",
+  "settings.visualQualityDesc": "THẤP: giảm hạt lấp lánh, tắt phát sáng",
+  "settings.visualQuality.low": "THẤP",
+  "settings.visualQuality.high": "CAO",
+  "settings.autoPauseOnBlur": "Tự tạm dừng khi đổi tab",
+  "settings.autoPauseOnBlurDesc": "Mất focus cửa sổ sẽ tự pause ván đang chơi",
+  "settings.resetDefaults": "Khôi phục mặc định",
+  "settings.resetDefaultsDesc": "Đặt lại mọi cài đặt về mặc định (giữ ngôn ngữ)",
+  "settings.resetDefaultsConfirm": "Về mặc định? Ngôn ngữ vẫn giữ nguyên.",
 } as const;
 
 export default vi;

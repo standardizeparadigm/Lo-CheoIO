@@ -13,6 +13,8 @@ interface Props {
   onRestartKey: () => void;
   onStartKey: () => void;
   onMuteKey: () => void;
+  /** settings.autoPauseOnBlur — pause the run when the tab loses focus */
+  autoPauseOnBlur?: boolean;
 }
 
 const R = 58;
@@ -28,13 +30,14 @@ export default function GameCanvas({
   onRestartKey,
   onStartKey,
   onMuteKey,
+  autoPauseOnBlur = true,
 }: Props) {
   const { t } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<LoCheoGame | null>(null);
-  const cb = useRef({ onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey });
-  cb.current = { onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey };
+  const cb = useRef({ onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey, autoPauseOnBlur });
+  cb.current = { onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey, autoPauseOnBlur };
 
   const joyId = useRef<number | null>(null);
   const basePt = useRef({ x: 0, y: 0 });
@@ -63,6 +66,7 @@ export default function GameCanvas({
     game.resize(rect.width, rect.height);
 
     const onVis = () => {
+      if (!cb.current.autoPauseOnBlur) return;
       if (document.hidden && game.phase === "playing") cb.current.onPauseKey();
     };
     document.addEventListener("visibilitychange", onVis);

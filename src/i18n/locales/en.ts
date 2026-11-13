@@ -299,6 +299,28 @@ const en: Record<MessageKey, string> = {
   "quit.hint": "If this tab doesn't close itself, use Ctrl+W (Windows/Linux) or Cmd+W (macOS).",
   "quit.back": "BACK TO MENU",
   "quit.close": "CLOSE THIS TAB",
+
+  "settings.section.audio": "AUDIO",
+  "settings.section.display": "DISPLAY & MOTION",
+  "settings.section.language": "LANGUAGE",
+  "settings.section.data": "DATA",
+  "settings.sfxVolume": "SFX volume",
+  "settings.sfxVolumeDesc": "Catch, slice, hurt, slam sounds",
+  "settings.musicVolume": "Music volume",
+  "settings.musicVolumeDesc": "Pentatonic background theme",
+  "settings.shakeLevel": "Shake level",
+  "settings.shakeLevelDesc": "Gentle or full-force screen shake",
+  "settings.shakeLevel.low": "LOW",
+  "settings.shakeLevel.high": "HIGH",
+  "settings.visualQuality": "Visual quality",
+  "settings.visualQualityDesc": "LOW: fewer particles, glow off",
+  "settings.visualQuality.low": "LOW",
+  "settings.visualQuality.high": "HIGH",
+  "settings.autoPauseOnBlur": "Auto-pause on tab switch",
+  "settings.autoPauseOnBlurDesc": "Pauses the run when the window loses focus",
+  "settings.resetDefaults": "Restore defaults",
+  "settings.resetDefaultsDesc": "Reset every setting (keeps the language)",
+  "settings.resetDefaultsConfirm": "Restore defaults? Language stays as chosen.",
 };
 
 export default en;

@@ -1,10 +1,10 @@
 import type { RunStats } from "../game/engine";
 import { MODES, type ModeId } from "../game/modes";
 import { useI18n } from "../i18n/useI18n";
+import { APP_VERSION } from "../version";
 import { fmtNum } from "../i18n/i18n";
 import type { MessageKey } from "../i18n/i18n";
 import { GameButton, Keycap, Panel, Stat } from "./ui";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 export function fmtTime(s: number) {
   const m = Math.floor(s / 60);
@@ -104,7 +104,9 @@ export default function PauseScreen({
         </div>
 
         <div className="mt-4 flex justify-center border-t-2 border-dashed border-jade-800 pt-3">
-          <LanguageSwitcher compact />
+          <span className="font-body text-[9px] font-bold tracking-[0.3em] text-jade-700 uppercase">
+            v{APP_VERSION} · AGPL-3.0
+          </span>
         </div>
       </Panel>
     </div>

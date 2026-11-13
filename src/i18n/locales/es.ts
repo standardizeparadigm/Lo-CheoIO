@@ -299,6 +299,28 @@ const es: Record<MessageKey, string> = {
   "quit.hint": "Si la pestaña no se cierra sola, usa Ctrl+W (Windows/Linux) o Cmd+W (macOS).",
   "quit.back": "VOLVER AL MENÚ",
   "quit.close": "CERRAR ESTA PESTAÑA",
+
+  "settings.section.audio": "AUDIO",
+  "settings.section.display": "PANTALLA & MOVIMIENTO",
+  "settings.section.language": "IDIOMA",
+  "settings.section.data": "DATOS",
+  "settings.sfxVolume": "Volumen de efectos",
+  "settings.sfxVolumeDesc": "Sonidos de atrapar, cortar, daño, SLAM",
+  "settings.musicVolume": "Volumen de música",
+  "settings.musicVolumeDesc": "Tema pentatónico de fondo",
+  "settings.shakeLevel": "Intensidad de sacudida",
+  "settings.shakeLevelDesc": "Sacudida suave o a toda potencia",
+  "settings.shakeLevel.low": "SUAVE",
+  "settings.shakeLevel.high": "FUERTE",
+  "settings.visualQuality": "Calidad visual",
+  "settings.visualQualityDesc": "BAJA: menos partículas, sin brillo",
+  "settings.visualQuality.low": "BAJA",
+  "settings.visualQuality.high": "ALTA",
+  "settings.autoPauseOnBlur": "Pausa automática al cambiar de pestaña",
+  "settings.autoPauseOnBlurDesc": "Pausa la partida cuando la ventana pierde el foco",
+  "settings.resetDefaults": "Restablecer valores",
+  "settings.resetDefaultsDesc": "Restaura todo (mantiene el idioma)",
+  "settings.resetDefaultsConfirm": "¿Restablecer? El idioma se conserva.",
 };
 
 export default es;

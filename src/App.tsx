@@ -21,7 +21,8 @@ import {
   unlockAchievements,
   type ScoreEntry,
 } from "./game/storage";
-import { loadSettings, updateSettings, type GameSettings } from "./game/settings";
+import { loadSettings, resetSettingsKeepingLanguage, updateSettings, type GameSettings, type SettingLanguage } from "./game/settings";
+import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
@@ -46,7 +47,7 @@ export default function App() {
   });
   const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
-  const [settings, setSettings] = useState<GameSettings>(() => loadSettings());
+  const [settings, setSettings] = useState<GameSettings>(() => loadSettings(detectInitialLanguage()));
   const [resume, setResume] = useState<SavedRun | null>(() => loadSavedRun());
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -81,17 +82,26 @@ export default function App() {
     audio.setMuted(muted);
   }, [muted]);
 
-  // settings → audio gates (SFX / music) — applied instantly
+  // settings.language is the source of truth → drives the i18n module
+  useEffect(() => {
+    setLanguage(settings.language);
+  }, [settings.language]);
+
+  // settings → audio gates (SFX / music) + loudness — applied instantly
   useEffect(() => {
     audio.setSfxEnabled(settings.sfx);
     audio.setMusicEnabled(settings.music);
-  }, [settings.sfx, settings.music]);
+    audio.setSfxVolume(settings.sfxVolume / 100);
+    audio.setMusicVolume(settings.musicVolume / 100);
+  }, [settings.sfx, settings.music, settings.sfxVolume, settings.musicVolume]);
 
-  // settings → engine hooks (screen shake / reduced motion)
+  // settings → engine hooks (screen shake on/level, quality, reduced motion)
   useEffect(() => {
     gameRef.current?.setShakeEnabled(settings.shake);
+    gameRef.current?.setShakeLevel(settings.shakeLevel);
+    gameRef.current?.setQuality(settings.visualQuality);
     gameRef.current?.setReducedMotion(settings.reducedMotion);
-  }, [settings.shake, settings.reducedMotion]);
+  }, [settings.shake, settings.shakeLevel, settings.visualQuality, settings.reducedMotion]);
 
   // keep <html lang> honest for screen readers & search engines
   useEffect(() => {
@@ -118,8 +128,10 @@ export default function App() {
   const onReady = useCallback((g: LoCheoGame) => {
     gameRef.current = g;
     g.setMode(modeRef.current);
-    const s = loadSettings();
+    const s = loadSettings(detectInitialLanguage());
     g.setShakeEnabled(s.shake);
+    g.setShakeLevel(s.shakeLevel);
+    g.setQuality(s.visualQuality);
     g.setReducedMotion(s.reducedMotion);
   }, []);
 
@@ -165,10 +177,19 @@ export default function App() {
 
   const patchSettings = useCallback((patch: Partial<GameSettings>) => {
     setSettings((prev) => {
-      const next = { ...prev, ...patch };
-      updateSettings(next);
+      const next = updateSettings({ ...prev, ...patch });
       return next;
     });
+  }, []);
+
+  // settings → language: go through the i18n module so every subscriber updates
+  const changeLanguage = useCallback((lang: SettingLanguage) => {
+    setSettings((prev) => updateSettings({ ...prev, language: lang }));
+  }, []);
+
+  // data section: restore defaults, keep the chosen language
+  const resetDefaults = useCallback(() => {
+    setSettings((prev) => resetSettingsKeepingLanguage(prev));
   }, []);
 
   const toMenu = useCallback(() => {
@@ -265,6 +286,7 @@ export default function App() {
         onRestartKey={onRestartKey}
         onStartKey={onStartKey}
         onMuteKey={onMuteKey}
+        autoPauseOnBlur={settings.autoPauseOnBlur}
       />
 
       {/* ambient overlays */}
@@ -346,6 +368,8 @@ export default function App() {
           onResume={resumeRun}
           settings={settings}
           onPatchSettings={patchSettings}
+          onChangeLanguage={changeLanguage}
+          onResetDefaults={resetDefaults}
           onClearAllData={clearAllData}
         />
       )}

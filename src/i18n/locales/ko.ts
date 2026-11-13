@@ -299,6 +299,28 @@ const ko: Record<MessageKey, string> = {
   "quit.hint": "탭이 자동으로 닫히지 않으면 Ctrl+W(Windows/Linux) 또는 Cmd+W(macOS)를 누르세요.",
   "quit.back": "메뉴로",
   "quit.close": "이 탭 닫기",
+
+  "settings.section.audio": "사운드",
+  "settings.section.display": "화면 & 모션",
+  "settings.section.language": "언어",
+  "settings.section.data": "데이터",
+  "settings.sfxVolume": "효과음 음량",
+  "settings.sfxVolumeDesc": "받기 · 베기 · 피격 · SLAM 소리",
+  "settings.musicVolume": "음악 음량",
+  "settings.musicVolumeDesc": "게임 중 오음계 배경 음악",
+  "settings.shakeLevel": "흔들림 세기",
+  "settings.shakeLevelDesc": "부드러운 흔들림 vs 온몸을 흔드는 흔들림",
+  "settings.shakeLevel.low": "약",
+  "settings.shakeLevel.high": "강",
+  "settings.visualQuality": "그래픽 품질",
+  "settings.visualQualityDesc": "낮음: 파티클 감소, 발광 효과 끔",
+  "settings.visualQuality.low": "낮음",
+  "settings.visualQuality.high": "높음",
+  "settings.autoPauseOnBlur": "탭 전환 시 자동 일시정지",
+  "settings.autoPauseOnBlurDesc": "창 포커스를 잃으면 현재 판을 자동으로 멈춥니다",
+  "settings.resetDefaults": "기본값으로 복원",
+  "settings.resetDefaultsDesc": "모든 설정을 기본값으로 (언어는 유지)",
+  "settings.resetDefaultsConfirm": "기본값으로 되돌릴까요? 언어는 그대로 유지됩니다.",
 };
 
 export default ko;

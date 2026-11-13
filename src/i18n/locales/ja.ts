@@ -299,6 +299,28 @@ const ja: Record<MessageKey, string> = {
   "quit.hint": "タブが自動で閉じない場合は Ctrl+W（Windows/Linux）または Cmd+W（macOS）。",
   "quit.back": "メニューにもどる",
   "quit.close": "このタブを閉じる",
+
+  "settings.section.audio": "サウンド",
+  "settings.section.display": "表示とアニメーション",
+  "settings.section.language": "言語",
+  "settings.section.data": "データ",
+  "settings.sfxVolume": "効果音の音量",
+  "settings.sfxVolumeDesc": "キャッチ、スライス、ダメージ、SLAM",
+  "settings.musicVolume": "音楽の音量",
+  "settings.musicVolumeDesc": "ゲーム中のペンタトニックBGM",
+  "settings.shakeLevel": "揺れの強さ",
+  "settings.shakeLevelDesc": "やさしい揺れか、全力の揺れか",
+  "settings.shakeLevel.low": "弱",
+  "settings.shakeLevel.high": "強",
+  "settings.visualQuality": "画質",
+  "settings.visualQualityDesc": "低: 粒子が減り、グローが消えます",
+  "settings.visualQuality.low": "低",
+  "settings.visualQuality.high": "高",
+  "settings.autoPauseOnBlur": "タブ切替で自動一時停止",
+  "settings.autoPauseOnBlurDesc": "ウィンドウのフォーカスが外れると自動で一時停止",
+  "settings.resetDefaults": "既定に戻す",
+  "settings.resetDefaultsDesc": "すべての設定を既定に戻します（言語は維持）",
+  "settings.resetDefaultsConfirm": "既定に戻しますか？言語はそのままです。",
 };
 
 export default ja;
