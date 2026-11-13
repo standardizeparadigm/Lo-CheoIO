@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Tests](https://img.shields.io/badge/tests-286%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-installation--exécution)
@@ -37,68 +37,72 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Nouveautés de v1.1.7
+## 🆕 Nouveautés de la v1.1.8
 
-> Le **dernier correctif** avant 1.2.0. Aucun mode inédit — juste ce qui gênait encore, corrigé à la racine.
+> Le **dernier correctif** avant 1.2.0. Aucun mode supplémentaire : l'écran d'accueil cesse de déborder, trois dossiers sont ajoutés et toute la documentation est synchronisée.
 
-### 🌫️ Le fond du menu n'est plus flou — corrigé à la racine
+### 📐 L'écran d'accueil ne déborde plus
 
-Les joueurs avaient raison : *« le fond derrière le menu est encore flou »*. La cause n'était pas une couche mais **quatre superpositions qui s'amplifiaient** :
+La capture montrait **quatre défauts à la fois** : le logotype `CHÉO` tranché en deux, la jarre mascotte privée de sa moitié inférieure, le panneau GAME coupé en bas et la ligne de copyright sous le ticker rognée. Les quatre avaient **une seule cause** : une addition que personne ne possédait.
 
-| Couche | Avant | Après | Pourquoi |
+```
+l'ancienne colonne flex à 1280×720 :
+  scene      flex-1     →  recevait 250px   (il en fallait ~700)
+  panel row  shrink-0   →        415px
+  ticker     shrink-0   →         55px
+                          ─────────────
+                          720 − 415 − 55 = 250
+```
+
+`shrink-0` empêchait les deux derniers de se réduire ; la scène ne gardait donc que **250px**, et tout ce qui était plus haut — le logotype, la jarre — était rogné par `overflow-y-auto` à `y≈247px`. La couture mesurée sur l'image fait **247.3px** ; le calcul donne **250.0px**. Ils concordent à 2.7px près.
+
+<img src="assets/layout-fix.svg" alt="Comparaison de mise en page v1.1.7 / v1.1.8 — scène de 250px tranchée contre 720px avec le chrome flottant (animation SMIL)" width="100%" />
+
+**La correction** — sortir le chrome du flux et donner un propriétaire au total :
+
+| Changement | Effet |
+| --- | --- |
+| `MenuChrome` passe en `position: absolute` | il ne peut plus réduire la scène : elle obtient toujours les 720px |
+| scène avec `padding-bottom: plan.reserve` | le contenu ne se cache jamais sous les panneaux, mais la scène *peut* occuper toute la hauteur |
+| `.menu-ticker` fixé à 48px + `overflow: hidden` | le copyright s'aligne avec le bandeau au lieu de passer sur une deuxième ligne |
+
+À la taille exacte de la capture, la scène passe de **250px à 382px**. La jarre et le logotype sont entiers — et **aucun SVG n'a été touché** : `jar.tsx` dessinait déjà tout le `viewBox 0 0 120 140`, sa moitié basse était simplement hors de la zone visible.
+
+### 🔍 Quatre défauts secondaires trouvés en mesurant
+
+| # | Défaut | Cause | Correction |
 | --- | --- | --- | --- |
-| Nébuleuse `.nebula-*` | `blur(64px)`, pic `1.0` | **`blur(22px)`, pic `0.80`** | 64px dépasse la moitié du rayon d'une tache de 46vw — le bord n'existe plus et tout devient brume |
-| Vignette du menu | en ligne, **plein écran**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`**, coins seulement, `0.30 → 0.62` | de « assombrir tout le cadre uniformément » à « sombre dans les coins, clair au centre » |
-| Cadre CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px avalait presque tous les coins sur une petite fenêtre |
-| Sol carrelé | `opacity-45` | **`opacity-70`** | à 45 %, le sol n'était qu'un bruit gris, plus un détail reconnaissable |
+| 1 | **Barre de défilement turquoise** sur la nébuleuse | la scène exposait une piste de 8px avec du contenu débordant | la masquer et réserver l'espace par `padding-bottom` |
+| 2 | **Panneaux superposés** sur mobile | `208 + 224px` ne tient pas dans `375px` | empilés sous 520px |
+| 3 | **`CHÉO` trop haut** dans une fenêtre basse et large | la taille ne suivait que `17vw`, jamais la hauteur | `clamp(3.4rem, min(17vw, 20vh), 10.5rem)` |
+| 4 | **Hauteur du panneau selon la langue** | une ligne mesurait la hauteur de son indice ; vietnamien/allemand prenaient trois lignes | `--menu-row-h` fixe et indice limité à deux lignes |
 
-`.menu-vignette` et `.app-vignette` sont désormais des **règles CSS nommées** au lieu d'utilitaires enfouis dans le JSX — un seul endroit à régler, et `prefers-reduced-motion` peut les atteindre.
+### 🗂️ Trois nouveaux dossiers — 22 fichiers
 
-### 🏷️ Niveaux du changelog — une couleur par niveau
+Chaque succès possède désormais **son propre fichier**, indiquant sa condition de déblocage et la raison de son existence — la question à laquelle le tableau de seize lignes ne répondait pas.
 
-| Niveau | Étiquette | Couleur | Sens | Exemple |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 rose `#ff5fb0` | grande version — nouveaux systèmes | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 doré `#f5a81c` | mise à niveau — nouveau contenu | 1.1.0 |
-| `patch` | **PATCH** | 🟣 violet `#9d6bff` | correctifs et nettoyage | 1.1.1 → 1.1.7 |
+### 🧪 30 tests supplémentaires le verrouillent
 
-Le niveau est **dérivé du SemVer** par `tierFor(version)`, jamais saisi à la main — l'étiquette ne peut donc jamais contredire la version imprimée à côté. Le panneau gagne un **filtre** : TOUTES · MAJOR · UPDATE · PATCH avec le décompte par niveau.
-
-<img src="assets/release-tiers.svg" alt="Les trois niveaux MAJOR/UPDATE/PATCH avec leurs couleurs et la chronologie des neuf versions (animation SMIL)" width="100%" />
-
-### 📖 Huit anciennes versions : d'une ligne à une page
-
-Six des neuf versions avaient une **liste de puces vide** — le panneau ne pouvait afficher qu'un résumé d'une ligne. v1.1.7 les a toutes réécrites :
-
-- **96 puces en vietnamien + 96 en anglais** écrites ou enrichies
-- Contenu tiré de `docs/releases/v1.1.x.md` **et** du code lui-même (9 modes, 16 succès)
-- **Dates réordonnées** : 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — tous les deux jours, jamais deux versions le même jour
-
-### 🗂️ Le projet gagne des dossiers
-
-```
-src/game/changelog/        ← remplace un fichier unique de 300 lignes
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               un fichier par version — v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 assistants
-```
-
-Ajouter 1.2.0 plus tard ne demande plus qu'**un fichier neuf** et une ligne d'import.
-
-### 🐛 Correctifs
-
-| # | Bug | Correctif |
+| Fichier | Tests | Ce qui est verrouillé |
 | --- | --- | --- |
-| 1 | Fond du menu flou / trouble | les quatre changements ci-dessus |
-| 2 | Sol carrelé invisible | `opacity-45` → `opacity-70` |
-| 3 | Étiquettes du changelog trompeuses (`kind` saisi à la main) | `tierFor(version)` le dérive du SemVer |
-| 4 | Descriptions trop maigres (6 versions avec `items: []`) | 96 puces réécrites |
-| 5 | Dates de sortie dupliquées et illogiques | neuf jours consécutifs, aucune collision |
-| 6 | Docs/SVG/lanceurs en retard sur la version | balayage complet → 1.1.7 |
-| 7 | Le commentaire de `check-readme-sync` figeait 1.1.6 | lit désormais `package.json` |
+| `tests/menu-layout.test.ts` | **22** | l'addition qui débordait ; CSS ↔ TypeScript d'accord sur chaque constante ; la rangée flottante n'a plus de `shrink-0` |
+| `tests/achievements-split.test.ts` | **8** | la découpe en seize fichiers préserve l'ordre des ids et chacun est toujours attribué |
+| `scripts/probe-menu-layout.tsx` | **11** | les mêmes propriétés, vérifiées sur le **DOM réel** produit par `react-dom/server` |
 
-→ Détails complets : [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · Version précédente : [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+### 🐛 Corrections
+
+| # | Défaut | Correction |
+| --- | --- | --- |
+| 1 | `CHÉO` tranché | chrome hors du flux + la scène réserve son espace |
+| 2 | Jarre à moitié | même cause — **pas** le SVG |
+| 3 | Panneau GAME coupé | colonne flex de 732px dans une boîte de 720px |
+| 4 | Ligne de copyright rognée | ticker fixe de 48px sur une seule ligne |
+| 5 | Barre de défilement sur l'illustration | `scrollbar-width: none` |
+| 6 | Panneaux superposés sur mobile | empilés sous 520px |
+| 7 | `CHÉO` plus haut que sa boîte | plafond supplémentaire par `20vh` |
+| 8 | Hauteur du panneau selon la langue | `--menu-row-h` fixe + indice limité |
+
+→ Détail complet : [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Précédent : [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 <img src="assets/settings-sections.svg" alt="Réglages en six sections (depuis v1.1.6) — interrupteurs, barres et sélecteurs (animation SMIL)" width="100%" />
 
@@ -118,7 +122,7 @@ Ajouter 1.2.0 plus tard ne demande plus qu'**un fichier neuf** et une ligne d'im
 | 💾 **TOP 8** | Sauvegarde locale, validée et normalisée à la lecture, noms en majuscules automatiques, surbrillance pour le record tout frais |
 | 🎨 **60fps** | Canvas 2D, budget de 460 particules, DPR plafonné à 2, sol à carreaux pré-rendu offscreen, scintillement d'étoiles + aurore dans le menu |
 | 📴 **Vraiment offline-first** | Polices auto-hébergées (sous-ensembles latin + vietnamien, woff2), aucun CDN ni API — ouvrez `dist/index.html` et jouez |
-| 🧪 **Qualité** | 256 tests unitaires (vitest) pour modes / achievements / storage / i18n / settings — `npm run check` est la porte CI |
+| 🧪 **Qualité** | 286 tests unitaires (vitest) pour modes / achievements / storage / i18n / settings — `npm run check` est la porte CI |
 
 <img src="assets/items.svg" alt="Les 14 ingrédients — les pickles à attraper, les pouvoirs dorés à saisir, les dangers à éviter" width="100%" />
 
@@ -181,7 +185,7 @@ npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 npm run dev        # serveur de dev avec HMR (http://localhost:5173)
 npm run preview    # sert le build de production en local
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256 tests unitaires (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 286 tests unitaires (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (porte qualité CI)
 ```
 
@@ -190,7 +194,7 @@ npm run check      # typecheck + test + build (porte qualité CI)
 ```
 lo-cheoio/
 ├─ index.html              # entrée, meta SEO/OG (sans CDN)
-├─ package.json            # lo-cheoio v1.1.7, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.8, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict ; inclut src + tests
@@ -203,8 +207,13 @@ lo-cheoio/
 │  ├─ modes.svg            # les 9 modes (animation SMIL)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ corner-menu.svg      # corner GAME/INFO panels (SMIL animation)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
+│  ├─ palette-ribbon.svg   # 7-slice palette ribbon, sheen sweep (SMIL, v1.1.7)
+│  ├─ architecture.svg     # architecture + data flow diagram (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tiers + 10-release timeline (SMIL, v1.1.7)
+│  ├─ layout-fix.svg       # v1.1.7 vs v1.1.8 layout, side by side (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # sceau copyleft AGPL-3.0 animé (animation SMIL)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -227,7 +236,8 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     ├─ v1.1.7.md         # release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -253,7 +263,9 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flottant + clavier + visibilité
 │  │  ├─ StartScreen.tsx   # menu : hero + scène en couches + panneaux d'angle
 │  │  ├─ menu/              # panneaux GAME/INFO + modales + icons/
-│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ layout/         # metrics · fit · planMenuLayout, 22 tests (v1.1.8)
+│  │  │  └─ ticker/         # bottom ticker band, 14 strings (v1.1.8)
 │  │  ├─ ModeSelector.tsx  # 9 cartes de mode (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # mur de badges verrouillés/déverrouillés
 │  │  ├─ GameOverScreen.tsx     # BOCAL BRISÉ ! + score + nouveaux succès
@@ -267,13 +279,14 @@ lo-cheoio/
 │  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
 │  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
 │  │  ├─ modes.ts          # barrel — keeps every old import working
-│  │  ├─ achievements.ts   # 16 badges + checker pur (pur)
+│  │  ├─ achievements/      # 16 defs + types + checker (v1.1.8)
+│  │  │  └─ defs/           # one file per achievement
 │  │  ├─ storage.ts        # localStorage : top 8, progrès, succès
 │  │  ├─ audio.ts          # synthèse Web Audio : sfx + musique pentatonique
 │  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
-│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_8.ts
 │  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # sauvegarde de partie suspendue
 │  │  ├─ settings.ts        # schéma des réglages, défauts, normalisation
@@ -283,11 +296,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # confinement du focus (v1.1.6)
-└─ tests/                  # vitest — 33 fichiers · 256 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 35 fichiers · 286 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
-<img src="assets/architecture.svg" alt="Architecture de Lọ Chéo v1.1.7 — entrée → moteur → état → rendu et services (animation SMIL)" width="100%" />
+<img src="assets/architecture.svg" alt="Architecture de Lọ Chéo v1.1.8 — entrée → moteur → état → rendu et services (animation SMIL)" width="100%" />
 
 
 - **Boucle de jeu** sur `requestAnimationFrame`, delta-temps clampé à `1/20s`, multiplié par `timeScale` (slow-mo GLACE) avec un court **hit-stop** à chaque capture pour ce petit « thunk ».
@@ -322,11 +335,16 @@ Ajoute `src/i18n/locales/xx.ts` en miroir des clés de `vi.ts`, mets à jour `LA
 **Le terminal te rebute ?**
 Double-clique sur [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`scripts/play-windows.bat`](scripts/play-windows.bat) (Windows) ou [`scripts/play-linux.sh`](scripts/play-linux.sh) (Linux) — un menu coloré s'ouvre ; choisis `1` pour compiler et jouer aussitôt, `2` pour le serveur de dev. Détails : [scripts/README.md](scripts/README.md).
 
+<img src="assets/release-tiers.svg" alt="Three tiers MAJOR/UPDATE/PATCH with their colours and a ten-release timeline (SMIL animation)" width="100%" />
+
+<img src="assets/test-matrix.svg" alt="Matrice de tests v1.1.8 — huit portes au vert, 286 tests sur 35 fichiers par domaine (animation SMIL)" width="100%" />
+
 ## 📦 Releases & changelog
 
 | Version | Tier | Date | Notes |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Fond du menu débrumé** (quatre couches : `blur 64→22px`, vignette de coins au lieu du plein écran, cadre CRT 140→90px, sol 45→70%) · **changelog par niveaux colorés** · **96 puces neuves** pour 8 versions · dates réordonnées · `src/game/changelog/` découpé · 10 READMEs refaits · **256 tests** |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-14 | **L'écran d'accueil ne déborde plus** (chrome hors du flux flex : scène `250px → 382px` ; logotype et jarre intacts) · **ticker fixe de 48px** · **barre de défilement masquée** · **panneaux empilés sur mobile** · **`menu/layout/` + `menu/ticker/` + `achievements/` en 16 fichiers** · **30 nouveaux tests** · tout synchronisé en 1.1.8 · **286 tests** |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Fond du menu débrumé** (quatre couches : `blur 64→22px`, vignette de coins au lieu du plein écran, cadre CRT 140→90px, sol 45→70%) · **changelog par niveaux colorés** · **96 puces neuves** pour 8 versions · dates réordonnées · `src/game/changelog/` découpé · 10 READMEs refaits · **286 tests** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Réglages en 6 sections** (rapides · audio · affichage · langue · sauvegarde · données) · volumes 0–100 · intensité des secousses · qualité visuelle · pause au changement d'onglet · langue dans les Réglages · 4 préréglages · export/import JSON · menu multicouche animé · dégradé sur la carte auteur · focus piégé dans les modales · fix musique après rechargement · **150 tests** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Menus d'angle GAME/INFO** (Jouer · Reprendre · Modes · Classement · Succès · Réglages / À propos · Changelog · Quitter) · **sauvegarde & reprise de partie** (`locheo.run.v1`) · réglages en jeu (SFX/musique/tremblement/animations) · fix raccourcis à travers les modales · prefers-reduced-motion partout · **113 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 modes** (Festival des Combos · Grand Festin) · **16 succès** · **7 langues** (ES/FR ajoutées) · fix play-windows.bat (CRLF+BOM) · lanceurs en 7 langues · 61 tests |
@@ -367,7 +385,7 @@ Notes de conception et documentation technique approfondie :
 ## 🤝 Contribuer
 
 1. Fork le repo, branche avec la convention `arena/<nom>` ou `feat/<nom>`.
-2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 256 tests + build).
+2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 286 tests + build).
 3. Évite les nouvelles dépendances runtime sauf nécessité réelle — philosophie : **un seul fichier, hors réseau, jouable pour toujours**.
 4. Dans la PR, indique les écrans/modes touchés et joins un clip si le gameplay change.
 
