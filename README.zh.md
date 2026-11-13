@@ -118,7 +118,7 @@ src/game/changelog/        ← 取代原来的 300 行单文件
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 222 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 256 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -181,7 +181,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 222 项单元测试（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 256 项单元测试（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -283,7 +283,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
-└─ tests/                  # vitest — 33 个文件 · 222 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 33 个文件 · 256 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
@@ -367,7 +367,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 113 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 256 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 

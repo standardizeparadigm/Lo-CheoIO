@@ -118,7 +118,7 @@ src/game/changelog/        ← 300줄 단일 파일을 대체
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 222개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 256개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -181,7 +181,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 222개 단위 테스트 (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 256개 단위 테스트 (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -283,7 +283,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 모달 포커스 가둠 (v1.1.6)
-└─ tests/                  # vitest — 33개 파일 · 222개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 33개 파일 · 256개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 아키텍처 & 성능
@@ -367,7 +367,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 ## 🤝 기여하기
 
 1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
-2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 113개 + build).
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 256개 + build).
 3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
 4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
 

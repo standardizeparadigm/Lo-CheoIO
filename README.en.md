@@ -305,7 +305,7 @@ Every change must clear **five gates** before it reaches `main` — one command 
 $ npm run check        # typecheck + every test
 $ npm run check:readme # 10 READMEs in version + release-link sync
 $ npm run check:i18n   # 7 locales × 302 keys, nothing missing or extra
-$ npm run check:assets # 11 SVGs — no orphans, no broken references
+$ npm run check:assets # 14 SVGs — no orphans, no broken references
 $ npm run smoke        # SSR smoke: every menu/modal renders
 ```
 
@@ -316,7 +316,7 @@ $ npm run smoke        # SSR smoke: every menu/modal renders
 | `smoke-ssr` | menu, 6 settings sections, changelog, 9 modals | ✅ |
 | `check-readme-sync` | 10 READMEs × badge/link/SVG | ✅ |
 | `check-i18n` | 7 locales × 302 keys | ✅ |
-| `check-assets` | 11 SVGs, references checked both ways | ✅ |
+| `check-assets` | 14 SVGs, references checked both ways | ✅ |
 | `build` | `dist/index.html` ~831 KB · gzip ~388 KB | ✅ |
 
 The 1.1.7 highlight is **`tests/changelog-tiers.test.ts`**: it locks the `tierFor()` mapping (junk input included), demands **≥5 bullets** per release, rejects duplicate bullets and enforces a **strictly ordered date timeline** — that test is what caught 1.1.5 and 1.1.6 sharing a day.
