@@ -71,7 +71,7 @@ export default function StartScreen({
         </main>
 
       {/* ---- corner panels: GAME bottom-left, INFO bottom-right ---- */}
-      <div className="pointer-events-none relative z-30 flex shrink-0 items-end justify-between gap-2 px-2 pb-2 sm:px-3 sm:pb-3">
+      <div className="menu-panels pointer-events-none relative z-30 flex shrink-0 items-end justify-between gap-2 px-2 pb-2 sm:px-3 sm:pb-3">
         <GameMenu
           resume={resume}
           achievementsUnlocked={achievements.length}

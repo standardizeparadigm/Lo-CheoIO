@@ -705,11 +705,14 @@
 /* v1.1.8: one centered lockup, with the mascot in its own orbit below it. */
 .menu-hero { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .menu-wordmark { text-align: center; line-height: .8; }
-.menu-wordmark-top { display: block; color: var(--color-clay-100); font-size: clamp(3.2rem, 9vw, 7.5rem); text-shadow: 6px 6px 0 #b81f22, 12px 12px 0 rgba(6,26,26,.55); }
-.menu-wordmark-bottom { display: block; font-size: clamp(4.3rem, 13vw, 10.5rem); }
-.menu-mascot { position: relative; display: flex; align-items: center; justify-content: center; width: clamp(9rem, 19vw, 17rem); aspect-ratio: 1; margin-top: .3rem; }
+.menu-wordmark-top { display: block; color: var(--color-clay-100); font-size: clamp(3.2rem, min(9vw, 15vh), 7.5rem); text-shadow: 6px 6px 0 #b81f22, 12px 12px 0 rgba(6,26,26,.55); }
+.menu-wordmark-bottom { display: block; font-size: clamp(4.3rem, min(13vw, 21vh), 10.5rem); }
+.menu-mascot { position: relative; display: flex; align-items: center; justify-content: center; width: clamp(9rem, min(19vw, 30vh), 17rem); aspect-ratio: 1; margin-top: .3rem; }
 .menu-orbits { position: absolute; inset: 0; }
 
 /* The in-game setting also applies to menu and modal animations. */
 [data-reduced-motion="true"] :is(.aurora-bg, .text-shimmer, .anim-spin-slow, .anim-breathe, .anim-bob, .anim-flicker, .anim-marquee, .anim-pop, .anim-slide, .anim-cta, .anim-badge-pop, .anim-corner-left, .anim-corner-right, .tile-floor, .scanlines, .nebula-a, .nebula-b, .star-field, .star-field-far, .light-ray, .glow-ring, .jar-glow, .about-card, .about-chip),
 [data-reduced-motion="true"] :is(.sheen, .cta-shine)::after { animation: none !important; transition: none !important; }
+
+/* On wider screens the corner panels do not steal the hero’s vertical space. */
+@media (min-width: 768px) { .menu-panels { position: absolute; left: 0; right: 0; bottom: 0; } }
