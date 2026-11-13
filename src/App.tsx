@@ -21,7 +21,13 @@ import {
   unlockAchievements,
   type ScoreEntry,
 } from "./game/storage";
-import { loadSettings, resetSettingsKeepingLanguage, updateSettings, type GameSettings, type SettingLanguage } from "./game/settings";
+import {
+  loadSettings,
+  resetSettingsKeepingLanguage,
+  saveSettings,
+  type GameSettings,
+  type SettingLanguage,
+} from "./game/settings";
 import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
 import { prefersCoarsePointer, prefersMoreContrast, prefersReducedMotion } from "./utils/mediaQuery";
@@ -192,14 +198,16 @@ export default function App() {
 
   const patchSettings = useCallback((patch: Partial<GameSettings>) => {
     setSettings((prev) => {
-      const next = updateSettings({ ...prev, ...patch });
-      return next;
+      // Persist `prev + patch` directly. `updateSettings` re-reads storage
+      // first, which silently threw away in-memory changes when storage is
+      // blocked (private mode, quota) — every toggle reverted to defaults.
+      return saveSettings({ ...prev, ...patch });
     });
   }, []);
 
   // settings → language: go through the i18n module so every subscriber updates
   const changeLanguage = useCallback((lang: SettingLanguage) => {
-    setSettings((prev) => updateSettings({ ...prev, language: lang }));
+    setSettings((prev) => saveSettings({ ...prev, language: lang }));
   }, []);
 
   // data section: restore defaults, keep the chosen language
