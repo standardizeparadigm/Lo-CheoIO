@@ -11,6 +11,10 @@
 7. **Docs đồng bộ** — DESCRIPTION, CONTRIBUTING, scripts/README, trees, test counts.
 8. **Smoke** — `npx vite-node scripts/smoke-ssr.tsx` (headless render) khi có UI mới.
 9. **PR** — một nhánh `arena/<id>` → base `main`; **user merge**, không tự merge.
+10. **Kiểm tra chéo trước khi mở PR** — ba cổng phải xanh **cùng lúc**:
+    `npm run check` (typecheck + 222 test + build), `npm run smoke`, và
+    `npm run check:readme` + `npm run check:i18n` (10 README đồng bộ, 7 locale parity).
+    Ghi lại output của cả ba vào phần *verification* của release notes.
 
 ## Anti-patterns (học từ lịch sử)
 
@@ -18,3 +22,9 @@
 - Đừng sửa historical release notes (ngày/claimed features giữ nguyên trừ lỗi fact-sai nghiêm trọng).
 - Đừng bump docs mà quên launcher/banner — chúng không đọc `APP_VERSION` (ngoài bundle).
 - Test count phải khớp thực tế (`npx vitest run` đếm hộ) — v1.1.5 từng lệch 72 vs 76 suốt 2 commit trước khi sửa.
+- **Đừng chỉ sửa số test ở một file docs.** v1.1.6 phải quét 2 lượt: lần đầu `177 → 222` chỉ đổi số,
+  các cụm *đếm file* theo từng ngôn ngữ (`22ファイル`, `22개 파일`, `22 archivos`…) còn sót — phải grep lại
+  theo **mọi** biến thể ngôn ngữ, không chỉ tiếng Anh.
+- **Đừng thêm code không được gọi.** Một `JarLogo` "chuẩn bị dùng" từng vào lịch sử rồi phải soft-reset;
+  `canCopy()` trong `clipboard.ts` cũng bị bỏ vì không nơi nào dùng. Trước khi commit một helper mới, grep
+  xem có call site thật chưa.
