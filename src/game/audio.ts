@@ -1,5 +1,7 @@
 /* Tiny WebAudio synth — all sound is generated, no assets. */
 
+import { MASTER_GAIN, musicBusGain, sfxPeak, unit } from "./audioLevels";
+
 export type SfxName =
   | "catch"
   | "slice"
@@ -41,10 +43,12 @@ class AudioEngine {
       if (!AC) return;
       this.ctx = new AC();
       this.master = this.ctx.createGain();
-      this.master.gain.value = this.muted ? 0 : 0.85;
+      this.master.gain.value = this.muted ? 0 : MASTER_GAIN;
       this.master.connect(this.ctx.destination);
       this.musicBus = this.ctx.createGain();
-      this.musicBus.gain.value = 0.5;
+      // BUGFIX (v1.1.6): start at the *configured* level — a flat 0.5 used to
+      // ignore musicVolume until the next setter ran.
+      this.musicBus.gain.value = musicBusGain(this.musicEnabled, this.musicVolume);
       this.musicBus.connect(this.master);
 
       const len = Math.floor(this.ctx.sampleRate * 0.6);
@@ -59,7 +63,7 @@ class AudioEngine {
   setMuted(m: boolean) {
     this.muted = m;
     if (this.master && this.ctx) {
-      this.master.gain.setTargetAtTime(m ? 0 : 0.85, this.ctx.currentTime, 0.05);
+      this.master.gain.setTargetAtTime(m ? 0 : MASTER_GAIN, this.ctx.currentTime, 0.05);
     }
   }
 
@@ -69,21 +73,21 @@ class AudioEngine {
 
   /** 0..1 — live SFX loudness (settings.sfxVolume / 100) */
   setSfxVolume(v: number) {
-    this.sfxVolume = Math.min(1, Math.max(0, Number.isFinite(v) ? v : 0.8));
+    this.sfxVolume = unit(v, 0.8);
   }
 
   /** 0..1 — live music loudness (settings.musicVolume / 100) */
   setMusicVolume(v: number) {
-    this.musicVolume = Math.min(1, Math.max(0, Number.isFinite(v) ? v : 0.6));
-    if (this.musicBus && this.ctx && this.musicEnabled) {
-      this.musicBus.gain.setTargetAtTime(0.5 * this.musicVolume, this.ctx.currentTime, 0.05);
+    this.musicVolume = unit(v, 0.6);
+    if (this.musicBus && this.ctx) {
+      this.musicBus.gain.setTargetAtTime(musicBusGain(this.musicEnabled, this.musicVolume), this.ctx.currentTime, 0.05);
     }
   }
 
   setMusicEnabled(on: boolean) {
     this.musicEnabled = on;
     if (this.musicBus && this.ctx) {
-      this.musicBus.gain.setTargetAtTime(on ? 0.5 * this.musicVolume : 0, this.ctx.currentTime, 0.05);
+      this.musicBus.gain.setTargetAtTime(musicBusGain(on, this.musicVolume), this.ctx.currentTime, 0.05);
     }
     if (!on) this.stopMusic();
   }
@@ -111,7 +115,7 @@ class AudioEngine {
     osc.frequency.setValueAtTime(Math.max(20, opts.freq), t0);
     if (opts.to) osc.frequency.exponentialRampToValueAtTime(Math.max(20, opts.to), t0 + dur);
     if (opts.detune) osc.detune.setValueAtTime(opts.detune, t0);
-    const peak = (opts.gain ?? 0.22) * this.sfxVolume;
+    const peak = sfxPeak(opts.gain ?? 0.22, this.sfxVolume);
     g.gain.setValueAtTime(0.0001, t0);
     g.gain.exponentialRampToValueAtTime(peak, t0 + Math.min(0.02, dur * 0.3));
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
@@ -133,7 +137,7 @@ class AudioEngine {
     filt.frequency.exponentialRampToValueAtTime(Math.max(80, (opts.freq ?? 1200) * 0.35), t0 + dur);
     filt.Q.value = opts.q ?? 1.1;
     const g = this.ctx.createGain();
-    g.gain.setValueAtTime((opts.gain ?? 0.2) * this.sfxVolume, t0);
+    g.gain.setValueAtTime(sfxPeak(opts.gain ?? 0.2, this.sfxVolume), t0);
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
     src.connect(filt);
     filt.connect(g);
