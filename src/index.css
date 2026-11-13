@@ -246,6 +246,12 @@
    rotating mascot ring, animated About gradient, CTA shine.
    ===================================================================== */
 
+/* App CRT frame (v1.1.7) — was an arbitrary `inset 0 0 140px rgba(6,26,26,0.9)`
+   utility that blacked out every corner of the canvas and the menu alike. */
+.app-vignette {
+  box-shadow: inset 0 0 90px rgba(6, 26, 26, 0.55);
+}
+
 /* Menu vignette (v1.1.7). Was an inline `bg-[radial-gradient(...0.42/0.88/1.0)]`
    that dimmed the entire scene; now a corner-weighted falloff so the nebula,
    starfield and tile floor actually read. Kept as a rule (not a utility) so

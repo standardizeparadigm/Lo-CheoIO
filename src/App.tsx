@@ -315,7 +315,10 @@ export default function App() {
 
       {/* ambient overlays */}
       <div className="scanlines pointer-events-none absolute inset-0 z-10 opacity-45" />
-      <div className="pointer-events-none absolute inset-0 z-10 shadow-[inset_0_0_140px_rgba(6,26,26,0.9)]" />
+      {/* v1.1.7: was `inset 0 0 140px rgba(6,26,26,0.9)` — a 140px black frame on
+          all four sides that ate the corners of the scene. 90px at 0.55 keeps the
+          CRT framing without swallowing the nebula glow. */}
+      <div className="app-vignette pointer-events-none absolute inset-0 z-10" />
       <div className="pointer-events-none absolute inset-2 z-10 hidden border-2 border-jade-700/35 sm:block" />
       <div className="pointer-events-none absolute inset-2 z-10 hidden sm:block">
         {[
