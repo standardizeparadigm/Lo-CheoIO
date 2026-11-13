@@ -39,7 +39,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 - 🎛️ **Four one-tap presets + JSON backup** — **SMOOTH** · **BALANCED** · **CINEMATIC** · **SPEEDRUN** (never touching your language) plus export/import so a config can travel between machines.
 - ✨ **The menu became a stage** — drifting nebulae, a breathing light ray, **two twinkling starfields**, a rotating glow ring around the jar, a jar halo, a shine sweep across PLAY; the **author card** gets a perpetually panning gradient border.
 - 🐛 **Five real fixes** — music louder than configured after a reload · Tab escaping modals · the changelog hint hardcoded to v1.1.5 · `updateSettings` returning un-normalised values · focus not held inside a dialog.
-- 🧪 **150 unit tests** (18 files, up from 113/14) — new coverage for the settings schema, presets, the backup codec and audio gain math.
+- 🧪 **172 unit tests** (22 files, up from 113/14) — new coverage for the settings schema, presets, the backup codec, audio gain math and an i18n↔UI contract test.
 
 <img src="assets/settings-sections.svg" alt="Settings in v1.1.6 — six sections with switches, level bars and pickers (SMIL animation)" width="100%" />
 
@@ -63,7 +63,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 | 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
 | 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
 | 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
-| 🧪 **Quality gates** | 150 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
+| 🧪 **Quality gates** | 172 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
 
 <img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
 
@@ -126,7 +126,7 @@ npm run build      # → dist/index.html (one self-contained file)
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 150 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 172 unit tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
@@ -218,7 +218,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # modal focus containment (v1.1.6)
-└─ tests/                  # vitest — 18 files · 150 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 22 files · 172 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
@@ -299,7 +299,7 @@ Design notes and deeper technical docs:
 ## 🤝 Contributing
 
 1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
-2. `npm run check` must be green before opening a PR (typecheck + 150 tests + build).
+2. `npm run check` must be green before opening a PR (typecheck + 172 tests + build).
 3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
 4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 

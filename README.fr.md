@@ -41,7 +41,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 - 🎛️ **Quatre préréglages en un clic + sauvegarde JSON** — **FLUIDE** · **ÉQUILIBRÉ** · **CINÉMA** · **SPEEDRUN** (la langue n'est jamais touchée) et export/import pour transporter sa configuration.
 - ✨ **Le menu devient une scène** — nébuleuses en dérive, un rayon de lumière qui respire, **deux couches d'étoiles scintillantes**, un anneau lumineux tournant autour du bocal, un halo de bocal, un reflet qui balaie JOUER ; la **carte de l'auteur** a une bordure dégradée en mouvement perpétuel.
 - 🐛 **Cinq vrais bugs corrigés** — musique plus forte que configuré après rechargement · Tab s'échappant des modales · l'indice du changelog figé sur v1.1.5 · `updateSettings` renvoyant des valeurs non normalisées · le focus non retenu dans la boîte de dialogue.
-- 🧪 **150 tests unitaires** (18 fichiers, contre 113/14) — nouvelle couverture du schéma de réglages, des préréglages, du codec de sauvegarde et du calcul de gain audio.
+- 🧪 **172 tests unitaires** (22 fichiers, contre 113/14) — nouvelle couverture du schéma de réglages, des préréglages, du codec de sauvegarde, du calcul de gain audio et un test de contrat i18n↔UI.
 
 <img src="assets/settings-sections.svg" alt="Réglages de v1.1.6 — six sections avec interrupteurs, barres de niveau et sélecteurs (animation SMIL)" width="100%" />
 
@@ -65,7 +65,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 | 💾 **TOP 8** | Sauvegarde locale, validée et normalisée à la lecture, noms en majuscules automatiques, surbrillance pour le record tout frais |
 | 🎨 **60fps** | Canvas 2D, budget de 460 particules, DPR plafonné à 2, sol à carreaux pré-rendu offscreen, scintillement d'étoiles + aurore dans le menu |
 | 📴 **Vraiment offline-first** | Polices auto-hébergées (sous-ensembles latin + vietnamien, woff2), aucun CDN ni API — ouvrez `dist/index.html` et jouez |
-| 🧪 **Qualité** | 150 tests unitaires (vitest) pour modes / achievements / storage / i18n / settings — `npm run check` est la porte CI |
+| 🧪 **Qualité** | 172 tests unitaires (vitest) pour modes / achievements / storage / i18n / settings — `npm run check` est la porte CI |
 
 <img src="assets/items.svg" alt="Les 14 ingrédients — les pickles à attraper, les pouvoirs dorés à saisir, les dangers à éviter" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 npm run dev        # serveur de dev avec HMR (http://localhost:5173)
 npm run preview    # sert le build de production en local
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 150 tests unitaires (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 172 tests unitaires (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (porte qualité CI)
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # confinement du focus (v1.1.6)
-└─ tests/                  # vitest — 18 fichiers · 150 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 22 fichiers · 172 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
@@ -301,7 +301,7 @@ Notes de conception et documentation technique approfondie :
 ## 🤝 Contribuer
 
 1. Fork le repo, branche avec la convention `arena/<nom>` ou `feat/<nom>`.
-2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 150 tests + build).
+2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 172 tests + build).
 3. Évite les nouvelles dépendances runtime sauf nécessité réelle — philosophie : **un seul fichier, hors réseau, jouable pour toujours**.
 4. Dans la PR, indique les écrans/modes touchés et joins un clip si le gameplay change.
 

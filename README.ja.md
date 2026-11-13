@@ -41,7 +41,7 @@
 - 🎛️ **ワンタップの4プリセット + JSON バックアップ** —— **スムーズ** · **バランス** · **シネマ** · **RTA**（言語は絶対に変えない）と、設定の書き出し/読み込み。
 - ✨ **メニューが舞台に** —— 漂う星雲、呼吸する光線、**2層の瞬く星空**、壺を回る光のリング、壺のハロー、「プレイ」を横切る光沢。**作者カード**は無限に流れるグラデーション枠。
 - 🐛 **実バグ5件を修正** —— 再読み込み後に音楽が設定より大きい · Tab がモーダルを抜ける · 更新履歴のヒントが v1.1.5 固定 · `updateSettings` が正規化前の値を返す · ダイアログ内でフォーカスが保持されない。
-- 🧪 **ユニットテスト 150 件**（18ファイル、113/14 から増加）—— 設定スキーマ、プリセット、バックアップコーデック、オーディオゲインのテストを追加。
+- 🧪 **ユニットテスト 172 件**（22ファイル、113/14 から増加）—— 設定スキーマ、プリセット、バックアップコーデック、オーディオゲイン、i18n↔UI 契約テストを追加。
 
 <img src="assets/settings-sections.svg" alt="v1.1.6 の設定 — スイッチ・レベルバー・ピッカーを備えた6セクション（SMIL アニメーション）" width="100%" />
 
@@ -65,7 +65,7 @@
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする150件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする172件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 150件のユニットテスト（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 172件のユニットテスト（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # モーダルのフォーカス封じ込め（v1.1.6）
-└─ tests/                  # vitest — 18ファイル · 150テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 22ファイル · 172テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 アーキテクチャとパフォーマンス

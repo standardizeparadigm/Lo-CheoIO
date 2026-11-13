@@ -41,7 +41,7 @@
 - 🎛️ **พรีเซ็ต 4 แบบในคลิกเดียว + สำรอง JSON** —— **ลื่นไหล** · **สมดุล** · **ภาพยนตร์** · **สปีดรัน** (ไม่แตะภาษาเด็ดขาด) พร้อมส่งออก/นำเข้าเพื่อย้ายเครื่อง
 - ✨ **เมนูกลายเป็นเวที** —— เนบิวลาลอย ช่อแสงหายใจ **ดาวระยิบสองชั้น** วงแหวนแสงหมุนรอบไห ฮาโลรอบไห แสงกวาดผ่านปุ่ม PLAY; **การ์ดผู้สร้าง** มีขอบไล่ระดับไหลไม่หยุด
 - 🐛 **แก้บั๊กจริง 5 จุด** —— เพลงดังเกินที่ตั้งไว้หลังรีโหลด · Tab หลุดออกจากโมดัล · คำใบ้ changelog ฝังตายที่ v1.1.5 · `updateSettings` คืนค่าที่ยังไม่ normalize · โฟกัสไม่ถูกกักในไดอะล็อก
-- 🧪 **150 ยูนิตเทสต์** (18 ไฟล์ จาก 113/14) —— เพิ่มเทสต์สคีมาตั้งค่า พรีเซ็ต โคเดกสำรอง และคณิตศาสตร์เกนเสียง
+- 🧪 **172 ยูนิตเทสต์** (22 ไฟล์ จาก 113/14) —— เพิ่มเทสต์สคีมาตั้งค่า พรีเซ็ต โคเดกสำรอง คณิตศาสตร์เกนเสียง และสัญญา i18n↔UI
 
 <img src="assets/settings-sections.svg" alt="หน้าตั้งค่า v1.1.6 — 6 หมวด พร้อมสวิตช์ แถบระดับ และตัวเลือก (แอนิเมชัน SMIL)" width="100%" />
 
@@ -65,7 +65,7 @@
 | 💾 **ตาราง TOP 8** | เก็บลงเครื่อง ตรวจสอบ/ปรับค่าเมื่ออ่าน ชื่อตัวพิมพ์ใหญ่ ไฮไลต์สถิติใหม่ |
 | 🎨 **กราฟิก 60fps** | Canvas 2D งบอนุภาค ≤460 จำกัด DPR ≤ 2 พื้นกระเบื้องพรีเรนเดอร์ลง offscreen ดาวระยิบ + ออโรร่าในเมนู |
 | 📴 **ออฟไลน์จริง** | ฟอนต์โฮสเอง (subset latin + vietnamese woff2) ไม่มี CDN ไม่มี API — ดับเบิลคลิก `dist/index.html` แล้วเล่นได้เลย |
-| 🧪 **คุณภาพ** | 150 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
+| 🧪 **คุณภาพ** | 172 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
 
 <img src="assets/items.svg" alt="14 วัตถุดิบ — ผักดองให้รับ พลังทองให้คว้า อันตรายให้หลบ" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (ไฟล์เดียวจบ)
 npm run dev        # dev server พร้อม HMR (http://localhost:5173)
 npm run preview    # เสิร์ฟ production build ในเครื่อง
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 150 เทสต์ (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 172 เทสต์ (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (ประตูคุณภาพ CI)
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # กักโฟกัสในโมดัล (v1.1.6)
-└─ tests/                  # vitest — 18 ไฟล์ · 150 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 22 ไฟล์ · 172 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 สถาปัตยกรรม & ประสิทธิภาพ
@@ -301,7 +301,7 @@ lo-cheoio/
 ## 🤝 ร่วมพัฒนา
 
 1. Fork repo แล้วแตก branch ตามรูปแบบ `arena/<name>` หรือ `feat/<name>`
-2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 150 เทสต์ + build)
+2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 172 เทสต์ + build)
 3. เลี่ยงการเพิ่ม dependency ตอน runtime ถ้าไม่จำเป็นจริง ๆ — ปรัชญา: **ไฟล์เดียว ไม่มีเน็ต เล่นได้ตลอดกาล**
 4. ใน PR ระบุหน้าจอ/โหมดที่ได้รับผลกระทบ และแนบคลิปถ้ามีการเปลี่ยน gameplay
 

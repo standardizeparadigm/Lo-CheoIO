@@ -41,7 +41,7 @@
 - 🎛️ **4 preset một chạm + sao lưu JSON** — **MƯỢT** · **CÂN BẰNG** · **ĐIỆN ẢNH** · **SPEEDRUN** (không bao giờ đổi ngôn ngữ) và xuất/nhập cấu hình để mang sang máy khác.
 - ✨ **Menu là sân khấu** — tinh vân trôi, tia sáng thở, **2 lớp sao nhấp nháy**, vòng sáng xoay quanh lọ, quầng sáng lọ, vệt sáng chạy qua nút CHƠI; mục **giới thiệu tác giả** có viền gradient chạy vòng vô hạn.
 - 🐛 **Sửa 5 lỗi thật** — nhạc nền phát to hơn mức đã đặt sau khi tải lại trang · Tab thoát khỏi modal · gợi ý changelog ghi cứng v1.1.5 · `updateSettings` trả giá trị chưa chuẩn hoá · focus không được giữ trong hộp thoại.
-- 🧪 **150 unit tests** (18 file, tăng từ 113/14) — thêm test cho schema cài đặt, preset, sao lưu và phép tính âm lượng.
+- 🧪 **172 unit tests** (22 file, tăng từ 113/14) — thêm test cho schema cài đặt, preset, sao lưu, phép tính âm lượng và một test hợp đồng i18n↔UI.
 
 <img src="assets/settings-sections.svg" alt="Cài đặt v1.1.6 — 6 mục với công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
 
@@ -65,7 +65,7 @@
 | 💾 **Bảng vàng TOP 8** | Điểm lưu cục bộ, validate & chuẩn hoá khi đọc, tên tự viết hoa, highlight dòng vừa lập kỷ lục |
 | 🎨 **Đồ hoạ 60fps** | Canvas 2D, particle budget 460, DPR cap 2, nền gạch bông pre-render offscreen, star twinkle + aurora menu |
 | 📴 **Offline-first thật sự** | Fonts tự host (subset latin + vietnamese, woff2), không CDN, không API — mở `dist/index.html` là chơi |
-| 🧪 **Chất lượng** | 150 unit tests (vitest) cho modes / achievements / storage / i18n / settings — `npm run check` là cổng CI |
+| 🧪 **Chất lượng** | 172 unit tests (vitest) cho modes / achievements / storage / i18n / settings — `npm run check` là cổng CI |
 
 <img src="assets/items.svg" alt="14 nguyên liệu Lọ Chéo — nhóm hứng, nhóm power, nhóm né" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 150 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 172 unit tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 
@@ -222,7 +222,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # trap Tab trong modal (v1.1.6)
-└─ tests/                  # vitest — 18 files · 150 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 22 files · 172 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Kiến trúc & hiệu năng
@@ -303,7 +303,7 @@ Tài liệu thiết kế & hướng dẫn kỹ thuật sâu hơn:
 ## 🤝 Đóng góp
 
 1. Fork repo, tạo branch theo quy ước `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm run check` phải xanh trước khi mở PR (typecheck + 150 tests + build).
+2. `npm run check` phải xanh trước khi mở PR (typecheck + 172 tests + build).
 3. Không thêm dependency runtime nếu không thực sự cần — triết lý: **một file, không mạng, chơi được mãi mãi**.
 4. Mô tả PR ghi rõ chế độ/màn hình bị ảnh hưởng và kèm clip nếu thay đổi gameplay.
 

@@ -41,7 +41,7 @@
 - 🎛️ **4 个一键预设 + JSON 备份** —— **流畅** · **均衡** · **电影感** · **速通**（永不改变语言），并可导出/导入配置带到别的机器。
 - ✨ **菜单变成舞台** —— 漂移星云、呼吸光束、**两层闪烁星空**、环绕陶罐的旋转光环、罐体光晕、掠过「开始」按钮的扫光；**作者卡片**带无限流动的渐变边框。
 - 🐛 **修复 5 个真实缺陷** —— 刷新后音乐比设定更响 · Tab 逃出弹窗 · 更新日志提示硬编码 v1.1.5 · `updateSettings` 返回未归一化值 · 焦点不受限于对话框。
-- 🧪 **150 项单元测试**（18 个文件，从 113/14 增加）—— 新增设置 schema、预设、备份编解码与音频增益计算的测试。
+- 🧪 **172 项单元测试**（22 个文件，从 113/14 增加）—— 新增设置 schema、预设、备份编解码、音频增益计算与 i18n↔UI 契约测试。
 
 <img src="assets/settings-sections.svg" alt="v1.1.6 设置 —— 6 个分区，含开关、级别条与选择器（SMIL 动画）" width="100%" />
 
@@ -65,7 +65,7 @@
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 150 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 172 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 150 项单元测试（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 172 项单元测试（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
-└─ tests/                  # vitest — 18 个文件 · 150 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 22 个文件 · 172 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
