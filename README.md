@@ -153,9 +153,14 @@ lo-cheoio/
 │  ├─ play-mac.command     # trình chạy macOS — 7 ngôn ngữ, menu màu có hoạt ảnh
 │  ├─ play-windows.bat     # trình chạy Windows — CRLF + UTF-8 BOM, 7 ngôn ngữ
 │  ├─ play-linux.sh        # trình chạy Linux — 7 ngôn ngữ, menu màu có hoạt ảnh
+│  ├─ smoke-ssr.tsx        # headless SSR smoke toàn bộ menu/modal (v1.1.5)
+│  ├─ check-readme-sync.mjs # gate lệch version giữa 10 README (CI) (v1.1.5)
 │  └─ README.md            # hướng dẫn trình chạy cho người không rành terminal
 ├─ docs/
+│  ├─ README.md            # mục lục toàn bộ tài liệu (v1.1.5)
 │  ├─ DESCRIPTION.md       # mô tả dự án đa ngôn ngữ (vi/en/zh + SEO)
+│  ├─ design/              # spec menu-corners / save-format / settings-format
+│  ├─ guides/              # engine overview · a11y · performance · storage keys · release playbook…
 │  └─ releases/
 │     ├─ v1.0.0.md         # release notes bản đầu tiên
 │     ├─ v1.1.0.md         # release notes v1.1.0
@@ -205,7 +210,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13 files · 107 tests (modes/achievements/storage/i18n/runSave/settings/changelog/…)
 ```
 
 ## 🧱 Kiến trúc & hiệu năng
