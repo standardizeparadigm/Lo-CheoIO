@@ -1,8 +1,12 @@
 /**
  * ScoreBoard — the TOP-8 table.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * Rows come from `game/storage` and are already normalised (8 max, finite
+ * numbers, truncated names); this component never trusts the input shape and
+ * re-checks each row before drawing it. `highlight` marks the row the player
+ * just posted so the game-over screen can point at it.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import type { ScoreEntry } from "../../game/storage";
 import { fmtNum } from "../../i18n/i18n";
