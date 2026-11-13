@@ -52,7 +52,9 @@
     "smoke": "vite-node scripts/smoke-ssr.tsx",
     "check:readme": "node scripts/check-readme-sync.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
-    "check:assets": "node scripts/check-assets.mjs"
+    "check:assets": "node scripts/check-assets.mjs",
+    "check:svg-text": "node scripts/check-svg-text.mjs",
+    "check:all": "npm run typecheck && npm run check:readme && npm run check:i18n && npm run check:assets && npm run check:svg-text && npm run smoke"
   },
   "dependencies": {
     "clsx": "2.1.1",

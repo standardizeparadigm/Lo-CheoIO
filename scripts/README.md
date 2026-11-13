@@ -147,3 +147,33 @@ Nó tồn tại vì lỗi v1.1.7 (chữ CHÉO và chú lọ bị cắt ngang) l�
 | `menu-wordmark` có mặt | cỡ chữ bị chặn theo cả `20vh` |
 | không còn `flex shrink-0 items-end justify-between` | đúng lớp gây lỗi 1.1.7 |
 | `AGPL-3.0` xuất hiện đúng 1 lần | không còn dòng bản quyền thứ hai bị cắt |
+
+## `check-svg-text.mjs`
+
+Đọc mọi chuỗi trong `assets/*.svg` và kiểm hai thứ máy kiểm được.
+
+**1. Con số phải khớp nguồn sự thật.** Sơ đồ nhúng trong cả 10 README nên một con số lỗi thời được đọc 10 lần:
+- `14 SVG` → nay 16
+- `9 bản` → nay 10
+- `nền 6 lớp` → `MENU_BACKGROUND_LAYERS` có 8
+- `286 / 286 · 35 file`
+
+**2. Một sơ đồ chỉ được dùng một ngôn ngữ.** Game là tiếng Việt, nên sơ đồ vẽ màn hình cài đặt *phải* là tiếng Việt — đó là giao diện thật. Lỗi là sơ đồ **bị chẻ đôi**: tiêu đề tiếng Anh, chú thích tiếng Việt, vì ai đó dịch một nhãn mà quên các nhãn cạnh nó. `test-matrix.svg` từng đúng như vậy.
+
+```bash
+node scripts/check-svg-text.mjs           # kiểm
+node scripts/check-svg-text.mjs --dump    # in mọi chuỗi, không kiểm
+```
+
+`--dump` là phần quan trọng nhất: có những lỗi không thể kiểm bằng máy — sơ đồ vẽ sai **tỉ lệ** (scene 382/720 = 53% nhưng vẽ thành 91%), hay thanh phân bố đặt `width="0"` rồi animate nên ảnh tĩnh trông trống. Cách duy nhất bắt được là đọc hết chuỗi và **render ra ảnh**.
+
+Ba quy tắc đều đã được chứng minh bằng cách phá hoại file rồi chạy lại: sửa `10 bản`→`9 bản`, `16 SVGs`→`14 SVGs`, và đổi 2 nhãn sang tiếng Việt trong sơ đồ tiếng Anh — cả ba lần checker đều fail đúng chỗ.
+
+## `npm run check:all`
+
+Gộp 5 cổng chạy nhanh (không gồm `vitest`/`build` vì hai cái đó chậm):
+
+```bash
+npm run check:all
+# typecheck → check:readme → check:i18n → check:assets → check:svg-text → smoke
+```
