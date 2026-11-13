@@ -155,7 +155,10 @@ lo-cheoio/
 │  ├─ play-linux.sh        # lanceur Linux — double-clic, menu coloré
 │  └─ README.md            # guide des lanceurs pour novices du terminal
 ├─ docs/
-│  ├─ DESCRIPTION.md       # blurbs multilingues (vi/en/zh + SEO)
+│  ├─ README.md            # index de la documentation (v1.1.5)
+│  ├─ DESCRIPTION.md       # descriptions multilingues (vi/en/zh + SEO)
+│  ├─ design/              # specs menu-corners / save-format / settings-format
+│  ├─ guides/              # vue d'ensemble engine · a11y · perf · storage keys · playbook release…
 │  └─ releases/
 │     ├─ v1.0.0.md         # notes de la première release
 │     ├─ v1.1.0.md         # notes v1.1.0
@@ -205,7 +208,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13 fichiers · 107 tests (modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 Architecture & performance
