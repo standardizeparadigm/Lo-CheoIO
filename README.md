@@ -260,15 +260,21 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick nổi + bàn phím + visibility
 │  │  ├─ StartScreen.tsx   # menu: hero + hiện trường nhiều lớp + corner panels
 │  │  ├─ menu/              # corner GAME/INFO panels + modals + icons/
+│  │  │  └─ background/     # 8 lớp nền menu, khai báo bằng dữ liệu (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9 thẻ chế độ (classic… hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # tường huy hiệu locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # VỠ HŨ! + điểm + new achievements
 │  │  ├─ PauseScreen.tsx        # TẠM NGHỈ + stats ván
 │  │  ├─ settings/           # 6 mục cài đặt + control tái dùng (v1.1.6)
-│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  │  └─ ui/               # 8 primitive, 1 file mỗi cái (v1.1.7 — tách từ ui.tsx)
+│  │                          jar · panel · button · keycap · stat · modal · switch · scoreboard
 │  ├─ game/
 │  │  ├─ engine.ts         # toàn bộ simulation + render canvas (~2260 dòng)
-│  │  ├─ modes.ts          # chế độ chơi + công thức cân bằng (pure)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 record cân bằng — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — giữ nguyên mọi import cũ
 │  │  ├─ achievements.ts   # 16 huy hiệu + checker thuần (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
@@ -295,7 +301,7 @@ lo-cheoio/
 - **Vòng lặp game** trên `requestAnimationFrame` với delta-time kẹp `1/20s`, nhân `timeScale` (slow-mo khi ĐÁ LẠNH) và **hit-stop** `freeze` vài chục ms trên mỗi catch để cảm giác "nện".
 - **Canvas HUD** vẽ trực tiếp mỗi frame; React chỉ render các màn hình theo `phase` — không re-render React trong hot loop; khi đổi ngôn ngữ, HUD tự đọc dictionary ở frame kế tiếp.
 - **i18n tách lớp**: `src/i18n/i18n.ts` là module thuần (không phụ thuộc React), `useI18n` chỉ là cầu nối đăng ký re-render qua sự kiện `locheo:languagechange`; `t()` hỗ trợ nội suy `{param}` và fallback vi.
-- **Chế độ chơi khai báo thuần**: mỗi mode là một record trong `src/game/modes.ts` (scoreMult/speedMult/hazardMult/spawnMult + tuỳ chọn timeLimit/goldMult/maxCracks/**comboWindowMult**/**jarBonusMult**) — thêm chế độ mới không cần đụng engine.
+- **Chế độ chơi khai báo thuần**: mỗi mode là một record trong `src/game/modes/<id>.ts` (từ v1.1.7; `modes.ts` chỉ còn là barrel) (scoreMult/speedMult/hazardMult/spawnMult + tuỳ chọn timeLimit/goldMult/maxCracks/**comboWindowMult**/**jarBonusMult**) — thêm chế độ mới không cần đụng engine.
 - **Nền gạch bông** pre-render một lần ra offscreen canvas (kèm vignette + pool ánh sáng), star twinkle và bubble tính theo thời gian thực, rất rẻ.
 - **Budget**: ≤460 particles, ≤70 items, ≤34 popups, DPR ≤ 2; va chạm quét theo hitbox; decal dưa văng trên nền tự dọn.
 - **localStorage** với validate/chuẩn hoá đầu vào — 1 bản ghi lỗi không làm hỏng cả bảng; storage bị chặn (Safari private) thì chơi tiếp bộ nhớ; lựa chọn ngôn ngữ lưu riêng ở `locheo.lang.v1`.
