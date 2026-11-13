@@ -155,7 +155,10 @@ lo-cheoio/
 │  ├─ play-linux.sh        # Linux 启动器 — 双击弹出全彩菜单
 │  └─ README.md            # 给不熟悉终端用户的启动器指南
 ├─ docs/
+│  ├─ README.md            # 文档目录（v1.1.5）
 │  ├─ DESCRIPTION.md       # 多语言项目简介（vi/en/zh + SEO）
+│  ├─ design/              # menu-corners / save-format / settings-format 规范
+│  ├─ guides/              # engine 概览 · a11y · 性能 · storage keys · 发布流程…
 │  └─ releases/
 │     ├─ v1.0.0.md         # 首发版本说明
 │     ├─ v1.1.0.md         # v1.1.0 版本说明
