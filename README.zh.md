@@ -253,19 +253,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
 │  │  ├─ StartScreen.tsx   # 菜单：主视觉 + 多层动效 + 角落面板
 │  │  ├─ menu/              # 角落 GAME/INFO 面板 + 弹窗 + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9 张模式卡（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
 │  │  ├─ GameOverScreen.tsx     # 罐子碎了！+ 分数 + 新成就
 │  │  ├─ PauseScreen.tsx        # 暂停 + 本局数据
 │  │  ├─ settings/           # 六个分区设置模块 + 控件（v1.1.6）
-│  │  └─ ui.tsx            # GameButton、Panel、Keycap、Stat、ScoreBoard…
+│  │  └─ ui/               # 八个基础组件，每个一个文件（v1.1.7——从 ui.tsx 拆出）
 │  ├─ game/
 │  │  ├─ engine.ts         # 全部模拟与画布渲染（约 2100 行）
-│  │  ├─ modes.ts          # 游戏模式 + 平衡公式（纯函数）
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16 枚徽章 + 纯校验器（纯函数）
 │  │  ├─ storage.ts        # localStorage：TOP 8、进度、成就
 │  │  ├─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
-│  │  ├─ changelog.ts        # 游戏内更新日志数据
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # 中断对局持久化
 │  │  ├─ settings.ts        # 设置 schema、默认值、归一化
 │  │  ├─ settingsIO.ts      # 备份/恢复编解码（v1.1.6）

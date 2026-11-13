@@ -253,19 +253,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # キャンバス + フローティングジョイスティック + キーボード
 │  │  ├─ StartScreen.tsx   # メニュー：ヒーロー + 多層アニメ + コーナーパネル
 │  │  ├─ menu/              # コーナー GAME/INFO パネル + モーダル + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9枚のモードカード（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # ロック/解除バッジウォール
 │  │  ├─ GameOverScreen.tsx     # 壺が割れた！+ スコア + 新実績
 │  │  ├─ PauseScreen.tsx        # 一時停止 + ラン統計
 │  │  ├─ settings/           # 6セクションの設定モジュール + 部品（v1.1.6）
-│  │  └─ ui.tsx            # GameButton、Panel、Keycap、Stat、ScoreBoard…
+│  │  └─ ui/               # 8 つのプリミティブ、1 ファイルずつ（v1.1.7 — ui.tsx から分割）
 │  ├─ game/
 │  │  ├─ engine.ts         # シミュレーションとキャンバス描画のすべて（約2260行）
-│  │  ├─ modes.ts          # ゲームモード + バランス計算（pure）
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16バッジ + pureチェッカー（pure）
 │  │  ├─ storage.ts        # localStorage：TOP 8、進行度、実績
 │  │  ├─ audio.ts          # Web Audioシンセ：効果音 + 五音音階ミュージック
-│  │  ├─ changelog.ts        # ゲーム内アップデート履歴データ
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # 中断ランの保存
 │  │  ├─ settings.ts        # 設定スキーマ・既定値・正規化
 │  │  ├─ settingsIO.ts      # バックアップ/復元コーデック（v1.1.6）

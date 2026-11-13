@@ -253,19 +253,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
 │  │  ├─ StartScreen.tsx   # 메뉴: 히어로 + 다층 애니메이션 + 코너 패널
 │  │  ├─ menu/              # 코너 GAME/INFO 패널 + 모달 + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9개 모드 카드 (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
 │  │  ├─ GameOverScreen.tsx     # 항아리가 깨졌다! + 점수 + 새 업적
 │  │  ├─ PauseScreen.tsx        # 일시정지 + 판 통계
 │  │  ├─ settings/           # 6개 섹션 설정 모듈 + 공용 컨트롤 (v1.1.6)
-│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  │  └─ ui/               # 8개 프리미티브, 파일 하나씩 (v1.1.7 — ui.tsx에서 분리)
 │  ├─ game/
 │  │  ├─ engine.ts         # 시뮬레이션과 캔버스 렌더링 전부 (약 2260줄)
-│  │  ├─ modes.ts          # 게임 모드 + 밸런스 수치 (pure)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 배지 14개 + pure 체커 (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, 진행도, 업적
 │  │  ├─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
-│  │  ├─ changelog.ts        # 게임 내 변경 이력 데이터
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # 중단한 판 저장
 │  │  ├─ settings.ts        # 설정 스키마·기본값·정규화
 │  │  ├─ settingsIO.ts      # 백업/복원 코덱 (v1.1.6)

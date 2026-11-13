@@ -251,19 +251,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
 │  │  ├─ StartScreen.tsx   # menu: hero + layered animated scene + corner panels
 │  │  ├─ menu/              # corner GAME/INFO panels + modals + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9 mode cards (classic… hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # locked/unlocked badge wall
 │  │  ├─ GameOverScreen.tsx     # JAR SHATTERED! + score + new achievements
 │  │  ├─ PauseScreen.tsx        # PAUSED + run stats
 │  │  ├─ settings/           # six-section settings module + controls (v1.1.6)
-│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  │  └─ ui/               # eight primitives, one file each (v1.1.7 — split from ui.tsx)
 │  ├─ game/
 │  │  ├─ engine.ts         # entire simulation + canvas rendering (~2260 lines)
-│  │  ├─ modes.ts          # game modes + balance math (pure)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16 badges + pure checker (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
-│  │  ├─ changelog.ts        # in-game changelog data
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # suspended-run persistence
 │  │  ├─ settings.ts        # settings schema, defaults, normalize
 │  │  ├─ settingsIO.ts      # backup/restore codec (v1.1.6)

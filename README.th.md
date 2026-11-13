@@ -253,19 +253,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
 │  │  ├─ StartScreen.tsx   # เมนู: ฮีโร่ + ฉากหลายชั้น + พาเนลมุม
 │  │  ├─ menu/              # พาเนล GAME/INFO + โมดัล + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # การ์ด 9 โหมด (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # กำแพงป้าย locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # ไหแตก! + คะแนน + ความสำเร็จใหม่
 │  │  ├─ PauseScreen.tsx        # หยุดชั่วคราว + สถิติรอบนี้
 │  │  ├─ settings/           # โมดูลตั้งค่า 6 หมวด + คอนโทรล (v1.1.6)
-│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  │  └─ ui/               # แปดพรีมิทีฟ ไฟล์ละตัว (v1.1.7 — แยกจาก ui.tsx)
 │  ├─ game/
 │  │  ├─ engine.ts         # การจำลอง + เรนเดอร์ canvas ทั้งหมด (ราว 2260 บรรทัด)
-│  │  ├─ modes.ts          # โหมดเกม + สมดุล (pure)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16 ป้าย + ตัวตรวจ (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + เพลง pentatonic
-│  │  ├─ changelog.ts        # ข้อมูล changelog ในเกม
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # บันทึกเกมที่ค้างไว้
 │  │  ├─ settings.ts        # สคีมาตั้งค่า ค่าเริ่มต้น normalize
 │  │  ├─ settingsIO.ts      # โคเดกสำรอง/กู้คืน (v1.1.6)

@@ -253,19 +253,28 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flutuante + teclado + visibility
 │  │  ├─ StartScreen.tsx   # menu: hero + cena em camadas + painéis de canto
 │  │  ├─ menu/              # painéis GAME/INFO + modais + icons/
+│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9 cartões de modo (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # mural de emblemas locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # POTE PARTIDO! + pontos + conquistas novas
 │  │  ├─ PauseScreen.tsx        # PAUSADO + estatísticas da partida
 │  │  ├─ settings/           # ajustes em 6 seções + controles (v1.1.6)
-│  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
+│  │  └─ ui/               # oito primitivas, um arquivo cada (v1.1.7 — separadas de ui.tsx)
 │  ├─ game/
 │  │  ├─ engine.ts         # toda a simulação + renderização canvas (~2260 linhas)
-│  │  ├─ modes.ts          # modos de jogo + matemática de equilíbrio (pure)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16 emblemas + checker puro (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, conquistas
 │  │  ├─ audio.ts          # Web Audio synth: sfx + música pentatônica
-│  │  ├─ changelog.ts        # dados do changelog no jogo
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # persistência de partida suspensa
 │  │  ├─ settings.ts        # schema de ajustes, padrões, normalização
 │  │  ├─ settingsIO.ts      # codec de backup/restauração (v1.1.6)
