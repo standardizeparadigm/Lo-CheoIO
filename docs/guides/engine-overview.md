@@ -46,7 +46,28 @@ new LoCheoGame(canvas)      → đo canvas, listeners, assets, phase = "menu"
 - `setReducedMotion(bool)` — `flashScale` 0.25, trauma cap 0.12
 - `captureRun()` / `restoreRun()` — snapshot/restore (không serialize field items)
 
-## Pure vs impure
+## Pure vs impure (v1.1.6)
 
-- **Pure** (unit-test không cần canvas): `modes.ts`, `achievements.ts`, `storage.ts`, `settings.ts`, `runSave.ts`, `changelog.ts` → phủ tests.
+`engine.ts` từng nhốt trong mình cả ba thứ *thuần logic*: bảng màu, trọng số spawn, và các phép nội suy.
+v1.1.6 tách chúng ra thành module riêng — engine chỉ còn gọi hàm:
+
+| Module | Vai trò | Test |
+| --- | --- | --- |
+| `game/palette.ts` | 9 màu, mirror `--color-*` của CSS | `palette.test.ts` |
+| `game/spawn.ts` | `itemWeight` / `weightedPick` / `weightTable` — `pickKind()` chỉ còn một dòng gọi | `spawn.test.ts` |
+| `utils/math.ts` | `clamp` / `clamp01` / `lerp` / `damp` | `math.test.ts` |
+| `game/safeStorage.ts` | đọc/ghi localStorage an toàn | `safeStorage.test.ts` |
+
+- **Pure** (unit-test không cần canvas): `modes.ts`, `achievements.ts`, `palette.ts`, `spawn.ts`,
+  `storage.ts`, `safeStorage.ts`, `settings.ts`, `settingsIO.ts`, `settingsPresets.ts`, `audioLevels.ts`,
+  `runSave.ts`, `changelog.ts`, `utils/*` → phủ bởi 222 test.
 - **Impure** (engine, audio, GameCanvas): kiểm chứng qua typecheck + build + SSR smoke + chơi thật.
+
+## Những chỗ đổi hành vi ở v1.1.6
+
+1. **`pickKind()`** — fallback khi vòng lặp rơi hết giờ chọn kind cuối **có trọng số dương** (trước: kind cuối
+   mảng, có thể là `sau` khối lượng 0 ở cấp thấp).
+2. **Nội suy** — mọi `lerp(x, target, Math.min(1, dt*k))` đổi thành `damp(x, target, k, dt)`; hành vi giống
+   nhau ở 60 Hz nhưng đúng ở 120/144 Hz và không overshoot sau khung hình dài.
+3. **`setReducedMotion`** — ngoài `flashScale`/trauma cap, canvas còn mang `data-reduced-motion="true"`
+   để CSS tắt animation trong scene.
