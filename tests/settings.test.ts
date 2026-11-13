@@ -129,3 +129,28 @@ describe("loadSettings — first-run OS defaults", () => {
     expect(loadSettings("vi", { reducedMotion: true }).reducedMotion).toBe(false);
   });
 });
+
+describe("updateSettings — explicit base", () => {
+  it("patches the provided base instead of re-reading blocked storage", () => {
+    // simulate storage that refuses writes (Safari private mode)
+    const blocked = {
+      getItem: () => null,
+      setItem: () => {
+        throw new Error("blocked");
+      },
+      removeItem: () => {},
+      clear: () => {},
+    };
+    const original = globalThis.localStorage;
+    (globalThis as { localStorage?: Storage }).localStorage = blocked as unknown as Storage;
+    try {
+      const base = { ...DEFAULT_SETTINGS, sfxVolume: 40, music: false };
+      const next = updateSettings({ musicVolume: 20 }, base);
+      expect(next.sfxVolume).toBe(40); // base kept, not defaults
+      expect(next.music).toBe(false);
+      expect(next.musicVolume).toBe(20);
+    } finally {
+      (globalThis as { localStorage?: Storage }).localStorage = original;
+    }
+  });
+});

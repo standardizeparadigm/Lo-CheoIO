@@ -125,9 +125,17 @@ export function saveSettings(settings: GameSettings): GameSettings {
   return clean;
 }
 
-/** Patch a subset of settings, persist, and return the full object. */
-export function updateSettings(patch: Partial<GameSettings>): GameSettings {
-  return saveSettings({ ...loadSettings(), ...patch });
+/**
+ * Patch a subset of settings, persist, and return the full object.
+ *
+ * `base` lets the caller pass the settings it already holds in React state.
+ * Without it this function has to re-read storage, which **loses in-memory
+ * changes when storage is blocked** (Safari private mode, quota exhausted):
+ * the patch would be applied to the defaults instead of to what the player
+ * just changed. Call sites inside the app always pass `base`.
+ */
+export function updateSettings(patch: Partial<GameSettings>, base?: GameSettings): GameSettings {
+  return saveSettings({ ...(base ?? loadSettings()), ...patch });
 }
 
 /** Reset every setting to defaults except keep the current language choice. */
