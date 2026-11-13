@@ -2,23 +2,31 @@
 
 ## Release notes (historical + current)
 
-**Tám bản**: `releases/v1.0.0.md` → `releases/v1.1.6.md`. Bản hiện hành là **v1.1.6** — 6 mục cài đặt, 4 preset, sao lưu JSON, 7 ngôn ngữ chuyển vào Settings. Các bản cũ giữ nguyên (historical), chỉ đính chính fact-sai nghiêm trọng nếu có.
+**Chín bản**: `releases/v1.0.0.md` → `releases/v1.1.7.md`. Bản hiện hành là **v1.1.7** — nền menu hết mờ, changelog chia tầng PATCH/UPDATE/MAJOR, mô tả đầy đủ cho cả 9 bản, ngày phát hành xếp lại. Các bản cũ giữ nguyên (historical), chỉ đính chính fact-sai nghiêm trọng nếu có.
 
-| Bản | Nội dung chính | Tests lúc phát hành |
-| --- | --- | --- |
-| [v1.1.6](releases/v1.1.6.md) | Settings 6 mục · preset · backup JSON · a11y pass | 222 / 29 file |
-| [v1.1.5](releases/v1.1.5.md) | Panel góc GAME/INFO, menu mới | 113 |
-| [v1.1.4](releases/v1.1.4.md) | 2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) | 61 |
-| v1.1.3 → v1.0.0 | Xem từng file trong `releases/` | — |
+Mỗi bản có một **tầng** (suy ra từ SemVer, xem `docs/guides/release-process.md` § Tầng phát hành) — đúng quy ước mà panel CHANGELOG trong game dùng:
+
+| Bản | Tầng | Nội dung chính | Tests lúc phát hành |
+| --- | --- | --- | --- |
+| [v1.1.7](releases/v1.1.7.md) | 🟣 PATCH | Nền menu hết mờ (4 lớp) · changelog chia tầng · 96 gạch mô tả mới · tách `src/game/changelog/` | 235 / 30 file |
+| [v1.1.6](releases/v1.1.6.md) | 🟣 PATCH | Settings 6 mục · preset · backup JSON · a11y pass | 222 / 29 file |
+| [v1.1.5](releases/v1.1.5.md) | 🟣 PATCH | Panel góc GAME/INFO, Chơi tiếp ván dở | 113 |
+| [v1.1.4](releases/v1.1.4.md) | 🟣 PATCH | 2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 7 ngôn ngữ | 61 |
+| [v1.1.3](releases/v1.1.3.md) | 🟣 PATCH | Mưa Dưa · Gốm Mỏng · 5 ngôn ngữ · favicon | 55 |
+| [v1.1.2](releases/v1.1.2.md) | 🟣 PATCH | Đua 60 Giây · Mùa Vàng · launcher double-click | 49 |
+| [v1.1.1](releases/v1.1.1.md) | 🟣 PATCH | i18n VI/EN/ZH · build một file · quét lỗi | 45 |
+| [v1.1.0](releases/v1.1.0.md) | 🟡 UPDATE | 3 chế độ · 10 thành tựu · menu aurora · font tự host | — |
+| [v1.0.0](releases/v1.0.0.md) | 🩷 MAJOR | Bản đầu tiên: engine, 11 nguyên liệu, LẮC HŨ | — |
 
 ## Design docs (`design/`)
 
 - `menu-corners.md` — triết lý 2 panel góc GAME/INFO, a11y, responsive.
 - `menu-icons.md` — bộ icon SVG tự vẽ cho panel góc (grid 24px, stroke 2.2).
-- `menu-scene.md` — 8 lớp nền menu (tinh vân, sao, sàn gạch, vòng sáng…) + ngân sách render.
+- `menu-scene.md` — 8 lớp nền menu (tinh vân, sao, sàn gạch, vòng sáng…) + ngân sách render, **kèm mục "Độ tương phản" của v1.1.7**.
 - `modes-balance.md` — bảng cân bằng 9 chế độ + cách chỉnh số.
 - `save-format.md` — spec `locheo.run.v1` (snapshot ván dở).
 - `settings-format.md` — spec `locheo.settings.v1` (v1.1.6: 10 field, 6 mục UI).
+- `changelog-format.md` — spec module `src/game/changelog/` + ánh xạ tầng → màu (v1.1.7).
 
 ## Hướng dẫn contributor (`guides/`)
 
@@ -30,11 +38,11 @@
 | `accessibility.md` | A11y hiện có, hạn chế, quy tắc khi thêm UI |
 | `performance.md` | Ngân sách render + cách đo |
 | `adding-a-locale.md` | Thêm/sửa 1 ngôn ngữ (parity rules) |
-| `release-process.md` | Playbook phát hành 1 version (học từ v1.1.5) |
+| `release-process.md` | Playbook phát hành 1 version (học từ v1.1.5 và 1.1.7) — gồm bảng tầng PATCH/UPDATE/MAJOR |
 | `glossary.md` | Từ vựng game cho translator |
 | `troubleshooting.md` | Sự cố thường gặp — đen màn hình, audio, «Chơi tiếp», launcher, build |
 
 ## Khác
 
-- `assets.md` — kho SVG SMIL (banner, corner-menu…) + quy ước thêm/sửa.
+- `assets.md` — kho 14 SVG SMIL (banner, corner-menu, **palette-ribbon, architecture, release-tiers**…) + quy ước thêm/sửa.
 - `DESCRIPTION.md` — mô tả ngắn cho dev/cộng đồng.
