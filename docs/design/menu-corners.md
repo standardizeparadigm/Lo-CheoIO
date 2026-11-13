@@ -4,7 +4,7 @@
 
 Menu chính pre-1.1.5 gánh toàn bộ tương tác (CTA, mode cards, scoreboard, achievements, language, how-to) — quá tải thị giác và phá luật phân cấp. v1.1.5 gom lại theo hai trục:
 
-- **GAME (góc dưới-trái)** — mọi thứ dẫn tới việc *chơi*: Chơi · Chơi tiếp · Chế độ · Bảng xếp hạng · Thành tựu · Cài đặt.
+- **GAME (góc dưới-trái)** — mọi thứ dẫn tới việc *chơi*: Chơi · Chơi tiếp · Chế độ · Cách chơi · Bảng xếp hạng · Thành tựu · Cài đặt.
 - **INFO (góc dưới-phải)** — mọi thứ dẫn tới việc *biết về dự án*: About · Changelog · Quit.
 
 ## Nguyên tắc
@@ -17,9 +17,9 @@ Menu chính pre-1.1.5 gánh toàn bộ tương tác (CTA, mode cards, scoreboard
 
 ## Vị trí & responsive
 
-- Desktop: 2 panel nằm trong flow (`flex items-end justify-between`) phía trên ticker, dưới hero — neo theo góc màn hình vật lý, cách nhau tuyệt đối.
-- Mobile (<lg): mascot ẩn, panel w-44/w-48, hint text thu nhỏ; không overlap ticker vì cùng flow column.
-- Modal luôn `max-h-[86vh]` + scroll nội bộ.
+- Desktop: hai panel nằm trong flow bên dưới hero căn giữa; ticker đã được bỏ ở v1.1.8.
+- Mobile: mascot vẫn hiện; chiều rộng panel giới hạn theo viewport, menu cuộn khi chiều cao không đủ.
+- Modal neo vào viewport, `max-h-[86vh]` + scroll nội bộ.
 
 ## Trạng thái «Chơi tiếp»
 
