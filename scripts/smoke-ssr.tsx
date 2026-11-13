@@ -7,6 +7,7 @@
 import { renderToString } from "react-dom/server";
 import { createElement } from "react";
 import StartScreen from "../src/components/StartScreen";
+import HowToPlayModal from "../src/components/menu/HowToPlayModal";
 import GameMenu from "../src/components/menu/GameMenu";
 import InfoMenu from "../src/components/menu/InfoMenu";
 import ModeSelectModal from "../src/components/menu/ModeSelectModal";
@@ -26,8 +27,6 @@ const scores = [
 const html = renderToString(
   createElement(StartScreen as never, {
     scores,
-    best: 12345,
-    touchMode: false,
     achievements: ["first-catch"],
     mode: "classic",
     onModeChange: noop,
@@ -45,7 +44,8 @@ const html = renderToString(
 console.log("StartScreen html length:", html.length, html.includes("LỌ") || html.includes("L") ? "contains title" : "TITLE MISSING?");
 
 const pieces: Array<[string, () => string]> = [
-  ["GameMenu", () => renderToString(createElement(GameMenu as never, { resume: null, achievementsUnlocked: 1, achievementsTotal: 16, onPlay: noop, onResume: noop, onModes: noop, onLeaderboard: noop, onAchievements: noop, onSettings: noop } as never))],
+  ["GameMenu", () => renderToString(createElement(GameMenu as never, { resume: null, achievementsUnlocked: 1, achievementsTotal: 16, onHowTo: noop, onPlay: noop, onResume: noop, onModes: noop, onLeaderboard: noop, onAchievements: noop, onSettings: noop } as never))],
+  ["HowToPlayModal", () => renderToString(createElement(HowToPlayModal, { onClose: noop }))],
   ["InfoMenu", () => renderToString(createElement(InfoMenu as never, { onAbout: noop, onChangelog: noop, onQuit: noop } as never))],
   ["ModeSelectModal", () => renderToString(createElement(ModeSelectModal as never, { mode: "classic", onChange: noop, onClose: noop } as never))],
   ["SettingsModal", () => renderToString(createElement(SettingsModal as never, { settings: DEFAULT_SETTINGS, onPatch: noop, onChangeLanguage: noop, onQuickSettings: noop, onResetDefaults: noop, onClearAllData: noop, onClose: noop } as never))],

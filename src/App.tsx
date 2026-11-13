@@ -385,8 +385,6 @@ export default function App() {
       {phase === "menu" && (
         <StartScreen
           scores={scores}
-          best={best}
-          touchMode={touchMode}
           achievements={achievements}
           mode={mode}
           onModeChange={handleModeChange}

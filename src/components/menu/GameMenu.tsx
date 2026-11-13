@@ -15,6 +15,7 @@ export default function GameMenu({
   resume,
   achievementsUnlocked,
   achievementsTotal,
+  onHowTo,
   onPlay,
   onResume,
   onModes,
@@ -25,6 +26,7 @@ export default function GameMenu({
   resume: SavedRun | null;
   achievementsUnlocked: number;
   achievementsTotal: number;
+  onHowTo: () => void;
   onPlay: () => void;
   onResume: () => void;
   onModes: () => void;
@@ -61,6 +63,7 @@ export default function GameMenu({
           <span className="font-display text-[9px] text-brine-400/80 tabular-nums">{MODE_LIST.length}</span>
         }
       />
+      <MenuItemButton icon={<span aria-hidden="true" className="font-display text-lg">?</span>} label={t("menu.howtoOpen")} onClick={onHowTo} />
       <MenuItemButton
         icon={<TrophyIcon className="h-5 w-5" />}
         label={t("game.leaderboard")}

@@ -17,7 +17,7 @@ export default function CornerPanel({
   return (
     <section
       aria-label={title}
-      className={`pointer-events-auto relative w-52 border-[3px] border-jade-700/90 bg-jade-950/92 hard-shadow sm:w-56 ${
+      className={`pointer-events-auto relative w-[min(13rem,calc(50vw-0.75rem))] border-[3px] border-jade-700/90 bg-jade-950/92 hard-shadow sm:w-56 ${
         corner === "left" ? "anim-corner-left" : "anim-corner-right"
       }`}
     >
