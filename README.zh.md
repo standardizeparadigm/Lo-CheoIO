@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Tests](https://img.shields.io/badge/tests-286%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
@@ -37,68 +37,82 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.7 新特性
+## 🆕 v1.1.8 新内容
 
-> 1.2.0 之前的**最后一个补丁版本**。没有新增游戏模式——只把还让人不舒服的地方彻底修好。
+> **1.2.0 之前的最后一个补丁**。不新增玩法——修复开始界面的布局溢出，新增三个目录，并同步全部文档。
 
-### 🌫️ 菜单背景不再模糊——从根源修复
+### 📐 开始界面不再溢出
 
-玩家说得对：*「菜单后面的背景还是糊的」*。原因不是一层，而是**四层叠加互相放大**：
+截图中**四类错误同时出现**：`CHÉO` 标题被拦腰截断、吉祥物罐子只剩下半身、GAME 面板底部被切、ticker 下方的版权行被裁掉。四者**同一个原因**——一个没人负责的加法。
 
-| 图层 | 之前 | 之后 | 原因 |
+```
+1280×720 下的旧 flex 列：
+  scene      flex-1     →  只拿到 250px （需要约 700px）
+  panel row  shrink-0   →      415px
+  ticker     shrink-0   →       55px
+                          ─────────────
+                          720 − 415 − 55 = 250
+```
+
+`shrink-0` 让后两项无法收缩，scene 只剩 **250px**；比它高的一切（标题、罐子）都被 `overflow-y-auto` 在 `y≈247px` 处切掉。截图中量到的切缝是 **247.3px**，算式给出 **250.0px**，相差 2.7px。
+
+<img src="assets/layout-fix.svg" alt="v1.1.7 与 v1.1.8 布局对比——250px 的 scene 被截断 vs 720px 的 scene 与浮动 chrome（SMIL 动画）" width="100%" />
+
+**修法**——把 chrome 移出文档流，让"总和"有负责人：
+
+| 改动 | 效果 |
+| --- | --- |
+| `MenuChrome` 改为 `position: absolute` | 无法压缩 scene——scene 总是拿到完整 720px |
+| scene `padding-bottom: plan.reserve` | 内容不会藏到面板下，但 scene *可以*占满高度 |
+| `.menu-ticker` 固定 48px + `overflow: hidden` | 版权行与跑马灯同行，不再折到第二行 |
+
+在截图那个尺寸下，scene 从 **250px 变成 382px**。罐子和标题完整——并且**没有改动任何 SVG**：`jar.tsx` 一直画满 `viewBox 0 0 120 140`，只是下半身落在了可见区域之外。
+
+### 🔍 测量时额外发现的四个错误
+
+| # | 错误 | 原因 | 修法 |
 | --- | --- | --- | --- |
-| 星云 `.nebula-*` | `blur(64px)`，峰值 `1.0` | **`blur(22px)`，峰值 `0.80`** | 64px 超过 46vw 光斑半径的一半——边缘消失了，整块变成雾 |
-| 菜单暗角 | 行内样式，**铺满全屏**，`0.42 → 0.88 → 1.0` | **`.menu-vignette`**，只压暗角落，`0.30 → 0.62` | 从「整幅均匀压暗」改成「角落暗、中间亮」 |
-| CRT 边框 | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px 在小窗口上几乎吃掉四个角 |
-| 地面砖纹 | `opacity-45` | **`opacity-70`** | 45% 时地面只是一片灰噪点，不再是可辨识的细节 |
+| 1 | 右边缘的**青色滚动条**压在星云上 | 内容溢出时 scene 露出 8px 轨道 | 隐藏滚动条，用 `padding-bottom` 保留空间 |
+| 2 | 手机上**两个面板重叠** | `208 + 224px` 装不进 `375px` | 520px 以下改为纵向排列 |
+| 3 | 矮而宽的窗口里 **`CHÉO` 过高** | 字号只随 `17vw` 缩放，不看高度 | `clamp(3.4rem, min(17vw, 20vh), 10.5rem)` |
+| 4 | **面板高度随语言变化** | 一行的高度等于提示换行后的高度；越南语/德语占三行 | 固定 `--menu-row-h`，提示最多两行 |
 
-`.menu-vignette` 与 `.app-vignette` 现在是**有名字的 CSS 规则**，不再是埋在 JSX 里的工具类——只需调一处，而且 `prefers-reduced-motion` 也能作用到它们。
+### 🗂️ 三个新目录——22 个文件
 
-### 🏷️ 更新日志分层——每层一种颜色
+每个成就现在有**独立文件**，写明解锁条件与存在理由——旧的十六行表格回答不了这个问题：
 
-| 层级 | 标签 | 颜色 | 含义 | 示例 |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 粉色 `#ff5fb0` | 大版本——新增系统 | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 金色 `#f5a81c` | 升级——新增内容 | 1.1.0 |
-| `patch` | **PATCH** | 🟣 紫色 `#9d6bff` | 修复与清理 | 1.1.1 → 1.1.7 |
-
-层级由 `tierFor(version)` **从 SemVer 推导**，绝不手写——因此标签永远不会和它旁边的版本号冲突。面板新增**筛选**：全部 · MAJOR · UPDATE · PATCH，并显示各层版本数。
-
-<img src="assets/release-tiers.svg" alt="三个层级 MAJOR/UPDATE/PATCH 及其配色，以及九个版本的发布时间轴（SMIL 动画）" width="100%" />
-
-### 📖 八个旧版本：从一行变成一页
-
-九个版本里有六个的条目数组是**空的**——面板只能显示一行摘要。v1.1.7 全部重写：
-
-- **96 条越南语条目 + 96 条英语条目**，新写或扩写
-- 内容取自 `docs/releases/v1.1.x.md` **以及**源码本身（9 个模式、16 个成就）
-- **发布日期重新排列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——两天一版，没有任何两个版本同一天
-
-### 🗂️ 项目拆成更多目录
-
-```
-src/game/changelog/        ← 取代原来的 300 行单文件
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               每个版本一个文件 —— v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 个辅助函数
+```ts
+/**
+ * hardcore-jar — HARDCORE JAR
+ *
+ * Unlocks when: `run.mode === "hardcore" && run.jars >= 1`
+ *
+ * Why this one exists: mode-specific: one jar with a single crack
+ */
 ```
 
-以后加 1.2.0 只需**一个新文件**加一行 import。
+### 🧪 新增 30 项测试锁住
 
-### 🐛 修复
-
-| # | 问题 | 修复 |
+| 文件 | 测试 | 锁定内容 |
 | --- | --- | --- |
-| 1 | 菜单背景模糊发闷 | 上面四处修改 |
-| 2 | 地面砖纹看不见 | `opacity-45` → `opacity-70` |
-| 3 | 日志标签名不副实（`kind` 手写） | `tierFor(version)` 从 SemVer 推导 |
-| 4 | 日志描述太单薄（6 个版本 `items: []`） | 重写 96 条 |
-| 5 | 发布日期重复且不合理 | 九个连续日期，无重复 |
-| 6 | 文档/SVG/启动器版本滞后 | 全量扫描 → 1.1.7 |
-| 7 | `check-readme-sync` 注释写死 1.1.6 | 改为读取 `package.json` |
+| `tests/menu-layout.test.ts` | **22** | 曾经溢出的加法；CSS 与 TypeScript 每个常量一致；浮动行不再有 `shrink-0` |
+| `tests/achievements-split.test.ts` | **8** | 拆成十六个文件后 id 顺序不变、每个 id 仍会被 `grant` |
+| `scripts/probe-menu-layout.tsx` | **11** | 同样这些性质，但检查 `react-dom/server` 生成的**真实 DOM** |
 
-→ 完整详情：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 上一版：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+### 🐛 修复清单
+
+| # | 错误 | 修法 |
+| --- | --- | --- |
+| 1 | `CHÉO` 被拦腰截断 | chrome 移出文档流 + scene 自留空间 |
+| 2 | 罐子少了半身 | 同一原因——**不是** SVG 的问题 |
+| 3 | GAME 面板底部被切 | 720px 的盒子里塞了 732px 的 flex 列 |
+| 4 | 版权行被裁 | ticker 固定 48px、单行 |
+| 5 | 滚动条压住画面 | `scrollbar-width: none` |
+| 6 | 手机上两个面板重叠 | 520px 以下纵向排列 |
+| 7 | `CHÉO` 高出容器 | 额外用 `20vh` 封顶 |
+| 8 | 面板高度随语言变化 | 固定 `--menu-row-h` + 提示截断 |
+
+→ 完整细节：[docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · 上一版：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 <img src="assets/settings-sections.svg" alt="六段设置（自 v1.1.6）——开关、等级条与选择器（SMIL 动画）" width="100%" />
 
@@ -118,7 +132,7 @@ src/game/changelog/        ← 取代原来的 300 行单文件
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 256 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 286 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -181,7 +195,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 256 项单元测试（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 286 项单元测试（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -190,7 +204,7 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.7，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.8，dev/build/test/check 脚本
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
@@ -203,8 +217,13 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 种模式（SMIL 动画）
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ corner-menu.svg      # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
+│  ├─ palette-ribbon.svg   # 7-slice palette ribbon, sheen sweep (SMIL, v1.1.7)
+│  ├─ architecture.svg     # architecture + data flow diagram (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tiers + 10-release timeline (SMIL, v1.1.7)
+│  ├─ layout-fix.svg       # v1.1.7 vs v1.1.8 layout, side by side (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # 动态 AGPL-3.0 copyleft 印章（SMIL 动画）
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -227,7 +246,8 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     ├─ v1.1.7.md         # release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -253,7 +273,9 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
 │  │  ├─ StartScreen.tsx   # 菜单：主视觉 + 多层动效 + 角落面板
 │  │  ├─ menu/              # 角落 GAME/INFO 面板 + 弹窗 + icons/
-│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ layout/         # metrics · fit · planMenuLayout, 22 tests (v1.1.8)
+│  │  │  └─ ticker/         # bottom ticker band, 14 strings (v1.1.8)
 │  │  ├─ ModeSelector.tsx  # 9 张模式卡（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
 │  │  ├─ GameOverScreen.tsx     # 罐子碎了！+ 分数 + 新成就
@@ -267,13 +289,14 @@ lo-cheoio/
 │  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
 │  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
 │  │  ├─ modes.ts          # barrel — keeps every old import working
-│  │  ├─ achievements.ts   # 16 枚徽章 + 纯校验器（纯函数）
+│  │  ├─ achievements/      # 16 枚徽章 + 纯校验器（纯函数） (v1.1.8)
+│  │  │  └─ defs/           # one file per achievement
 │  │  ├─ storage.ts        # localStorage：TOP 8、进度、成就
 │  │  ├─ audio.ts          # Web Audio 合成：音效 + 五声音阶音乐
 │  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
-│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_8.ts
 │  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # 中断对局持久化
 │  │  ├─ settings.ts        # 设置 schema、默认值、归一化
@@ -283,7 +306,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
-└─ tests/                  # vitest — 33 个文件 · 256 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 35 个文件 · 286 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
@@ -322,10 +345,15 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 **不会敲命令？**
 双击 [`scripts/play-mac.command`](scripts/play-mac.command)（macOS）、[`scripts/play-windows.bat`](scripts/play-windows.bat)（Windows）或 [`scripts/play-linux.sh`](scripts/play-linux.sh)（Linux）—— 全彩菜单会弹出；选 `1` 即构建并立刻游玩，选 `2` 进入开发模式。详见 [scripts/README.md](scripts/README.md)。
 
+<img src="assets/release-tiers.svg" alt="Three tiers MAJOR/UPDATE/PATCH with their colours and a ten-release timeline (SMIL animation)" width="100%" />
+
+<img src="assets/test-matrix.svg" alt="v1.1.8 测试矩阵——八个通过的关卡、35 个文件中的 286 项测试、按领域分组（SMIL 动画）" width="100%" />
+
 ## 📦 发行版与更新日志
 
 | 版本 | Tier | 日期 | 说明 |
 | --- | --- | --- | --- |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-14 | **开始界面不再布局溢出**（chrome 移出 flex 文档流：scene `250px → 382px`，标题与罐子完整） · **ticker 固定 48px** · **隐藏滚动条** · **手机上纵向排列** · **`menu/layout/` + `menu/ticker/` + `achievements/` 十六个文件** · **新增 30 项测试** · 全量同步 1.1.8 · **286 项测试** |
 | [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **菜单背景去雾**（四层叠加：`blur 64→22px`、角落暗角替换全屏、CRT 边框 140→90px、地面 45→70%）· **分层彩色日志** · 8 个旧版 **96 条新描述** · 日期重排 · `src/game/changelog/` 拆分 · 10 个 README 重做 · **256 测试** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
@@ -367,7 +395,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 256 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 286 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 
