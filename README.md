@@ -40,7 +40,7 @@
 - 🌐 **Ngôn ngữ dời hẳn vào Cài đặt** — bỏ nút nổi góc phải ở menu và thanh chọn ở màn tạm dừng; nay là lưới 2 cột 7 ngôn ngữ (cờ · tên bản ngữ · dấu check).
 - 🎛️ **4 preset một chạm + sao lưu JSON** — **MƯỢT** · **CÂN BẰNG** · **ĐIỆN ẢNH** · **SPEEDRUN** (không bao giờ đổi ngôn ngữ) và xuất/nhập cấu hình để mang sang máy khác.
 - ✨ **Menu là sân khấu** — tinh vân trôi, tia sáng thở, **2 lớp sao nhấp nháy**, vòng sáng xoay quanh lọ, quầng sáng lọ, vệt sáng chạy qua nút CHƠI; mục **giới thiệu tác giả** có viền gradient chạy vòng vô hạn.
-- 🐛 **Sửa 5 lỗi thật** — nhạc nền phát to hơn mức đã đặt sau khi tải lại trang · Tab thoát khỏi modal · gợi ý changelog ghi cứng v1.1.5 · `updateSettings` trả giá trị chưa chuẩn hoá · focus không được giữ trong hộp thoại.
+- 🐛 **Sửa 11 lỗi thật** — nhạc nền phát to hơn mức đã đặt sau reload · Tab thoát khỏi modal · gợi ý changelog ghi cứng v1.1.5 · `updateSettings` trả giá trị chưa chuẩn hoá · focus không được giữ trong hộp thoại · nút Xuất báo “đã copy” khi clipboard trống · toggle tự về mặc định khi storage bị chặn · âm thanh tự bật lại sau reload · vật phẩm trọng số 0 lọt vào cấp thấp · điểm in ra “NaN” · nút xác nhận chỉ có dấu ←.
 - 🧪 **222 unit tests** (29 file, tăng từ 113/14) — thêm test cho schema cài đặt, preset, sao lưu, phép tính âm lượng và một test hợp đồng i18n↔UI.
 
 <img src="assets/settings-sections.svg" alt="Cài đặt v1.1.6 — 6 mục với công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
