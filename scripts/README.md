@@ -49,11 +49,11 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | **1) Chơi ngay (Production)** | `npm run build` → mở `dist/index.html` | Build bản tự chứa rồi mở game bằng trình duyệt mặc định |
 | **2) Dev mode** | `npm run dev` | Server HMR tại <http://localhost:5173>; <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng |
 | **3) Build production** | `npm run build` | Tạo đúng 1 file `dist/index.html` (single-file) |
-| **4) Chạy tests** | `npm run test` | vitest — **61 tests** |
+| **4) Chạy tests** | `npm run test` | vitest — **235 tests / 30 file** |
 | **5) Kiểm tra toàn bộ** | `npm run check` | typecheck + tests + build — cổng chất lượng |
 | **6) Cài đặt dependencies** | `npm install` | Cài/cập nhật `node_modules` |
 | **7) Dọn dẹp** | xoá `node_modules/` và `dist/` | Yêu cầu gõ `YES` để xác nhận; không đụng mã nguồn |
-| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.6, tác giả, nơi lưu dữ liệu |
+| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.7, tác giả, nơi lưu dữ liệu |
 | **0) Thoát** | — | Đóng trình chạy |
 | **L) Đổi ngôn ngữ** | — | VI ⇄ EN ⇄ 中文 ⇄ 日本語 ⇄ 한국어 ⇄ ES ⇄ FR (hint hiển thị ngay cạnh mục 0) |
 
@@ -97,12 +97,14 @@ node scripts/check-assets.mjs
 
 Bảo vệ 10 README bản địa khỏi lệch version/nội dung:
 
-1. badge version phải là `1.1.6`
-2. link `docs/releases/v1.1.6.md`
-3. nhúng `assets/corner-menu.svg` (panel góc v1.1.5 giữ nguyên)
-4. nhúng `assets/settings-sections.svg` (tour 6 mục cài đặt v1.1.6)
-5. hàng lịch sử `v1.1.5` giữ nguyên claim 113 tests, `v1.1.4` giữ 61 tests
-6. không còn badge phiên bản cũ (`version-1.1.5-f5a81c` / `version-1.1.4-f5a81c`)
+1. badge version phải khớp `APP_VERSION` trong `src/version.ts` (**không ghi cứng** — v1.1.7 sửa lỗi 1.1.6 bị bake vào script)
+2. link `docs/releases/v<phiên bản>.md`
+3. hàng `| [v<phiên bản>](…)` phải tồn tại và **có chip tầng** (🩷 MAJOR · 🟡 UPDATE · 🟣 PATCH)
+4. nhúng `assets/corner-menu.svg` (panel góc v1.1.5) + `assets/settings-sections.svg` (tour 6 mục v1.1.6)
+5. nhúng ba SVG của v1.1.7: `palette-ribbon.svg` · `architecture.svg` · `release-tiers.svg`
+6. hàng lịch sử `v1.1.5` giữ nguyên claim 113 tests, `v1.1.4` giữ 61 tests
+7. hàng `v1.0.0` phải gắn 🩷 **MAJOR**
+8. không còn badge phiên bản cũ (`version-1.1.6-f5a81c` / `version-1.1.5-f5a81c` / …)
 
 ```bash
 node scripts/check-readme-sync.mjs
