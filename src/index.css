@@ -648,6 +648,24 @@
   animation: none !important;
 }
 
+/* OS high-contrast request (prefers-contrast: more) — App sets data-contrast.
+   Lifts the muted body copy that sits at 50–60% opacity by default. */
+[data-contrast="more"] {
+  --color-clay-100: #fffaf0;
+}
+[data-contrast="more"] .text-clay-100\/55,
+[data-contrast="more"] .text-clay-100\/60,
+[data-contrast="more"] .text-clay-100\/50,
+[data-contrast="more"] .text-clay-100\/70,
+[data-contrast="more"] .text-clay-100\/80 {
+  color: var(--color-clay-100);
+}
+[data-contrast="more"] .text-jade-700,
+[data-contrast="more"] .text-jade-600,
+[data-contrast="more"] .text-jade-500 {
+  color: #7fe0c0;
+}
+
 /* Keyboard focus ring — turmeric on jade, visible on every interactive surface */
 :focus-visible {
   outline: 3px solid #ffc94a;

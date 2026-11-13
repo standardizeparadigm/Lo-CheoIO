@@ -101,8 +101,21 @@ export function normalizeSettings(v: unknown, languageFallback: string = DEFAULT
   };
 }
 
-export function loadSettings(languageFallback?: string): GameSettings {
-  return normalizeSettings(readJSON(SETTINGS_KEY), languageFallback);
+/**
+ * Read persisted settings.
+ *
+ * `osDefaults` are applied **only on first run** (nothing stored yet) so the
+ * player's operating-system preferences — `prefers-reduced-motion`,
+ * `prefers-contrast` — become the starting point instead of being ignored
+ * until the player finds the settings panel. Once a settings object exists
+ * (even a partial one) the stored values always win.
+ */
+export function loadSettings(languageFallback?: string, osDefaults?: Partial<GameSettings>): GameSettings {
+  const stored = readJSON(SETTINGS_KEY);
+  if (stored === null || typeof stored !== "object") {
+    return normalizeSettings({ ...osDefaults, language: languageFallback }, languageFallback);
+  }
+  return normalizeSettings(stored, languageFallback);
 }
 
 export function saveSettings(settings: GameSettings): GameSettings {

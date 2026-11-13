@@ -24,7 +24,7 @@ import {
 import { loadSettings, resetSettingsKeepingLanguage, updateSettings, type GameSettings, type SettingLanguage } from "./game/settings";
 import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
-import { prefersCoarsePointer } from "./utils/mediaQuery";
+import { prefersCoarsePointer, prefersMoreContrast, prefersReducedMotion } from "./utils/mediaQuery";
 import { STORAGE_KEYS, readRaw, writeRaw } from "./game/safeStorage";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
@@ -47,7 +47,10 @@ export default function App() {
   });
   const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
-  const [settings, setSettings] = useState<GameSettings>(() => loadSettings(detectInitialLanguage()));
+  const [settings, setSettings] = useState<GameSettings>(() =>
+    // first run: start from the OS motion preference instead of ignoring it
+    loadSettings(detectInitialLanguage(), { reducedMotion: prefersReducedMotion() }),
+  );
   const [resume, setResume] = useState<SavedRun | null>(() => loadSavedRun());
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -103,6 +106,17 @@ export default function App() {
     gameRef.current?.setQuality(settings.visualQuality);
     gameRef.current?.setReducedMotion(settings.reducedMotion);
   }, [settings.shake, settings.shakeLevel, settings.visualQuality, settings.reducedMotion]);
+
+  // OS high-contrast request → root attribute so CSS can lift low-contrast text
+  useEffect(() => {
+    try {
+      const root = document.documentElement;
+      if (prefersMoreContrast()) root.setAttribute("data-contrast", "more");
+      else root.removeAttribute("data-contrast");
+    } catch {
+      /* non-DOM environment */
+    }
+  }, []);
 
   // keep <html lang> honest for screen readers & search engines
   useEffect(() => {
