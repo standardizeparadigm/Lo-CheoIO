@@ -2,6 +2,7 @@ import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
 import type { SavedRun } from "./runSave";
 import { clamp, damp, lerp } from "../utils/math";
+import { CANVAS_COLORS } from "./palette";
 import {
   MODES,
   comboWindowFor,
@@ -210,17 +211,7 @@ const DEFS = DEFS_RECORD;
 const KINDS = Object.keys(DEFS_RECORD) as ItemKind[];
 export { DEFS, KINDS };
 
-const C = {
-  ink: "#0b2a28",
-  void: "#061a1a",
-  jade: "#2bb48c",
-  jadeDeep: "#10403a",
-  gold: "#f5a81c",
-  goldLight: "#ffc94a",
-  chili: "#e63b2e",
-  brine: "#b6e07a",
-  cream: "#fdf3e0",
-};
+const C = CANVAS_COLORS;
 
 /* ------------------------------------------------------------------ utils */
 
