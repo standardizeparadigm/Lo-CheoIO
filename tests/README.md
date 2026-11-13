@@ -1,9 +1,11 @@
 # `tests/` — unit tests (vitest)
 
-**256 tests / 33 files.** Pure logic only — engine/canvas được phủ bởi `npm run check` (build) + `scripts/smoke-ssr.tsx` (SSR render smoke).
+**262 tests / 35 files.** Bao gồm logic thuần, kiểm tra hợp đồng tĩnh và SSR; canvas vẫn cần kiểm tra thủ công ngoài build.
 
 | File | Phủ | Pattern |
 | --- | --- | --- |
+| `release-consistency.test.ts` | ngày phát hành, launcher và nhãn SVG | fs |
+| `menu-hero.test.tsx` | hero, GAME → Cách chơi, modal và changelog hiện hành | SSR |
 | `modes.test.ts` | balance math 9 chế độ, multiplier/combo, isModeId | pure |
 | `achievements.test.ts` | checkAchievements + normalize | pure |
 | `storage.test.ts` | scores/progress/achievements roundtrip, clearAllProgress, seed fallback | `memStorage()` + `vi.stubGlobal` |

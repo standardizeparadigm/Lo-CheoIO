@@ -1,10 +1,11 @@
 # `assets/` — kho đồ họa SMIL
 
-Tất cả hình là **SVG tự chứa có animation SMIL** — không JS, không phụ thuộc ngoài, nhúng trực tiếp trong Markdown/HTML.
+Hình SVG tự chứa dùng animation SMIL hoặc CSS — không JS, không phụ thuộc ngoài, nhúng trực tiếp trong Markdown/HTML.
 
 | File | Nội dung | Dùng ở |
 | --- | --- | --- |
-| `banner.svg` | Banner chính thức **V1.1.7** (9 chế độ · 16 thành tựu) | README ×10 đầu trang |
+| `menu-hero.svg` | Hero căn giữa, vòng sáng động và hướng dẫn GAME (v1.1.8) | README ×10 |
+| `banner.svg` | Banner chính thức **V1.1.8** (9 chế độ · 16 thành tựu) | README ×10 đầu trang |
 | `demo.svg` | Mô phỏng gameplay (lọ CHÉO, dưa rơi) | README ×10 |
 | `items.svg` | 14 nguyên liệu (dưa, mốc, ruồi…) | README ×10, CONTRIBUTING |
 | `modes.svg` | 9 chế độ chơi | README ×10 |
@@ -14,7 +15,7 @@ Tất cả hình là **SVG tự chứa có animation SMIL** — không JS, khôn
 | `settings-sections.svg` | Tour 6 mục cài đặt (v1.1.6) | README ×10 (mục what's new 1.1.6+) |
 | `palette-ribbon.svg` | 7 dải màu palette chạy sáng luân phiên (v1.1.7) | README ×10 (hero) |
 | `architecture.svg` | Sơ đồ kiến trúc + luồng dữ liệu, có xung chạy trên đường nối (v1.1.7) | README ×10 (mục kiến trúc) |
-| `release-tiers.svg` | 3 tầng MAJOR/UPDATE/PATCH + thời gian biểu 9 bản (v1.1.7) | README ×10 (mục what's new 1.1.7) |
+| `release-tiers.svg` | 3 tầng MAJOR/UPDATE/PATCH + thời gian biểu 10 bản (v1.1.8) | README ×10 (mục what's new 1.1.8) |
 | `divider.svg` | Dải sparkle ngăn cách section | README ×10 |
 | `license.svg` | Con dấu AGPL-3.0 copyleft | README ×10 |
 | `favicon.svg` | Favicon động (lọ lắc + tia lấp lánh) | `index.html`, `public/favicon.svg` |
@@ -22,7 +23,7 @@ Tất cả hình là **SVG tự chứa có animation SMIL** — không JS, khôn
 
 ## Quy ước khi thêm/sửa SVG
 
-1. **SMIL only** (`<animate>`, `<animateTransform>`) — không nhúng `<script>`. GitHub/GitLab README render được SMIL qua `<img>`.
+1. **SMIL hoặc CSS** — không nhúng `<script>`; animation CSS nên hỗ trợ `prefers-reduced-motion`.
 2. Text tiếng Việt **giữ nguyên dấu** — mọi SVG dùng UTF-8.
 3. Kích thước mục tiêu ≤ 40 KB/file (README nặng = mất người đọc).
 4. Màu bám palette: jade `#0b2b2b`, brine `#b6e07a`, turmeric `#f5a81c`, clay `#f4e3c2`, chili `#e63b2e`.
@@ -45,4 +46,5 @@ Tất cả hình là **SVG tự chứa có animation SMIL** — không JS, khôn
 | v1.1.4 | `new-modes.svg` |
 | v1.1.5 | `corner-menu.svg` |
 | v1.1.6 | `settings-sections.svg` |
+| v1.1.8 | `menu-hero.svg` |
 | v1.1.7 | `palette-ribbon.svg` · `architecture.svg` · `release-tiers.svg` |
