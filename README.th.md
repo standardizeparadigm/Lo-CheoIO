@@ -9,7 +9,8 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-ติดตั้ง--เริ่มเล่น)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-production)
@@ -32,23 +33,18 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 สิ่งใหม่ใน v1.1.4
+## 🆕 สิ่งใหม่ใน v1.1.5
 
-- 🎮 **โหมดใหม่ 2 โหมด — รวม 9 โหมด** — **เทศกาลคอมโบ** (หน้าต่างคอมโบมีชีวิต**ยาวขึ้นสองเท่า** 5.4 วิ, +15% ต่อชิ้น, ฝนผักดองถี่ขึ้นเล็กน้อย, อันตราย ×1.25 — ตัวคูณพุ่งเหมือนพลุ) และ **งานเลี้ยงใหญ่** (ตกช้า ×0.78 แต่หนาแน่นเกือบสองเท่า, **โบนัสโถ ×2.5**, ×0.6 ต่อชิ้น — สไตล์ «ชาวนาผักดอง» เก็บใส่โถให้เต็มไว้) ทั้งสองโหมดมีไอคอนเมนูและแสงเรืองการ์ดเป็นของตัวเอง
-- 🏆 **ความสำเร็จใหม่ 2 รายการ** — **โซ่เหล็กคอมโบ** (ทำคอมโบ 40 ติดต่อกันในโหมดใดก็ได้) & **โต๊ะงานเลี้ยงเต็ม** (เติมโถ 3 ใบในรอบงานเลี้ยงใหญ่) รวม **16 ความสำเร็จ**
-- 🌐 **7 ภาษาในเกม** — เพิ่ม **Español** และ **Français** ข้าง VI/EN/中/日/한/ES/FR: ราว 207 คีย์ต่อ locale, ซิงค์ `<html lang>`, ตัวเลขตาม locale (เพิ่ม es-ES / fr-FR)
-- 🐛 **แก้แครชตัวเปิด Windows แบบถาวร** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat` ตอนนี้เป็น **CRLF + UTF-8 BOM** พร้อม `chcp 65001`, สตริงดีเลย์-เอ็กแพนชัน `!TSTR!` และภาษาเวียดนาม**คงวรรณยุกต์ครบถ้วน** `.gitattributes` ใหม่บังคับ CRLF สำหรับ `*.bat`/`*.cmd` ทุกไฟล์ — ไม่มีวันกลับมาอีก
-- 🚀 **ตัวเปิดหลายภาษาพร้อมแอนิเมชัน** — ตัวเปิดทั้งสาม (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) พูด **7 ภาษา** (VI/EN/中/日/한/ES/FR) ปุ่ม `L` หมุนวนครบทั้งเจ็ด และเส้นแบ่งระยิบสลับสีทอง/ชมพู/ฟ้า เมนูภาษาเวียดนามคง**วรรณยุกต์ครบถ้วน** ดู [scripts/README.md](scripts/README.md)
-- 📖 **README ทั้ง 10 ภาษาได้รับการปรับโฉม** — แบนเนอร์ ตาราง 9 โหมด ริบบิ้น 7 ภาษา เส้นแบ่งระยิบ (ทั้งหมด SMIL) — สวยขึ้น ละเอียดขึ้น ครบถ้วนขึ้น
-- 🧪 **เทสต์ 61 รายการ** (จาก 55) — `npm run check` เขียว
+- 🧭 **เมนูหลักเรียบร้อยขึ้นเยอะ** —— ทุกอย่างเกี่ยวกับเกมรวมอยู่ใน**พาเนล GAME มุมล่างซ้าย**: **เล่น** · **เล่นต่อ** · **โหมดเกม** · **อันดับ**(TOP 8) · **ความสำเร็จ**(16) · **ตั้งค่า**. ทุกอย่างเกี่ยวกับโปรเจกต์อยู่ใน**พาเนล INFO มุมล่างขวา**: **เกี่ยวกับผู้พัฒนา** · **บันทึกการเปลี่ยนแปลง**(ดูในเกมได้เลย) · **ออก**.
+- ⏸️ **«เล่นต่อ» — เกมที่ค้างไว้ห่างแค่คลิกเดียว** —— ออกจากเกมกลางคัน (หยุดชั่วคราว → กลับเมนู) ระบบ snapshot ลง `locheo.run.v1` อัตโนมัติ; กด**เล่นต่อ**เพื่อคืนค่าคะแนน ขวด รอยร้าว สตามินา คอมโบ โล่ เหมือนเดิมเป๊ะ เปิดใช้ได้เฉพาะเมื่อมีเกมค้างอยู่เท่านั้น
+- ⚙️ **ตั้งค่าในเกม** —— **เสียงเอฟเฟกต์** · **เพลงพื้นหลัง** · **หน้าจอสั่น** · **ลดการเคลื่อนไหว** —— มีผลทันที ไม่ต้องรีโหลด; พร้อมโซนอันตรายสองขั้นตอนสำหรับ**ล้างข้อมูลที่บันทึก**
+- 🐛 **แก้คีย์ลัดรั่วทะลุโมดัล** —— Enter/R/P/M/Space ไม่ยิงเกมหลังโมดัลอีกต่อไป; **stale closure ของปุ่มเล่นต่อ**; **`prefers-reduced-motion` ตอนนี้ตัดแอนิเมชันทุกตัว**
+- 📖 **README 10 ภาษาสวยขึ้นอีก** —— แบนเนอร์ V1.1.5, แอนิเมชันพาเนลมุมใหม่ (SMIL), ละเอียดและครบถ้วนกว่าเดิม
+- 🧪 **unit tests 113 ชุด** (จาก 61) —— `npm run check` ผ่าน; **GitHub Actions CI** ใหม่ (npm ci → npm run check).
 
-<img src="assets/new-modes.svg" alt="โหมดใหม่ v1.1.4 — เทศกาลคอมโบและงานเลี้ยงใหญ่" width="100%" />
+<img src="assets/corner-menu.svg" alt="พาเนล GAME ล่างซ้าย และ INFO ล่างขวา สไลด์เข้า (แอนิเมชัน SMIL)" width="100%" />
 
-<img src="assets/modes.svg" alt="ทั้ง 9 โหมด — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · พายุผักดอง · เซรามิกบาง · เทศกาลคอมโบ · งานเลี้ยงใหญ่" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="ไอคอน Lọ Chéo — โถผักดองเอียงพร้อมฝาสีทอง (SMIL animation)" width="150" /></div>
-
-→ รายละเอียดทั้งหมด: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ รายละเอียดเต็ม: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ จุดเด่น
 
@@ -64,7 +60,7 @@
 | 💾 **ตาราง TOP 8** | เก็บลงเครื่อง ตรวจสอบ/ปรับค่าเมื่ออ่าน ชื่อตัวพิมพ์ใหญ่ ไฮไลต์สถิติใหม่ |
 | 🎨 **กราฟิก 60fps** | Canvas 2D งบอนุภาค ≤460 จำกัด DPR ≤ 2 พื้นกระเบื้องพรีเรนเดอร์ลง offscreen ดาวระยิบ + ออโรร่าในเมนู |
 | 📴 **ออฟไลน์จริง** | ฟอนต์โฮสเอง (subset latin + vietnamese woff2) ไม่มี CDN ไม่มี API — ดับเบิลคลิก `dist/index.html` แล้วเล่นได้เลย |
-| 🧪 **คุณภาพ** | 61 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n — `npm run check` คือประตู CI |
+| 🧪 **คุณภาพ** | 113 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n — `npm run check` คือประตู CI |
 
 <img src="assets/items.svg" alt="14 วัตถุดิบ — ผักดองให้รับ พลังทองให้คว้า อันตรายให้หลบ" width="100%" />
 
@@ -127,7 +123,7 @@ npm run build      # → dist/index.html (ไฟล์เดียวจบ)
 npm run dev        # dev server พร้อม HMR (http://localhost:5173)
 npm run preview    # เสิร์ฟ production build ในเครื่อง
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 61 เทสต์ (modes / achievements / storage / i18n)
+npm run test       # vitest — 113 เทสต์ (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (ประตูคุณภาพ CI)
 ```
 
@@ -136,7 +132,7 @@ npm run check      # typecheck + test + build (ประตูคุณภาพ
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (ไม่มี CDN)
-├─ package.json            # lo-cheoio v1.1.4, สคริปต์ dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.5, สคริปต์ dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; ครอบคลุม src + tests
@@ -149,6 +145,7 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 โหมด (SMIL animation)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # ตรา copyleft AGPL-3.0 แบบเคลื่อนไหว (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -158,14 +155,18 @@ lo-cheoio/
 │  ├─ play-linux.sh        # ตัวเปิด Linux — ดับเบิลคลิก เมนูสีสันจัดเต็ม
 │  └─ README.md            # คู่มือตัวเปิดสำหรับคนไม่ถนัดเทอร์มินัล
 ├─ docs/
-│  ├─ DESCRIPTION.md       # บล็อกแนะนำโปรเจกต์หลายภาษา (vi/en/zh + SEO)
+│  ├─ README.md            # สารบัญเอกสาร (v1.1.5)
+│  ├─ DESCRIPTION.md       # คำอธิบายโปรเจกต์หลายภาษา (vi/en/zh + SEO)
+│  ├─ design/              # สเปก menu-corners / save-format / settings-format
+│  ├─ guides/              # ภาพรวม engine · a11y · ประสิทธิภาพ · storage keys · ขั้นตอน release…
 │  └─ releases/
 │     ├─ v1.0.0.md         # release notes ฉบับแรก
 │     ├─ v1.1.0.md         # release notes v1.1.0
 │     ├─ v1.1.1.md         # release notes v1.1.1
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
-│     └─ v1.1.4.md         # current release notes (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -179,7 +180,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4" (แหล่งความจริงเดียว)
+│  ├─ version.ts           # APP_VERSION = "1.1.5" (แหล่งความจริงเดียว)
 │  ├─ index.css            # tailwind v4 theme + แอนิเมชัน/ gradient ทั้งหมด
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, ออฟไลน์ 100%
@@ -189,7 +190,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (แหล่ง key) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
-│  │  ├─ StartScreen.tsx   # เมนู: ออโรร่า shimmer ตัวเลือกโหมด ความสำเร็จ
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # การ์ด 9 โหมด (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # กำแพงป้าย locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # ไหแตก! + คะแนน + ความสำเร็จใหม่
@@ -201,9 +203,12 @@ lo-cheoio/
 │  │  ├─ modes.ts          # โหมดเกม + สมดุล (pure)
 │  │  ├─ achievements.ts   # 16 ป้าย + ตัวตรวจ (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
-│  │  └─ audio.ts          # Web Audio synth: sfx + เพลง pentatonic
+│  │  ├─ audio.ts          # Web Audio synth: sfx + เพลง pentatonic
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13 ไฟล์ · 113 เทสต์ (modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 สถาปัตยกรรม & ประสิทธิภาพ
@@ -244,6 +249,7 @@ lo-cheoio/
 
 | เวอร์ชัน | วันที่ | บันทึก |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **113 เทสต์** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 โหมด** (เทศกาลคอมโบ · งานเลี้ยงใหญ่) · **16 ความสำเร็จ** · **7 ภาษา** (เพิ่ม ES/FR) · แก้ play-windows.bat (CRLF+BOM) · ตัวเปิด 7 ภาษา · 61 เทสต์ |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 โหมด (พายุผักดอง · เซรามิกบาง) · 14 ความสำเร็จ · 5 ภาษา · favicon · ตัวเปิดหลายภาษา · 55 เทสต์ |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 โหมด (60-Second Rush · Gold Rush) · 12 ความสำเร็จ · คอมโบไฟ · ตัวเปิดดับเบิลคลิก · README 10 ภาษา · 49 เทสต์ |
@@ -253,10 +259,35 @@ lo-cheoio/
 
 ดูเพิ่มเติมที่ [CHANGELOG.md](CHANGELOG.md)
 
+## 🗺️ แผนงาน (ร่าง — อาจปรับเปลี่ยนตามฟีดแบ็ก)
+
+| ไมล์สโตน | ETA | ไอเดีย |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | เพลงประกอบแบบ procedural ต่อโหมด · visual regression tests (Playwright) ใน CI · ลดขนาดฟอนต์ subset ให้ลึกขึ้นเพื่อลด bundle |
+| **v1.3.0** | 2026 Q1–Q2 | โหมดที่ 10 (ตัวเลือก: **พายุแมลงวัน** — มีแต่แมลงวัน ต้องฟันรอด) · โหมด seed สำหรับ daily challenge |
+| **v1.4.0** | 2026 Q2 | กระดานออนไลน์แบบ **opt-in** (serverless, เข้ารหัส) — offline-first ยังเป็นค่าเริ่มต้นเสมอ |
+| Backlog | — | Ghost replay ของรอบที่ดีที่สุด · โหมดถ่ายภาพ (ซ่อน HUD ส่งออก PNG) · กำลังพิจารณา locale ไทย |
+
+*แผนงานไม่ใช่คำสัญญา — ลำดับความสำคัญคือ: เสถียร → เล่นง่ายขึ้น → เนื้อหาเยอะขึ้น*
+
+## 📚 เอกสารเพิ่มเติม & นักพัฒนา
+
+บันทึกการออกแบบและเอกสารเชิงลึกสำหรับนักพัฒนา:
+
+| Doc | What it covers |
+| --- | --- |
+| [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | รีลีส v1.1.5 — เมนูมุม, บันทึก/เล่นต่อ, ตั้งค่า, แก้บัก |
+| [docs/design/menu-corners.md](docs/design/menu-corners.md) | ดีไซน์เมนูมุม GAME/INFO — หลักการ, a11y, responsive |
+| [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — snapshot ของเกมค้าง (schema + วงจรชีวิต) |
+| [docs/design/settings-format.md](docs/design/settings-format.md) | Spec `locheo.settings.v1` — ตั้งค่าเกม (schema + wiring) |
+| [docs/guides/troubleshooting.md](docs/guides/troubleshooting.md) | ปัญหาที่พบบ่อย — จอดำ · ไม่มีเสียง · เล่นต่อ · launcher |
+| [scripts/smoke-ssr.tsx](scripts/smoke-ssr.tsx) | สโมกเทสต์การเรนเดอร์แบบ headless (ทั้งต้น menu/modal) |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | CI: npm ci → npm run check (Node 22) |
+
 ## 🤝 ร่วมพัฒนา
 
 1. Fork repo แล้วแตก branch ตามรูปแบบ `arena/<name>` หรือ `feat/<name>`
-2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 61 เทสต์ + build)
+2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 113 เทสต์ + build)
 3. เลี่ยงการเพิ่ม dependency ตอน runtime ถ้าไม่จำเป็นจริง ๆ — ปรัชญา: **ไฟล์เดียว ไม่มีเน็ต เล่นได้ตลอดกาล**
 4. ใน PR ระบุหน้าจอ/โหมดที่ได้รับผลกระทบ และแนบคลิปถ้ามีการเปลี่ยน gameplay
 

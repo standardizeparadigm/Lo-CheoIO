@@ -65,3 +65,45 @@ Các mục **1, 2, 3, 4, 5** tự kiểm tra Node.js và tự chạy `npm instal
 - **Windows:** menu dùng `chcp 65001` (UTF-8) nên **tiếng Việt có dấu hiển thị đầy đủ**, ANSI colors bật sẵn trên Windows 10/11 (Terminal & cmd). Trên console đời cũ không hiện màu, menu vẫn chạy bình thường.
 - Cả 3 file đều tự `cd` về **gốc repo** dù được mở từ đâu, kiểm tra `node`/`npm` và báo lỗi thân thiện (VI/EN/中文/日本語/한국어/ES/FR) nếu thiếu.
 - Nội dung hiển thị gốc là **Tiếng Việt có dấu**; sáu bản dịch còn lại (EN/ZH/JA/KO/ES/FR) tương đương 100% về mặt chức năng.
+
+---
+
+# Repo utilities (không thuộc launcher)
+
+## `smoke-ssr.tsx`
+
+Headless render smoke test cho toàn bộ menu/modal tree. Render tĩnh bằng `react-dom/server` — bắt các lỗi render mà `tsc --noEmit` không thấy (hook order, context thiếu, i18n lookup hỏng, component undefined).
+
+```bash
+npx vite-node scripts/smoke-ssr.tsx
+# → in "ok <Component> …" cho từng phần, kết thúc bằng "SMOKE OK"
+```
+
+Mọi render error đều làm exit code khác 0.
+
+## `check-assets.mjs`
+
+Kiểm tra tài nguyên SVG 2 chiều:
+
+1. Mọi `assets/<name>.svg` được nhắc trong README/index.html/docs đều tồn tại trên đĩa.
+2. Mọi SVG trong `assets/` đều được nhắc ở đâu đó (không orphan).
+
+```bash
+node scripts/check-assets.mjs
+# → ✓ N SVGs all referenced
+```
+
+## `check-readme-sync.mjs`
+
+Bảo vệ 10 README bản địa khỏi lệch version/nội dung:
+
+1. badge version phải là `1.1.5`
+2. link `docs/releases/v1.1.5.md`
+3. nhúng `assets/corner-menu.svg`
+4. dòng release v1.1.4 lịch sử giữ nguyên claim 61 tests
+5. không còn badge `version-1.1.4-f5a81c`
+
+```bash
+node scripts/check-readme-sync.mjs
+# → ✓/✗ từng file + tổng hợp lỗi (chạy trong CI)
+```

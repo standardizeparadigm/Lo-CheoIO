@@ -24,6 +24,10 @@ class AudioEngine {
   private tempo = 0.46;
 
   muted = false;
+  /** settings.sfx — separate from the master mute so music can live on */
+  private sfxEnabled = true;
+  /** settings.music — gates the music bus, SFX unaffected */
+  private musicEnabled = true;
 
   /** Must be called from a user gesture. */
   unlock() {
@@ -53,6 +57,18 @@ class AudioEngine {
     if (this.master && this.ctx) {
       this.master.gain.setTargetAtTime(m ? 0 : 0.85, this.ctx.currentTime, 0.05);
     }
+  }
+
+  setSfxEnabled(on: boolean) {
+    this.sfxEnabled = on;
+  }
+
+  setMusicEnabled(on: boolean) {
+    this.musicEnabled = on;
+    if (this.musicBus && this.ctx) {
+      this.musicBus.gain.setTargetAtTime(on ? 0.5 : 0, this.ctx.currentTime, 0.05);
+    }
+    if (!on) this.stopMusic();
   }
 
   private now() {
@@ -110,7 +126,7 @@ class AudioEngine {
   }
 
   play(name: SfxName, variant = 0) {
-    if (!this.ctx || this.muted) return;
+    if (!this.ctx || this.muted || !this.sfxEnabled) return;
     switch (name) {
       case "catch": {
         const scale = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24];
@@ -174,7 +190,7 @@ class AudioEngine {
 
   /** Sparse pentatonic bed, scheduled with a lookahead loop. */
   startMusic() {
-    if (!this.ctx || this.timer !== null) return;
+    if (!this.ctx || this.timer !== null || !this.musicEnabled) return;
     this.nextNote = this.now() + 0.1;
     const tick = () => {
       if (!this.ctx || !this.musicBus) return;

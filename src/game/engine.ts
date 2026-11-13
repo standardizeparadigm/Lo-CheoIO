@@ -1,5 +1,6 @@
 import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
+import type { SavedRun } from "./runSave";
 import {
   MODES,
   comboWindowFor,
@@ -278,6 +279,10 @@ export class LoCheoGame {
   private timeScale = 1;
   private freeze = 0;
   private trauma = 0;
+  /** 0 disables screen shake entirely (settings.shake === false) */
+  private shakeScale = 1;
+  /** 1 normal, ~0.25 when reduced motion is on (softens the white flash) */
+  private flashScale = 1;
   private flash = 0;
   private flashColor = C.cream;
   private hudAlpha = 0;
@@ -542,6 +547,80 @@ export class LoCheoGame {
   /** Switch the active mode. Takes effect on the next run. */
   setMode(m: ModeId) {
     this.mode = m;
+  }
+
+  /** Enable/disable screen shake at render time (settings.shake). */
+  setShakeEnabled(on: boolean) {
+    this.shakeScale = on ? 1 : 0;
+    if (!on) this.trauma = 0;
+  }
+
+  /** Reduce flash intensity for motion-sensitive players. */
+  setReducedMotion(on: boolean) {
+    this.flashScale = on ? 0.25 : 1;
+    if (on) this.trauma = Math.min(this.trauma, 0.12);
+  }
+
+  /**
+   * Suspend the run and snapshot enough state to resume it later.
+   * The falling-produce field is intentionally dropped — a resumed run
+   * starts with a clear sky and a short invulnerability grace period.
+   */
+  captureRun(savedAt = Date.now()): SavedRun {
+    return {
+      version: 1,
+      savedAt,
+      mode: this.mode,
+      stats: { ...this.stats },
+      fill: this.fill,
+      cracks: this.cracks,
+      stamina: this.stamina,
+      frenzy: this.frenzy,
+      slow: this.slow,
+      shield: this.shield,
+      slamCd: this.slamCd,
+      combo: this.combo,
+      comboT: this.comboT,
+      px: this.px,
+      py: this.py,
+    };
+  }
+
+  /**
+   * Resume a suspended run captured earlier by {@link captureRun}.
+   * Field items are not restored; the jar keeps its fill, cracks,
+   * stamina, combo timer and score. Fires onPhase("playing").
+   */
+  restoreRun(saved: SavedRun) {
+    this.resetRun();
+    this.mode = saved.mode;
+    this.stats = { ...saved.stats };
+    this.fill = clamp(saved.fill, 0, 1);
+    const maxCracks = MODES[this.mode].maxCracks ?? 3;
+    this.cracks = clamp(Math.round(saved.cracks), 0, maxCracks);
+    this.stamina = clamp(saved.stamina, 0, 1);
+    this.frenzy = saved.frenzy;
+    this.slow = saved.slow;
+    this.shield = Math.max(0, Math.round(saved.shield));
+    this.slamCd = Math.max(0, saved.slamCd);
+    this.combo = Math.max(0, Math.round(saved.combo));
+    this.comboT = Math.max(0, saved.comboT);
+    this.px = clamp(saved.px || this.w / 2, this.pr, this.w - this.pr);
+    this.py = clamp(saved.py || this.h * 0.72, this.pr, this.h - this.pr);
+    this.invuln = 1.2; // brief grace while the player re-finds the jar
+    this.spawnT = 1.1; // let the volley stagger in gently
+    this.phase = "playing";
+    this.onPhase(this.phase);
+    this.banner = {
+      text: t("banner.resume.title"),
+      sub: t("banner.resume.sub"),
+      life: 1.4,
+      max: 1.4,
+      color: C.goldLight,
+    };
+    audio.unlock();
+    audio.play("start");
+    audio.startMusic();
   }
 
   get snapshot() {
@@ -1326,8 +1405,8 @@ export class LoCheoGame {
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.imageSmoothingEnabled = true;
 
-    // screen shake
-    const sh = this.trauma * this.trauma;
+    // screen shake (settings.shake can zero this out)
+    const sh = this.trauma * this.trauma * this.shakeScale;
     const ox = rnd(-1, 1) * 26 * sh;
     const oy = rnd(-1, 1) * 26 * sh;
     const rot = rnd(-1, 1) * 0.02 * sh;
@@ -1371,7 +1450,7 @@ export class LoCheoGame {
 
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     if (this.flash > 0.01) {
-      ctx.globalAlpha = clamp(this.flash * 0.5, 0, 0.6);
+      ctx.globalAlpha = clamp(this.flash * 0.5 * this.flashScale, 0, 0.6);
       ctx.fillStyle = this.flashColor;
       ctx.fillRect(0, 0, this.w, this.h);
       ctx.globalAlpha = 1;

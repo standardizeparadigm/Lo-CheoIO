@@ -3,6 +3,42 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.5] — 2026-11-12
+
+Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 113 unit tests**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+
+### Added
+- **Panel GAME góc dưới-trái**: Chơi (bắt đầu ván mới) · **Chơi tiếp** (chỉ bật khi có ván đang dở — snapshot `locheo.run.v1`, giữ nguyên điểm/hũ/combo/stamina/shield/slamCd) · Chế độ chơi (9 chế độ, tách khỏi menu chính) · Bảng xếp hạng (TOP 8 cục bộ) · Thành tựu (16, có đếm) · **Cài đặt** (trong game)
+- **Panel INFO góc dưới-phải**: Giới thiệu tác giả (about card — role, craft, liên hệ, license, font credits) · **Changelog** (timeline ngay trong game, dữ liệu `src/game/changelog.ts`) · **Thoát** (best-effort `window.close()` + hướng dẫn Ctrl/Cmd+W)
+- **Chọn chế độ dạng màn hình riêng** (`ModeSelectModal`) — 9 thẻ chế độ không còn chiếm diện tích menu chính
+- **Lưu & tiếp tục ván đang chơi dở** (`src/game/runSave.ts`): snapshot khi rời màn (pause → menu hoặc pause screen), khôi phục khi bấm «Chơi tiếp» (invuln grace 1.2s + spawn stagger), tự xóa khi ván kết thúc / bắt đầu ván mới / xóa dữ liệu
+- **Cài đặt trong game** (`src/game/settings.ts` + `SettingsModal`): SFX, nhạc nền, rung màn hình, **giảm chuyển động** — lưu `locheo.settings.v1`, áp dụng tức thì (audio gates + engine hooks `setShakeEnabled`/`setReducedMotion`)
+- **Danger zone** trong Cài đặt: xóa toàn bộ điểm/tiến trình/thành tựu/snapshot trên máy (`storage.clearAllProgress`)
+- 53 i18n keys mới × **7 locale** (VI/EN/ZH/JA/KO/ES/FR); parity test giữ nguyên
+- `scripts/smoke-ssr.tsx` — headless render smoke test toàn bộ menu/modal tree (`react-dom/server`)
+- `assets/corner-menu.svg` — animation SMIL minh họa 2 panel góc (nhúng trong README)
+- CI GitHub Actions (`.github/workflows/ci.yml`): npm ci → npm run check → `scripts/check-readme-sync.mjs` (10 READMEs)
+- npm scripts mới: `npm run smoke` (SSR smoke), `npm run check:readme` (README drift gate)
+- Tests: **113/113** (14 files) — +5 runSave · +5 settings · +2 changelog · +2 i18n-v115 · +1 storage clearAllProgress · **+37 hardening**: modes-balance 10 · achievements-defs 5 · version-bump 5 · storage-seed 3 · i18n-modes 8 · storage-migrate 6
+
+### Fixed
+- **Phím tắt rò rỉ qua modal**: Enter (bắt đầu), R (restart), P (pause), M (mute), Space (slam) vẫn kích hoạt game khi đang mở modal từ menu — `Modal` chặn ở capture phase (`stopImmediatePropagation`), phím Escape đóng modal
+- **`resumeRun` stale closure** trong `App.tsx` (callback `[]` bắt state khởi tạo → «Chơi tiếp» có thể không khôi phục sau khi snapshot phát sinh) — đọc qua `resumeRef`, bỏ side-effect trong state updater
+- **Ván resumed tính sai chế độ**: engine chuyển về `saved.mode` khi khôi phục nhưng state React + `locheo.mode.v1` vẫn trỏ chế độ đã chọn ở menu → HUD/GameOver/thành tựu quy về chế độ sai — giờ `resumeRun` đồng bộ `setMode(saved.mode)`
+- **`prefers-reduced-motion` thiếu hầu hết animation** — giờ vô hiệu hóa toàn bộ `.anim-*`, marquee, scanlines, shake/flash
+- GameMenu hiển thị số chế độ hardcode `9` → đọc từ `MODE_LIST.length`
+- `docs/releases/v1.1.4.md` tiêu đề còn "(Bản phát hành hiện tại)" — chuyển nhãn sang bản 1.1.5
+- **SEED board bị mutate chéo session** (`loadScores()` trả shallow spread `[...SEED]`) — entry có thể bị ghi đè và lọt vào mọi lần load sau; giờ `seedCopy()` deep-copy từng row
+- **Focus không nhìn thấy được khi bàn phím tab** — thêm `:focus-visible` ring nghệ vàng trên nền ngọc bích; suppression cho focus bằng chuột
+
+### Changed
+- **`APP_VERSION` → 1.1.5**; `package.json`/lock, `src/version.ts`, launcher ×3 (bat/sh/command), banner V1.1.5
+- **StartScreen layout**: hero gọn (bỏ scoreboard/achievements/mode selector inline), Mascot + current-mode card ở giữa, 2 panel góc cố định, ticker giữ nguyên
+- README 10 ngôn ngữ: badge 1.1.5, mục "Mới trong v1.1.5", releases table, cây thư mục (menu/ · changelog.ts · runSave.ts · settings.ts · smoke-ssr), 113 tests
+- Build ~766 KB (gzip ~368 KB) — tăng do modal layer
+
 ## [1.1.4] — 2026-11-12
 
 Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc**: **2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 16 thành tựu · 7 ngôn ngữ trong game (thêm Español · Français) · sửa crash `play-windows.bat` (CRLF + UTF-8 BOM) · launcher 7 ngôn ngữ · README 10 ngôn ngữ làm mới · assets SMIL mới (languages/new-modes/divider) · modes.svg 9 chế độ · 61 unit tests**.
@@ -137,6 +173,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.5]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.5
 [1.1.4]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.4
 [1.1.3]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.3
 [1.1.2]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.2

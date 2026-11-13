@@ -11,7 +11,7 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 ## Quy trình
 
 1. Fork repo → tạo branch `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm install` rồi `npm run check` (typecheck + 61 tests + build) — tất cả phải xanh.
+2. `npm install` rồi `npm run check` (typecheck + 113 tests + build) — tất cả phải xanh.
 3. Nếu sửa logic thuần (`modes.ts`, `achievements.ts`, `storage.ts`, `src/i18n/i18n.ts`): thêm/sửa test trong `tests/`.
 4. Nếu sửa gameplay/cân bằng: ghi rõ chế độ ảnh hưởng (Cổ điển / Thảnh Thơi / Ớt Lửa / Đua 60 Giây / Mùa Vàng) và đính clip trong PR.
 5. Không commit `dist/` (đã có trong `.gitignore`) — artifact release được tạo bằng `npm run build`.
@@ -19,14 +19,19 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 ## Thêm ngôn ngữ mới
 
 1. Tạo `src/i18n/locales/<lang>.ts` export `Record<MessageKey, string>` với **đúng key set** của `vi.ts` (thiếu/thừa key sẽ fail test `tests/i18n.test.ts`).
-2. Cập nhật `LANGUAGES` trong `src/i18n/i18n.ts` và thêm nút vào `LanguageSwitcher.tsx` (+ key `lang.<lang>` trong cả 3 locale).
-3. Đồng bộ `<html lang>` (đã tự động) và số locale trong `numberLocale`.
+2. Cập nhật `LANGUAGES` trong `src/i18n/i18n.ts` và thêm nút vào `LanguageSwitcher.tsx` (+ key `lang.<lang>` trong **cả 7 locale**).
+3. Xem `docs/guides/adding-a-locale.md` — parity test (`tests/i18n.test.ts`) ép đồng bộ key + placeholder.
+4. Đồng bộ `<html lang>` (đã tự động) và số locale trong `numberLocale`.
 
 ## Kiểm thử
 
 - `npm run typecheck` — TypeScript strict, `noUnusedLocals`.
-- `npm run test` — vitest.
+- `npm run test` — vitest (113 tests).
 - `npm run build` — phải ra đúng 1 file `dist/index.html`.
+- `npm run smoke` — headless render smoke cho toàn bộ menu/modal.
+- `npm run check:readme` — bảo vệ README 10 ngôn ngữ khỏi lệch version (chạy trong CI).
+
+Tài liệu sâu hơn: [docs/guides/](docs/guides/) (engine overview, storage keys, a11y, performance, release process, thêm locale).
 
 ## Báo lỗi
 

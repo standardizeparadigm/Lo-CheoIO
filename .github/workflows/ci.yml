@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: Typecheck · tests · build (Node 22)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck + unit tests + single-file build
+        run: npm run check
+
+      - name: SSR render smoke (menu/modal tree)
+        run: npm run smoke
+
+  readme-sync:
+    name: README sync (10 locales)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify version badge · release link · corner-menu embed · historical rows
+        run: node scripts/check-readme-sync.mjs
+
+      - name: Assets referenced ↔ exists (no orphans)
+        run: node scripts/check-assets.mjs

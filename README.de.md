@@ -9,7 +9,8 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-installieren--starten)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-produktions-build)
@@ -32,23 +33,18 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Neu in v1.1.4
+## 🆕 Neu in v1.1.5
 
-- 🎮 **2 NEUE Modi — 9 insgesamt** — **COMBO-FESTIVAL** (das Combo-Fenster lebt **doppelt so lange**: 5.4s, +15% pro Fang, dichterer Regen, Gefahren ×1.25 — der Multiplikator steigt wie ein Feuerwerk) und **GROSSES GELAGE** (Fallen ×0.78, aber fast doppelt so dicht, **Glas-Bonus ×2.5**, ×0.6 pro Fang — der «Gurkenbauer»-Playstyle: füll Glas um Glas). Beide Modi haben eigene Menü-Glyphen und Karten-Glow.
-- 🏆 **2 neue Erfolge** — **STAHLKETTE** (40er-Combo in jedem Modus) & **VOLLE FESTTAFEL** (3 Gläser in einem Grossen-Gelage-Run). Insgesamt **16 Erfolge**.
-- 🌐 **7 Spielsprachen** — **Español** und **Français** neben VI/EN/中/日/한/ES/FR: 207 Schlüssel pro Locale, `<html lang>`-Sync, Locale-Zahlen (es-ES / fr-FR inklusive).
-- 🐛 **Der Windows-Launcher-Crash ist endgültig behoben** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat` ist jetzt **CRLF + UTF-8 BOM** mit `chcp 65001`, Delayed-Expansion `!TSTR!`, Vietnamesisch mit **vollständigen Diakritika**. Eine neue `.gitattributes` erzwingt CRLF für jede `*.bat`/`*.cmd` — keine Wiederholung mehr.
-- 🚀 **Mehrsprachige, animierte Launcher** — alle drei Launcher (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) sprechen **7 Sprachen** (VI/EN/中/日/한/ES/FR), die `L`-Taste rotiert durch alle sieben, der Glitzer-Trenner wechselt Gold/Pink/Cyan; das vietnamesische Menü behält **alle Diakritika**. Siehe [scripts/README.md](scripts/README.md).
-- 📖 **Dieses README wurde in allen 10 Sprachen überarbeitet** — mehr Animation (Banner, 9-Modi-Raster, 7-Sprachen-Band, funkelnder Trenner — alles SMIL), mehr Details, vollständiger.
-- 🧪 **61 Unit-Tests** (zuvor 55) — `npm run check` grün.
+- 🧭 **Das Hauptmenü, endlich aufgeräumt** — alles rund ums Spiel steckt im **GAME-Panel unten links**: **Spielen** · **Fortsetzen** · **Spielmodi** · **Rangliste** (TOP 8) · **Erfolge** (16) · **Einstellungen**. Alles rund ums Projekt steckt im **INFO-Panel unten rechts**: **Über den Autor** · **Changelog** (in-game einsehbar) · **Beenden**.
+- ⏸️ **„Fortsetzen“ — dein pausiertes Spiel nur einen Klick entfernt** — wenn du mitten im Spiel ins Menü zurückkehrst (Pause → Menü), landet der Stand als Snapshot in `locheo.run.v1`; **Fortsetzen** stellt ihn 1:1 wieder her: Punkte, Krüge, Risse, Stamina, Kombo, Schilde. Nur verfügbar, wenn wirklich ein Spiel pausiert wurde.
+- ⚙️ **In-game-Einstellungen** — **SFX** · **Musik** · **Bildschirm-Shake** · **Reduzierte Bewegung** — sofort aktiv, ohne Neuladen; plus eine doppelte-Bestätigung-**Gefahrenzone „Gespeicherte Daten löschen“**.
+- 🐛 **Shortcuts leckten durch Modals** — Enter/R/P/M/Space lösen das Spiel hinter einem Modal nicht mehr aus; **Stale Closure bei „Fortsetzen“**; **`prefers-reduced-motion` deaktiviert jetzt alle Animationen**.
+- 📖 **READMEs noch schöner** — V1.1.5-Banner, neue Eck-Panel-SMIL-Animation, mehr Details in allen 10 Sprachen.
+- 🧪 **113 Unit-Tests** (vorher 61) — grünes `npm run check`; neue **GitHub-Actions-CI** (npm ci → npm run check).
 
-<img src="assets/new-modes.svg" alt="Neu in v1.1.4 — Combo-Festival und Großes Gelage" width="100%" />
+<img src="assets/corner-menu.svg" alt="GAME- (unten links) und INFO-Panel (unten rechts) gleiten herein (SMIL-Animation)" width="100%" />
 
-<img src="assets/modes.svg" alt="Die 9 Modi — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Eingelegter Regen · Dünnes Keramik · Combo-Festival · Großes Gelage" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="Lọ-Chéo-Favicon — ein schräges Einmachglas mit goldenem Deckel (SMIL-Animation)" width="150" /></div>
-
-→ Alle Details: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ Alle Details: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Die Highlights
 
@@ -64,7 +60,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 | 💾 **TOP-8-Bestenliste** | Lokal gespeichert, beim Lesen validiert & normalisiert, Namen automatisch großgeschrieben, Highlight für frisch gesetzte Rekorde |
 | 🎨 **60fps-Grafik** | Canvas 2D, 460-Partikel-Budget, DPR-Cap 2, vorgerenderter Offscreen-Boden, funkelnde Sterne + Aurora im Menü |
 | 📴 **Echt offline-first** | Selbst gehostete Fonts (latein + vietnamesisch, woff2), kein CDN, keine API — `dist/index.html` doppelklicken und spielen |
-| 🧪 **Qualitätstor** | 61 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
+| 🧪 **Qualitätstor** | 113 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
 
 <img src="assets/items.svg" alt="Die 14 Zutaten — Pickles zum Fangen, goldene Power-ups zum Greifen, Gefahren zum Ausweichen" width="100%" />
 
@@ -127,7 +123,7 @@ npm run build      # → dist/index.html (eine in sich geschlossene Datei)
 npm run dev        # Dev-Server mit HMR (http://localhost:5173)
 npm run preview    # Produktions-Build lokal ausliefern
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 61 Unit-Tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 113 Unit-Tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 
@@ -136,7 +132,7 @@ npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 lo-cheoio/
 ├─ index.html              # Einstieg, SEO/OG-Meta (kein CDN)
-├─ package.json            # lo-cheoio v1.1.4, dev/build/test/check-Skripte
+├─ package.json            # lo-cheoio v1.1.5, dev/build/test/check-Skripte
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; enthält src + tests
@@ -149,6 +145,7 @@ lo-cheoio/
 │  ├─ modes.svg            # die 9 Modi (SMIL-Animation)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # animiertes AGPL-3.0-Copyleft-Siegel (SMIL-Animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -158,14 +155,18 @@ lo-cheoio/
 │  ├─ play-linux.sh        # Linux-Launcher — Doppelklick, farbiges Menü
 │  └─ README.md            # Launcher-Anleitung für Terminal-Neulinge
 ├─ docs/
-│  ├─ DESCRIPTION.md       # Projekttexte in mehreren Sprachen (vi/en/zh + SEO)
+│  ├─ README.md            # Doku-Index (v1.1.5)
+│  ├─ DESCRIPTION.md       # mehrsprachige Projektbeschreibungen (vi/en/zh + SEO)
+│  ├─ design/              # menu-corners / save-format / settings-format Specs
+│  ├─ guides/              # Engine-Überblick · a11y · Performance · storage keys · Release-Playbook…
 │  └─ releases/
 │     ├─ v1.0.0.md         # erste Release-Notes
 │     ├─ v1.1.0.md         # v1.1.0 Release-Notes
 │     ├─ v1.1.1.md         # v1.1.1 Release-Notes
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
-│     └─ v1.1.4.md         # current release notes (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -179,7 +180,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React-Wurzel, StrictMode
 │  ├─ App.tsx              # Phasenmaschine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4" (einzige Wahrheitsquelle)
+│  ├─ version.ts           # APP_VERSION = "1.1.5" (einzige Wahrheitsquelle)
 │  ├─ index.css            # tailwind v4-Theme + alle Animationen/Verläufe
 │  ├─ assets/fonts/        # woff2-Subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
@@ -189,7 +190,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (Key-Quelle) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # Canvas + schwebender Joystick + Tastatur + Visibility
-│  │  ├─ StartScreen.tsx   # Menü: Aurora, Shimmer, Modus-Wahl, Erfolge
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # 9 Modus-Karten (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # gesperrtes/freigeschaltetes Badge-Tableau
 │  │  ├─ GameOverScreen.tsx     # GLAS ZERBROCHEN! + Punkte + neue Erfolge
@@ -201,9 +203,12 @@ lo-cheoio/
 │  │  ├─ modes.ts          # Spielmodi + Balance-Mathematik (pure)
 │  │  ├─ achievements.ts   # 16 Badges + pure Prüfung (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, Fortschritt, Erfolge
-│  │  └─ audio.ts          # Web Audio Synth: SFX + pentatonische Musik
+│  │  ├─ audio.ts          # Web Audio Synth: SFX + pentatonische Musik
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13 Dateien · 113 Tests (modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 Architektur & Performance
@@ -244,6 +249,7 @@ Doppelklick auf [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 | Version | Datum | Notizen |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Eck-Panels GAME/INFO** (Spielen · Fortsetzen · Modi · Rangliste · Erfolge · Einstellungen / Über den Autor · Changelog · Beenden) · **Speichern & Fortsetzen** (`locheo.run.v1`) · In-game-Einstellungen (SFX/Musik/Shake/Reduced Motion) · Modal-Shortcut-Leck gefixt · prefers-reduced-motion überall · **113 Tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 Modi** (Combo-Festival · Großes Gelage) · **16 Erfolge** · **7 Sprachen** (ES/FR neu) · play-windows.bat Fix (CRLF+BOM) · Launcher in 7 Sprachen · 61 Tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 Modi (Eingelegter Regen · Dünnes Keramik) · 14 Erfolge · 5 Sprachen · Favicon · mehrsprachige Launcher · 55 Tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 Modi (60-Sekunden-Rush · Goldrausch) · 12 Erfolge · Combo-Flammen · Doppelklick-Launcher · README in 10 Sprachen · 49 Tests |
@@ -253,10 +259,35 @@ Doppelklick auf [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 Siehe auch [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Roadmap (Entwurf — ändert sich mit Feedback)
+
+| Meilenstein | ETA | Ideen |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Prozeduraler Soundtrack pro Modus · visuelle Regressionstests (Playwright) in der CI · tieferes Font-Subsetting zum Schrumpfen des Bundles |
+| **v1.3.0** | 2026 Q1–Q2 | 10. Spielmodus (Kandidat: **FLIEGENSTURM** — nur Fliegen, nur durch Schlagen überleben) · Seed-Modus für Daily Challenges |
+| **v1.4.0** | 2026 Q2 | **Opt-in**-Online-Rangliste (serverless, verschlüsselt) — Offline-first bleibt der Standard |
+| Backlog | — | Ghost-Replay deines besten Laufs · Fotomodus (HUD ausblenden, PNG exportieren) · Thai (ไทย)-Locale in Prüfung |
+
+*Eine Roadmap ist kein Versprechen — Priorität ist immer: Stabilität → einfacher zu spielen → mehr Inhalt.*
+
+## 📚 Weiterführende Doku & Dev-Notes
+
+Design-Notizen und tiefergehende technische Doku:
+
+| Doc | What it covers |
+| --- | --- |
+| [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | Release v1.1.5 — Eck-Menüs, Speichern/Fortsetzen, Einstellungen, Fixes |
+| [docs/design/menu-corners.md](docs/design/menu-corners.md) | Design des Eck-Menüs GAME/INFO — Prinzipien, a11y, Responsive |
+| [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — Snapshot eines unterbrochenen Laufs (Schema + Lebenszyklus) |
+| [docs/design/settings-format.md](docs/design/settings-format.md) | Spec `locheo.settings.v1` — Spieleinstellungen (Schema + Wiring) |
+| [docs/guides/troubleshooting.md](docs/guides/troubleshooting.md) | Häufige Probleme — schwarzer Bildschirm · Audio · Fortsetzen · Launcher |
+| [scripts/smoke-ssr.tsx](scripts/smoke-ssr.tsx) | Headless-Render-Smoke-Test (kompletter Menü-/Modal-Baum) |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | CI: npm ci → npm run check (Node 22) |
+
 ## 🤝 Mitwirken
 
 1. Forke das Repo, Branch nach dem Schema `arena/<name>` oder `feat/<name>`.
-2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 61 Tests + build).
+2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 113 Tests + build).
 3. Vermeide neue Laufzeit-Abhängigkeiten, sofern nicht unbedingt nötig — Philosophie: **eine Datei, kein Netz, ewig spielbar**.
 4. Nenne in deinem PR die betroffenen Screens/Modi und hänge bei Gameplay-Änderungen einen Clip an.
 

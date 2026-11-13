@@ -2,9 +2,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   EMPTY_PROGRESS,
   bestScore,
+  clearAllProgress,
   loadAchievements,
   loadProgress,
   loadScores,
+  persistScores,
+  saveProgress,
   normalizeScores,
   qualifies,
   rankOf,
@@ -145,5 +148,24 @@ describe("persistence round-trips (stubbed storage)", () => {
     unlockAchievements(["first-catch"]);
     unlockAchievements(["first-catch", "combo-10"]);
     expect(loadAchievements().sort()).toEqual(["combo-10", "first-catch"]);
+  });
+});
+
+describe("clearAllProgress", () => {
+  it("removes the localStorage keys for scores, progress and achievements", () => {
+    const mem = memStorage();
+    vi.stubGlobal("localStorage", mem);
+    persistScores([
+      { id: "a", name: "AAA", score: 100, level: 1, jars: 1, combo: 3, date: 1 },
+    ]);
+    saveProgress({ bestScore: 10, totalJars: 5, totalSliced: 5, runs: 2 });
+    unlockAchievements(["combo-40"]);
+    clearAllProgress();
+    // keys physically removed — empty board falls back to the built-in seed
+    expect(localStorage.getItem("locheo.scores.v1")).toBeNull();
+    expect(localStorage.getItem("locheo.progress.v1")).toBeNull();
+    expect(localStorage.getItem("locheo.achievements.v1")).toBeNull();
+    expect(loadProgress().runs).toBe(0);
+    expect(loadAchievements()).toEqual([]);
   });
 });

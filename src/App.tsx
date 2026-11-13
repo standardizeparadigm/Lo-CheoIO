@@ -11,6 +11,7 @@ import { isModeId, type ModeId } from "./game/modes";
 import type { MessageKey } from "./i18n/i18n";
 import {
   bestScore,
+  clearAllProgress,
   loadAchievements,
   loadScores,
   qualifies,
@@ -20,6 +21,8 @@ import {
   unlockAchievements,
   type ScoreEntry,
 } from "./game/storage";
+import { loadSettings, updateSettings, type GameSettings } from "./game/settings";
+import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
@@ -43,8 +46,14 @@ export default function App() {
   });
   const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
+  const [settings, setSettings] = useState<GameSettings>(() => loadSettings());
+  const [resume, setResume] = useState<SavedRun | null>(() => loadSavedRun());
   const modeRef = useRef(mode);
   modeRef.current = mode;
+  const phaseRef = useRef<Phase>(phase);
+  phaseRef.current = phase;
+  const resumeRef = useRef<SavedRun | null>(resume);
+  resumeRef.current = resume;
 
   const best = bestScore(scores);
 
@@ -72,6 +81,18 @@ export default function App() {
     audio.setMuted(muted);
   }, [muted]);
 
+  // settings → audio gates (SFX / music) — applied instantly
+  useEffect(() => {
+    audio.setSfxEnabled(settings.sfx);
+    audio.setMusicEnabled(settings.music);
+  }, [settings.sfx, settings.music]);
+
+  // settings → engine hooks (screen shake / reduced motion)
+  useEffect(() => {
+    gameRef.current?.setShakeEnabled(settings.shake);
+    gameRef.current?.setReducedMotion(settings.reducedMotion);
+  }, [settings.shake, settings.reducedMotion]);
+
   // keep <html lang> honest for screen readers & search engines
   useEffect(() => {
     try {
@@ -97,12 +118,17 @@ export default function App() {
   const onReady = useCallback((g: LoCheoGame) => {
     gameRef.current = g;
     g.setMode(modeRef.current);
+    const s = loadSettings();
+    g.setShakeEnabled(s.shake);
+    g.setReducedMotion(s.reducedMotion);
   }, []);
 
   const startRun = useCallback(() => {
     const g = gameRef.current;
     if (!g) return;
     audio.unlock();
+    clearSavedRun(); // a fresh run supersedes the suspended one
+    setResume(null);
     setSavedId(null);
     setNewAchievements([]);
     setRun(EMPTY);
@@ -111,8 +137,50 @@ export default function App() {
     g.start();
   }, []);
 
+  // Resume the suspended run snapshot (GAME → «Chơi tiếp»)
+  const resumeRun = useCallback(() => {
+    const g = gameRef.current;
+    const saved = resumeRef.current;
+    if (!g || !saved) return;
+    g.restoreRun(saved);
+    setMode(saved.mode); // keep React state + persisted locheo.mode.v1 in sync with the resumed run
+    clearSavedRun();
+    resumeRef.current = null;
+    setResume(null);
+    setSavedId(null);
+    setNewAchievements([]);
+    setRun({ ...saved.stats });
+    setShowOver(false);
+  }, []);
+
+  // Wipe every locally persisted byte (settings danger zone)
+  const clearAllData = useCallback(() => {
+    clearAllProgress();
+    clearSavedRun();
+    setScores(loadScores()); // seeds the default board
+    setAchievements([]);
+    setResume(null);
+    setSavedId(null);
+  }, []);
+
+  const patchSettings = useCallback((patch: Partial<GameSettings>) => {
+    setSettings((prev) => {
+      const next = { ...prev, ...patch };
+      updateSettings(next);
+      return next;
+    });
+  }, []);
+
   const toMenu = useCallback(() => {
-    gameRef.current?.toMenu();
+    const g = gameRef.current;
+    const phase = phaseRef.current;
+    if (g && (phase === "playing" || phase === "paused")) {
+      // suspension: snapshot the run so «Chơi tiếp» can restore it
+      const snap = g.captureRun();
+      saveSavedRun(snap);
+      setResume(snap);
+    }
+    g?.toMenu();
     setShowOver(false);
     audio.play("ui");
   }, []);
@@ -127,6 +195,8 @@ export default function App() {
 
   const onGameOver = useCallback((s: RunStats) => {
     setRun(s);
+    clearSavedRun(); // the run is finished — restore is meaningless now
+    setResume(null);
     setSavedId(null);
     // fold the run into lifetime progress, then light up any new badges
     const progress = recordRun(s);
@@ -272,6 +342,11 @@ export default function App() {
           mode={mode}
           onModeChange={handleModeChange}
           onStart={startRun}
+          resume={resume}
+          onResume={resumeRun}
+          settings={settings}
+          onPatchSettings={patchSettings}
+          onClearAllData={clearAllData}
         />
       )}
       {phase === "paused" && (
