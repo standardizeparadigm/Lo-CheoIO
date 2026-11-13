@@ -63,6 +63,8 @@ function settingsUiKeys(): string[] {
     "settings.clearData",
     "settings.clearDataDesc",
     "settings.clearDataConfirm",
+    // instant-apply confirmation badge in the modal footer
+    "settings.saved",
     // shared confirm/cancel wording used by the two-step danger zone
     "common.cancel",
     // pause header countdown suffix (timed modes)
