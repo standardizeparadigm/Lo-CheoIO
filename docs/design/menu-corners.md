@@ -29,8 +29,18 @@ Menu chính pre-1.1.5 gánh toàn bộ tương tác (CTA, mode cards, scoreboard
 | Có snapshot | bật, brine-500 | `{chế độ} · {điểm} điểm · {n} hũ` |
 | Sau khi resume/game over | `disabled` (snapshot đã xóa) | quay lại trạng thái không snapshot |
 
+## Cập nhật v1.1.6 — Settings lớn dần
+
+Panel góc **không đổi** (vẫn GAME/INFO, vẫn 6 + 3 mục) nhưng nội dung sau mục «Cài đặt» thì đổi hẳn:
+Settings từ 4 toggle phẳng thành **6 section** (preset · âm thanh · giao diện · ngôn ngữ · sao lưu · dữ liệu)
+với 3 loại control (switch / segmented / stepper). Quyết định v1.1.5 — *modal chứ không phải màn riêng* —
+vẫn giữ: modal rộng `max-w-2xl`, body scroll riêng, `useFocusTrap` giữ Tab bên trong.
+
+Ngôn ngữ rời khỏi menu (xoá `LanguageSwitcher` góc trên-phải) và trở thành section 4 của Settings —
+một chỗ duy nhất cho mọi cấu hình, đúng tinh thần "hai cụm, không hơn".
+
 ## Không làm (non-goals)
 
-- Không tách «Settings» thành màn riêng (modal là đủ cho 4 toggle + danger zone).
+- Không tách «Cài đặt» thành màn riêng — modal rộng + scroll là đủ cho 6 section (quyết định giữ nguyên từ v1.1.5).
 - Không auto-đóng tab khi bấm THOÁT (trình duyệt chặn) — chỉ best-effort + hướng dẫn.
 - Không đổi ngữ nghĩa thắng/thua, không đổi balance mode.
