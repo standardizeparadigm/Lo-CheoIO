@@ -3,6 +3,7 @@ import { t, fmtNum } from "../i18n/i18n";
 import type { SavedRun } from "./runSave";
 import { clamp, damp, lerp } from "../utils/math";
 import { CANVAS_COLORS } from "./palette";
+import { weightedPick } from "./spawn";
 import {
   MODES,
   comboWindowFor,
@@ -907,28 +908,12 @@ export class LoCheoGame {
   /* ------------------------------------------------------------ spawns */
 
   private pickKind(deco = false): ItemKind {
-    const lvl = deco ? 4 : this.stats.level;
-    const cfg = MODES[this.mode];
-    let total = 0;
-    const ws: number[] = [];
-    for (const k of KINDS) {
-      const def = DEFS[k];
-      let w = def.weight(lvl);
-      if (def.hazard) w *= cfg.hazardMult;
-      if (def.power || def.fillBoost) w *= cfg.goldMult ?? 1;
-      if (deco) {
-        if (def.hazard) w *= 0.4;
-        if (def.power) w *= 0.5;
-      }
-      ws.push(w);
-      total += w;
-    }
-    let r = Math.random() * total;
-    for (let i = 0; i < KINDS.length; i++) {
-      r -= ws[i];
-      if (r <= 0) return KINDS[i];
-    }
-    return "ca";
+    // balance logic lives in ./spawn so it can be tested without a canvas
+    return weightedPick(KINDS, {
+      level: deco ? 4 : this.stats.level,
+      mode: MODES[this.mode],
+      deco,
+    });
   }
 
   private makeItem(kind: ItemKind, deco: boolean): Item {
