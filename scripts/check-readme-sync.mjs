@@ -11,7 +11,8 @@
  *   3. the README must embed assets/corner-menu.svg (v1.1.5 corner panels)
  *   4. the README must embed assets/settings-sections.svg (v1.1.6 settings tour)
  *   5. the README must embed assets/palette-ribbon.svg + architecture.svg +
- *      release-tiers.svg (v1.1.7 additions)
+ *      release-tiers.svg (v1.1.7) and assets/layout-fix.svg +
+ *      assets/test-matrix.svg (v1.1.8)
  *   6. historical release rows keep their original claims (v1.1.5 → 113 tests,
  *      v1.1.4 → 61 tests) — history must never be rewritten
  *   7. no stray previous-version badge anywhere
@@ -50,6 +51,8 @@ for (const file of FILES) {
   if (!s.includes("assets/palette-ribbon.svg")) problems.push("missing palette-ribbon.svg embed");
   if (!s.includes("assets/architecture.svg")) problems.push("missing architecture.svg embed");
   if (!s.includes("assets/release-tiers.svg")) problems.push("missing release-tiers.svg embed");
+  if (!s.includes("assets/layout-fix.svg")) problems.push("missing layout-fix.svg embed (v1.1.8)");
+  if (!s.includes("assets/test-matrix.svg")) problems.push("missing test-matrix.svg embed (v1.1.8)");
   if (s.includes("version-1.1.6-f5a81c") || s.includes("version-1.1.5-f5a81c")) problems.push("stale badge");
   for (const stale of ["1.1.4-f5a81c", "1.1.3-f5a81c"]) {
     if (s.includes(stale)) problems.push("stale badge");
@@ -60,6 +63,11 @@ for (const file of FILES) {
   const row115 = rowFor("1.1.5");
   if (!row115) problems.push("missing historical v1.1.5 releases row");
   else if (!/113/.test(row115)) problems.push("historical v1.1.5 row must keep 113 tests");
+  // v1.1.8 ships 286 tests; once it becomes historical this keeps the claim.
+  if (VERSION !== "1.1.8") {
+    const row118 = rowFor("1.1.8");
+    if (row118 && !/286/.test(row118)) problems.push("historical v1.1.8 row must keep 286 tests");
+  }
   const row114 = rowFor("1.1.4");
   if (!row114) problems.push("missing historical v1.1.4 releases row");
   else if (!/61/.test(row114)) problems.push("historical v1.1.4 row must keep 61 tests");
