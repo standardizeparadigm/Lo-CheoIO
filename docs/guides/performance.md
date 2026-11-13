@@ -51,7 +51,7 @@ bằng phép so sánh 2 × 1/120 s với 1 × 1/60 s.
 ## Tối ưu single-file
 
 - Font woff2 subset + `font-display: swap` + unicode-range → phần lớn text Latin dùng 1 file.
-- Build một file duy nhất (`vite-plugin-singlefile`) — artifact **839.61 KB / gzip 391.23 KB**
+- Build một file duy nhất (`vite-plugin-singlefile`) — artifact **840.05 KB / gzip 391.45 KB**
   (đo trên nhánh 1.1.8). So với 1.1.7 (831.70 KB / 388.07 KB) tăng ~8 KB: ba module menu mới
   (`layout/` · `ticker/` · `MenuChrome`), 16 file achievements, và entry changelog 1.1.8 với 24 gạch
   vi/en. Phần tăng này là **mã**, không phải asset — SVG của README không nằm trong bundle.
