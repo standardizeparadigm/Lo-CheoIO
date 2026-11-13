@@ -28,8 +28,8 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 - `npm run typecheck` — TypeScript strict, `noUnusedLocals`.
 - `npm run test` — vitest (76 tests).
 - `npm run build` — phải ra đúng 1 file `dist/index.html`.
-- `npx vite-node scripts/smoke-ssr.tsx` — headless render smoke cho toàn bộ menu/modal.
-- `node scripts/check-readme-sync.mjs` — bảo vệ README 10 ngôn ngữ khỏi lệch version.
+- `npm run smoke` — headless render smoke cho toàn bộ menu/modal.
+- `npm run check:readme` — bảo vệ README 10 ngôn ngữ khỏi lệch version (chạy trong CI).
 
 Tài liệu sâu hơn: [docs/guides/](docs/guides/) (engine overview, storage keys, a11y, performance, release process, thêm locale).
 
