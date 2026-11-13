@@ -259,6 +259,17 @@ Duplo clique em [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 Veja também [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Roadmap (rascunho — sujeito a mudança com feedback)
+
+| Marco | ETA | Ideias |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Trilha sonora procedural por modo · testes de regressão visual (Playwright) no CI · subsetting de fontes mais profundo para reduzir o bundle |
+| **v1.3.0** | 2026 Q1–Q2 | 10º modo de jogo (candidato: **TEMPESTADE DE MOSCAS** — só moscas, sobreviva decepando) · modo com seed para desafios diários |
+| **v1.4.0** | 2026 Q2 | Ranking online **opt-in** (serverless, criptografado) — offline-first continua sendo o padrão |
+| Backlog | — | Ghost replay da sua melhor partida · modo foto (oculta o HUD, exporta PNG) · locale tailandês (ไทย) em avaliação |
+
+*Um roadmap não é uma promessa — a prioridade é sempre: estabilidade → mais fácil de jogar → mais conteúdo.*
+
 ## 📚 Leitura adicional & docs de dev
 
 Notas de design e documentação técnica mais profunda:
