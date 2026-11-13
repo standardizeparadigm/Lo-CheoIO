@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 54" role="img" aria-label="Bảng màu Lọ Chéo v1.1.7 — brine, jade, turmeric, chili, lime, clay, plum chạy sáng luân phiên (hoạt họa SMIL)">
+  <defs>
+    <linearGradient id="prSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      <animate attributeName="x1" values="-0.6;0.2;-0.6" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="-0.4;0.4;-0.4" dur="6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <clipPath id="prClip">
+      <rect x="40" y="10" width="1120" height="34" rx="17"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="54" fill="#061a1a"/>
+
+  <g clip-path="url(#prClip)">
+    <!-- seven palette bands; each one breathes on its own phase -->
+    <rect x="40"   y="10" width="160" height="34" fill="#0a2422"/>
+    <rect x="200"  y="10" width="160" height="34" fill="#123f38"/>
+    <rect x="360"  y="10" width="160" height="34" fill="#2bb48c">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.2s" begin="0s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="520"  y="10" width="160" height="34" fill="#8cc63f">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.2s" begin="0.4s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="680"  y="10" width="160" height="34" fill="#f5a81c">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.2s" begin="0.8s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="840"  y="10" width="160" height="34" fill="#e63b2e">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.2s" begin="1.2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="1000" y="10" width="160" height="34" fill="#6b2d5c">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3.2s" begin="1.6s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- travelling sheen across the whole ribbon -->
+    <rect x="40" y="10" width="1120" height="34" fill="url(#prSheen)"/>
+  </g>
+
+  <rect x="40" y="10" width="1120" height="34" rx="17" fill="none" stroke="#2bb48c" stroke-opacity="0.35" stroke-width="1.4"/>
+
+  <g font-family="'Courier New',monospace" font-size="9" font-weight="700" letter-spacing="2" text-anchor="middle" fill="#fdf3e0" fill-opacity="0.85">
+    <text x="120"  y="32">#0A2422</text>
+    <text x="280"  y="32">#123F38</text>
+    <text x="440"  y="32">#2BB48C</text>
+    <text x="600"  y="32">#8CC63F</text>
+    <text x="760"  y="32">#F5A81C</text>
+    <text x="920"  y="32">#E63B2E</text>
+    <text x="1080" y="32">#6B2D5C</text>
+  </g>
+</svg>
