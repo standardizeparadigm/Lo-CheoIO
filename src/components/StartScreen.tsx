@@ -91,6 +91,11 @@ export default function StartScreen({
     <div className="absolute inset-0 z-40 flex flex-col overflow-hidden">
       {/* ------- ambient background layers ------- */}
       <div className="aurora-bg pointer-events-none absolute inset-0" />
+      <div className="nebula-a" aria-hidden="true" />
+      <div className="nebula-b" aria-hidden="true" />
+      <div className="light-ray" aria-hidden="true" />
+      <div className="star-field-far" aria-hidden="true" />
+      <div className="star-field" aria-hidden="true" />
       <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-45" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_20%_8%,rgba(6,26,26,0.42)_0%,rgba(6,26,26,0.88)_62%,#061a1a_100%)]" />
 
@@ -208,7 +213,8 @@ export default function StartScreen({
                 </svg>
               </div>
               <div className="relative flex flex-col items-center">
-                <JarLogo className="anim-bob anim-breathe h-44 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.55)] xl:h-56" mood="happy" />
+                <span aria-hidden="true" className="glow-ring pointer-events-none absolute top-[52%] left-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 sm:h-64 sm:w-64 xl:h-80 xl:w-80" />
+                <JarLogo className="anim-bob anim-breathe jar-glow relative h-44 w-auto xl:h-56" mood="happy" />
                 <button
                   type="button"
                   onClick={() => setModal("modes")}
