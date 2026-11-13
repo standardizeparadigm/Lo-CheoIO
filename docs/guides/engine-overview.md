@@ -60,7 +60,7 @@ v1.1.6 tách chúng ra thành module riêng — engine chỉ còn gọi hàm:
 
 - **Pure** (unit-test không cần canvas): `modes.ts`, `achievements.ts`, `palette.ts`, `spawn.ts`,
   `storage.ts`, `safeStorage.ts`, `settings.ts`, `settingsIO.ts`, `settingsPresets.ts`, `audioLevels.ts`,
-  `runSave.ts`, `changelog.ts`, `utils/*` → phủ bởi 222 test.
+  `runSave.ts`, `changelog/`, `modes/`, `utils/*` → phủ bởi 256 test.
 - **Impure** (engine, audio, GameCanvas): kiểm chứng qua typecheck + build + SSR smoke + chơi thật.
 
 ## Những chỗ đổi hành vi ở v1.1.6
