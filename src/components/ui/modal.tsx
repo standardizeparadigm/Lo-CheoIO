@@ -1,8 +1,17 @@
 /**
- * Modal — focus-trapped dialog shell.
+ * Modal — the focus-trapped dialog shell.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * Behaviour that the changelog, settings, leaderboard and quit dialogs all
+ * share, implemented once:
+ *   · Tab/Shift+Tab are trapped inside the panel (`useFocusTrap`)
+ *   · Escape closes, and focus returns to whatever opened the dialog
+ *   · the panel caps at 86vh so short windows scroll instead of clipping text
+ *   · game hotkeys are swallowed at the capture phase by the caller's handler
+ *
+ * `wide` switches the max-width from the default to the two-column layouts
+ * (settings, changelog). Renders a `<Panel>` inside a backdrop.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import { useEffect, useRef, type ReactNode } from "react";
 import { useI18n } from "../../i18n/useI18n";
