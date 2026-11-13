@@ -40,7 +40,7 @@
 - ⚙️ **게임 내 설정** —— **효과음** · **배경 음악** · **화면 흔들림** · **동작 줄이기** —— 즉시 적용, 새로고침 불필요. 2단계 확인의 **「저장 데이터 삭제」** 위험 구역 포함.
 - 🐛 **모달 너머 단축키 누출 수정** —— Enter/R/P/M/Space가 모달 뒤의 게임을 발동하지 않습니다. **「이어하기」 stale closure**, **`prefers-reduced-motion`이 모든 애니메이션 차단**.
 - 📖 **10개 언어 README 더 아름답게** —— V1.1.5 배너, 새로운 코너 패널 SMIL 애니메이션, 더 상세하고 충실한 내용.
-- 🧪 **유닛 테스트 107개**(61에서 증가) —— `npm run check` 그린; 새 **GitHub Actions CI**(npm ci → npm run check).
+- 🧪 **유닛 테스트 113개**(61에서 증가) —— `npm run check` 그린; 새 **GitHub Actions CI**(npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="왼쪽 아래 GAME 패널과 오른쪽 아래 INFO 패널이 슬라이드인(SMIL 애니메이션)" width="100%" />
 
@@ -60,7 +60,7 @@
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 107개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 113개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 107개 단위 테스트 (modes / achievements / storage / i18n)
+npm run test       # vitest — 113개 단위 테스트 (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -208,7 +208,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — 13개 파일 · 107개 테스트(modes · achievements · storage · i18n · runSave · settings · changelog…)
+└─ tests/                  # vitest — 13개 파일 · 113개 테스트(modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 아키텍처 & 성능
@@ -249,7 +249,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | 버전 | 날짜 | 노트 |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **107개 테스트** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
@@ -286,7 +286,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 ## 🤝 기여하기
 
 1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
-2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 107개 + build).
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 113개 + build).
 3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
 4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
 
