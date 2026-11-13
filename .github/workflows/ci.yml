@@ -34,3 +34,6 @@ jobs:
 
       - name: Verify version badge · release link · corner-menu embed · historical rows
         run: node scripts/check-readme-sync.mjs
+
+      - name: Assets referenced ↔ exists (no orphans)
+        run: node scripts/check-assets.mjs
