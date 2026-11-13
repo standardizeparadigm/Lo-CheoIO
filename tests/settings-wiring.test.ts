@@ -48,6 +48,14 @@ describe("settings → runtime wiring (v1.1.6)", () => {
     expect(canvas).toContain("if (!cb.current.autoPauseOnBlur) return;");
   });
 
+  it("reduced motion reaches both the engine and the canvas DOM attribute", () => {
+    expect(app).toContain("setReducedMotion(settings.reducedMotion)");
+    expect(app).toContain("reducedMotion={settings.reducedMotion}");
+    const canvas = read("src/components/GameCanvas.tsx");
+    expect(canvas).toContain('data-reduced-motion={reducedMotion ? "true" : undefined}');
+    expect(read("src/index.css")).toContain('[data-reduced-motion="true"]');
+  });
+
   it("the language switcher component is gone and the settings modal is re-exported", () => {
     const barrel = read("src/components/menu/index.ts");
     expect(barrel).toContain("SettingsModal");
