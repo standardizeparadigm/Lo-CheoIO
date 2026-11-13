@@ -1,6 +1,7 @@
 import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
 import type { SavedRun } from "./runSave";
+import { clamp, damp, lerp } from "../utils/math";
 import {
   MODES,
   comboWindowFor,
@@ -225,8 +226,6 @@ const C = {
 
 const TAU = Math.PI * 2;
 const rnd = (a: number, b: number) => a + Math.random() * (b - a);
-const clamp = (v: number, a: number, b: number) => (v < a ? a : v > b ? b : v);
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // roundRect fallback for older engines
 if (typeof CanvasRenderingContext2D !== "undefined" && !CanvasRenderingContext2D.prototype.roundRect) {
@@ -725,20 +724,20 @@ export class LoCheoGame {
 
     if (this.phase === "menu") {
       this.updateAttract(dt);
-      this.hudAlpha = lerp(this.hudAlpha, 0, Math.min(1, dt * 6));
+      this.hudAlpha = damp(this.hudAlpha, 0, 6, dt);
       return;
     }
 
     if (this.phase === "paused") {
-      this.hudAlpha = lerp(this.hudAlpha, 0.25, Math.min(1, dt * 4));
+      this.hudAlpha = damp(this.hudAlpha, 0.25, 4, dt);
       return;
     }
 
     if (this.phase === "gameover") {
       this.overTimer -= raw;
-      this.timeScale = lerp(this.timeScale, 0.45, Math.min(1, dt * 2));
+      this.timeScale = damp(this.timeScale, 0.45, 2, dt);
       this.updateItems(dt);
-      this.hudAlpha = lerp(this.hudAlpha, 0.35, Math.min(1, dt * 3));
+      this.hudAlpha = damp(this.hudAlpha, 0.35, 3, dt);
       if (this.overTimer <= 0 && !this.overFired) {
         this.overFired = true;
         this.onGameOver({ ...this.stats });
@@ -747,7 +746,7 @@ export class LoCheoGame {
     }
 
     // -------- playing
-    this.hudAlpha = lerp(this.hudAlpha, 1, Math.min(1, dt * 4));
+    this.hudAlpha = damp(this.hudAlpha, 1, 4, dt);
     this.stats.time += raw;
     const timeLimit = MODES[this.mode].timeLimit;
     if (timeLimit && this.stats.time >= timeLimit) {
@@ -755,7 +754,7 @@ export class LoCheoGame {
       this.gameOver();
       return;
     }
-    this.timeScale = lerp(this.timeScale, this.slow > 0 ? 0.52 : 1, Math.min(1, dt * 6));
+    this.timeScale = damp(this.timeScale, this.slow > 0 ? 0.52 : 1, 6, dt);
     if (this.slow > 0) this.slow = Math.max(0, this.slow - dt);
     if (this.frenzy > 0) this.frenzy = Math.max(0, this.frenzy - dt);
     if (this.slamCd > 0) this.slamCd = Math.max(0, this.slamCd - dt);
@@ -865,7 +864,7 @@ export class LoCheoGame {
       this.pvy = -Math.abs(this.pvy) * 0.25;
     }
 
-    this.squash = lerp(this.squash, 0, Math.min(1, dt * 9));
+    this.squash = damp(this.squash, 0, 9, dt);
 
     // combo flame aura — visual reward for red-hot streaks (12+ in a row)
     if (this.combo >= 12 && Math.random() < 0.6) {
@@ -1394,7 +1393,7 @@ export class LoCheoGame {
       const r = this.rings[i];
       r.life -= dt;
       if (r.life <= 0) { this.rings.splice(i, 1); continue; }
-      r.r = lerp(r.r, r.to, Math.min(1, dt * 9));
+      r.r = damp(r.r, r.to, 9, dt);
     }
   }
 
