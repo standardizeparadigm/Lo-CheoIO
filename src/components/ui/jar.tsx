@@ -1,10 +1,13 @@
 /**
  * JarLogo — the mascot jar, drawn inline as SVG.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * Two moods: `happy` (default) and `hurt` (used by the game-over and quit
+ * screens, where the ceramic is cracked). The art is pure markup — no canvas,
+ * no image file — so it renders identically in the app, in the SSR smoke test
+ * and in a screenshot diff.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
-
 
 export function JarLogo({ className = "", mood = "happy" }: { className?: string; mood?: "happy" | "hurt" }) {
   return (
