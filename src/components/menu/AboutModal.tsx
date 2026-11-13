@@ -2,14 +2,21 @@ import { APP_VERSION } from "../../version";
 import { useI18n } from "../../i18n/useI18n";
 import { Modal, JarLogo } from "../ui";
 
-/** Author & project card: role, craft philosophy, contact, license, thanks. */
+/**
+ * Author & project card: role, craft philosophy, contact, license, thanks.
+ * v1.1.6: perpetually panning gradient border (`.about-card`) + rotating
+ * glow ring around the logo (`.glow-ring`) + gradient thanks chip.
+ */
 export default function AboutModal({ onClose }: { onClose: () => void }) {
   const { t } = useI18n();
 
   return (
     <Modal title={t("about.title")} onClose={onClose}>
-      <div className="flex items-start gap-4">
-        <JarLogo className="anim-bob h-20 w-auto shrink-0 drop-shadow-[0_8px_14px_rgba(0,0,0,0.45)]" />
+      <div className="about-card relative flex items-start gap-4 overflow-hidden p-4">
+        <div className="relative shrink-0">
+          <span aria-hidden="true" className="glow-ring absolute top-1/2 left-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2" />
+          <JarLogo className="anim-bob jar-glow relative h-20 w-auto" />
+        </div>
         <div className="min-w-0">
           <p className="font-display text-lg leading-none text-clay-100">
             Lọ <span className="text-tumeric-400">Chéo</span>
@@ -17,7 +24,7 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               v{APP_VERSION}
             </span>
           </p>
-          <p className="mt-1 font-body text-[10px] font-bold tracking-[0.18em] text-brine-300 uppercase">
+          <p className="mt-1 font-body text-[10px] font-bold uppercase tracking-[0.18em] text-brine-300">
             {t("about.role")}
           </p>
         </div>
@@ -39,7 +46,7 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
         ))}
       </dl>
 
-      <p className="mt-3 border-2 border-tumeric-500/40 bg-tumeric-500/10 px-3 py-2 text-center font-body text-[10px] font-bold text-tumeric-400">
+      <p className="about-chip mt-3 border-2 border-tumeric-500/40 px-3 py-2 text-center font-body text-[10px] font-bold text-tumeric-400">
         {t("about.thanks")}
       </p>
     </Modal>
