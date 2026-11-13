@@ -38,7 +38,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 - ⚙️ **In-game settings** — **SFX** · **Music** · **Screen shake** · **Reduced motion** — applied instantly, no reload; plus a two-step **"Clear saved data"** danger zone for shared machines.
 - 🐛 **Shortcuts no longer leak through modals** — Enter/R/P/M/Space don't fire the game behind an open modal; **stale closure on Continue** fixed; **`prefers-reduced-motion` now kills every animation**.
 - 📖 **READMEs prettier than ever** — V1.1.5 banner, new corner-panels SMIL animation, more detail across all 10 languages.
-- 🧪 **99 unit tests** (up from 61) — green `npm run check`; new **GitHub Actions CI** (npm ci → npm run check).
+- 🧪 **107 unit tests** (up from 61) — green `npm run check`; new **GitHub Actions CI** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="Corner GAME (bottom-left) & INFO (bottom-right) panels sliding in (SMIL animation)" width="100%" />
 
@@ -58,7 +58,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 | 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
 | 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
 | 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
-| 🧪 **Quality gates** | 99 unit tests (vitest) for modes / achievements / storage / i18n — `npm run check` is the CI gate |
+| 🧪 **Quality gates** | 107 unit tests (vitest) for modes / achievements / storage / i18n — `npm run check` is the CI gate |
 
 <img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
 
@@ -121,7 +121,7 @@ npm run build      # → dist/index.html (one self-contained file)
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 99 unit tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 107 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
@@ -244,7 +244,7 @@ Double-click [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`s
 
 | Version | Date | Notes |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **99 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **107 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modes** (Combo Festival · Grand Feast) · **16 achievements** · **7 languages** (ES/FR added) · play-windows.bat fix (CRLF+BOM) · 7-language launchers · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modes · 14 achievements · 5 languages · favicon · multilingual launchers · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modes (60-Second Rush · Gold Rush) · 12 achievements · combo flames · double-click launchers · README in 10 languages · 49 tests |
@@ -281,7 +281,7 @@ Design notes and deeper technical docs:
 ## 🤝 Contributing
 
 1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
-2. `npm run check` must be green before opening a PR (typecheck + 99 tests + build).
+2. `npm run check` must be green before opening a PR (typecheck + 107 tests + build).
 3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
 4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 
