@@ -50,7 +50,9 @@ for (const file of FILES) {
   if (!s.includes("assets/palette-ribbon.svg")) problems.push("missing palette-ribbon.svg embed");
   if (!s.includes("assets/architecture.svg")) problems.push("missing architecture.svg embed");
   if (!s.includes("assets/release-tiers.svg")) problems.push("missing release-tiers.svg embed");
-  if (s.includes("version-1.1.6-f5a81c") || s.includes("version-1.1.5-f5a81c")) problems.push("stale badge");
+  const badges = [...s.matchAll(/version-([0-9]+\.[0-9]+\.[0-9]+)-/g)].map((m) => m[1]);
+  if (badges.some((v) => v !== VERSION)) problems.push("stale badge");
+  if (!s.includes("assets/menu-hero.svg")) problems.push("missing menu-hero.svg embed");
   for (const stale of ["1.1.4-f5a81c", "1.1.3-f5a81c"]) {
     if (s.includes(stale)) problems.push("stale badge");
   }
