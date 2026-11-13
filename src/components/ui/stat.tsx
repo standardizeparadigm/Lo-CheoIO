@@ -1,8 +1,11 @@
 /**
- * Stat — a label/value stat row.
+ * Stat — a label/value row on the pause and game-over screens.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * The value is rendered in tabular figures so a changing score does not make
+ * the column jitter. Callers pass already-formatted strings (via `fmtNum`) so
+ * this component stays locale-agnostic.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import { ReactNode } from "react";
 
