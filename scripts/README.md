@@ -53,7 +53,7 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | **5) Kiểm tra toàn bộ** | `npm run check` | typecheck + tests + build — cổng chất lượng |
 | **6) Cài đặt dependencies** | `npm install` | Cài/cập nhật `node_modules` |
 | **7) Dọn dẹp** | xoá `node_modules/` và `dist/` | Yêu cầu gõ `YES` để xác nhận; không đụng mã nguồn |
-| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.4, tác giả, nơi lưu dữ liệu |
+| **8) Thông tin & hướng dẫn** | — | Phiên bản v1.1.5, tác giả, nơi lưu dữ liệu |
 | **0) Thoát** | — | Đóng trình chạy |
 | **L) Đổi ngôn ngữ** | — | VI ⇄ EN ⇄ 中文 ⇄ 日本語 ⇄ 한국어 ⇄ ES ⇄ FR (hint hiển thị ngay cạnh mục 0) |
 
