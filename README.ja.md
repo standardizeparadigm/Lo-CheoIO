@@ -155,7 +155,10 @@ lo-cheoio/
 │  ├─ play-linux.sh        # Linux ランチャー — ダブルクリックでフルカラーメニュー
 │  └─ README.md            # ターミナル初心者向けランチャーガイド
 ├─ docs/
-│  ├─ DESCRIPTION.md       # 多言語のプロジェクト紹介文（vi/en/zh + SEO）
+│  ├─ README.md            # ドキュメント索引（v1.1.5）
+│  ├─ DESCRIPTION.md       # 多言語プロジェクト紹介（vi/en/zh + SEO）
+│  ├─ design/              # menu-corners / save-format / settings-format 仕様
+│  ├─ guides/              # engine 概観 · a11y · パフォーマンス · storage keys · リリース手順…
 │  └─ releases/
 │     ├─ v1.0.0.md         # 初回リリースノート
 │     ├─ v1.1.0.md         # v1.1.0 リリースノート
