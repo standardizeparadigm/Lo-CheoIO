@@ -25,6 +25,7 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 ### Fixed
 - **Phím tắt rò rỉ qua modal**: Enter (bắt đầu), R (restart), P (pause), M (mute), Space (slam) vẫn kích hoạt game khi đang mở modal từ menu — `Modal` chặn ở capture phase (`stopImmediatePropagation`), phím Escape đóng modal
 - **`resumeRun` stale closure** trong `App.tsx` (callback `[]` bắt state khởi tạo → «Chơi tiếp» có thể không khôi phục sau khi snapshot phát sinh) — đọc qua `resumeRef`, bỏ side-effect trong state updater
+- **Ván resumed tính sai chế độ**: engine chuyển về `saved.mode` khi khôi phục nhưng state React + `locheo.mode.v1` vẫn trỏ chế độ đã chọn ở menu → HUD/GameOver/thành tựu quy về chế độ sai — giờ `resumeRun` đồng bộ `setMode(saved.mode)`
 - **`prefers-reduced-motion` thiếu hầu hết animation** — giờ vô hiệu hóa toàn bộ `.anim-*`, marquee, scanlines, shake/flash
 - GameMenu hiển thị số chế độ hardcode `9` → đọc từ `MODE_LIST.length`
 - `docs/releases/v1.1.4.md` tiêu đề còn "(Bản phát hành hiện tại)" — chuyển nhãn sang bản 1.1.5
