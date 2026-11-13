@@ -21,8 +21,17 @@ import {
   unlockAchievements,
   type ScoreEntry,
 } from "./game/storage";
-import { loadSettings, updateSettings, type GameSettings } from "./game/settings";
+import {
+  loadSettings,
+  resetSettingsKeepingLanguage,
+  saveSettings,
+  type GameSettings,
+  type SettingLanguage,
+} from "./game/settings";
+import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
+import { prefersCoarsePointer, prefersMoreContrast, prefersReducedMotion } from "./utils/mediaQuery";
+import { STORAGE_KEYS, readRaw, writeRaw } from "./game/safeStorage";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
@@ -34,19 +43,20 @@ export default function App() {
   const [run, setRun] = useState<RunStats>(EMPTY);
   const [showOver, setShowOver] = useState(false);
   const [savedId, setSavedId] = useState<string | null>(null);
-  const [muted, setMuted] = useState(false);
+  // mute survives a reload — it used to reset to "sound on" every boot,
+  // which was jarring for players who muted deliberately (v1.1.6)
+  const [muted, setMuted] = useState(() => readRaw(STORAGE_KEYS.muted) === "1");
   const [touchMode, setTouchMode] = useState(false);
   const [mode, setMode] = useState<ModeId>(() => {
-    try {
-      const v = localStorage.getItem("locheo.mode.v1");
-      return isModeId(v) ? v : "classic";
-    } catch {
-      return "classic";
-    }
+    const v = readRaw(STORAGE_KEYS.mode); // returns null when storage is blocked
+    return isModeId(v) ? v : "classic";
   });
   const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
-  const [settings, setSettings] = useState<GameSettings>(() => loadSettings());
+  const [settings, setSettings] = useState<GameSettings>(() =>
+    // first run: start from the OS motion preference instead of ignoring it
+    loadSettings(detectInitialLanguage(), { reducedMotion: prefersReducedMotion() }),
+  );
   const [resume, setResume] = useState<SavedRun | null>(() => loadSavedRun());
   const modeRef = useRef(mode);
   modeRef.current = mode;
@@ -59,7 +69,7 @@ export default function App() {
 
   /* ---------------------------------------------------- boot listeners */
   useEffect(() => {
-    if (window.matchMedia?.("(pointer: coarse)").matches) setTouchMode(true);
+    if (prefersCoarsePointer()) setTouchMode(true);
     // audio unlock only — a mouse click or keypress must NOT flip touch UI on
     const unlock = () => audio.unlock();
     const coarse = () => setTouchMode(true);
@@ -79,19 +89,40 @@ export default function App() {
 
   useEffect(() => {
     audio.setMuted(muted);
+    writeRaw(STORAGE_KEYS.muted, muted ? "1" : "0");
   }, [muted]);
 
-  // settings → audio gates (SFX / music) — applied instantly
+  // settings.language is the source of truth → drives the i18n module
+  useEffect(() => {
+    setLanguage(settings.language);
+  }, [settings.language]);
+
+  // settings → audio gates (SFX / music) + loudness — applied instantly
   useEffect(() => {
     audio.setSfxEnabled(settings.sfx);
     audio.setMusicEnabled(settings.music);
-  }, [settings.sfx, settings.music]);
+    audio.setSfxVolume(settings.sfxVolume / 100);
+    audio.setMusicVolume(settings.musicVolume / 100);
+  }, [settings.sfx, settings.music, settings.sfxVolume, settings.musicVolume]);
 
-  // settings → engine hooks (screen shake / reduced motion)
+  // settings → engine hooks (screen shake on/level, quality, reduced motion)
   useEffect(() => {
     gameRef.current?.setShakeEnabled(settings.shake);
+    gameRef.current?.setShakeLevel(settings.shakeLevel);
+    gameRef.current?.setQuality(settings.visualQuality);
     gameRef.current?.setReducedMotion(settings.reducedMotion);
-  }, [settings.shake, settings.reducedMotion]);
+  }, [settings.shake, settings.shakeLevel, settings.visualQuality, settings.reducedMotion]);
+
+  // OS high-contrast request → root attribute so CSS can lift low-contrast text
+  useEffect(() => {
+    try {
+      const root = document.documentElement;
+      if (prefersMoreContrast()) root.setAttribute("data-contrast", "more");
+      else root.removeAttribute("data-contrast");
+    } catch {
+      /* non-DOM environment */
+    }
+  }, []);
 
   // keep <html lang> honest for screen readers & search engines
   useEffect(() => {
@@ -106,7 +137,7 @@ export default function App() {
   useEffect(() => {
     gameRef.current?.setMode(mode);
     try {
-      localStorage.setItem("locheo.mode.v1", mode);
+      writeRaw(STORAGE_KEYS.mode, mode);
     } catch {
       /* storage blocked — session default only */
     }
@@ -118,8 +149,10 @@ export default function App() {
   const onReady = useCallback((g: LoCheoGame) => {
     gameRef.current = g;
     g.setMode(modeRef.current);
-    const s = loadSettings();
+    const s = loadSettings(detectInitialLanguage());
     g.setShakeEnabled(s.shake);
+    g.setShakeLevel(s.shakeLevel);
+    g.setQuality(s.visualQuality);
     g.setReducedMotion(s.reducedMotion);
   }, []);
 
@@ -165,10 +198,21 @@ export default function App() {
 
   const patchSettings = useCallback((patch: Partial<GameSettings>) => {
     setSettings((prev) => {
-      const next = { ...prev, ...patch };
-      updateSettings(next);
-      return next;
+      // Persist `prev + patch` directly. `updateSettings` re-reads storage
+      // first, which silently threw away in-memory changes when storage is
+      // blocked (private mode, quota) — every toggle reverted to defaults.
+      return saveSettings({ ...prev, ...patch });
     });
+  }, []);
+
+  // settings → language: go through the i18n module so every subscriber updates
+  const changeLanguage = useCallback((lang: SettingLanguage) => {
+    setSettings((prev) => saveSettings({ ...prev, language: lang }));
+  }, []);
+
+  // data section: restore defaults, keep the chosen language
+  const resetDefaults = useCallback(() => {
+    setSettings((prev) => resetSettingsKeepingLanguage(prev));
   }, []);
 
   const toMenu = useCallback(() => {
@@ -265,6 +309,8 @@ export default function App() {
         onRestartKey={onRestartKey}
         onStartKey={onStartKey}
         onMuteKey={onMuteKey}
+        autoPauseOnBlur={settings.autoPauseOnBlur}
+        reducedMotion={settings.reducedMotion}
       />
 
       {/* ambient overlays */}
@@ -346,6 +392,9 @@ export default function App() {
           onResume={resumeRun}
           settings={settings}
           onPatchSettings={patchSettings}
+          onChangeLanguage={changeLanguage}
+          onQuickSettings={patchSettings}
+          onResetDefaults={resetDefaults}
           onClearAllData={clearAllData}
         />
       )}

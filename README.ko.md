@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
@@ -33,18 +33,23 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.5 새로운 점
+## 🆕 v1.1.6 새로운 점
 
-- 🧭 **메인 메뉴 대수술** —— 게임 관련은 모두 **왼쪽 아래 GAME 패널**로: **플레이** · **이어하기** · **게임 모드** · **랭킹**(TOP 8) · **업적**(16) · **설정**. 프로젝트 관련은 모두 **오른쪽 아래 INFO 패널**로: **제작자 소개** · **변경 이력**(게임 안에서 확인 가능) · **종료**.
-- ⏸️ **「이어하기」 — 중단한 판이 원클릭** —— 판이 진행 중 메뉴로 나오면(일시정지 → 메뉴로) `locheo.run.v1`에 스냅샷. **이어하기**를 누르면 점수·항아리·금·스태미나·콤보·실드 그대로 복원. 중단된 판이 있을 때만 활성화됩니다.
-- ⚙️ **게임 내 설정** —— **효과음** · **배경 음악** · **화면 흔들림** · **동작 줄이기** —— 즉시 적용, 새로고침 불필요. 2단계 확인의 **「저장 데이터 삭제」** 위험 구역 포함.
-- 🐛 **모달 너머 단축키 누출 수정** —— Enter/R/P/M/Space가 모달 뒤의 게임을 발동하지 않습니다. **「이어하기」 stale closure**, **`prefers-reduced-motion`이 모든 애니메이션 차단**.
-- 📖 **10개 언어 README 더 아름답게** —— V1.1.5 배너, 새로운 코너 패널 SMIL 애니메이션, 더 상세하고 충실한 내용.
-- 🧪 **유닛 테스트 113개**(61에서 증가) —— `npm run check` 그린; 새 **GitHub Actions CI**(npm ci → npm run check).
+- ⚙️ **설정을 6개 섹션으로 재구성** —— **빠른 프리셋** · **사운드** · **화면 & 모션** · **언어** · **백업** · **데이터**, 세 가지 조작 방식: 켜기/끄기 스위치, 2택 피커, 0–100 레벨.
+- 🔊 **단순 토글이 아닌 실제 조절** —— 효과음·음악 음량 **0–100**(비스듬한 10칸 바), **흔들림 세기** 약/강, **그래픽 품질** 낮음/높음(파티클 230 대 460, 발광 끔), **탭 전환 시 자동 일시정지**.
+- 🌐 **언어를 설정 안으로 완전히 이동** —— 메뉴 오른쪽 위 플로팅 스위처와 일시정지 화면의 행을 제거했습니다; 이제 7개 언어의 2열 그리드(국기 · 원어 이름 · 체크)입니다.
+- 🎛️ **원터치 프리셋 4종 + JSON 백업** —— **부드럽게** · **균형** · **시네마틱** · **스피드런**(언어는 절대 건드리지 않음)과 설정 내보내기/가져오기.
+- ✨ **메뉴가 무대가 되다** —— 떠도는 성운, 호흡하는 광선, **두 겹의 반짝이는 별밭**, 항아리를 도는 빛의 링, 항아리 후광, PLAY를 스치는 광택; **제작자 카드**에는 끝없이 흐르는 그라데이션 테두리.
+- 🐛 **실제 버그 11건 수정** —— 새로고침 후 음악이 설정보다 큼 · Tab이 모달을 벗어남 · 변경 이력 힌트가 v1.1.5로 고정 · `updateSettings`가 정규화 전 값을 반환 · 대화상자 안에서 포커스가 유지되지 않음 · 클립보드가 비어 있어도 “복사됨” 표시 · 저장소 차단 시 토글이 기본값으로 되돌아감 · 새로고침 후 소리가 저절로 켜짐 · 가중치 0 아이템이 낮은 레벨에 등장 · 점수가 “NaN”으로 표시 · 확인 버튼이 ← 하나뿐.
+- 🧪 **유닛 테스트 222개**(29개 파일, 113/14에서 증가) —— 설정 스키마, 프리셋, 백업 코덱, 오디오 게인 계산, i18n↔UI 계약 테스트를 추가로 검증.
+
+<img src="assets/settings-sections.svg" alt="v1.1.6 설정 — 스위치·레벨 바·피커가 있는 6개 섹션(SMIL 애니메이션)" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="왼쪽 아래 GAME 패널과 오른쪽 아래 INFO 패널이 슬라이드인(SMIL 애니메이션)" width="100%" />
 
-→ 전체 내용: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+→ 전체 내용: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+→ 이전 릴리스: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ 하이라이트
 
@@ -60,7 +65,7 @@
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n을 커버하는 113개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 222개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -80,7 +85,7 @@ Lọ Chéo는 게임 내에서 **7개 언어 UI**를 지원합니다 — 새로�
 | 🇪🇸 Español | **ES** 버튼 | `locheo.lang.v1` |
 | 🇫🇷 Français | **FR** 버튼 | `locheo.lang.v1` |
 
-- **메인 메뉴**(오른쪽 위) 또는 **일시정지 화면**(하단, 컴팩트 모드)에서 전환하세요.
+- 언어 전환은 **설정 → 언어**(국기 버튼 7개 그리드)에서 — 단일 진입점, 메뉴 위 플로팅 스위처는 사라졌습니다.
 - 사용자에게 보이는 모든 문자열은 `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts`에 있습니다 — Canvas 엔진, 화면, HUD, 팝업, 티커, 힌트.
 - 키가 없으면? `t()`가 베트남어로 폴백 — 7개 locale의 키 집합과 플레이스홀더 일치는 테스트가 강제합니다.
 
@@ -123,7 +128,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 113개 단위 테스트 (modes / achievements / storage / i18n)
+npm run test       # vitest — 222개 단위 테스트 (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -132,7 +137,7 @@ npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 lo-cheoio/
 ├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
-├─ package.json            # lo-cheoio v1.1.5, dev/build/test/check 스크립트
+├─ package.json            # lo-cheoio v1.1.6, dev/build/test/check 스크립트
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; src + tests 포함
@@ -145,7 +150,8 @@ lo-cheoio/
 │  ├─ modes.svg            # 9가지 모드 (SMIL 애니메이션)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # AGPL-3.0 copyleft 인장 (SMIL 애니메이션)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -166,7 +172,8 @@ lo-cheoio/
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
-│     └─ v1.1.5.md         # current release notes (1.1.5)
+│     ├─ v1.1.5.md         # release notes (1.1.5)
+│     └─ v1.1.6.md         # current release notes (1.1.6)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -180,7 +187,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 루트, StrictMode
 │  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.5" (단일 진실 공급원)
+│  ├─ version.ts           # APP_VERSION = "1.1.6" (단일 진실 공급원)
 │  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
 │  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
@@ -190,25 +197,30 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (키 소스) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
-│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
-│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
+│  │  ├─ StartScreen.tsx   # 메뉴: 히어로 + 다층 애니메이션 + 코너 패널
+│  │  ├─ menu/              # 코너 GAME/INFO 패널 + 모달 + icons/
 │  │  ├─ ModeSelector.tsx  # 9개 모드 카드 (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
 │  │  ├─ GameOverScreen.tsx     # 항아리가 깨졌다! + 점수 + 새 업적
 │  │  ├─ PauseScreen.tsx        # 일시정지 + 판 통계
-│  │  ├─ LanguageSwitcher.tsx   # 공용 VI / EN / 中 / 日 / 한 / ES / FR 스위처
+│  │  ├─ settings/           # 6개 섹션 설정 모듈 + 공용 컨트롤 (v1.1.6)
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # 시뮬레이션과 캔버스 렌더링 전부 (약 2100줄)
+│  │  ├─ engine.ts         # 시뮬레이션과 캔버스 렌더링 전부 (약 2260줄)
 │  │  ├─ modes.ts          # 게임 모드 + 밸런스 수치 (pure)
 │  │  ├─ achievements.ts   # 배지 14개 + pure 체커 (pure)
 │  │  ├─ storage.ts        # localStorage: TOP 8, 진행도, 업적
 │  │  ├─ audio.ts          # Web Audio 신스: 효과음 + 오음계 음악
-│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
-│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
-│  │  └─ settings.ts        # game settings persistence (v1.1.5)
-│  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — 13개 파일 · 113개 테스트(modes · achievements · storage · i18n · runSave · settings · changelog…)
+│  │  ├─ changelog.ts        # 게임 내 변경 이력 데이터
+│  │  ├─ runSave.ts         # 중단한 판 저장
+│  │  ├─ settings.ts        # 설정 스키마·기본값·정규화
+│  │  ├─ settingsIO.ts      # 백업/복원 코덱 (v1.1.6)
+│  │  ├─ settingsPresets.ts # 빠른 프리셋 4종 (v1.1.6)
+│  │  └─ audioLevels.ts     # 순수 게인 계산 (v1.1.6)
+│  └─ utils/
+│     ├─ cn.ts             # clsx + tailwind-merge
+│     └─ useFocusTrap.ts   # 모달 포커스 가둠 (v1.1.6)
+└─ tests/                  # vitest — 29개 파일 · 222개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 아키텍처 & 성능
@@ -249,6 +261,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | 버전 | 날짜 | 노트 |
 | --- | --- | --- |
+| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **6개 섹션 설정**(프리셋 · 사운드 · 화면 · 언어 · 백업 · 데이터) · 0–100 음량 · 흔들림 세기 · 그래픽 품질 · 탭 전환 자동 일시정지 · 언어를 설정으로 이동 · 프리셋 4종 · JSON 내보내기/가져오기 · 다층 애니메이션 메뉴 · 제작자 카드 그라데이션 · 모달 포커스 가둠 · 새로고침 후 음악 버그 수정 · **150개 테스트** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
@@ -276,6 +289,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | 릴리스 v1.1.6 — 6개 섹션 설정, 프리셋, 백업, 다층 메뉴 |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | 릴리스 v1.1.5 — 모서리 메뉴, 저장/이어하기, 설정, 수정 |
 | [docs/design/menu-corners.md](docs/design/menu-corners.md) | 모서리 GAME/INFO 메뉴 설계 — 원칙, a11y, 반응형 |
 | [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — 중단된 판 스냅샷 (schema + 라이프사이클) |

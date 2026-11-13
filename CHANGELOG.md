@@ -3,6 +3,51 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.6] — 2026-11-13
+
+Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · lớp truy cập storage duy nhất · bảng màu canvas/CSS dùng chung · README 10 ngôn ngữ làm mới · 222 unit tests (29 file)**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+### Added
+- **Cài đặt 6 mục** (`src/components/settings/`, module mới): **CẤU HÌNH NHANH** · **ÂM THANH** · **GIAO DIỆN & CHUYỂN ĐỘNG** · **NGÔN NGỮ** · **SAO LƯU** · **DỮ LIỆU** — thay panel 4 công tắc phẳng của v1.1.5
+- **Ba kiểu điều khiển** trong settings: công tắc bật/tắt (`Switch`), bộ chọn 2 lựa chọn (`SegmentedControl`: mức rung, chất lượng hình), mức 0–100 (`VolumeStepper`: âm lượng SFX/nhạc, bước 10, thanh 10 vạch nghiêng)
+- **Schema `locheo.settings.v1` mở rộng** (giữ nguyên key, save cũ đọc được): `sfxVolume` 80 · `musicVolume` 60 · `shakeLevel` `low|high` · `visualQuality` `low|high` · `autoPauseOnBlur` · `language`
+- **Âm lượng thật**: `audio.setSfxVolume` nhân vào peak từng tiếng, `audio.setMusicVolume` nhân vào bus nhạc (`0.5 × volume`), áp dụng trực tiếp không cần reload
+- **Mức rung**: `engine.setShakeLevel("low")` = 45% chấn động, `"high"` = 100%
+- **Chất lượng hình**: `engine.setQuality("low")` = trần **230** hạt (so với 460) + tắt toàn bộ `shadowBlur` glow (12 điểm vẽ)
+- **Tự tạm dừng khi đổi tab**: `GameCanvas` đọc `autoPauseOnBlur` trong `visibilitychange`
+- **4 preset một chạm** (`src/game/settingsPresets.ts`): **MƯỢT** (máy yếu: ít hạt, tắt sáng) · **CÂN BẰNG** (mặc định) · **ĐIỆN ẢNH** (hết hạt/sáng/rung) · **SPEEDRUN** (tắt nhạc, SFX nhỏ, không auto-pause) — **không bao giờ đổi ngôn ngữ**; `matchPreset()` tự nhận ra "TUỲ CHỈNH" khi người chơi chỉnh tay
+- **Sao lưu cài đặt** (`src/game/settingsIO.ts` + `BackupSection`): xuất JSON có envelope `{app, kind, version, exportedAt, settings}` (copy clipboard, có textarea dự phòng), nhập lại qua `normalizeSettings` — JSON rác/không liên quan bị từ chối, không bao giờ ghi đè cấu hình
+- **Nền menu nhiều lớp** (`src/index.css` + `StartScreen`): tinh vân trôi (`nebula-a/b`), tia sáng thở (`light-ray`), **2 lớp sao nhấp nháy** (`star-field`, `star-field-far`), vòng sáng xoay quanh lọ (`glow-ring`), quầng sáng lọ (`jar-glow`), vệt sáng chạy qua nút CHƠI (`cta-shine`), header panel góc có dải gradient + chấm sáng thở
+- **Mục tác giả**: viền gradient chạy vòng vô hạn (`.about-card`, pan 320% `5.5s`), quầng sáng xoay quanh logo, chip cảm ơn gradient
+- **`useFocusTrap`** (`src/utils/useFocusTrap.ts`): Tab/Shift+Tab quấn trong modal, focus trả về phần tử trước khi mở
+- **Changelog trong game** có mục 1.1.6 (`src/game/changelog.ts`)
+- **21 + 10 + 9 key i18n mới × 7 locale** (settings viền/mức/chất lượng/auto-pause/reset · preset · sao lưu) — parity test giữ nguyên
+- Tests: **222/222** (29 files) — 15 file mới/thêm: `i18n-v116` 8 · `settings-v116` 9 · `settingsIO` 6 · `settingsPresets` 9 · `audioLevels` 6 · `i18n-settings-ui` 4 · `settings-wiring` 9 · `mediaQuery` 6 · `languageMeta` 5 · `safeStorage` 7 · `spawn` 9 · `palette` 4 · `time` 6 · `math` 8 · `clipboard` 3
+
+### Fixed
+- **Nhạc phát to hơn mức đã đặt sau khi tải lại trang** — `audio.unlock()` mở bus nhạc ở `0.5` cố định, bỏ qua `musicVolume` cho tới lần setter kế tiếp; giờ mở đúng `musicBusGain(musicEnabled, musicVolume)`
+- **Tab thoát khỏi modal** — focus có thể đi ra canvas/panel góc phía sau hộp thoại; `useFocusTrap` giữ focus trong `Panel`
+- **Gợi ý changelog ở menu ghi cứng `v1.1.5`** — đọc `APP_VERSION`, không lệch mỗi bản
+- `settings.updateSettings` giờ trả bản **đã normalize** (trước đó trả patch thô, state React có thể giữ giá trị ngoài biên)
+- `LanguageSwitcher.tsx` xoá hẳn (không còn mount ở `StartScreen`/`PauseScreen`) — `menu/index.ts` re-export `SettingsModal` từ module mới
+- `scripts/smoke-ssr.tsx` trỏ `src/components/menu/SettingsModal` (đã di chuyển) → sửa import + prop mới
+- **Nút "Xuất" báo "Đã copy" khi clipboard trống** — `await navigator.clipboard?.writeText()` resolve cả khi API không tồn tại; `utils/clipboard.ts` giờ trả `true` chỉ khi copy thật sự xảy ra
+- **Toggle cài đặt tự quay về mặc định khi storage bị chặn** — `updateSettings()` đọc lại storage; `patchSettings` persist thẳng `prev + patch`, `updateSettings(patch, base?)` nhận base tường minh
+- **Âm thanh tự bật lại sau reload** — cờ mute giờ lưu ở `locheo.muted.v1`
+- **`sau` có thể rơi ở cấp 1** — `weightedPick` fallback về kind cuối **có trọng số dương**, không phải kind cuối mảng
+- **HUD/bảng điểm in "NaN"** — `fmtNum` kẹp non-finite về 0 và có fallback khi thiếu `Intl`
+- **Nút xác nhận xoá dữ liệu chỉ có dấu ←** — thêm `common.cancel` ×7 locale + `aria-label` cho hai nút trigger
+
+### Changed
+- **`APP_VERSION` → 1.1.6**; `package.json` + lock, `src/version.ts`, badge 10 README
+- **`docs/design/settings-format.md`** viết lại theo schema mới; `docs/guides/storage-keys.md` thêm dòng settings mới + ghi chú `locheo.lang.v1` là gương của `settings.language`
+- **`docs/guides/adding-a-locale.md`** — ngôn ngữ chọn trong Settings (`LanguageSection`), không còn `LanguageSwitcher`
+- **`tests/README.md`** — bảng 29 file / 222 test
+- Reduced-motion bao phủ **toàn bộ** animation mới (nebula, starfield, light-ray, glow-ring, jar-glow, about-card, cta-shine)
+- Build ~771 KB
+
 ## [1.1.5] — 2026-11-12
 
 Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 113 unit tests**.
@@ -173,6 +218,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.6]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.6
 [1.1.5]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.5
 [1.1.4]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.4
 [1.1.3]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.3

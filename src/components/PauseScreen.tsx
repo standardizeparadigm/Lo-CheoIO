@@ -1,16 +1,11 @@
 import type { RunStats } from "../game/engine";
 import { MODES, type ModeId } from "../game/modes";
 import { useI18n } from "../i18n/useI18n";
+import { APP_VERSION } from "../version";
 import { fmtNum } from "../i18n/i18n";
 import type { MessageKey } from "../i18n/i18n";
 import { GameButton, Keycap, Panel, Stat } from "./ui";
-import LanguageSwitcher from "./LanguageSwitcher";
-
-export function fmtTime(s: number) {
-  const m = Math.floor(s / 60);
-  const r = Math.floor(s % 60);
-  return `${m}:${r.toString().padStart(2, "0")}`;
-}
+import { fmtCountdown, fmtTime } from "../utils/time";
 
 export default function PauseScreen({
   stats,
@@ -30,6 +25,7 @@ export default function PauseScreen({
   onToggleMute: () => void;
 }) {
   const { t, lang } = useI18n();
+  const timeLimit = MODES[mode].timeLimit;
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center overflow-y-auto px-4 py-6">
       <div className="pointer-events-none absolute inset-0 bg-jade-950/70 backdrop-blur-[2px]" />
@@ -45,11 +41,19 @@ export default function PauseScreen({
             >
               {t("pause.title")}
             </h2>
-            <span
-              className="mt-1.5 inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.18em]"
-              style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
-            >
-              {t(`mode.${mode}.name` as MessageKey)}
+            <span className="mt-1.5 flex flex-wrap items-center gap-1.5">
+              <span
+                className="inline-block border px-1.5 py-0.5 font-display text-[8px] tracking-[0.18em]"
+                style={{ borderColor: MODES[mode].accent, color: MODES[mode].accent }}
+              >
+                {t(`mode.${mode}.name` as MessageKey)}
+              </span>
+              {/* elapsed run time — was only visible after the run ended.
+                  Timed modes show what is LEFT instead, which is the number
+                  the player is actually racing. */}
+              <span className="inline-block border border-jade-700 px-1.5 py-0.5 font-body text-[9px] font-extrabold tracking-[0.14em] text-clay-100/70 tabular-nums">
+                {timeLimit ? `${fmtCountdown(timeLimit - stats.time)} ${t("pause.leftSuffix")}` : fmtTime(stats.time)}
+              </span>
             </span>
           </div>
           <button
@@ -104,7 +108,9 @@ export default function PauseScreen({
         </div>
 
         <div className="mt-4 flex justify-center border-t-2 border-dashed border-jade-800 pt-3">
-          <LanguageSwitcher compact />
+          <span className="font-body text-[9px] font-bold tracking-[0.3em] text-jade-700 uppercase">
+            v{APP_VERSION} · AGPL-3.0
+          </span>
         </div>
       </Panel>
     </div>

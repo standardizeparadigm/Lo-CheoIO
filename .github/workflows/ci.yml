@@ -37,3 +37,6 @@ jobs:
 
       - name: Assets referenced ↔ exists (no orphans)
         run: node scripts/check-assets.mjs
+
+      - name: i18n parity (7 locales × 296 keys)
+        run: node scripts/check-i18n.mjs

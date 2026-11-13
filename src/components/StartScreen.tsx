@@ -3,13 +3,12 @@ import { APP_VERSION } from "../version";
 import { fmtNum } from "../i18n/i18n";
 import { useI18n } from "../i18n/useI18n";
 import type { MessageKey } from "../i18n/i18n";
-import LanguageSwitcher from "./LanguageSwitcher";
 import type { ModeId } from "../game/modes";
 import { MODES } from "../game/modes";
 import type { ScoreEntry } from "../game/storage";
 import { ACHIEVEMENTS } from "../game/achievements";
 import type { SavedRun } from "../game/runSave";
-import type { GameSettings } from "../game/settings";
+import type { GameSettings, SettingLanguage } from "../game/settings";
 import {
   GameMenu,
   InfoMenu,
@@ -64,6 +63,9 @@ export default function StartScreen({
   onResume,
   settings,
   onPatchSettings,
+  onChangeLanguage,
+  onQuickSettings,
+  onResetDefaults,
   onClearAllData,
 }: {
   scores: ScoreEntry[];
@@ -77,6 +79,9 @@ export default function StartScreen({
   onResume: () => void;
   settings: GameSettings;
   onPatchSettings: (patch: Partial<GameSettings>) => void;
+  onChangeLanguage: (lang: SettingLanguage) => void;
+  onQuickSettings: (patch: Partial<GameSettings>) => void;
+  onResetDefaults: () => void;
   onClearAllData: () => void;
 }) {
   const { t, lang } = useI18n();
@@ -87,10 +92,12 @@ export default function StartScreen({
   return (
     <div className="absolute inset-0 z-40 flex flex-col overflow-hidden">
       {/* ------- ambient background layers ------- */}
-      <div className="absolute top-3 right-3 z-50 sm:top-4 sm:right-5">
-        <LanguageSwitcher compact={false} />
-      </div>
       <div className="aurora-bg pointer-events-none absolute inset-0" />
+      <div className="nebula-a" aria-hidden="true" />
+      <div className="nebula-b" aria-hidden="true" />
+      <div className="light-ray" aria-hidden="true" />
+      <div className="star-field-far" aria-hidden="true" />
+      <div className="star-field" aria-hidden="true" />
       <div className="tile-floor tile-floor-mask pointer-events-none absolute inset-0 opacity-45" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_20%_8%,rgba(6,26,26,0.42)_0%,rgba(6,26,26,0.88)_62%,#061a1a_100%)]" />
 
@@ -208,7 +215,8 @@ export default function StartScreen({
                 </svg>
               </div>
               <div className="relative flex flex-col items-center">
-                <JarLogo className="anim-bob anim-breathe h-44 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.55)] xl:h-56" mood="happy" />
+                <span aria-hidden="true" className="glow-ring pointer-events-none absolute top-[52%] left-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 sm:h-64 sm:w-64 xl:h-80 xl:w-80" />
+                <JarLogo className="anim-bob anim-breathe jar-glow relative h-44 w-auto xl:h-56" mood="happy" />
                 <button
                   type="button"
                   onClick={() => setModal("modes")}
@@ -278,7 +286,15 @@ export default function StartScreen({
       {/* ---- modals ---- */}
       {modal === "modes" && <ModeSelectModal mode={mode} onChange={onModeChange} onClose={closeModal} />}
       {modal === "settings" && (
-        <SettingsModal settings={settings} onPatch={onPatchSettings} onClearAllData={onClearAllData} onClose={closeModal} />
+        <SettingsModal
+          settings={settings}
+          onPatch={onPatchSettings}
+          onChangeLanguage={onChangeLanguage}
+          onQuickSettings={onQuickSettings}
+          onResetDefaults={onResetDefaults}
+          onClearAllData={onClearAllData}
+          onClose={closeModal}
+        />
       )}
       {modal === "leaderboard" && <LeaderboardModal scores={scores} onClose={closeModal} />}
       {modal === "achievements" && <AchievementsModal unlocked={achievements} onClose={closeModal} />}

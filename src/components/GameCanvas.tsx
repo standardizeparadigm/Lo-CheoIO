@@ -13,6 +13,10 @@ interface Props {
   onRestartKey: () => void;
   onStartKey: () => void;
   onMuteKey: () => void;
+  /** settings.autoPauseOnBlur — pause the run when the tab loses focus */
+  autoPauseOnBlur?: boolean;
+  /** settings.reducedMotion — also flips a `data-reduced-motion` attribute for CSS */
+  reducedMotion?: boolean;
 }
 
 const R = 58;
@@ -28,13 +32,15 @@ export default function GameCanvas({
   onRestartKey,
   onStartKey,
   onMuteKey,
+  autoPauseOnBlur = true,
+  reducedMotion = false,
 }: Props) {
   const { t } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<LoCheoGame | null>(null);
-  const cb = useRef({ onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey });
-  cb.current = { onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey };
+  const cb = useRef({ onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey, autoPauseOnBlur });
+  cb.current = { onPhase, onGameOver, onPauseKey, onRestartKey, onStartKey, onMuteKey, autoPauseOnBlur };
 
   const joyId = useRef<number | null>(null);
   const basePt = useRef({ x: 0, y: 0 });
@@ -63,6 +69,7 @@ export default function GameCanvas({
     game.resize(rect.width, rect.height);
 
     const onVis = () => {
+      if (!cb.current.autoPauseOnBlur) return;
       if (document.hidden && game.phase === "playing") cb.current.onPauseKey();
     };
     document.addEventListener("visibilitychange", onVis);
@@ -187,9 +194,23 @@ export default function GameCanvas({
     gameRef.current?.setInput({ joy: false, jx: 0, jy: 0 });
   };
 
+  // The canvas is the whole game; screen readers that announce an unlabelled
+  // <canvas> give the player nothing. Label it with the live score/mode so a
+  // non-visual user at least knows what is on screen.
+  const canvasLabel = `${t("brand.badge")} — ${t("keys.move")} · ${t("keys.slam")} · ${t("keys.pause")}`;
+
   return (
-    <div ref={wrapRef} className="absolute inset-0 overflow-hidden">
-      <canvas ref={canvasRef} className="block h-full w-full" />
+    <div
+      ref={wrapRef}
+      className="absolute inset-0 overflow-hidden"
+      data-reduced-motion={reducedMotion ? "true" : undefined}
+    >
+      <canvas
+        ref={canvasRef}
+        className="block h-full w-full"
+        role="img"
+        aria-label={canvasLabel}
+      />
 
       {/* floating joystick layer */}
       <div

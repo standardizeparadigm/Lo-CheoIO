@@ -7,9 +7,10 @@
    ===================================================================== */
 
 import { isModeId, type ModeId } from "./modes";
+import { STORAGE_KEYS, readJSON, removeRaw, writeJSON } from "./safeStorage";
 import type { RunStats } from "./engine";
 
-export const RUN_SAVE_KEY = "locheo.run.v1";
+export const RUN_SAVE_KEY = STORAGE_KEYS.run;
 
 export interface SavedRun {
   version: 1;
@@ -83,32 +84,19 @@ export function normalizeSavedRun(v: unknown): SavedRun | null {
 }
 
 export function loadSavedRun(): SavedRun | null {
-  try {
-    const raw = localStorage.getItem(RUN_SAVE_KEY);
-    if (!raw) return null;
-    return normalizeSavedRun(JSON.parse(raw));
-  } catch {
-    return null;
-  }
+  return normalizeSavedRun(readJSON(RUN_SAVE_KEY));
 }
 
 export function saveSavedRun(run: SavedRun): SavedRun {
   const clean = normalizeSavedRun(run);
   if (!clean) throw new Error("Cannot persist an invalid SavedRun");
-  try {
-    localStorage.setItem(RUN_SAVE_KEY, JSON.stringify(clean));
-  } catch {
-    /* storage blocked — run stays suspended only this session via return value */
-  }
+  // blocked storage simply means the snapshot is session-only
+  writeJSON(RUN_SAVE_KEY, clean);
   return clean;
 }
 
 export function clearSavedRun(): void {
-  try {
-    localStorage.removeItem(RUN_SAVE_KEY);
-  } catch {
-    /* storage blocked — nothing to clear */
-  }
+  removeRaw(RUN_SAVE_KEY);
 }
 
 /** Convenience guard for callers that only need a yes/no. */

@@ -1,6 +1,9 @@
 import { audio } from "./audio";
 import { t, fmtNum } from "../i18n/i18n";
 import type { SavedRun } from "./runSave";
+import { clamp, damp, lerp } from "../utils/math";
+import { CANVAS_COLORS } from "./palette";
+import { weightedPick } from "./spawn";
 import {
   MODES,
   comboWindowFor,
@@ -209,24 +212,12 @@ const DEFS = DEFS_RECORD;
 const KINDS = Object.keys(DEFS_RECORD) as ItemKind[];
 export { DEFS, KINDS };
 
-const C = {
-  ink: "#0b2a28",
-  void: "#061a1a",
-  jade: "#2bb48c",
-  jadeDeep: "#10403a",
-  gold: "#f5a81c",
-  goldLight: "#ffc94a",
-  chili: "#e63b2e",
-  brine: "#b6e07a",
-  cream: "#fdf3e0",
-};
+const C = CANVAS_COLORS;
 
 /* ------------------------------------------------------------------ utils */
 
 const TAU = Math.PI * 2;
 const rnd = (a: number, b: number) => a + Math.random() * (b - a);
-const clamp = (v: number, a: number, b: number) => (v < a ? a : v > b ? b : v);
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // roundRect fallback for older engines
 if (typeof CanvasRenderingContext2D !== "undefined" && !CanvasRenderingContext2D.prototype.roundRect) {
@@ -281,6 +272,10 @@ export class LoCheoGame {
   private trauma = 0;
   /** 0 disables screen shake entirely (settings.shake === false) */
   private shakeScale = 1;
+  /** settings.shakeLevel — "low" ≈ 45% of the trauma offset, "high" = full */
+  private shakeAmount = 1;
+  /** settings.visualQuality — "low" halves particles and skips glow passes */
+  private quality: "low" | "high" = "high";
   /** 1 normal, ~0.25 when reduced motion is on (softens the white flash) */
   private flashScale = 1;
   private flash = 0;
@@ -555,6 +550,16 @@ export class LoCheoGame {
     if (!on) this.trauma = 0;
   }
 
+  /** Shake strength — settings.shakeLevel. Independent of the on/off switch. */
+  setShakeLevel(level: "low" | "high") {
+    this.shakeAmount = level === "low" ? 0.45 : 1;
+  }
+
+  /** Visual quality — settings.visualQuality. Low halves particles, no glow. */
+  setQuality(q: "low" | "high") {
+    this.quality = q;
+  }
+
   /** Reduce flash intensity for motion-sensitive players. */
   setReducedMotion(on: boolean) {
     this.flashScale = on ? 0.25 : 1;
@@ -711,20 +716,20 @@ export class LoCheoGame {
 
     if (this.phase === "menu") {
       this.updateAttract(dt);
-      this.hudAlpha = lerp(this.hudAlpha, 0, Math.min(1, dt * 6));
+      this.hudAlpha = damp(this.hudAlpha, 0, 6, dt);
       return;
     }
 
     if (this.phase === "paused") {
-      this.hudAlpha = lerp(this.hudAlpha, 0.25, Math.min(1, dt * 4));
+      this.hudAlpha = damp(this.hudAlpha, 0.25, 4, dt);
       return;
     }
 
     if (this.phase === "gameover") {
       this.overTimer -= raw;
-      this.timeScale = lerp(this.timeScale, 0.45, Math.min(1, dt * 2));
+      this.timeScale = damp(this.timeScale, 0.45, 2, dt);
       this.updateItems(dt);
-      this.hudAlpha = lerp(this.hudAlpha, 0.35, Math.min(1, dt * 3));
+      this.hudAlpha = damp(this.hudAlpha, 0.35, 3, dt);
       if (this.overTimer <= 0 && !this.overFired) {
         this.overFired = true;
         this.onGameOver({ ...this.stats });
@@ -733,7 +738,7 @@ export class LoCheoGame {
     }
 
     // -------- playing
-    this.hudAlpha = lerp(this.hudAlpha, 1, Math.min(1, dt * 4));
+    this.hudAlpha = damp(this.hudAlpha, 1, 4, dt);
     this.stats.time += raw;
     const timeLimit = MODES[this.mode].timeLimit;
     if (timeLimit && this.stats.time >= timeLimit) {
@@ -741,7 +746,7 @@ export class LoCheoGame {
       this.gameOver();
       return;
     }
-    this.timeScale = lerp(this.timeScale, this.slow > 0 ? 0.52 : 1, Math.min(1, dt * 6));
+    this.timeScale = damp(this.timeScale, this.slow > 0 ? 0.52 : 1, 6, dt);
     if (this.slow > 0) this.slow = Math.max(0, this.slow - dt);
     if (this.frenzy > 0) this.frenzy = Math.max(0, this.frenzy - dt);
     if (this.slamCd > 0) this.slamCd = Math.max(0, this.slamCd - dt);
@@ -851,7 +856,7 @@ export class LoCheoGame {
       this.pvy = -Math.abs(this.pvy) * 0.25;
     }
 
-    this.squash = lerp(this.squash, 0, Math.min(1, dt * 9));
+    this.squash = damp(this.squash, 0, 9, dt);
 
     // combo flame aura — visual reward for red-hot streaks (12+ in a row)
     if (this.combo >= 12 && Math.random() < 0.6) {
@@ -903,28 +908,12 @@ export class LoCheoGame {
   /* ------------------------------------------------------------ spawns */
 
   private pickKind(deco = false): ItemKind {
-    const lvl = deco ? 4 : this.stats.level;
-    const cfg = MODES[this.mode];
-    let total = 0;
-    const ws: number[] = [];
-    for (const k of KINDS) {
-      const def = DEFS[k];
-      let w = def.weight(lvl);
-      if (def.hazard) w *= cfg.hazardMult;
-      if (def.power || def.fillBoost) w *= cfg.goldMult ?? 1;
-      if (deco) {
-        if (def.hazard) w *= 0.4;
-        if (def.power) w *= 0.5;
-      }
-      ws.push(w);
-      total += w;
-    }
-    let r = Math.random() * total;
-    for (let i = 0; i < KINDS.length; i++) {
-      r -= ws[i];
-      if (r <= 0) return KINDS[i];
-    }
-    return "ca";
+    // balance logic lives in ./spawn so it can be tested without a canvas
+    return weightedPick(KINDS, {
+      level: deco ? 4 : this.stats.level,
+      mode: MODES[this.mode],
+      deco,
+    });
   }
 
   private makeItem(kind: ItemKind, deco: boolean): Item {
@@ -1335,7 +1324,8 @@ export class LoCheoGame {
   /* ---------------------------------------------------- fx primitives */
 
   private spawnParticle(p: Partial<Particle> & { x: number; y: number }) {
-    if (this.parts.length > 460) this.parts.shift();
+    const cap = this.quality === "low" ? 230 : 460;
+    if (this.parts.length > cap) this.parts.shift();
     this.parts.push({
       x: p.x, y: p.y, vx: p.vx ?? 0, vy: p.vy ?? 0,
       life: p.life ?? 0.5, max: p.life ?? 0.5, size: p.size ?? 3,
@@ -1379,7 +1369,7 @@ export class LoCheoGame {
       const r = this.rings[i];
       r.life -= dt;
       if (r.life <= 0) { this.rings.splice(i, 1); continue; }
-      r.r = lerp(r.r, r.to, Math.min(1, dt * 9));
+      r.r = damp(r.r, r.to, 9, dt);
     }
   }
 
@@ -1406,7 +1396,7 @@ export class LoCheoGame {
     ctx.imageSmoothingEnabled = true;
 
     // screen shake (settings.shake can zero this out)
-    const sh = this.trauma * this.trauma * this.shakeScale;
+    const sh = this.trauma * this.trauma * this.shakeScale * this.shakeAmount;
     const ox = rnd(-1, 1) * 26 * sh;
     const oy = rnd(-1, 1) * 26 * sh;
     const rot = rnd(-1, 1) * 0.02 * sh;
@@ -1572,7 +1562,7 @@ export class LoCheoGame {
       case "ot":
       case "othiem": {
         if (it.kind === "othiem") {
-          ctx.shadowColor = "#ff6a4d"; ctx.shadowBlur = 22;
+          if (this.quality === "high") { ctx.shadowColor = "#ff6a4d"; ctx.shadowBlur = 22; }
         }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
@@ -1581,7 +1571,7 @@ export class LoCheoGame {
         ctx.quadraticCurveTo(0, 10, -6, 2);
         ctx.quadraticCurveTo(-9, -6, -3, -12);
         ctx.closePath(); ctx.fill();
-        ctx.shadowBlur = 0;
+        if (this.quality === "high") ctx.shadowBlur = 0;
         this.outline(ctx);
         ctx.fillStyle = "#3f7d2a";
         ctx.beginPath(); ctx.ellipse(-3, -13, 4.5, 3, -0.4, 0, TAU); ctx.fill(); this.outline(ctx, 2);
@@ -1677,7 +1667,7 @@ export class LoCheoGame {
         break;
       }
       case "vang": {
-        ctx.shadowColor = "#ffc94a"; ctx.shadowBlur = 26;
+        if (this.quality === "high") { ctx.shadowColor = "#ffc94a"; ctx.shadowBlur = 26; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
         for (let i = 0; i < 8; i++) {
@@ -1686,19 +1676,19 @@ export class LoCheoGame {
           ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr);
         }
         ctx.closePath(); ctx.fill();
-        ctx.shadowBlur = 0;
+        if (this.quality === "high") ctx.shadowBlur = 0;
         this.outline(ctx, 2.2);
         ctx.fillStyle = "#fff6d8";
         ctx.beginPath(); ctx.arc(-2, -2, 3.4, 0, TAU); ctx.fill();
         break;
       }
       case "da": {
-        ctx.shadowColor = "#a8e6ff"; ctx.shadowBlur = 22;
+        if (this.quality === "high") { ctx.shadowColor = "#a8e6ff"; ctx.shadowBlur = 22; }
         ctx.fillStyle = "rgba(168,230,255,0.85)";
         ctx.beginPath();
         ctx.moveTo(-10, -7); ctx.lineTo(0, -13); ctx.lineTo(10, -7); ctx.lineTo(10, 7);
         ctx.lineTo(0, 13); ctx.lineTo(-10, 7); ctx.closePath(); ctx.fill();
-        ctx.shadowBlur = 0;
+        if (this.quality === "high") ctx.shadowBlur = 0;
         this.outline(ctx, 2.2);
         ctx.strokeStyle = "rgba(255,255,255,0.85)"; ctx.lineWidth = 1.8;
         ctx.beginPath(); ctx.moveTo(-10, -7); ctx.lineTo(0, 0); ctx.lineTo(10, -7); ctx.moveTo(0, 0); ctx.lineTo(0, 13); ctx.stroke();
@@ -1706,7 +1696,7 @@ export class LoCheoGame {
       }
       case "cavang": {
         // golden cabbage leaf — rare, fills the jar fast
-        ctx.shadowColor = "#ffd766"; ctx.shadowBlur = 18;
+        if (this.quality === "high") { ctx.shadowColor = "#ffd766"; ctx.shadowBlur = 18; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath();
         ctx.moveTo(0, -16);
@@ -1715,7 +1705,7 @@ export class LoCheoGame {
         ctx.quadraticCurveTo(-5, 17, -9, 12);
         ctx.quadraticCurveTo(-15, -4, 0, -16);
         ctx.closePath(); ctx.fill();
-        ctx.shadowBlur = 0;
+        if (this.quality === "high") ctx.shadowBlur = 0;
         this.outline(ctx, 2.4);
         ctx.strokeStyle = it.def.color2; ctx.lineWidth = 1.9;
         ctx.beginPath(); ctx.moveTo(0, -13); ctx.quadraticCurveTo(3, 0, 0, 13); ctx.stroke();
@@ -1730,12 +1720,12 @@ export class LoCheoGame {
       }
       case "toivang": {
         // golden garlic — shield power-up, two cloves hugging a heart
-        ctx.shadowColor = "#ffe9a8"; ctx.shadowBlur = 24;
+        if (this.quality === "high") { ctx.shadowColor = "#ffe9a8"; ctx.shadowBlur = 24; }
         ctx.fillStyle = it.def.color;
         ctx.beginPath(); ctx.arc(-5, 2, 8.5, 0, TAU); ctx.fill();
         ctx.beginPath(); ctx.arc(5, 2, 8.5, 0, TAU); ctx.fill();
         ctx.beginPath(); ctx.arc(0, -2, 8, 0, TAU); ctx.fill();
-        ctx.shadowBlur = 0;
+        if (this.quality === "high") ctx.shadowBlur = 0;
         this.outline(ctx, 2.2);
         ctx.fillStyle = it.def.color2;
         ctx.beginPath(); ctx.moveTo(-3.4, -9); ctx.lineTo(3.4, -9); ctx.lineTo(0, -16); ctx.closePath(); ctx.fill();
@@ -1818,8 +1808,8 @@ export class LoCheoGame {
     if (this.invuln > 0 && Math.floor(this.t * 22) % 2 === 0 && this.phase === "playing") ctx.globalAlpha = 0.45;
 
     if (this.cheo) {
-      ctx.shadowColor = C.goldLight;
-      ctx.shadowBlur = 26;
+      if (this.quality === "high") ctx.shadowColor = C.goldLight;
+      if (this.quality === "high") ctx.shadowBlur = 26;
     }
 
     // body glaze
@@ -1830,7 +1820,7 @@ export class LoCheoGame {
     ctx.fillStyle = g;
     this.jarBody(ctx, r);
     ctx.fill();
-    ctx.shadowBlur = 0;
+    if (this.quality === "high") ctx.shadowBlur = 0;
 
     // brine
     ctx.save();

@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
+[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-installation--exécution)
@@ -33,18 +33,23 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Nouveautés de v1.1.5
+## 🆕 Nouveautés de v1.1.6
 
-- 🧭 **Le menu principal enfin rangé** — tout ce qui touche au jeu vit dans le **panneau GAME, en bas à gauche** : **Jouer** · **Reprendre** · **Modes de jeu** · **Classement** (TOP 8) · **Succès** (16) · **Réglages**. Tout ce qui touche au projet vit dans le **panneau INFO, en bas à droite** : **À propos de l'auteur** · **Changelog** (consultable en jeu) · **Quitter**.
-- ⏸️ **« Reprendre » — ta partie en cours à portée de clic** — quitter en pleine partie (Pause → Menu) crée un snapshot dans `locheo.run.v1` ; **Reprendre** la restaure telle quelle : score, bocaux, fissures, stamina, combo, boucliers. Disponible uniquement si une partie est réellement suspendue.
-- ⚙️ **Réglages en jeu** — **SFX** · **Musique** · **Tremblement d'écran** · **Réduire les animations** — appliqués instantanément, sans rechargement ; zone de danger à deux étapes pour **effacer les données**.
-- 🐛 **Les raccourcis ne fuient plus à travers les modales** — Enter/R/P/M/Space ne déclenchent plus le jeu derrière une modale ; **stale closure sur Reprendre** ; **`prefers-reduced-motion` désactive désormais toutes les animations**.
-- 📖 **Les READMEs encore plus jolis** — bannière V1.1.5, nouvelle animation SMIL des panneaux d'angle, plus de détail dans les 10 langues.
-- 🧪 **113 tests unitaires** (contre 61) — `npm run check` au vert ; nouveau **CI GitHub Actions** (npm ci → npm run check).
+- ⚙️ **Réglages restructurés en six sections** — **Préréglages rapides** · **Audio** · **Affichage et mouvement** · **Langue** · **Sauvegarde** · **Données**, avec trois types de contrôles : interrupteurs, sélecteurs à deux choix et niveaux 0–100.
+- 🔊 **De vrais réglages, pas seulement des interrupteurs** — volume des effets et de la musique **0–100** (10 segments inclinés), **intensité des secousses** faible/forte, **qualité visuelle** basse/haute (230 vs 460 particules, lueur coupée), **pause auto au changement d'onglet**.
+- 🌐 **La langue déménage dans les Réglages** — le sélecteur flottant en haut à droite et la ligne de l'écran de pause disparaissent ; place à une grille de 7 langues sur deux colonnes (drapeau · nom natif · coche).
+- 🎛️ **Quatre préréglages en un clic + sauvegarde JSON** — **FLUIDE** · **ÉQUILIBRÉ** · **CINÉMA** · **SPEEDRUN** (la langue n'est jamais touchée) et export/import pour transporter sa configuration.
+- ✨ **Le menu devient une scène** — nébuleuses en dérive, un rayon de lumière qui respire, **deux couches d'étoiles scintillantes**, un anneau lumineux tournant autour du bocal, un halo de bocal, un reflet qui balaie JOUER ; la **carte de l'auteur** a une bordure dégradée en mouvement perpétuel.
+- 🐛 **Onze vrais bugs corrigés** — musique plus forte que configuré après rechargement · Tab s’échappant des modales · l’indice du changelog figé sur v1.1.5 · `updateSettings` renvoyant des valeurs non normalisées · le focus non retenu dans la boîte de dialogue · l’export annonçant « copié » avec un presse-papiers vide · les interrupteurs revenant aux valeurs par défaut quand le stockage est bloqué · le son qui se réactive après un rechargement · des objets de poids nul apparaissant aux bas niveaux · le score affichant « NaN » · un bouton de confirmation réduit à un glyphe ←.
+- 🧪 **222 tests unitaires** (29 fichiers, contre 113/14) — nouvelle couverture du schéma de réglages, des préréglages, du codec de sauvegarde, du calcul de gain audio et un test de contrat i18n↔UI.
+
+<img src="assets/settings-sections.svg" alt="Réglages de v1.1.6 — six sections avec interrupteurs, barres de niveau et sélecteurs (animation SMIL)" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="Panneaux GAME (bas-gauche) et INFO (bas-droite) glissant en place (animation SMIL)" width="100%" />
 
-→ Détails complets : [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+→ Détails complets : [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+→ Version précédente : [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Points forts
 
@@ -60,7 +65,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 | 💾 **TOP 8** | Sauvegarde locale, validée et normalisée à la lecture, noms en majuscules automatiques, surbrillance pour le record tout frais |
 | 🎨 **60fps** | Canvas 2D, budget de 460 particules, DPR plafonné à 2, sol à carreaux pré-rendu offscreen, scintillement d'étoiles + aurore dans le menu |
 | 📴 **Vraiment offline-first** | Polices auto-hébergées (sous-ensembles latin + vietnamien, woff2), aucun CDN ni API — ouvrez `dist/index.html` et jouez |
-| 🧪 **Qualité** | 113 tests unitaires (vitest) pour modes / achievements / storage / i18n — `npm run check` est la porte CI |
+| 🧪 **Qualité** | 222 tests unitaires (vitest) pour modes / achievements / storage / i18n / settings — `npm run check` est la porte CI |
 
 <img src="assets/items.svg" alt="Les 14 ingrédients — les pickles à attraper, les pouvoirs dorés à saisir, les dangers à éviter" width="100%" />
 
@@ -80,7 +85,7 @@ Lọ Chéo embarque **7 langues d'interface**, appliquées instantanément — s
 | 🇪🇸 Español | **ES** bouton | `locheo.lang.v1` |
 | 🇫🇷 Français | **FR** bouton | `locheo.lang.v1` |
 
-- Change depuis le **menu principal** (en haut à droite) ou l'**écran de pause** (en bas, mode compact).
+- Change de langue dans **Réglages → LANGUE** (grille de 7 boutons drapeau) — un seul endroit, plus de sélecteur flottant sur le menu.
 - Toutes les chaînes visibles vivent dans `src/i18n/locales/{vi,en,zh,ja,ko,es,fr}.ts` — moteur canvas, écrans, HUD, popups, ticker, astuces.
 - Une clé manquante ? `t()` retombe sur le vietnamien — les sept jeux de clés (et leurs placeholders) sont garantis par les tests.
 
@@ -123,7 +128,7 @@ npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 npm run dev        # serveur de dev avec HMR (http://localhost:5173)
 npm run preview    # sert le build de production en local
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 113 tests unitaires (modes / achievements / storage / i18n)
+npm run test       # vitest — 222 tests unitaires (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (porte qualité CI)
 ```
 
@@ -132,7 +137,7 @@ npm run check      # typecheck + test + build (porte qualité CI)
 ```
 lo-cheoio/
 ├─ index.html              # entrée, meta SEO/OG (sans CDN)
-├─ package.json            # lo-cheoio v1.1.5, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.6, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict ; inclut src + tests
@@ -145,7 +150,8 @@ lo-cheoio/
 │  ├─ modes.svg            # les 9 modes (animation SMIL)
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # sceau copyleft AGPL-3.0 animé (animation SMIL)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -166,7 +172,8 @@ lo-cheoio/
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
-│     └─ v1.1.5.md         # current release notes (1.1.5)
+│     ├─ v1.1.5.md         # release notes (1.1.5)
+│     └─ v1.1.6.md         # current release notes (1.1.6)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -180,7 +187,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # racine React, StrictMode
 │  ├─ App.tsx              # machine à phases menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.5" (source unique de vérité)
+│  ├─ version.ts           # APP_VERSION = "1.1.6" (source unique de vérité)
 │  ├─ index.css            # thème tailwind v4 + toutes les animations/dégradés
 │  ├─ assets/fonts/        # sous-ensembles woff2 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
@@ -190,25 +197,30 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (source des clés) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick flottant + clavier + visibilité
-│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
-│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
+│  │  ├─ StartScreen.tsx   # menu : hero + scène en couches + panneaux d'angle
+│  │  ├─ menu/              # panneaux GAME/INFO + modales + icons/
 │  │  ├─ ModeSelector.tsx  # 9 cartes de mode (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # mur de badges verrouillés/déverrouillés
 │  │  ├─ GameOverScreen.tsx     # BOCAL BRISÉ ! + score + nouveaux succès
 │  │  ├─ PauseScreen.tsx        # PAUSE + stats de la partie
-│  │  ├─ LanguageSwitcher.tsx   # sélecteur partagé VI / EN / 中 / 日 / 한 / ES / FR
+│  │  ├─ settings/           # réglages en 6 sections + contrôles (v1.1.6)
 │  │  └─ ui.tsx            # GameButton, Panel, Keycap, Stat, ScoreBoard…
 │  ├─ game/
-│  │  ├─ engine.ts         # toute la simulation + rendu canvas (~2170 lignes)
+│  │  ├─ engine.ts         # toute la simulation + rendu canvas (~2260 lignes)
 │  │  ├─ modes.ts          # modes + maths d'équilibrage (pur)
 │  │  ├─ achievements.ts   # 16 badges + checker pur (pur)
 │  │  ├─ storage.ts        # localStorage : top 8, progrès, succès
 │  │  ├─ audio.ts          # synthèse Web Audio : sfx + musique pentatonique
-│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
-│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
-│  │  └─ settings.ts        # game settings persistence (v1.1.5)
-│  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — 13 fichiers · 113 tests (modes · achievements · storage · i18n · runSave · settings · changelog…)
+│  │  ├─ changelog.ts        # données du changelog en jeu
+│  │  ├─ runSave.ts         # sauvegarde de partie suspendue
+│  │  ├─ settings.ts        # schéma des réglages, défauts, normalisation
+│  │  ├─ settingsIO.ts      # codec de sauvegarde/restauration (v1.1.6)
+│  │  ├─ settingsPresets.ts # quatre préréglages rapides (v1.1.6)
+│  │  └─ audioLevels.ts     # calcul pur des gains (v1.1.6)
+│  └─ utils/
+│     ├─ cn.ts             # clsx + tailwind-merge
+│     └─ useFocusTrap.ts   # confinement du focus (v1.1.6)
+└─ tests/                  # vitest — 29 fichiers · 222 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
@@ -249,6 +261,7 @@ Double-clique sur [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 | Version | Date | Notes |
 | --- | --- | --- |
+| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **Réglages en 6 sections** (rapides · audio · affichage · langue · sauvegarde · données) · volumes 0–100 · intensité des secousses · qualité visuelle · pause au changement d'onglet · langue dans les Réglages · 4 préréglages · export/import JSON · menu multicouche animé · dégradé sur la carte auteur · focus piégé dans les modales · fix musique après rechargement · **150 tests** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menus d'angle GAME/INFO** (Jouer · Reprendre · Modes · Classement · Succès · Réglages / À propos · Changelog · Quitter) · **sauvegarde & reprise de partie** (`locheo.run.v1`) · réglages en jeu (SFX/musique/tremblement/animations) · fix raccourcis à travers les modales · prefers-reduced-motion partout · **113 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modes** (Festival des Combos · Grand Festin) · **16 succès** · **7 langues** (ES/FR ajoutées) · fix play-windows.bat (CRLF+BOM) · lanceurs en 7 langues · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modes (Averse de pickles · Céramique fine) · 14 succès · 5 langues · favicon · lanceurs multilingues · 55 tests |
@@ -276,6 +289,7 @@ Notes de conception et documentation technique approfondie :
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | Release v1.1.6 — réglages en 6 sections, préréglages, sauvegarde, menu multicouche |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | Release v1.1.5 — menus d'angle, sauvegarde/reprise, réglages, fixes |
 | [docs/design/menu-corners.md](docs/design/menu-corners.md) | Design du menu d'angle GAME/INFO — principes, a11y, responsive |
 | [docs/design/save-format.md](docs/design/save-format.md) | Spec `locheo.run.v1` — snapshot de partie en pause (schema + cycle de vie) |
@@ -287,7 +301,7 @@ Notes de conception et documentation technique approfondie :
 ## 🤝 Contribuer
 
 1. Fork le repo, branche avec la convention `arena/<nom>` ou `feat/<nom>`.
-2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 113 tests + build).
+2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 222 tests + build).
 3. Évite les nouvelles dépendances runtime sauf nécessité réelle — philosophie : **un seul fichier, hors réseau, jouable pour toujours**.
 4. Dans la PR, indique les écrans/modes touchés et joins un clip si le gameplay change.
 

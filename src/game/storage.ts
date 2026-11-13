@@ -13,9 +13,11 @@ export interface ScoreEntry {
   date: number;
 }
 
-const KEY = "locheo.scores.v1";
-const PROGRESS_KEY = "locheo.progress.v1";
-const ACHIEVEMENTS_KEY = "locheo.achievements.v1";
+import { STORAGE_KEYS, readJSON, removeRaw, writeJSON } from "./safeStorage";
+
+const KEY = STORAGE_KEYS.scores;
+const PROGRESS_KEY = STORAGE_KEYS.progress;
+const ACHIEVEMENTS_KEY = STORAGE_KEYS.achievements;
 const SIZE = 8;
 
 /** Deep-enough clone so callers can't mutate the module-level SEED rows. */
@@ -62,23 +64,16 @@ export function normalizeScores(v: unknown): ScoreEntry[] {
 }
 
 export function loadScores(): ScoreEntry[] {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return seedCopy();
-    const normalized = normalizeScores(JSON.parse(raw));
-    return normalized.length > 0 ? normalized : seedCopy();
-  } catch {
-    return seedCopy();
-  }
+  const stored = readJSON(KEY);
+  if (stored === null) return seedCopy();
+  const normalized = normalizeScores(stored);
+  return normalized.length > 0 ? normalized : seedCopy();
 }
 
 export function persistScores(list: ScoreEntry[]): ScoreEntry[] {
   const next = normalizeScores(list);
-  try {
-    localStorage.setItem(KEY, JSON.stringify(next));
-  } catch {
-    /* storage blocked — keep in memory */
-  }
+  // writeJSON swallows quota/private-mode failures — the board stays in memory
+  writeJSON(KEY, next);
   return next;
 }
 
@@ -129,22 +124,14 @@ function normalizeProgress(v: unknown): Progress {
 }
 
 export function loadProgress(): Progress {
-  try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    if (!raw) return { ...EMPTY_PROGRESS };
-    return normalizeProgress(JSON.parse(raw));
-  } catch {
-    return { ...EMPTY_PROGRESS };
-  }
+  const stored = readJSON(PROGRESS_KEY);
+  if (stored === null) return { ...EMPTY_PROGRESS };
+  return normalizeProgress(stored);
 }
 
 export function saveProgress(p: Progress): Progress {
   const clean = normalizeProgress(p);
-  try {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(clean));
-  } catch {
-    /* storage blocked — keep in memory */
-  }
+  writeJSON(PROGRESS_KEY, clean);
   return clean;
 }
 
@@ -162,35 +149,21 @@ export function recordRun(stats: { jars: number; sliced: number; score: number }
 /* ------------------------------------------------------ achievements --- */
 
 export function loadAchievements(): string[] {
-  try {
-    const raw = localStorage.getItem(ACHIEVEMENTS_KEY);
-    if (!raw) return [];
-    const parsed: unknown = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((v): v is string => typeof v === "string");
-  } catch {
-    return [];
-  }
+  const parsed = readJSON(ACHIEVEMENTS_KEY);
+  if (!Array.isArray(parsed)) return [];
+  return parsed.filter((v): v is string => typeof v === "string");
 }
 
 /** Merge newly unlocked ids into the persisted list; returns the full list. */
 export function unlockAchievements(ids: string[]): string[] {
   const merged = [...new Set([...loadAchievements(), ...ids])];
-  try {
-    localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(merged));
-  } catch {
-    /* storage blocked — keep in memory */
-  }
+  writeJSON(ACHIEVEMENTS_KEY, merged);
   return merged;
 }
 
 /** Danger zone: wipe persisted scores/progress/achievements from this device. */
 export function clearAllProgress(): void {
-  try {
-    localStorage.removeItem(KEY);
-    localStorage.removeItem(PROGRESS_KEY);
-    localStorage.removeItem(ACHIEVEMENTS_KEY);
-  } catch {
-    /* storage blocked — nothing to wipe */
-  }
+  removeRaw(KEY);
+  removeRaw(PROGRESS_KEY);
+  removeRaw(ACHIEVEMENTS_KEY);
 }

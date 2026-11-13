@@ -12,6 +12,7 @@ export default function MenuItemButton({
   disabled = false,
   variant = "ghost",
   trailing,
+  shine = false,
 }: {
   icon: ReactNode;
   label: string;
@@ -20,6 +21,8 @@ export default function MenuItemButton({
   disabled?: boolean;
   variant?: "primary" | "ghost" | "brine" | "danger" | "ink";
   trailing?: ReactNode;
+  /** v1.1.6: sweep a light band across the button (primary CTA) */
+  shine?: boolean;
 }) {
   const VARIANTS = {
     primary: "border-jade-950 bg-tumeric-500 text-jade-950 hover:bg-tumeric-400",
@@ -35,7 +38,7 @@ export default function MenuItemButton({
       onClick={onClick}
       disabled={disabled}
       aria-disabled={disabled}
-      className={`press hard-shadow-sm flex w-full items-center gap-2.5 border-[3px] px-2.5 py-2 text-left transition-colors ${VARIANTS[variant]} ${
+      className={`press hard-shadow-sm flex w-full items-center gap-2.5 border-[3px] px-2.5 py-2 text-left transition-colors ${VARIANTS[variant]} ${shine ? "cta-shine " : ""}${
         disabled ? "cursor-not-allowed opacity-40 saturate-0" : ""
       }`}
     >
