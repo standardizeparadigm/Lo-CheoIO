@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Lọ Chéo v1.1.5 — corner GAME and INFO panels">
+  <defs>
+    <linearGradient id="cm-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e3a35"/>
+      <stop offset="0.55" stop-color="#092723"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <linearGradient id="cm-panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#123732"/>
+      <stop offset="1" stop-color="#0b2a28"/>
+    </linearGradient>
+    <linearGradient id="cm-btn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5a81c"/>
+      <stop offset="1" stop-color="#d98a12"/>
+    </linearGradient>
+    <linearGradient id="cm-btn-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16443e"/>
+      <stop offset="1" stop-color="#0e332f"/>
+    </linearGradient>
+    <radialGradient id="cm-halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f5a81c" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#f5a81c" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="cm-tiles" width="56" height="56" patternUnits="userSpaceOnUse">
+      <rect width="56" height="56" fill="none" stroke="#2bb48c" stroke-opacity="0.15" stroke-width="1.2"/>
+      <rect x="16" y="16" width="24" height="24" transform="rotate(45 28 28)" fill="none" stroke="#f5a81c" stroke-opacity="0.14"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="16" fill="url(#cm-bg)"/>
+  <rect width="1200" height="420" rx="16" fill="url(#cm-tiles)"/>
+  <circle cx="600" cy="150" r="150" fill="url(#cm-halo)"/>
+
+  <!-- wordmark -->
+  <text x="600" y="98" text-anchor="middle" font-family="'Arial Black','Bungee',sans-serif" font-weight="900" font-size="44" letter-spacing="4" fill="#fdf3e0" stroke="#061a1a" stroke-width="6" paint-order="stroke">LỌ CHÉO <tspan fill="#f5a81c">v1.1.5</tspan></text>
+  <text x="600" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700" font-size="13" letter-spacing="5" fill="#b6e07a">MENU GÓC · MỚI</text>
+
+  <!-- ======= GAME panel (bottom-left), slides in ======= -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="-40 30; 0 0; 0 0" keyTimes="0;0.28;1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 1.1 0.36 1;0 0 1 1"/>
+    <g transform="translate(28 150)">
+      <animate attributeName="opacity" values="0.4;1;1" keyTimes="0;0.28;1" dur="1.6s" repeatCount="indefinite"/>
+      <rect width="330" height="238" rx="6" fill="url(#cm-panel)" stroke="#2bb48c" stroke-opacity="0.55" stroke-width="3"/>
+      <path d="M0 10 V0 H10" stroke="#f5a81c" stroke-width="4" fill="none"/>
+      <path d="M330 228 V238 H320" stroke="#f5a81c" stroke-width="4" fill="none"/>
+      <rect x="0" y="0" width="330" height="34" rx="6" fill="#16443e"/>
+      <text x="16" y="23" font-family="'Courier New',monospace" font-weight="700" font-size="16" letter-spacing="8" fill="#f5a81c">GAME</text>
+
+      <!-- play -->
+      <g transform="translate(14 48)">
+        <rect width="302" height="34" rx="4" fill="url(#cm-btn)" stroke="#061a1a" stroke-width="3"/>
+        <path d="M18 8v18l16-9z" fill="#061a1a"/>
+        <text x="46" y="22" font-family="'Arial Black',sans-serif" font-weight="900" font-size="13" letter-spacing="2" fill="#061a1a">CHƠI NGAY</text>
+      </g>
+      <!-- resume: highlighted, glowing -->
+      <g transform="translate(14 90)">
+        <rect width="302" height="34" rx="4" fill="#b6e07a" stroke="#061a1a" stroke-width="3">
+          <animate attributeName="fill" values="#b6e07a;#d6f2a8;#b6e07a" dur="1.3s" repeatCount="indefinite"/>
+        </rect>
+        <path d="M14 12a7 7 0 1 1-3 6" fill="none" stroke="#061a1a" stroke-width="2.4"/>
+        <path d="M19 4l4 8-8-1z" fill="#061a1a"/>
+        <text x="46" y="22" font-family="'Arial Black',sans-serif" font-weight="900" font-size="13" letter-spacing="2" fill="#061a1a">CHƠI TIẾP</text>
+        <text x="292" y="22" text-anchor="end" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#061a1a" opacity="0.75">3820đ</text>
+      </g>
+      <!-- leaderboard / achievements / settings rows -->
+      <g transform="translate(14 132)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="26" rx="3" fill="url(#cm-btn-ink)" stroke="#2bb48c" stroke-opacity="0.4"/>
+        <text x="14" y="18" fill="#fdf3e0">BẢNG XẾP HẠNG</text><text x="290" y="18" text-anchor="end" fill="#f5a81c">TOP 8</text>
+      </g>
+      <g transform="translate(14 164)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="26" rx="3" fill="url(#cm-btn-ink)" stroke="#2bb48c" stroke-opacity="0.4"/>
+        <text x="14" y="18" fill="#fdf3e0">THÀNH TỰU</text><text x="290" y="18" text-anchor="end" fill="#f5a81c">11/16</text>
+      </g>
+      <g transform="translate(14 196)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="26" rx="3" fill="url(#cm-btn-ink)" stroke="#2bb48c" stroke-opacity="0.4"/>
+        <text x="14" y="18" fill="#fdf3e0">CÀI ĐẶT</text><text x="290" y="18" text-anchor="end" fill="#b6e07a">⚙</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ======= INFO panel (bottom-right), slides in ======= -->
+  <g>
+    <animateTransform attributeName="transform" type="translate"
+      values="40 30; 0 0; 0 0" keyTimes="0;0.34;1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 1.1 0.36 1;0 0 1 1"/>
+    <g transform="translate(842 204)">
+      <animate attributeName="opacity" values="0.4;1;1" keyTimes="0;0.34;1" dur="1.6s" repeatCount="indefinite"/>
+      <rect width="330" height="184" rx="6" fill="url(#cm-panel)" stroke="#2bb48c" stroke-opacity="0.55" stroke-width="3"/>
+      <path d="M330 10 V0 H320" stroke="#f5a81c" stroke-width="4" fill="none"/>
+      <path d="M0 174 V184 H10" stroke="#f5a81c" stroke-width="4" fill="none"/>
+      <rect x="0" y="0" width="330" height="34" rx="6" fill="#16443e"/>
+      <text x="316" y="23" text-anchor="end" font-family="'Courier New',monospace" font-weight="700" font-size="16" letter-spacing="8" fill="#f5a81c">INFO</text>
+      <g transform="translate(14 48)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="30" rx="3" fill="url(#cm-btn-ink)" stroke="#2bb48c" stroke-opacity="0.4"/>
+        <text x="14" y="20" fill="#fdf3e0">GIỚI THIỆU TÁC GIẢ</text>
+      </g>
+      <g transform="translate(14 86)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="30" rx="3" fill="url(#cm-btn-ink)" stroke="#2bb48c" stroke-opacity="0.4"/>
+        <text x="14" y="20" fill="#fdf3e0">CHANGELOG</text><text x="290" y="20" text-anchor="end" fill="#f5a81c">v1.1.5</text>
+      </g>
+      <g transform="translate(14 124)" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="1.5">
+        <rect width="302" height="30" rx="3" fill="#e63b2e" fill-opacity="0.25" stroke="#e63b2e" stroke-opacity="0.8"/>
+        <text x="14" y="20" fill="#ffd9d4">THOÁT</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- jar peeking between the panels -->
+  <g transform="translate(600 205)">
+    <animateTransform attributeName="transform" type="translate"
+      values="600 205; 600 188; 600 205" keyTimes="0;0.5;1" dur="2.6s" repeatCount="indefinite"/>
+    <ellipse cx="0" cy="118" rx="46" ry="7" fill="#04100f" opacity="0.5"/>
+    <path d="M-30 -46 C-62 -24 -60 44 -24 60 L24 60 C60 44 62 -24 30 -46 Z" fill="#f3e3c8" stroke="#0b2a28" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="-58" y="14" width="116" height="46" fill="#5f9c33" opacity="0.85"/>
+    <ellipse cx="0" cy="-48" rx="30" ry="8" fill="#f5a81c" stroke="#0b2a28" stroke-width="5"/>
+    <ellipse cx="-14" cy="-12" rx="7" ry="8.4" fill="#fffdf6" stroke="#0b2a28" stroke-width="3.4"/>
+    <ellipse cx="14" cy="-12" rx="7" ry="8.4" fill="#fffdf6" stroke="#0b2a28" stroke-width="3.4"/>
+    <circle cx="-13" cy="-11" r="3.1" fill="#0b2a28"/>
+    <circle cx="15" cy="-11" r="3.1" fill="#0b2a28"/>
+    <path d="M-8 8 q8 6 16 0" fill="none" stroke="#0b2a28" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>
