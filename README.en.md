@@ -11,7 +11,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](#-changelog-tiers--one-colour-per-tier)
-[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-quality-gates)
+[![Tests](https://img.shields.io/badge/tests-241%20%C2%B7%2031%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-quality-gates)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-install--run)
@@ -116,7 +116,7 @@ Adding 1.2.0 later is now **one new file** plus one import line.
 | 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
 | 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
 | 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
-| 🧪 **Quality gates** | 235 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
+| 🧪 **Quality gates** | 241 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
 
 <img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
 
@@ -179,7 +179,7 @@ npm run build      # → dist/index.html (one self-contained file)
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 235 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 241 unit tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
@@ -272,7 +272,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # modal focus containment (v1.1.6)
-└─ tests/                  # vitest — 30 files · 235 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 31 files · 241 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
@@ -303,7 +303,7 @@ $ npm run smoke        # SSR smoke: every menu/modal renders
 | Gate | Scope | 1.1.7 status |
 | --- | --- | --- |
 | `typecheck` | `src/` + `tests/` (TypeScript strict) | ✅ |
-| `vitest run` | **235 tests / 30 files** | ✅ |
+| `vitest run` | **241 tests / 31 files** | ✅ |
 | `smoke-ssr` | menu, 6 settings sections, changelog, 9 modals | ✅ |
 | `check-readme-sync` | 10 READMEs × badge/link/SVG | ✅ |
 | `check-i18n` | 7 locales × 302 keys | ✅ |
@@ -339,7 +339,7 @@ Double-click [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`s
 
 | Version | Tier | Date | Notes |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Menu background un-fogged** (four compounding overlays: `blur 64→22px`, corner vignette instead of full-screen, CRT frame 140→90px, floor 45→70%) · **tiered colour changelog** · **96 new description bullets** for 8 older releases · dates re-sequenced · `src/game/changelog/` split · 10 READMEs rebuilt · **235 tests** |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Menu background un-fogged** (four compounding overlays: `blur 64→22px`, corner vignette instead of full-screen, CRT frame 140→90px, floor 45→70%) · **tiered colour changelog** · **96 new description bullets** for 8 older releases · dates re-sequenced · `src/game/changelog/` split · 10 READMEs rebuilt · **241 tests** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Six-section settings** (presets · audio · display · language · backup · data) · 0–100 volumes · shake level · visual quality · auto-pause on blur · language moved into Settings · 4 presets · JSON export/import · layered animated menu scene · looping gradient on the author card · modal focus trap · music-after-reload fix · **150 tests** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **113 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 modes** (Combo Festival · Grand Feast) · **16 achievements** · **7 languages** (ES/FR added) · play-windows.bat fix (CRLF+BOM) · 7-language launchers · 61 tests |
@@ -381,7 +381,7 @@ Design notes and deeper technical docs:
 ## 🤝 Contributing
 
 1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
-2. `npm run check` must be green before opening a PR (typecheck + 235 tests + build).
+2. `npm run check` must be green before opening a PR (typecheck + 241 tests + build).
 3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
 4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 

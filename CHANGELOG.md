@@ -5,7 +5,7 @@ Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến đ
 
 ## [1.1.7] — 2026-11-12
 
-Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 235 unit tests (30 file)**.
+Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 241 unit tests (31 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 

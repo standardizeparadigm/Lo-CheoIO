@@ -8,7 +8,7 @@ Mỗi bản có một **tầng** (suy ra từ SemVer, xem `docs/guides/release-p
 
 | Bản | Tầng | Nội dung chính | Tests lúc phát hành |
 | --- | --- | --- | --- |
-| [v1.1.7](releases/v1.1.7.md) | 🟣 PATCH | Nền menu hết mờ (4 lớp) · changelog chia tầng · 96 gạch mô tả mới · tách `src/game/changelog/` | 235 / 30 file |
+| [v1.1.7](releases/v1.1.7.md) | 🟣 PATCH | Nền menu hết mờ (4 lớp) · changelog chia tầng · 96 gạch mô tả mới · tách `src/game/changelog/` | 241 / 31 file |
 | [v1.1.6](releases/v1.1.6.md) | 🟣 PATCH | Settings 6 mục · preset · backup JSON · a11y pass | 222 / 29 file |
 | [v1.1.5](releases/v1.1.5.md) | 🟣 PATCH | Panel góc GAME/INFO, Chơi tiếp ván dở | 113 |
 | [v1.1.4](releases/v1.1.4.md) | 🟣 PATCH | 2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 7 ngôn ngữ | 61 |
