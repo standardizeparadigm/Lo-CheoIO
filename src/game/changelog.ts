@@ -48,7 +48,7 @@ export const CHANGELOG_ENTRIES: readonly ChangelogEntry[] = [
   },
   {
     version: "1.1.3",
-    date: "2026-11-10",
+    date: "2026-11-12",
     kind: "feature",
     vi: "4 chế độ mới, hệ thống thành tựu, lưu tiến trình",
     en: "4 new modes, achievement system, progress persistence",
@@ -57,7 +57,7 @@ export const CHANGELOG_ENTRIES: readonly ChangelogEntry[] = [
   },
   {
     version: "1.1.2",
-    date: "2026-11-08",
+    date: "2026-11-12",
     kind: "fix",
     vi: "Sửa launcher Windows (CRLF + BOM), launcher 7 ngôn ngữ",
     en: "Windows launcher fix (CRLF + BOM), 7-language launchers",
@@ -66,7 +66,7 @@ export const CHANGELOG_ENTRIES: readonly ChangelogEntry[] = [
   },
   {
     version: "1.1.1",
-    date: "2026-11-05",
+    date: "2026-11-12",
     kind: "polish",
     vi: "Tối ưu build một file, sửa hành vi form",
     en: "Single-file build polish, form behavior fixes",
@@ -75,7 +75,7 @@ export const CHANGELOG_ENTRIES: readonly ChangelogEntry[] = [
   },
   {
     version: "1.1.0",
-    date: "2026-11-02",
+    date: "2026-11-12",
     kind: "feature",
     vi: "Đa ngôn ngữ (VI/EN/ZH/JA/KO), chọn được chế độ chơi",
     en: "Multi-language (VI/EN/ZH/JA/KO), selectable game modes",
@@ -84,7 +84,7 @@ export const CHANGELOG_ENTRIES: readonly ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2026-10-28",
+    date: "2026-10-26",
     kind: "feature",
     vi: "Bản đầu tiên — Lọ Chéo: Hũ Dưa Đại Chiến",
     en: "First release — Lọ Chéo: Pickle Jar War",
