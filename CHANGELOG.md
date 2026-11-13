@@ -3,9 +3,25 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
+## [1.1.8] — 2026-11-13
+
+Bản **vá cuối trước 1.2.0**: tinh gọn màn hình chính, chuyển hướng dẫn vào GAME và cập nhật công cụ phát triển.
+
+### Changed
+- Căn giữa chữ LỌ CHÉO; lọ và các vòng sáng nằm bên dưới, hiển thị cả trên màn hình nhỏ.
+- Chuyển hướng dẫn, phím và thao tác cảm ứng vào **GAME → Cách chơi**; giữ hai panel GAME/INFO và các tính năng hiện có.
+- Tách hero và hộp thoại hướng dẫn thành component riêng; đồng bộ phiên bản 1.1.8 và tài liệu phát hành.
+
+### Fixed
+- Bỏ các thành phần mô tả, điểm, thẻ chế độ và ticker làm rối khu vực chính; điều chỉnh độ rộng panel trên màn hình hẹp.
+- Cập nhật Vite và Vitest, khắc phục các cảnh báo `npm audit` được phát hiện trong công cụ phát triển.
+- Đồng bộ ngày đã ghi giữa changelog, release notes và changelog trong game; giữ các bản cũ làm lịch sử.
+
+→ Chi tiết: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md)
+
 ## [1.1.7] — 2026-11-12
 
-Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
+Bản **vá nền menu**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
@@ -249,6 +265,7 @@ Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CH�
 
 → Chi tiết đầy đủ: [docs/releases/v1.0.0.md](docs/releases/v1.0.0.md)
 
+[1.1.8]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.8
 [1.1.7]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.7
 [1.1.6]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.6
 [1.1.5]: https://github.com/standardizeparadigm/Lo-CheoIO/releases/tag/v1.1.5
