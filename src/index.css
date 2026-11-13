@@ -33,6 +33,21 @@
   --color-pink-500: #ff5fb0;
   --color-pink-600: #d92e86;
   --color-clay-100: #fdf3e0;
+
+  /* ---------------------------------------------------------------
+     v1.1.8 — start-screen layout metrics.
+     These mirror src/components/menu/layout/metrics.ts one for one.
+     tests/menu-layout.test.ts reads both and fails if either drifts,
+     because the v1.1.7 overflow bug was exactly a drift between what
+     the JSX assumed and what the CSS actually rendered.
+     --------------------------------------------------------------- */
+  --menu-row-h: 34px;
+  --menu-row-rich-h: 54px;
+  --menu-row-gap: 4px;
+  --menu-header-h: 22px;
+  --menu-ticker-h: 48px;
+  --menu-reserve: 338px;
+  --menu-reserve-rich: 458px;
 }
 
 @layer base {
@@ -632,6 +647,104 @@
 .divider-gold {
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(255, 201, 74, 0.65), transparent);
+}
+
+/* ============================================================
+   V1.1.8 — start-screen layout: floating chrome, no clipping
+   ============================================================
+
+   The v1.1.7 screen was one flex column: scene / corner row / ticker.
+   The corner row and ticker were both `shrink-0`, so they took 415px and
+   55px and left the scene 250px — the CHÉO wordmark and the mascot jar
+   were cut by a seam at y ≈ 247px, the ticker's copyright line fell off
+   the bottom, and the whole column overflowed 12px.
+
+   v1.1.8 takes the two chrome bands out of the flow entirely. The scene
+   owns the full viewport and reserves a band at the bottom with padding;
+   the chrome floats on top of that band. Nothing can shrink the scene. */
+
+/* The scroll container. Full height, no visible scrollbar (a teal 8px bar
+   was painted over the nebula at the right edge). */
+.menu-scene {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior: contain;
+}
+.menu-scene::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* One menu row inside a corner panel. Height is fixed by a custom property
+   rather than emerging from padding + line-height, so the layout arithmetic
+   in menu/layout/metrics.ts is the rendered truth and not an estimate. */
+.menu-row {
+  height: var(--menu-row-h);
+  min-height: var(--menu-row-h);
+}
+.menu-row-rich {
+  height: var(--menu-row-rich-h);
+  min-height: var(--menu-row-rich-h);
+}
+
+/* Hint line: clamp to two lines so a long translation ("Âm thanh · nhạc ·
+   rung · chuyển động") fills the rich row instead of overflowing it. */
+.menu-row-hint {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Panel body: fixed gap between rows, no padding surprises. */
+.menu-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--menu-row-gap);
+  padding: 8px;
+}
+
+/* Header strip: exactly --menu-header-h so the panel total is predictable. */
+.menu-panel-header {
+  height: var(--menu-header-h);
+  min-height: var(--menu-header-h);
+}
+
+/* The ticker band. Fixed height and a hard clip — v1.1.7 let the marquee's
+   footer line wrap underneath and the last row was sliced by the viewport. */
+.menu-ticker {
+  height: var(--menu-ticker-h);
+  min-height: var(--menu-ticker-h);
+  overflow: hidden;
+}
+
+/* The bottom band the floating chrome occupies. Painted with a soft gradient
+   so the title lockup fades out behind the panels instead of colliding. */
+.menu-chrome-band {
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 26, 26, 0.72) 42%, rgba(6, 26, 26, 0.94) 100%);
+}
+
+/* The title lockup must fit the scene, not the window.
+   In v1.1.7 the CHÉO line was sized only by viewport *width*
+   (`clamp(4.6rem, 17vw, 10.5rem)`), so on a 1920×1080-ish window it grew to
+   168px and two lines came to ~290px while the scene only had 250px — the
+   glyphs were sliced horizontally. Capping against `vh` too keeps the whole
+   lockup above the reserved band at every aspect ratio. */
+.menu-wordmark-top {
+  font-size: clamp(2.6rem, min(13vw, 15vh), 7.5rem);
+}
+.menu-wordmark {
+  font-size: clamp(3.4rem, min(17vw, 20vh), 10.5rem);
+}
+
+/* On a short window the wordmark and the panels would still touch: drop the
+   secondary block instead of letting it push the lockup into the chrome. */
+@media (max-height: 719px) {
+  .menu-lockup-tail {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
