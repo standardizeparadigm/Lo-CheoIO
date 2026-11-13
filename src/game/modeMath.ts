@@ -1,10 +1,23 @@
 /**
- * Mode balance math (pure, unit-tested).
+ * Mode balance math — all pure, all unit-tested.
  *
- * Split out of `game/modes.ts` in v1.1.7 — the nine data records live in
+ * Split out of `game/modes.ts` in v1.1.7: the nine data records live in
  * `game/modes/`, the derived formulas live here.
+ *
+ * The engine composes these into the numbers it actually uses:
+ *
+ *   score         = round(def.pts × multiplierForCombo(combo, frenzy) × scoreMult)
+ *   level         = levelForCatches(catches)        // 1 per 10 catches, from 1
+ *   jar bonus     = jarBonusFor(level, mode)
+ *   combo window  = comboWindowFor(mode)            // COMBO_WINDOW × comboWindowMult
+ *   cracks to die = MODES[mode].maxCracks ?? MAX_CRACKS
+ *
+ * Every one of them clamps its input, so a corrupted save or a NaN from the
+ * HUD cannot propagate into the score. `docs/design/modes-balance.md` carries
+ * the full derivation; `tests/modes.test.ts` pins the edge cases.
  */
 import { MODES, type ModeId } from "./modesIndex";
+
 /** Combo multiplier: +1 per 4-catch streak, capped at ×9, doubled in frenzy. */
 export function multiplierForCombo(combo: number, frenzy: boolean): number {
   const base = Math.min(9, 1 + Math.floor(Math.max(0, combo) / 4));
