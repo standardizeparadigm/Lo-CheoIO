@@ -12,7 +12,7 @@
 8. **Smoke** — `npx vite-node scripts/smoke-ssr.tsx` (headless render) khi có UI mới.
 9. **PR** — một nhánh `arena/<id>` → base `main`; **user merge**, không tự merge.
 10. **Kiểm tra chéo trước khi mở PR** — ba cổng phải xanh **cùng lúc**:
-    `npm run check` (typecheck + 241 test + build), `npm run smoke`, và
+    `npm run check` (typecheck + 256 test + build), `npm run smoke`, và
     `npm run check:readme` + `npm run check:i18n` (10 README đồng bộ, 7 locale parity).
     Ghi lại output của cả ba vào phần *verification* của release notes.
 

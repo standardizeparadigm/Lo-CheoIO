@@ -11,7 +11,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-241%20%C2%B7%2031%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
@@ -317,7 +317,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | バージョン | Tier | 日付 | ノート |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · 日付再整列 · `src/game/changelog/` 分割 · README 10 本刷新 · **241 テスト** |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · 日付再整列 · `src/game/changelog/` 分割 · README 10 本刷新 · **256 テスト** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
