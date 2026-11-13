@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20t%C3%ADm-9d6bff.svg?style=for-the-badge)](#-changelog-chia-t%E1%BA%A7ng)
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-kiểm-chứng-chất-lượng)
+[![Tests](https://img.shields.io/badge/tests-286%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-kiểm-chứng-chất-lượng)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-cài-đặt--chạy)
@@ -23,9 +23,9 @@
 
 <img src="assets/languages.svg" alt="7 ngôn ngữ trong game — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
 
-<img src="assets/palette-ribbon.svg" alt="Bảng màu Lọ Chéo v1.1.7 — 7 dải màu chạy sáng luân phiên (hoạt họa SMIL)" width="100%" />
+<img src="assets/palette-ribbon.svg" alt="Bảng màu Lọ Chéo v1.1.8 — 7 dải màu chạy sáng luân phiên (hoạt họa SMIL)" width="100%" />
 
-**v1.1.7** · bản vá cuối trước **1.2.0** · *nền menu đã hết mờ* · *changelog có tầng và có màu* · 256 test / 33 file
+**v1.1.8** · bản vá cuối trước **1.2.0** · *màn hình bắt đầu hết tràn bố cục* · *chú lọ và chữ CHÉO nguyên vẹn* · 286 test / 35 file
 
 </div>
 
@@ -39,68 +39,103 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Mới trong v1.1.7
+## 🆕 Mới trong v1.1.8
 
-> Bản **vá cuối** trước 1.2.0. Không thêm chế độ chơi — chỉ sửa đúng những gì còn khó chịu.
+> Bản **vá cuối cùng** trước 1.2.0. Không thêm chế độ chơi — sửa lỗi bố cục màn hình bắt đầu, tách thêm ba thư mục, đồng bộ toàn bộ tài liệu.
 
-### 🌫️ Nền menu đã hết mờ — sửa tận gốc
+### 📐 Màn hình bắt đầu hết tràn bố cục
 
-Người chơi nói đúng: *"nền sau menu vẫn mờ"*. Nguyên nhân không phải một lớp, mà **bốn lớp phủ cộng hưởng**:
+Trong ảnh chụp, **bốn vết lỗi cùng xuất hiện một lúc**: chữ `CHÉO` bị cắt ngang, chú lọ mascot mất nửa thân, panel GAME bị cắt đáy, dòng bản quyền dưới ticker bị cắt. Cả bốn có **một nguyên nhân duy nhất** — một phép cộng không ai sở hữu.
 
-| Lớp | Trước | Sau | Vì sao |
+```
+Cột flex cũ ở 1280×720:
+  scene      flex-1     →  nhận 250px   (cần ~700px)
+  panel row  shrink-0   →      415px
+  ticker     shrink-0   →       55px
+                          ─────────────
+                          720 − 415 − 55 = 250
+```
+
+`shrink-0` khiến hai phần sau không thể co, nên scene chỉ còn **250px** — chữ CHÉO và lọ cao hơn thế nên bị `overflow-y-auto` cắt ở `y≈247px`. Đường cắt đo được trong ảnh là **247.3px**; phép tính cho **250.0px**. Khớp tới 2.7px.
+
+<img src="assets/layout-fix.svg" alt="So sánh bố cục v1.1.7 và v1.1.8 — scene 250px bị cắt so với scene 720px với chrome nổi (hoạt họa SMIL)" width="100%" />
+
+**Cách sửa** — đưa chrome ra khỏi luồng, có người sở hữu tổng:
+
+| Thay đổi | Hệ quả |
+| --- | --- |
+| `MenuChrome` là `position: absolute` | không thể co scene — scene luôn đủ 720px |
+| Scene `padding-bottom: plan.reserve` | nội dung không chui xuống dưới panel, nhưng scene *được phép* cao hết mức |
+| `.menu-ticker` cao cố định 48px + `overflow: hidden` | dòng bản quyền nằm cùng hàng marquee thay vì xuống hàng thứ hai |
+
+Kết quả ở đúng kích thước trong ảnh: scene **250px → 382px**. Chú lọ và chữ CHÉO nguyên vẹn — **không đụng vào file SVG nào**, vì `svg` vẫn vẽ đủ `viewBox 0 0 120 140`; chỉ là phần dưới nằm ngoài vùng nhìn thấy.
+
+### 🔍 Bốn lỗi phụ tìm thấy trong lúc đo
+
+| # | Lỗi | Nguyên nhân | Cách sửa |
 | --- | --- | --- | --- |
-| Tinh vân `.nebula-*` | `blur(64px)`, đỉnh `1.0` | **`blur(22px)`, đỉnh `0.80`** | 64px là quá nửa bán kính khối 46vw — mép biến mất, cả khối thành sương |
-| Vignette menu | nội tuyến, phủ **toàn màn hình**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`** chỉ tối ở góc, `0.30 → 0.62` | đổi từ "tối đều cả khung" sang "tối ở góc, sáng ở giữa" |
-| Khung CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px ăn gần hết bốn góc ở cửa sổ nhỏ |
-| Sàn gạch | `opacity-45` | **`opacity-70`** | ở 45% sàn chỉ còn là nhiễu xám, không còn là chi tiết nhận diện |
+| 1 | **Scrollbar teal** đè lên tinh vân ở mép phải | scene để lộ track 8px và nội dung tràn | ẩn scrollbar, giữ chỗ bằng `padding-bottom` |
+| 2 | **Hai panel đè nhau** trên điện thoại | `208 + 224px` không vừa màn `375px` | dưới 520px xếp dọc |
+| 3 | **`CHÉO` cao quá khung** ở cửa sổ thấp mà rộng | cỡ chữ chỉ co theo `17vw`, không xét chiều cao | `clamp(3.4rem, min(17vw, 20vh), 10.5rem)` |
+| 4 | **Panel cao theo ngôn ngữ** | dòng cao bằng số hàng hint; tiếng Việt/Đức 3 hàng | `--menu-row-h` cố định + clamp hint 2 dòng |
 
-Hai rule `.menu-vignette` / `.app-vignette` nay là **CSS có tên** thay vì utility viết thẳng trong JSX — chỉnh một chỗ, và `prefers-reduced-motion` áp dụng được.
-
-### 🏷️ Changelog chia tầng — mỗi tầng một màu
+### 🏷️ Changelog vẫn chia tầng — mỗi tầng một màu
 
 | Tầng | Nhãn | Màu | Nghĩa | Ví dụ |
 | --- | --- | --- | --- | --- |
 | `major` | **MAJOR** | 🩷 hồng `#ff5fb0` | bản lớn — thêm hệ thống | 1.0.0 |
 | `minor` | **UPDATE** | 🟡 vàng `#f5a81c` | nâng cấp — thêm nội dung | 1.1.0 |
-| `patch` | **PATCH** | 🟣 tím `#9d6bff` | vá lỗi, dọn dẹp | 1.1.1 → 1.1.7 |
+| `patch` | **PATCH** | 🟣 tím `#9d6bff` | vá lỗi, dọn dẹp | 1.1.1 → 1.1.8 |
 
-Tầng **suy ra từ SemVer** bằng `tierFor(version)`, không gõ tay — nên nhãn không thể lệch khỏi số phiên bản in cạnh nó. Panel có thêm **bộ lọc** TẤT CẢ · MAJOR · UPDATE · PATCH kèm số bản mỗi tầng.
+Tầng **suy ra từ SemVer** bằng `tierFor(version)`, không gõ tay. Panel có bộ lọc TẤT CẢ · MAJOR · UPDATE · PATCH kèm số bản mỗi tầng.
 
-<img src="assets/release-tiers.svg" alt="Ba tầng MAJOR/UPDATE/PATCH với màu tương ứng và thời gian biểu 9 bản (hoạt họa SMIL)" width="100%" />
+<img src="assets/release-tiers.svg" alt="Ba tầng MAJOR/UPDATE/PATCH với màu tương ứng và thời gian biểu 10 bản (hoạt họa SMIL)" width="100%" />
 
-### 📖 Mô tả 8 bản cũ: từ một dòng thành một trang
-
-Sáu trong chín bản trước đây có **mảng gạch đầu dòng rỗng** — panel chỉ hiện được một dòng tóm tắt. v1.1.7 viết lại toàn bộ:
-
-- **96 gạch tiếng Việt + 96 gạch tiếng Anh** được viết mới hoặc mở rộng
-- Nội dung lấy từ `docs/releases/v1.1.x.md` **và** từ chính mã nguồn (9 chế độ, 16 thành tựu)
-- **Ngày phát hành xếp lại**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — nhịp 2 ngày, không bản nào trùng ngày
-
-### 🗂️ Dự án tách thành nhiều thư mục hơn
+### 🗂️ Ba thư mục mới — 22 file
 
 ```
-src/game/changelog/        ← thay cho một file 300 dòng
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               1 file / 1 bản — v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 helper
+src/components/menu/layout/     src/components/menu/ticker/     src/game/achievements/
+├── metrics.ts                  ├── keys.ts                    ├── types.ts
+├── fit.ts                      ├── MenuTicker.tsx             ├── defs/  ← 16 file
+├── index.ts                    └── index.ts                   └── index.ts
+└── README.md
 ```
 
-Thêm 1.2.0 sau này chỉ là **một file mới** + một dòng import.
+Mỗi thành tựu nay có **file riêng** ghi rõ điều kiện mở khoá và lý do tồn tại — câu hỏi mà bảng 16 dòng cũ không trả lời được:
+
+```ts
+/**
+ * hardcore-jar — HARDCORE JAR
+ *
+ * Unlocks when: `run.mode === "hardcore" && run.jars >= 1`
+ *
+ * Why this one exists: mode-specific: one jar with a single crack
+ */
+```
+
+### 🧪 30 test mới khoá lại
+
+| File | Test | Khoá điều gì |
+| --- | --- | --- |
+| `tests/menu-layout.test.ts` | **22** | phép cộng từng tràn; CSS ↔ TypeScript khớp từng hằng số; hàng nổi không còn `shrink-0` |
+| `tests/achievements-split.test.ts` | **8** | tách 16 file không đổi thứ tự id, mọi id còn được `grant` |
+| `scripts/probe-menu-layout.tsx` | **11** | cùng các tính chất đó, kiểm trên **DOM thật** do `react-dom/server` sinh ra |
+| `tests/changelog-*` (mở rộng) | 3 | bản 1.1.8 nằm đầu danh sách, 12 gạch vi/en |
 
 ### 🐛 Sửa lỗi
 
 | # | Lỗi | Cách sửa |
 | --- | --- | --- |
-| 1 | Nền menu mờ / đục | bốn thay đổi ở bảng trên |
-| 2 | Sàn gạch không nhìn thấy | `opacity-45` → `opacity-70` |
-| 3 | Nhãn changelog sai bản chất (`kind` gõ tay) | `tierFor(version)` suy từ SemVer |
-| 4 | Changelog "mỏng" (6 bản có `items: []`) | viết lại 96 gạch |
-| 5 | Ngày phát hành trùng & phi logic | chuỗi 9 ngày liền mạch |
-| 6 | Tài liệu/SVG/launcher lệch phiên bản | quét toàn bộ → 1.1.7 |
-| 7 | Comment `check-readme-sync` ghi cứng 1.1.6 | đọc từ `package.json` |
+| 1 | Chữ `CHÉO` bị cắt ngang | chrome ra khỏi luồng + scene giữ chỗ bằng padding |
+| 2 | Chú lọ mất nửa thân | cùng nguyên nhân — **không** phải SVG |
+| 3 | Panel GAME cắt đáy | cột flex 732px trong hộp 720px |
+| 4 | Dòng bản quyền bị cắt | ticker cao cố định 48px, một hàng |
+| 5 | Scrollbar teal đè nền | `scrollbar-width: none` |
+| 6 | Panel đè nhau trên mobile | dưới 520px xếp dọc |
+| 7 | `CHÉO` cao quá khung | chặn thêm theo `20vh` |
+| 8 | Panel cao theo ngôn ngữ | `--menu-row-h` cố định + clamp hint |
 
-→ Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · Bản trước: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+→ Chi tiết đầy đủ: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Bản trước: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 <img src="assets/settings-sections.svg" alt="Cài đặt 6 mục (từ v1.1.6) — công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
 
@@ -120,7 +155,7 @@ Thêm 1.2.0 sau này chỉ là **một file mới** + một dòng import.
 | 💾 **Bảng vàng TOP 8** | Điểm lưu cục bộ, validate & chuẩn hoá khi đọc, tên tự viết hoa, highlight dòng vừa lập kỷ lục |
 | 🎨 **Đồ hoạ 60fps** | Canvas 2D, particle budget 460, DPR cap 2, nền gạch bông pre-render offscreen, star twinkle + aurora menu |
 | 📴 **Offline-first thật sự** | Fonts tự host (subset latin + vietnamese, woff2), không CDN, không API — mở `dist/index.html` là chơi |
-| 🧪 **Chất lượng** | 256 unit tests (vitest) cho modes / achievements / storage / i18n / settings — `npm run check` là cổng CI |
+| 🧪 **Chất lượng** | **286 unit tests** (vitest, 35 file) cho modes / achievements / storage / i18n / settings / **layout** — `npm run check` là cổng CI |
 
 <img src="assets/items.svg" alt="14 nguyên liệu Lọ Chéo — nhóm hứng, nhóm power, nhóm né" width="100%" />
 
@@ -183,8 +218,9 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 286 unit tests / 35 file (modes · achievements · storage · i18n · settings · layout)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
+npx vite-node scripts/probe-menu-layout.tsx   # 11 kiểm bố cục trên DOM thật
 ```
 
 ## 🗂️ Cấu trúc project
@@ -192,7 +228,7 @@ npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 lo-cheoio/
 ├─ index.html              # entry, meta SEO/OG (không CDN)
-├─ package.json            # lo-cheoio v1.1.7, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.8, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binary
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; include src + tests
@@ -205,11 +241,13 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 chế độ chơi (SMIL animation)
 │  ├─ languages.svg        # 7 ngôn ngữ trong game (SMIL animation)
 │  ├─ new-modes.svg        # 2 chế độ mới v1.1.4 (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
+│  ├─ corner-menu.svg      # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
 │  ├─ palette-ribbon.svg   # 7 dải màu chạy sáng (SMIL, v1.1.7)
 │  ├─ architecture.svg     # sơ đồ kiến trúc + luồng dữ liệu (SMIL, v1.1.7)
 │  ├─ release-tiers.svg    # 3 tầng + thời gian biểu 9 bản (SMIL, v1.1.7)
+│  ├─ layout-fix.svg       # v1.1.7 vs 1.1.8 layout, side by side (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # divider lóe sáng (SMIL animation)
 │  ├─ license.svg          # dấu AGPL-3.0 copyleft (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -234,7 +272,8 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     ├─ v1.1.7.md         # release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt (file này)
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -248,7 +287,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7" (nguồn duy nhất)
+│  ├─ version.ts           # APP_VERSION = "1.1.8" (nguồn duy nhất)
 │  ├─ index.css            # tailwind v4 theme + toàn bộ animation/gradient
 │  ├─ assets/fonts/        # woff2 subset (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, offline 100%
@@ -275,13 +314,14 @@ lo-cheoio/
 │  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
 │  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
 │  │  ├─ modes.ts          # barrel — giữ nguyên mọi import cũ
-│  │  ├─ achievements.ts   # 16 huy hiệu + checker thuần (pure)
+│  │  ├─ achievements/      # 16 defs + types + checker (v1.1.8)
+│  │  │  └─ defs/           # one file per achievement
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
 │  │  ├─ changelog/          # in-game changelog (v1.1.7 — tách từ 1 file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
-│  │  │  ├─ entries/        #   1 file / 1 bản — v1_0_0.ts … v1_1_7.ts
+│  │  │  ├─ entries/        #   1 file / 1 bản — v1_0_0.ts … v1_1_8.ts
 │  │  │  └─ index.ts        #   danh sách có thứ tự + 5 helper
 │  │  ├─ runSave.ts         # suspended-run persistence
 │  │  ├─ settings.ts        # game settings schema + normalize
@@ -296,7 +336,7 @@ lo-cheoio/
 
 ## 🧱 Kiến trúc & hiệu năng
 
-<img src="assets/architecture.svg" alt="Sơ đồ kiến trúc Lọ Chéo v1.1.7 — input → engine → state → render, kèm audio/i18n/storage/changelog (hoạt họa SMIL)" width="100%" />
+<img src="assets/architecture.svg" alt="Sơ đồ kiến trúc Lọ Chéo v1.1.8 — input → engine → state → render, kèm audio/i18n/storage/changelog (hoạt họa SMIL)" width="100%" />
 
 - **Vòng lặp game** trên `requestAnimationFrame` với delta-time kẹp `1/20s`, nhân `timeScale` (slow-mo khi ĐÁ LẠNH) và **hit-stop** `freeze` vài chục ms trên mỗi catch để cảm giác "nện".
 - **Canvas HUD** vẽ trực tiếp mỗi frame; React chỉ render các màn hình theo `phase` — không re-render React trong hot loop; khi đổi ngôn ngữ, HUD tự đọc dictionary ở frame kế tiếp.
@@ -309,27 +349,52 @@ lo-cheoio/
 
 ## ✅ Kiểm chứng chất lượng
 
-Mỗi thay đổi phải qua **năm cổng** trước khi vào `main` — chạy hết bằng một lệnh:
+Mỗi thay đổi phải qua **sáu cổng** trước khi vào `main` — chạy hết bằng một lệnh:
 
 ```console
-$ npm run check        # typecheck + toàn bộ test
+$ npm run check        # typecheck + toàn bộ test + build
 $ npm run check:readme # 10 README đồng bộ phiên bản + liên kết release
 $ npm run check:i18n   # 7 locale × 302 khoá, không thiếu không thừa
 $ npm run check:assets # 14 SVG — không file mồ côi, không tham chiếu hỏng
 $ npm run smoke        # SSR smoke: mọi menu/modal render được
+$ npx vite-node scripts/probe-menu-layout.tsx   # 11 kiểm bố cục trên DOM thật
 ```
 
-| Cổng | Phạm vi | Trạng thái 1.1.7 |
+<img src="assets/test-matrix.svg" alt="Ma trận kiểm thử v1.1.8 — 8 cổng xanh, 286 test trên 35 file, phân bố theo nhóm (hoạt họa SMIL)" width="100%" />
+
+| Cổng | Phạm vi | Trạng thái 1.1.8 |
 | --- | --- | --- |
 | `typecheck` | `src/` + `tests/` (TypeScript strict) | ✅ |
-| `vitest run` | **256 test / 33 file** | ✅ |
+| `vitest run` | **286 test / 35 file** | ✅ |
 | `smoke-ssr` | menu, 6 mục cài đặt, changelog, 9 modal | ✅ |
 | `check-readme-sync` | 10 README × badge/link/SVG | ✅ |
 | `check-i18n` | 7 locale × 302 khoá | ✅ |
 | `check-assets` | 14 SVG, 2 chiều tham chiếu | ✅ |
-| `build` | `dist/index.html` ~831 KB · gzip ~388 KB | ✅ |
+| `probe-menu-layout` | 11 kiểm bố cục trên DOM thật | ✅ |
+| `build` | `dist/index.html` ~840 KB · gzip ~391 KB | ✅ |
 
-Điểm đáng chú ý của bộ test v1.1.7: **`tests/changelog-tiers.test.ts`** khoá ánh xạ `tierFor()` (kể cả đầu vào rác), bắt mỗi bản phải có **≥5 gạch mô tả**, kiểm tra không gạch nào trùng nhau, và bắt buộc **thứ tự ngày nghiêm ngặt** — chính test này đã phát hiện 1.1.5 và 1.1.6 đang trùng ngày.
+### Ba bộ test đáng chú ý
+
+| File | Test | Điều được khoá |
+| --- | --- | --- |
+| `changelog-tiers.test.ts` | 13 | `tierFor()` kể cả đầu vào rác · mỗi bản ≥5 gạch mô tả · không gạch trùng · **thứ tự ngày nghiêm ngặt** — chính test này đã phát hiện 1.1.5 và 1.1.6 trùng ngày |
+| `menu-layout.test.ts` | **22** | phép cộng `panel + gap + ticker < 720 − 320` (một dòng này đã đủ bắt lỗi 1.1.7) · CSS ↔ TypeScript khớp từng hằng số · hàng nổi không còn `shrink-0` |
+| `achievements-split.test.ts` | **8** | tách 16 file không đổi thứ tự id · mọi id còn được `grant` trong checker |
+
+### Vì sao có `probe-menu-layout`?
+
+Test thường đọc **mã nguồn**; probe render **markup thật** bằng `react-dom/server` rồi kiểm cùng các tính chất đó trên DOM đã sinh ra. Nó in cả bảng bố cục cho năm kích thước màn hình, nên một hồi quy hiện ra ngay trong log CI thay vì phải mở trình duyệt đo lại:
+
+```console
+$ npx vite-node scripts/probe-menu-layout.tsx
+layout plans:
+  1280×720    reserve 338   scene 382   side-by-side/compact
+  1920×1080   reserve 458   scene 622   side-by-side/rich
+  1366×768    reserve 338   scene 430   side-by-side/compact
+  375×667     reserve 338   scene 329   stacked/compact
+  768×1024    reserve 458   scene 566   side-by-side/rich
+markup 23266 chars — MENU LAYOUT OK
+```
 
 ## ❓ FAQ
 
@@ -360,6 +425,7 @@ Mỗi bản có một tầng: <kbd>MAJOR</kbd> 🩷 hồng · <kbd>UPDATE</kbd> 
 
 | Bản | Tầng | Ngày | Ghi chú |
 | --- | --- | --- | --- |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-14 | **Màn hình bắt đầu hết tràn bố cục** (chrome ra khỏi luồng flex: scene `250px → 382px`; chữ CHÉO và chú lọ nguyên vẹn) · **ticker cao cố định 48px** · **ẩn scrollbar vẽ đè nền** · **mobile xếp dọc panel** · **`menu/layout/` + `menu/ticker/` + `achievements/` 16 file** · **30 test mới** · đồng bộ 1.1.8 toàn bộ · **286 tests** |
 | [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Nền menu hết mờ** (4 lớp phủ cộng hưởng: `blur 64→22px`, vignette góc thay vignette toàn màn hình, khung CRT 140→90px, sàn 45→70%) · **changelog chia tầng có màu** · **96 gạch mô tả mới** cho 8 bản cũ · ngày phát hành xếp lại · `src/game/changelog/` tách thư mục · README 10 ngôn ngữ làm lại · **256 tests** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Cài đặt 6 mục** (nhanh · âm thanh · giao diện · ngôn ngữ · sao lưu · dữ liệu) · âm lượng 0–100 · mức rung · chất lượng hình · tự pause khi đổi tab · ngôn ngữ dời vào Cài đặt · 4 preset · xuất/nhập JSON · nền menu nhiều lớp · gradient chạy vòng ở mục tác giả · trap focus modal · fix nhạc reload · **256 tests** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **113 tests** |
@@ -371,6 +437,8 @@ Mỗi bản có một tầng: <kbd>MAJOR</kbd> 🩷 hồng · <kbd>UPDATE</kbd> 
 | [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, LẮC HŨ, combo ×9 |
 
 Xem thêm [CHANGELOG.md](CHANGELOG.md) — hoặc mở panel **CHANGELOG** ngay trong game, nơi có bộ lọc theo tầng.
+
+> **Chuỗi ngày phát hành**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 · **11-14** — nhịp hai ngày, không bản nào trùng ngày, và `tests/changelog-tiers.test.ts` khoá tính đơn điệu tăng.
 
 ## 🗺️ Lộ trình (nháp — có thể thay đổi theo phản hồi)
 
