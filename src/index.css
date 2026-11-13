@@ -709,3 +709,7 @@
 .menu-wordmark-bottom { display: block; font-size: clamp(4.3rem, 13vw, 10.5rem); }
 .menu-mascot { position: relative; display: flex; align-items: center; justify-content: center; width: clamp(9rem, 19vw, 17rem); aspect-ratio: 1; margin-top: .3rem; }
 .menu-orbits { position: absolute; inset: 0; }
+
+/* The in-game setting also applies to menu and modal animations. */
+[data-reduced-motion="true"] :is(.aurora-bg, .text-shimmer, .anim-spin-slow, .anim-breathe, .anim-bob, .anim-flicker, .anim-marquee, .anim-pop, .anim-slide, .anim-cta, .anim-badge-pop, .anim-corner-left, .anim-corner-right, .tile-floor, .scanlines, .nebula-a, .nebula-b, .star-field, .star-field-far, .light-ray, .glow-ring, .jar-glow, .about-card, .about-chip),
+[data-reduced-motion="true"] :is(.sheen, .cta-shine)::after { animation: none !important; transition: none !important; }

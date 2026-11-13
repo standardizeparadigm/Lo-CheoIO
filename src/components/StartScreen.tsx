@@ -63,7 +63,7 @@ export default function StartScreen({
   const closeModal = () => setModal("none");
 
   return (
-    <div className="absolute inset-0 z-40 overflow-y-auto overscroll-contain">
+    <div className="absolute inset-0 z-40 overflow-y-auto overscroll-contain" data-reduced-motion={settings.reducedMotion ? "true" : undefined}>
       <MenuBackground />
       <div className="relative flex min-h-full flex-col">
         <main className="flex min-h-[260px] flex-1 items-center justify-center px-4 py-6">

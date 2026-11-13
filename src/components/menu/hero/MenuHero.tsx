@@ -3,7 +3,7 @@ import { JarLogo } from "../../ui";
 /** The menu's decorative centerpiece. Controls live in the GAME panel. */
 export default function MenuHero() {
   return (
-    <div className="menu-hero anim-pop" aria-label="LỌ CHÉO">
+    <div className="menu-hero anim-pop">
       <h1 className="menu-wordmark font-display select-none" aria-label="LỌ CHÉO">
         <span className="menu-wordmark-top">LỌ</span>
         <span className="menu-wordmark-bottom text-shimmer">CHÉO</span>
