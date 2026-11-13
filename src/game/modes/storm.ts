@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * MƯA DƯA — badge "×0.75 · STORM".
+ *
+ * "Dưa rơi như trút nước · lụt dưa cả bếp"
+ *
+ * score ×0.75 · speed ×0.88 · hazard ×1.5 · spawn ×0.72.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const storm: ModeConfig = {
   id: "storm",
   name: "MƯA DƯA",
