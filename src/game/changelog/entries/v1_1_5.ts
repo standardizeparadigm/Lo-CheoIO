@@ -1,8 +1,13 @@
 import type { ChangelogEntry } from "../types";
 
 /**
- * v1.1.5 — see docs/releases/v1.1.5.md for the long-form release notes.
- * One release per file keeps the history easy to diff and to translate.
+ * v1.1.5 — released 2026-11-08 — tier: PATCH
+ *
+ * Menu góc GAME/INFO, chế độ chọn riêng, lưu & chơi tiếp ván dở, cài đặt ngay trong game
+ *
+ * 11 bullets (vi) / 11 (en). Keep the two lists the same length:
+ * tests/changelog-tiers.test.ts asserts it, and the panel would show an
+ * uneven list otherwise.
  */
 export const V1_1_5: ChangelogEntry = {
   version: "1.1.5",
