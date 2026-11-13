@@ -32,7 +32,7 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 ### Changed
 - **`APP_VERSION` → 1.1.5**; `package.json`/lock, `src/version.ts`, launcher ×3 (bat/sh/command), banner V1.1.5
 - **StartScreen layout**: hero gọn (bỏ scoreboard/achievements/mode selector inline), Mascot + current-mode card ở giữa, 2 panel góc cố định, ticker giữ nguyên
-- README 10 ngôn ngữ: badge 1.1.5, mục "Mới trong v1.1.5", releases table, cây thư mục (menu/ · changelog.ts · runSave.ts · settings.ts · smoke-ssr), 72 tests
+- README 10 ngôn ngữ: badge 1.1.5, mục "Mới trong v1.1.5", releases table, cây thư mục (menu/ · changelog.ts · runSave.ts · settings.ts · smoke-ssr), 76 tests
 - Build ~766 KB (gzip ~368 KB) — tăng do modal layer
 
 ## [1.1.4] — 2026-11-12
