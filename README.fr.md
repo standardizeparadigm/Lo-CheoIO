@@ -40,7 +40,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 - ⚙️ **Réglages en jeu** — **SFX** · **Musique** · **Tremblement d'écran** · **Réduire les animations** — appliqués instantanément, sans rechargement ; zone de danger à deux étapes pour **effacer les données**.
 - 🐛 **Les raccourcis ne fuient plus à travers les modales** — Enter/R/P/M/Space ne déclenchent plus le jeu derrière une modale ; **stale closure sur Reprendre** ; **`prefers-reduced-motion` désactive désormais toutes les animations**.
 - 📖 **Les READMEs encore plus jolis** — bannière V1.1.5, nouvelle animation SMIL des panneaux d'angle, plus de détail dans les 10 langues.
-- 🧪 **76 tests unitaires** (contre 61) — `npm run check` au vert ; nouveau **CI GitHub Actions** (npm ci → npm run check).
+- 🧪 **99 tests unitaires** (contre 61) — `npm run check` au vert ; nouveau **CI GitHub Actions** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="Panneaux GAME (bas-gauche) et INFO (bas-droite) glissant en place (animation SMIL)" width="100%" />
 
@@ -60,7 +60,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 | 💾 **TOP 8** | Sauvegarde locale, validée et normalisée à la lecture, noms en majuscules automatiques, surbrillance pour le record tout frais |
 | 🎨 **60fps** | Canvas 2D, budget de 460 particules, DPR plafonné à 2, sol à carreaux pré-rendu offscreen, scintillement d'étoiles + aurore dans le menu |
 | 📴 **Vraiment offline-first** | Polices auto-hébergées (sous-ensembles latin + vietnamien, woff2), aucun CDN ni API — ouvrez `dist/index.html` et jouez |
-| 🧪 **Qualité** | 76 tests unitaires (vitest) pour modes / achievements / storage / i18n — `npm run check` est la porte CI |
+| 🧪 **Qualité** | 99 tests unitaires (vitest) pour modes / achievements / storage / i18n — `npm run check` est la porte CI |
 
 <img src="assets/items.svg" alt="Les 14 ingrédients — les pickles à attraper, les pouvoirs dorés à saisir, les dangers à éviter" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (un seul fichier auto-suffisant)
 npm run dev        # serveur de dev avec HMR (http://localhost:5173)
 npm run preview    # sert le build de production en local
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 76 tests unitaires (modes / achievements / storage / i18n)
+npm run test       # vitest — 99 tests unitaires (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (porte qualité CI)
 ```
 
@@ -246,7 +246,7 @@ Double-clique sur [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 | Version | Date | Notes |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menus d'angle GAME/INFO** (Jouer · Reprendre · Modes · Classement · Succès · Réglages / À propos · Changelog · Quitter) · **sauvegarde & reprise de partie** (`locheo.run.v1`) · réglages en jeu (SFX/musique/tremblement/animations) · fix raccourcis à travers les modales · prefers-reduced-motion partout · **76 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menus d'angle GAME/INFO** (Jouer · Reprendre · Modes · Classement · Succès · Réglages / À propos · Changelog · Quitter) · **sauvegarde & reprise de partie** (`locheo.run.v1`) · réglages en jeu (SFX/musique/tremblement/animations) · fix raccourcis à travers les modales · prefers-reduced-motion partout · **99 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modes** (Festival des Combos · Grand Festin) · **16 succès** · **7 langues** (ES/FR ajoutées) · fix play-windows.bat (CRLF+BOM) · lanceurs en 7 langues · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modes (Averse de pickles · Céramique fine) · 14 succès · 5 langues · favicon · lanceurs multilingues · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modes (60 Secondes · Ruée vers l'or) · 12 succès · combo en feu · lanceurs à double-clic · README en 10 langues · 49 tests |
@@ -272,7 +272,7 @@ Notes de conception et documentation technique approfondie :
 ## 🤝 Contribuer
 
 1. Fork le repo, branche avec la convention `arena/<nom>` ou `feat/<nom>`.
-2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 76 tests + build).
+2. `npm run check` doit être au vert avant d'ouvrir une PR (typecheck + 99 tests + build).
 3. Évite les nouvelles dépendances runtime sauf nécessité réelle — philosophie : **un seul fichier, hors réseau, jouable pour toujours**.
 4. Dans la PR, indique les écrans/modes touchés et joins un clip si le gameplay change.
 

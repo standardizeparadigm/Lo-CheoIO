@@ -40,7 +40,7 @@ Isto é um **arcade de ação de tela única** inspirado nas singelas conservas 
 - ⚙️ **Ajustes no jogo** — **SFX** · **Música** · **Tremor de tela** · **Reduzir movimento** — aplicados na hora, sem recarregar; zona de perigo em duas etapas para **apagar dados salvos**.
 - 🐛 **Atalhos vazavam através dos modais** — Enter/R/P/M/Space não disparam mais o jogo atrás de um modal; **stale closure no Continuar**; **`prefers-reduced-motion` agora desativa todas as animações**.
 - 📖 **READMEs ainda mais bonitos** — banner V1.1.5, nova animação SMIL dos painéis de canto, mais detalhes nos 10 idiomas.
-- 🧪 **76 testes unitários** (eram 61) — `npm run check` verde; novo **CI com GitHub Actions** (npm ci → npm run check).
+- 🧪 **99 testes unitários** (eram 61) — `npm run check` verde; novo **CI com GitHub Actions** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="Painéis GAME (canto inferior esquerdo) e INFO (canto inferior direito) deslizando (animação SMIL)" width="100%" />
 
@@ -60,7 +60,7 @@ Isto é um **arcade de ação de tela única** inspirado nas singelas conservas 
 | 💾 **Ranking TOP 8** | Salvo localmente, validado e normalizado na leitura, nomes em maiúsculas, destaque para recorde recém-batido |
 | 🎨 **Gráficos 60fps** | Canvas 2D, orçamento de 460 partículas, DPR limitado a 2, chão de ladrilho pré-renderizado offscreen, estrelas cintilantes + aurora no menu |
 | 📴 **Offline-first de verdade** | Fontes auto-hospedadas (subsets latin + vietnamita, woff2), sem CDN, sem API — duplo clique em `dist/index.html` e jogue |
-| 🧪 **Portões de qualidade** | 76 testes unitários (vitest) para modes / achievements / storage / i18n — `npm run check` é o portão de CI |
+| 🧪 **Portões de qualidade** | 99 testes unitários (vitest) para modes / achievements / storage / i18n — `npm run check` é o portão de CI |
 
 <img src="assets/items.svg" alt="Os 14 ingredientes — conservas para pegar, poderes dourados para agarrar, perigos para desviar" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (um arquivo autocontido)
 npm run dev        # dev server com HMR (http://localhost:5173)
 npm run preview    # serve o build de produção localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 76 testes unitários (modes / achievements / storage / i18n)
+npm run test       # vitest — 99 testes unitários (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (portão de qualidade CI)
 ```
 
@@ -246,7 +246,7 @@ Duplo clique em [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 | Versão | Data | Notas |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menus de canto GAME/INFO** (Jogar · Continuar · Modos · Classificação · Conquistas · Ajustes / Sobre o autor · Changelog · Sair) · **salvar & retomar partida** (`locheo.run.v1`) · ajustes no jogo (SFX/música/tremor/movimento) · fix vazamento de atalhos nos modais · prefers-reduced-motion global · **76 testes** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menus de canto GAME/INFO** (Jogar · Continuar · Modos · Classificação · Conquistas · Ajustes / Sobre o autor · Changelog · Sair) · **salvar & retomar partida** (`locheo.run.v1`) · ajustes no jogo (SFX/música/tremor/movimento) · fix vazamento de atalhos nos modais · prefers-reduced-motion global · **99 testes** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modos** (Festival de Combos · Grande Festim) · **16 conquistas** · **7 idiomas** (ES/FR adicionados) · correção play-windows.bat (CRLF+BOM) · launchers em 7 idiomas · 61 testes |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modos (Chuva de Conservas · Cerâmica Fina) · 14 conquistas · 5 idiomas · favicon · launchers multilíngues · 55 testes |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modos (60 Seconds Rush · Gold Rush) · 12 conquistas · combo em chamas · lançadores de duplo clique · README em 10 idiomas · 49 testes |
@@ -272,7 +272,7 @@ Notas de design e documentação técnica mais profunda:
 ## 🤝 Contribuindo
 
 1. Faça fork do repo, crie a branch no padrão `arena/<nome>` ou `feat/<nome>`.
-2. `npm run check` deve estar verde antes de abrir PR (typecheck + 76 testes + build).
+2. `npm run check` deve estar verde antes de abrir PR (typecheck + 99 testes + build).
 3. Evite novas dependências de runtime salvo se realmente necessário — filosofia: **um arquivo, sem rede, jogável para sempre**.
 4. No PR, indique as telas/modos afetados e anexe um clipe se o gameplay mudar.
 

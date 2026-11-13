@@ -40,7 +40,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 - ⚙️ **In-game-Einstellungen** — **SFX** · **Musik** · **Bildschirm-Shake** · **Reduzierte Bewegung** — sofort aktiv, ohne Neuladen; plus eine doppelte-Bestätigung-**Gefahrenzone „Gespeicherte Daten löschen“**.
 - 🐛 **Shortcuts leckten durch Modals** — Enter/R/P/M/Space lösen das Spiel hinter einem Modal nicht mehr aus; **Stale Closure bei „Fortsetzen“**; **`prefers-reduced-motion` deaktiviert jetzt alle Animationen**.
 - 📖 **READMEs noch schöner** — V1.1.5-Banner, neue Eck-Panel-SMIL-Animation, mehr Details in allen 10 Sprachen.
-- 🧪 **76 Unit-Tests** (vorher 61) — grünes `npm run check`; neue **GitHub-Actions-CI** (npm ci → npm run check).
+- 🧪 **99 Unit-Tests** (vorher 61) — grünes `npm run check`; neue **GitHub-Actions-CI** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="GAME- (unten links) und INFO-Panel (unten rechts) gleiten herein (SMIL-Animation)" width="100%" />
 
@@ -60,7 +60,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 | 💾 **TOP-8-Bestenliste** | Lokal gespeichert, beim Lesen validiert & normalisiert, Namen automatisch großgeschrieben, Highlight für frisch gesetzte Rekorde |
 | 🎨 **60fps-Grafik** | Canvas 2D, 460-Partikel-Budget, DPR-Cap 2, vorgerenderter Offscreen-Boden, funkelnde Sterne + Aurora im Menü |
 | 📴 **Echt offline-first** | Selbst gehostete Fonts (latein + vietnamesisch, woff2), kein CDN, keine API — `dist/index.html` doppelklicken und spielen |
-| 🧪 **Qualitätstor** | 76 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
+| 🧪 **Qualitätstor** | 99 Unit-Tests (vitest) für modes / achievements / storage / i18n — `npm run check` ist das CI-Tor |
 
 <img src="assets/items.svg" alt="Die 14 Zutaten — Pickles zum Fangen, goldene Power-ups zum Greifen, Gefahren zum Ausweichen" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (eine in sich geschlossene Datei)
 npm run dev        # Dev-Server mit HMR (http://localhost:5173)
 npm run preview    # Produktions-Build lokal ausliefern
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 76 Unit-Tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 99 Unit-Tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 
@@ -246,7 +246,7 @@ Doppelklick auf [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), 
 
 | Version | Datum | Notizen |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Eck-Panels GAME/INFO** (Spielen · Fortsetzen · Modi · Rangliste · Erfolge · Einstellungen / Über den Autor · Changelog · Beenden) · **Speichern & Fortsetzen** (`locheo.run.v1`) · In-game-Einstellungen (SFX/Musik/Shake/Reduced Motion) · Modal-Shortcut-Leck gefixt · prefers-reduced-motion überall · **76 Tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Eck-Panels GAME/INFO** (Spielen · Fortsetzen · Modi · Rangliste · Erfolge · Einstellungen / Über den Autor · Changelog · Beenden) · **Speichern & Fortsetzen** (`locheo.run.v1`) · In-game-Einstellungen (SFX/Musik/Shake/Reduced Motion) · Modal-Shortcut-Leck gefixt · prefers-reduced-motion überall · **99 Tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 Modi** (Combo-Festival · Großes Gelage) · **16 Erfolge** · **7 Sprachen** (ES/FR neu) · play-windows.bat Fix (CRLF+BOM) · Launcher in 7 Sprachen · 61 Tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 Modi (Eingelegter Regen · Dünnes Keramik) · 14 Erfolge · 5 Sprachen · Favicon · mehrsprachige Launcher · 55 Tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 Modi (60-Sekunden-Rush · Goldrausch) · 12 Erfolge · Combo-Flammen · Doppelklick-Launcher · README in 10 Sprachen · 49 Tests |
@@ -272,7 +272,7 @@ Design-Notizen und tiefergehende technische Doku:
 ## 🤝 Mitwirken
 
 1. Forke das Repo, Branch nach dem Schema `arena/<name>` oder `feat/<name>`.
-2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 76 Tests + build).
+2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 99 Tests + build).
 3. Vermeide neue Laufzeit-Abhängigkeiten, sofern nicht unbedingt nötig — Philosophie: **eine Datei, kein Netz, ewig spielbar**.
 4. Nenne in deinem PR die betroffenen Screens/Modi und hänge bei Gameplay-Änderungen einen Clip an.
 

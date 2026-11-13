@@ -1,6 +1,6 @@
 # `tests/` — unit tests (vitest)
 
-76 tests / 8 files. Pure logic only — engine/canvas được phủ bởi `npm run check` (build) + `scripts/smoke-ssr.tsx` (SSR render smoke).
+99 tests / 13 files. Pure logic only — engine/canvas được phủ bởi `npm run check` (build) + `scripts/smoke-ssr.tsx` (SSR render smoke).
 
 | File | Phủ | Pattern |
 | --- | --- | --- |
@@ -12,6 +12,10 @@
 | `i18n.test.ts` | parity 7 locale × 260 keys + placeholders + number formats | import trực tiếp dict |
 | `i18n-v115.test.ts` | 53 key v1.1.5 tồn tại + placeholder khớp VI | import trực tiếp dict |
 | `changelog.test.ts` | CHANGELOG_ENTRIES descending semver, unique, ISO dates | pure |
+| `modes-balance.test.ts` | mode catalogue invariants (unique ids, positive mults, blitz timed-only, hardcore cracks-only, combo/feast math) | pure |
+| `achievements-defs.test.ts` | catalogue integrity — unique ids, 16 entries, glyph/tone rules, MAP 1:1 | pure |
+| `version-bump.test.ts` | version coherence — APP_VERSION = pkg = lock = changelog = README badges = release notes | fs |
+| `storage-seed.test.ts` | SEED board trả về bản sao sâu khi trống / sau clearAllProgress | `memStorage()` |
 
 ## Thêm test mới
 

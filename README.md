@@ -40,7 +40,7 @@
 - ⚙️ **Cài đặt trong game** — **SFX** · **Nhạc nền** · **Rung màn hình** · **Giảm chuyển động** — áp dụng tức thì, không cần reload; thêm mục **«Xóa dữ liệu đã lưu»** (2 bước xác nhận) cho máy công cộng.
 - 🐛 **Sửa phím tắt rò rỉ qua modal** — Enter/R/P/M/Space không còn kích hoạt game phía sau modal; **stale closure ở «Chơi tiếp»**; **`prefers-reduced-motion` giờ chặn mọi animation**.
 - 📖 **README 10 ngôn ngữ đẹp hơn nữa** — banner V1.1.5, animation 2 panel góc mới (SMIL), chi tiết & đầy đủ hơn.
-- 🧪 **76 unit tests** (tăng từ 61) — `npm run check` xanh; thêm **GitHub Actions CI** (npm ci → npm run check).
+- 🧪 **99 unit tests** (tăng từ 61) — `npm run check` xanh; thêm **GitHub Actions CI** (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="Panel GAME (góc dưới-trái) & INFO (góc dưới-phải) trượt vào (hoạt họa SMIL)" width="100%" />
 
@@ -60,7 +60,7 @@
 | 💾 **Bảng vàng TOP 8** | Điểm lưu cục bộ, validate & chuẩn hoá khi đọc, tên tự viết hoa, highlight dòng vừa lập kỷ lục |
 | 🎨 **Đồ hoạ 60fps** | Canvas 2D, particle budget 460, DPR cap 2, nền gạch bông pre-render offscreen, star twinkle + aurora menu |
 | 📴 **Offline-first thật sự** | Fonts tự host (subset latin + vietnamese, woff2), không CDN, không API — mở `dist/index.html` là chơi |
-| 🧪 **Chất lượng** | 76 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
+| 🧪 **Chất lượng** | 99 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
 
 <img src="assets/items.svg" alt="14 nguyên liệu Lọ Chéo — nhóm hứng, nhóm power, nhóm né" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 76 unit tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 99 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 
@@ -246,7 +246,7 @@ Nhấn đúp vào [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 | Phiên bản | Ngày | Ghi chú |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **76 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **99 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 chế độ** (thêm Lễ Hội Combo · Đại Tiệc Dưa) · **16 thành tựu** · **7 ngôn ngữ** (thêm ES/FR) · sửa play-windows.bat (CRLF+BOM) · trình chạy 7 ngôn ngữ · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 chế độ · 14 thành tựu · 5 ngôn ngữ · favicon · trình chạy đa ngôn ngữ · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 chế độ · 12 thành tựu · combo lửa · trình chạy double-click · README 10 ngôn ngữ · 49 tests |
@@ -283,7 +283,7 @@ Tài liệu thiết kế & hướng dẫn kỹ thuật sâu hơn:
 ## 🤝 Đóng góp
 
 1. Fork repo, tạo branch theo quy ước `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm run check` phải xanh trước khi mở PR (typecheck + 76 tests + build).
+2. `npm run check` phải xanh trước khi mở PR (typecheck + 99 tests + build).
 3. Không thêm dependency runtime nếu không thực sự cần — triết lý: **một file, không mạng, chơi được mãi mãi**.
 4. Mô tả PR ghi rõ chế độ/màn hình bị ảnh hưởng và kèm clip nếu thay đổi gameplay.
 

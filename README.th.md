@@ -40,7 +40,7 @@
 - ⚙️ **ตั้งค่าในเกม** —— **เสียงเอฟเฟกต์** · **เพลงพื้นหลัง** · **หน้าจอสั่น** · **ลดการเคลื่อนไหว** —— มีผลทันที ไม่ต้องรีโหลด; พร้อมโซนอันตรายสองขั้นตอนสำหรับ**ล้างข้อมูลที่บันทึก**
 - 🐛 **แก้คีย์ลัดรั่วทะลุโมดัล** —— Enter/R/P/M/Space ไม่ยิงเกมหลังโมดัลอีกต่อไป; **stale closure ของปุ่มเล่นต่อ**; **`prefers-reduced-motion` ตอนนี้ตัดแอนิเมชันทุกตัว**
 - 📖 **README 10 ภาษาสวยขึ้นอีก** —— แบนเนอร์ V1.1.5, แอนิเมชันพาเนลมุมใหม่ (SMIL), ละเอียดและครบถ้วนกว่าเดิม
-- 🧪 **unit tests 76 ชุด** (จาก 61) —— `npm run check` ผ่าน; **GitHub Actions CI** ใหม่ (npm ci → npm run check).
+- 🧪 **unit tests 99 ชุด** (จาก 61) —— `npm run check` ผ่าน; **GitHub Actions CI** ใหม่ (npm ci → npm run check).
 
 <img src="assets/corner-menu.svg" alt="พาเนล GAME ล่างซ้าย และ INFO ล่างขวา สไลด์เข้า (แอนิเมชัน SMIL)" width="100%" />
 
@@ -60,7 +60,7 @@
 | 💾 **ตาราง TOP 8** | เก็บลงเครื่อง ตรวจสอบ/ปรับค่าเมื่ออ่าน ชื่อตัวพิมพ์ใหญ่ ไฮไลต์สถิติใหม่ |
 | 🎨 **กราฟิก 60fps** | Canvas 2D งบอนุภาค ≤460 จำกัด DPR ≤ 2 พื้นกระเบื้องพรีเรนเดอร์ลง offscreen ดาวระยิบ + ออโรร่าในเมนู |
 | 📴 **ออฟไลน์จริง** | ฟอนต์โฮสเอง (subset latin + vietnamese woff2) ไม่มี CDN ไม่มี API — ดับเบิลคลิก `dist/index.html` แล้วเล่นได้เลย |
-| 🧪 **คุณภาพ** | 76 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n — `npm run check` คือประตู CI |
+| 🧪 **คุณภาพ** | 99 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n — `npm run check` คือประตู CI |
 
 <img src="assets/items.svg" alt="14 วัตถุดิบ — ผักดองให้รับ พลังทองให้คว้า อันตรายให้หลบ" width="100%" />
 
@@ -123,7 +123,7 @@ npm run build      # → dist/index.html (ไฟล์เดียวจบ)
 npm run dev        # dev server พร้อม HMR (http://localhost:5173)
 npm run preview    # เสิร์ฟ production build ในเครื่อง
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 76 เทสต์ (modes / achievements / storage / i18n)
+npm run test       # vitest — 99 เทสต์ (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (ประตูคุณภาพ CI)
 ```
 
@@ -246,7 +246,7 @@ lo-cheoio/
 
 | เวอร์ชัน | วันที่ | บันทึก |
 | --- | --- | --- |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **76 เทสต์** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **99 เทสต์** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 โหมด** (เทศกาลคอมโบ · งานเลี้ยงใหญ่) · **16 ความสำเร็จ** · **7 ภาษา** (เพิ่ม ES/FR) · แก้ play-windows.bat (CRLF+BOM) · ตัวเปิด 7 ภาษา · 61 เทสต์ |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 โหมด (พายุผักดอง · เซรามิกบาง) · 14 ความสำเร็จ · 5 ภาษา · favicon · ตัวเปิดหลายภาษา · 55 เทสต์ |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 โหมด (60-Second Rush · Gold Rush) · 12 ความสำเร็จ · คอมโบไฟ · ตัวเปิดดับเบิลคลิก · README 10 ภาษา · 49 เทสต์ |
@@ -272,7 +272,7 @@ lo-cheoio/
 ## 🤝 ร่วมพัฒนา
 
 1. Fork repo แล้วแตก branch ตามรูปแบบ `arena/<name>` หรือ `feat/<name>`
-2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 76 เทสต์ + build)
+2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 99 เทสต์ + build)
 3. เลี่ยงการเพิ่ม dependency ตอน runtime ถ้าไม่จำเป็นจริง ๆ — ปรัชญา: **ไฟล์เดียว ไม่มีเน็ต เล่นได้ตลอดกาล**
 4. ใน PR ระบุหน้าจอ/โหมดที่ได้รับผลกระทบ และแนบคลิปถ้ามีการเปลี่ยน gameplay
 
