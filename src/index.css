@@ -640,6 +640,14 @@
   }
 }
 
+/* In-game reduced motion (settings.reducedMotion) — mirrors the OS preference
+   for the canvas scene so the toggle has a visible effect beyond flash/shake. */
+[data-reduced-motion="true"] .anim-flicker,
+[data-reduced-motion="true"] .anim-bob,
+[data-reduced-motion="true"] .anim-breathe {
+  animation: none !important;
+}
+
 /* Keyboard focus ring — turmeric on jade, visible on every interactive surface */
 :focus-visible {
   outline: 3px solid #ffc94a;

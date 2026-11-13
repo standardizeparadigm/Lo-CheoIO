@@ -15,6 +15,8 @@ interface Props {
   onMuteKey: () => void;
   /** settings.autoPauseOnBlur — pause the run when the tab loses focus */
   autoPauseOnBlur?: boolean;
+  /** settings.reducedMotion — also flips a `data-reduced-motion` attribute for CSS */
+  reducedMotion?: boolean;
 }
 
 const R = 58;
@@ -31,6 +33,7 @@ export default function GameCanvas({
   onStartKey,
   onMuteKey,
   autoPauseOnBlur = true,
+  reducedMotion = false,
 }: Props) {
   const { t } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -192,7 +195,11 @@ export default function GameCanvas({
   };
 
   return (
-    <div ref={wrapRef} className="absolute inset-0 overflow-hidden">
+    <div
+      ref={wrapRef}
+      className="absolute inset-0 overflow-hidden"
+      data-reduced-motion={reducedMotion ? "true" : undefined}
+    >
       <canvas ref={canvasRef} className="block h-full w-full" />
 
       {/* floating joystick layer */}

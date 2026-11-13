@@ -288,6 +288,7 @@ export default function App() {
         onStartKey={onStartKey}
         onMuteKey={onMuteKey}
         autoPauseOnBlur={settings.autoPauseOnBlur}
+        reducedMotion={settings.reducedMotion}
       />
 
       {/* ambient overlays */}
