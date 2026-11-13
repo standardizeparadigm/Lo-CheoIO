@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
-[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](docs/releases/v1.1.8.md)
+[![Tests](https://img.shields.io/badge/tests-262%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](tests/README.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
@@ -37,68 +37,15 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.7 の新機能
+## 🆕 v1.1.8 の新機能
 
-> 1.2.0 前の**最後のパッチ**。新しいゲームモードはありません——まだ引っかかっていた点を根本から直しました。
+> 1.2.0 前の最終パッチでは、LỌ CHÉO の文字を中央に配置し、壺と光の輪をその下に置きました。キーボードとタッチの説明は **GAME → 遊び方** に移動。メニューとセーブデータは維持し、開発ツールの安全性も改善しました。
 
-### 🌫️ メニュー背景のかすみが消えました——根本から修正
+<img src="assets/menu-hero.svg" alt="Lọ Chéo 1.1.8 — GAME → How to play" width="100%" />
 
-プレイヤーの指摘は正しかった：*「メニューの後ろがまだぼやけている」*。原因は一層ではなく、**四つのレイヤーが重なって増幅していた**ことです：
+[📋 v1.1.8](docs/releases/v1.1.8.md) · [📜 CHANGELOG](CHANGELOG.md) · [🧭 Menu hero](docs/design/menu-hero.md)
 
-| レイヤー | 変更前 | 変更後 | 理由 |
-| --- | --- | --- | --- |
-| 星雲 `.nebula-*` | `blur(64px)`、ピーク `1.0` | **`blur(22px)`、ピーク `0.80`** | 64px は 46vw の光の半径の半分以上——輪郭が消え、塊全体が霧になる |
-| メニュー・ヴィネット | インライン、**全画面**、`0.42 → 0.88 → 1.0` | **`.menu-vignette`**、四隅だけ、`0.30 → 0.62` | 「画面全体を均一に暗く」から「隅は暗く、中央は明るく」へ |
-| CRT フレーム | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px は小さい窓で四隅をほぼ飲み込んでいた |
-| タイル床 | `opacity-45` | **`opacity-70`** | 45% では床は灰色のノイズで、識別できるディテールではなかった |
-
-`.menu-vignette` と `.app-vignette` は JSX に埋まったユーティリティではなく**名前付き CSS ルール**になりました——調整は一か所、しかも `prefers-reduced-motion` が届きます。
-
-### 🏷️ 変更履歴の階層——一階層に一色
-
-| 階層 | ラベル | 色 | 意味 | 例 |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 ピンク `#ff5fb0` | 大きな版——新しい仕組み | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 ゴールド `#f5a81c` | アップグレード——新内容 | 1.1.0 |
-| `patch` | **PATCH** | 🟣 ヴァイオレット `#9d6bff` | 修正と整理 | 1.1.1 → 1.1.7 |
-
-階層は `tierFor(version)` が **SemVer から導出**し、手書きしません——だからラベルが隣に印字されたバージョンと食い違うことはありません。パネルには**フィルター**（すべて · MAJOR · UPDATE · PATCH、階層ごとの件数付き）が加わりました。
-
-<img src="assets/release-tiers.svg" alt="三つの階層 MAJOR/UPDATE/PATCH と配色、九つのリリースの時間軸（SMIL アニメーション）" width="100%" />
-
-### 📖 八つの旧リリース：一行から一ページへ
-
-九つのうち六つは箇条書き配列が**空**で、パネルは一行の要約しか出せませんでした。v1.1.7 ですべて書き直しました：
-
-- **ベトナム語 96 項目 + 英語 96 項目**を新規作成または拡充
-- 内容は `docs/releases/v1.1.x.md` **と**ソースコードそのもの（9 モード、16 実績）から
-- **リリース日を再整列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——二日おき、同じ日のリリースはゼロ
-
-### 🗂️ プロジェクトがさらに多くのフォルダに
-
-```
-src/game/changelog/        ← 300 行の単一ファイルを置き換え
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               リリースごとに 1 ファイル —— v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 ヘルパー
-```
-
-今後 1.2.0 を足すのは**新しいファイル 1 つ**と import 一行だけです。
-
-### 🐛 修正
-
-| # | 不具合 | 修正 |
-| --- | --- | --- |
-| 1 | メニュー背景のかすみ・濁り | 上記四つの変更 |
-| 2 | タイル床が見えない | `opacity-45` → `opacity-70` |
-| 3 | 履歴ラベルが実態と違う（`kind` 手書き） | `tierFor(version)` が SemVer から導出 |
-| 4 | 履歴の説明が薄い（6 リリースが `items: []`） | 96 項目を書き直し |
-| 5 | リリース日の重複と不整合 | 九つの連続した日付、重複なし |
-| 6 | ドキュメント/SVG/ランチャーが版に遅れ | 全数走査 → 1.1.7 |
-| 7 | `check-readme-sync` のコメントが 1.1.6 固定 | `package.json` から読むよう変更 |
-
-→ 詳細：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 前回：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+<img src="assets/release-tiers.svg" alt="MAJOR · UPDATE · PATCH" width="100%" />
 
 <img src="assets/settings-sections.svg" alt="六つの設定セクション（v1.1.6 以降）——スイッチ、レベルバー、ピッカー（SMIL アニメーション）" width="100%" />
 
@@ -118,7 +65,7 @@ src/game/changelog/        ← 300 行の単一ファイルを置き換え
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする256件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする262件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -181,7 +128,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 256件のユニットテスト（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 262件のユニットテスト（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -190,7 +137,7 @@ npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 lo-cheoio/
 ├─ index.html              # エントリ、SEO/OGメタ（CDNなし）
-├─ package.json            # lo-cheoio v1.1.7、dev/build/test/check スクリプト
+├─ package.json            # lo-cheoio v1.1.8、dev/build/test/check スクリプト
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；src + tests を含む
@@ -227,7 +174,7 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -241,7 +188,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # Reactルート、StrictMode
 │  ├─ App.tsx              # フェーズマシン menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7"（唯一の真実の源）
+│  ├─ version.ts           # APP_VERSION = "1.1.8"（唯一の真実の源）
 │  ├─ index.css            # tailwind v4 テーマ + 全アニメーション/グラデーション
 │  ├─ assets/fonts/        # woff2サブセット（Be Vietnam Pro ×6、Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range、100%オフライン
@@ -253,6 +200,8 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # キャンバス + フローティングジョイスティック + キーボード
 │  │  ├─ StartScreen.tsx   # メニュー：ヒーロー + 多層アニメ + コーナーパネル
 │  │  ├─ menu/              # コーナー GAME/INFO パネル + モーダル + icons/
+│  │  │  ├─ hero/          # centered menu wordmark + mascot (v1.1.8)
+│  │  │  ├─ HowToPlayModal.tsx # GAME → instructions
 │  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9枚のモードカード（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # ロック/解除バッジウォール
@@ -283,11 +232,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # モーダルのフォーカス封じ込め（v1.1.6）
-└─ tests/                  # vitest — 33ファイル · 256テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 35ファイル · 262テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 アーキテクチャとパフォーマンス
-<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 のアーキテクチャ——入力 → エンジン → 状態 → 描画と各サービス（SMIL アニメーション）" width="100%" />
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.8 のアーキテクチャ——入力 → エンジン → 状態 → 描画と各サービス（SMIL アニメーション）" width="100%" />
 
 
 - **ゲームループ** `requestAnimationFrame`、デルタ時間を `1/20秒` にクランプ、`timeScale`（アイススローモー）を乗算し、キャッチ毎に数十msの **ヒットストップ** で「ズン」とした手応え。
@@ -326,15 +275,16 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | バージョン | Tier | 日付 | ノート |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · 日付再整列 · `src/game/changelog/` 分割 · README 10 本刷新 · **256 テスト** |
-| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
-| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
-| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
-| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 49テスト |
-| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3モード · 黄金ニンニクシールド · 青虫 · 黄金芥菜 · 10実績 · 自己ホストフォント |
-| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 初回リリース：完成したエンジン、11食材、壺叩き、コンボ×9 |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-13 | 1.2.0 前の最終パッチでは、LỌ CHÉO の文字を中央に配置し、壺と光の輪をその下に置きました。キーボードとタッチの説明は **GAME → 遊び方** に移動。メニューとセーブデータは維持し、開発ツールの安全性も改善しました。 |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-13 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · `src/game/changelog/` 分割 · README 10 本刷新 · **256 テスト** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-13 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-13 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-12 | **9モード**（コンボ大祭 · 漬物大宴会）· **16実績** · **7言語**（ES/FR追加）· play-windows.bat 修正（CRLF+BOM）· 7言語ランチャー · 61テスト |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-12 | 7モード（漬物ダウンポア · 薄陶器）· 14実績 · 5言語 · favicon · 多言語ランチャー · 55テスト |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-12 | 5モード（60秒ダッシュ · ゴールドラッシュ）· 12実績 · コンボ炎 · ダブルクリックランチャー · 10言語README · 49テスト |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-11-12 | ゲーム内i18n VI/EN/ZH · 7言語README · バグ全掃除 · 49テスト |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-11-12 | 3モード · 黄金ニンニクシールド · 青虫 · 黄金芥菜 · 10実績 · 自己ホストフォント |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-11-12 | 初回リリース：完成したエンジン、11食材、壺叩き、コンボ×9 |
 
 [CHANGELOG.md](CHANGELOG.md) も参照。
 
@@ -342,9 +292,9 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 
 | マイルストーン | 時期 | アイデア |
 | --- | --- | --- |
-| **v1.2.0** | 2026 Q1 | モード別のプロシージャルBGM · CIでのビジュアル回帰テスト（Playwright）· フォントサブセットを深くしてバンドル削減 |
-| **v1.3.0** | 2026 Q1–Q2 | 10番目のモード（候補：**ハエ嵐** — ハエしか落ちてこない、斬って生き残れ）· デイリーチャレンジ用シードモード |
-| **v1.4.0** | 2026 Q2 | **オプトイン**のオンラインリーダーボード（サーバーレス、暗号化）— オフラインファーストはデフォルトのまま |
+| **v1.2.0** | TBD | モード別のプロシージャルBGM · CIでのビジュアル回帰テスト（Playwright）· フォントサブセットを深くしてバンドル削減 |
+| **v1.3.0** | TBD | 10番目のモード（候補：**ハエ嵐** — ハエしか落ちてこない、斬って生き残れ）· デイリーチャレンジ用シードモード |
+| **v1.4.0** | TBD | **オプトイン**のオンラインリーダーボード（サーバーレス、暗号化）— オフラインファーストはデフォルトのまま |
 | Backlog | — | ベストランのゴーストリプレイ · フォトモード（HUD非表示でPNG出力）· タイ語（ไทย）ロケール検討中 |
 
 *ロードマップは約束ではありません — 優先順位は常に: 安定性 → 遊びやすさ → コンテンツ。*
@@ -367,7 +317,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 ## 🤝 コントリビュート
 
 1. リポジトリをForkし、`arena/<名前>` または `feat/<名前>` の命名規則でブランチを作成。
-2. PRを出す前に `npm run check` をグリーンに（typecheck + 256テスト + build）。
+2. PRを出す前に `npm run check` をグリーンに（typecheck + 262テスト + build）。
 3. 本当に必要な場合以外、ランタイム依存を追加しない — 理念：**1ファイル、ネットワーク不要、永遠に遊べる**。
 4. PRには影響する画面/モードを明記し、ゲームプレイ変更時はクリップを添付してください。
 

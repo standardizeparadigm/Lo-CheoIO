@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
-[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](docs/releases/v1.1.8.md)
+[![Tests](https://img.shields.io/badge/tests-262%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](tests/README.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
@@ -37,68 +37,15 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.7 새로운 점
+## 🆕 v1.1.8 새로운 점
 
-> 1.2.0 이전의 **마지막 패치**. 새 게임 모드는 없습니다——아직 불편했던 것들을 근본부터 고쳤습니다.
+> 1.2.0 이전 마지막 패치로 LỌ CHÉO 글자를 중앙에, 항아리와 빛의 고리를 그 아래에 배치했습니다. 키보드와 터치 안내는 **GAME → 플레이 방법**으로 이동했습니다. 메뉴와 저장 데이터는 유지하고 개발 도구의 보안도 개선했습니다.
 
-### 🌫️ 메뉴 배경의 뿌연 느낌 제거——원인부터 수정
+<img src="assets/menu-hero.svg" alt="Lọ Chéo 1.1.8 — GAME → How to play" width="100%" />
 
-플레이어 말이 맞았습니다: *「메뉴 뒤 배경이 아직 흐릿해요」*. 원인은 한 겹이 아니라 **네 겹이 겹쳐 증폭된 것**이었습니다:
+[📋 v1.1.8](docs/releases/v1.1.8.md) · [📜 CHANGELOG](CHANGELOG.md) · [🧭 Menu hero](docs/design/menu-hero.md)
 
-| 레이어 | 이전 | 이후 | 이유 |
-| --- | --- | --- | --- |
-| 성운 `.nebula-*` | `blur(64px)`, 최대 `1.0` | **`blur(22px)`, 최대 `0.80`** | 64px는 46vw 광원 반지름의 절반 이상——경계가 사라지고 덩어리 전체가 안개가 됨 |
-| 메뉴 비네트 | 인라인, **전체 화면**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`**, 모서리만, `0.30 → 0.62` | 「화면 전체를 고르게 어둡게」에서 「모서리는 어둡고 가운데는 밝게」로 |
-| CRT 프레임 | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px는 작은 창에서 네 모서리를 거의 삼켰음 |
-| 타일 바닥 | `opacity-45` | **`opacity-70`** | 45%에서는 바닥이 회색 잡음일 뿐, 알아볼 수 있는 디테일이 아니었음 |
-
-`.menu-vignette`와 `.app-vignette`는 이제 JSX에 박힌 유틸리티가 아니라 **이름 있는 CSS 규칙**입니다——한 곳만 조정하면 되고, `prefers-reduced-motion`도 적용됩니다.
-
-### 🏷️ 변경 이력 계층——계층마다 한 가지 색
-
-| 계층 | 라벨 | 색 | 의미 | 예 |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 핑크 `#ff5fb0` | 큰 버전——새 시스템 | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 골드 `#f5a81c` | 업그레이드——새 콘텐츠 | 1.1.0 |
-| `patch` | **PATCH** | 🟣 바이올렛 `#9d6bff` | 수정과 정리 | 1.1.1 → 1.1.7 |
-
-계층은 `tierFor(version)`이 **SemVer에서 도출**하며 손으로 적지 않습니다——그래서 라벨이 옆에 찍힌 버전과 어긋날 수 없습니다. 패널에는 **필터**(전체 · MAJOR · UPDATE · PATCH, 계층별 개수 포함)가 추가되었습니다.
-
-<img src="assets/release-tiers.svg" alt="세 계층 MAJOR/UPDATE/PATCH와 색상, 아홉 릴리스 타임라인 (SMIL 애니메이션)" width="100%" />
-
-### 📖 여덟 개의 예전 릴리스: 한 줄에서 한 페이지로
-
-아홉 중 여섯 개는 항목 배열이 **비어 있어** 패널이 한 줄 요약만 보여줄 수 있었습니다. v1.1.7에서 전부 다시 썼습니다:
-
-- **베트남어 96개 + 영어 96개** 항목을 새로 쓰거나 확장
-- 내용은 `docs/releases/v1.1.x.md` **그리고** 소스 코드 자체(9 모드, 16 업적)에서
-- **릴리스 날짜 재정렬**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——이틀 간격, 같은 날 릴리스 없음
-
-### 🗂️ 프로젝트가 더 많은 폴더로
-
-```
-src/game/changelog/        ← 300줄 단일 파일을 대체
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               릴리스마다 1파일 —— v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 헬퍼
-```
-
-앞으로 1.2.0을 추가하는 일은 **새 파일 하나**와 import 한 줄뿐입니다.
-
-### 🐛 수정
-
-| # | 버그 | 수정 |
-| --- | --- | --- |
-| 1 | 메뉴 배경이 뿌옇고 탁함 | 위의 네 가지 변경 |
-| 2 | 타일 바닥이 보이지 않음 | `opacity-45` → `opacity-70` |
-| 3 | 이력 라벨이 실제와 다름 (`kind` 수기) | `tierFor(version)`이 SemVer에서 도출 |
-| 4 | 이력 설명이 빈약함 (6개 릴리스가 `items: []`) | 96개 항목 재작성 |
-| 5 | 릴리스 날짜 중복·비논리 | 아홉 개 연속 날짜, 중복 없음 |
-| 6 | 문서/SVG/런처가 버전보다 뒤처짐 | 전수 점검 → 1.1.7 |
-| 7 | `check-readme-sync` 주석이 1.1.6 고정 | `package.json`에서 읽도록 변경 |
-
-→ 전체 내용: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 이전 버전: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+<img src="assets/release-tiers.svg" alt="MAJOR · UPDATE · PATCH" width="100%" />
 
 <img src="assets/settings-sections.svg" alt="여섯 구역 설정(v1.1.6부터)——스위치, 레벨 바, 피커 (SMIL 애니메이션)" width="100%" />
 
@@ -118,7 +65,7 @@ src/game/changelog/        ← 300줄 단일 파일을 대체
 | 💾 **TOP 8 명예의 전당** | 로컬 저장, 읽기 시 검증·정규화, 이름 자동 대문자화, 신기록 하이라이트 |
 | 🎨 **60fps 그래픽** | Canvas 2D, 파티클 상한 460, DPR 상한 2, 오프스크린에 사전 렌더링된 꽃문양 바닥, 별 반짝임 + 메뉴 오로라 |
 | 📴 **진짜 오프라인 우선** | 셀프호스팅 폰트(latin + 베트남어 서브셋, woff2), CDN·API 없음 — `dist/index.html`을 더블클릭하기만 하면 끝 |
-| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 256개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
+| 🧪 **품질 게이트** | modes / achievements / storage / i18n / settings을 커버하는 262개 단위 테스트(vitest) — `npm run check`가 CI 게이트 |
 
 <img src="assets/items.svg" alt="14가지 재료 — 받아야 할 절임, 주워야 할 황금 파워, 피해야 할 위험물" width="100%" />
 
@@ -181,7 +128,7 @@ npm run build      # → dist/index.html (단일 자기완결 파일)
 npm run dev        # HMR이 적용된 개발 서버 (http://localhost:5173)
 npm run preview    # 프로덕션 빌드를 로컬에서 확인
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256개 단위 테스트 (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 262개 단위 테스트 (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 
@@ -190,7 +137,7 @@ npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 lo-cheoio/
 ├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
-├─ package.json            # lo-cheoio v1.1.7, dev/build/test/check 스크립트
+├─ package.json            # lo-cheoio v1.1.8, dev/build/test/check 스크립트
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; src + tests 포함
@@ -227,7 +174,7 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -241,7 +188,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 루트, StrictMode
 │  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7" (단일 진실 공급원)
+│  ├─ version.ts           # APP_VERSION = "1.1.8" (단일 진실 공급원)
 │  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
 │  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
@@ -253,6 +200,8 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # 캔버스 + 플로팅 조이스틱 + 키보드 + 가시성 처리
 │  │  ├─ StartScreen.tsx   # 메뉴: 히어로 + 다층 애니메이션 + 코너 패널
 │  │  ├─ menu/              # 코너 GAME/INFO 패널 + 모달 + icons/
+│  │  │  ├─ hero/          # centered menu wordmark + mascot (v1.1.8)
+│  │  │  ├─ HowToPlayModal.tsx # GAME → instructions
 │  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9개 모드 카드 (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # 잠김/해제 배지 벽
@@ -283,11 +232,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 모달 포커스 가둠 (v1.1.6)
-└─ tests/                  # vitest — 33개 파일 · 256개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 35개 파일 · 262개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 아키텍처 & 성능
-<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 아키텍처——입력 → 엔진 → 상태 → 렌더와 서비스 계층 (SMIL 애니메이션)" width="100%" />
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.8 아키텍처——입력 → 엔진 → 상태 → 렌더와 서비스 계층 (SMIL 애니메이션)" width="100%" />
 
 
 - **게임 루프** `requestAnimationFrame`, 델타 타임을 `1/20초`로 클램프, `timeScale`(얼음 슬로모) 곱셈, 캐치마다 수십 ms의 **히트 스톱**으로 타격감.
@@ -326,15 +275,16 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | 버전 | Tier | 날짜 | 노트 |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **메뉴 배경 안개 제거**(네 겹 중첩: `blur 64→22px`, 전체 화면 비네트를 모서리만으로, CRT 프레임 140→90px, 바닥 45→70%) · **계층별 컬러 이력** · 예전 8개 버전에 **설명 96개** · 날짜 재정렬 · `src/game/changelog/` 분리 · README 10개 재작성 · **256 테스트** |
-| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6개 섹션 설정**(프리셋 · 사운드 · 화면 · 언어 · 백업 · 데이터) · 0–100 음량 · 흔들림 세기 · 그래픽 품질 · 탭 전환 자동 일시정지 · 언어를 설정으로 이동 · 프리셋 4종 · JSON 내보내기/가져오기 · 다층 애니메이션 메뉴 · 제작자 카드 그라데이션 · 모달 포커스 가둠 · 새로고침 후 음악 버그 수정 · **150개 테스트** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
-| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
-| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
-| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
-| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
-| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 첫 릴리스: 완성된 엔진, 11가지 재료, 항아리 내리치기, 콤보 ×9 |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-13 | 1.2.0 이전 마지막 패치로 LỌ CHÉO 글자를 중앙에, 항아리와 빛의 고리를 그 아래에 배치했습니다. 키보드와 터치 안내는 **GAME → 플레이 방법**으로 이동했습니다. 메뉴와 저장 데이터는 유지하고 개발 도구의 보안도 개선했습니다. |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-13 | **메뉴 배경 안개 제거**(네 겹 중첩: `blur 64→22px`, 전체 화면 비네트를 모서리만으로, CRT 프레임 140→90px, 바닥 45→70%) · **계층별 컬러 이력** · 예전 8개 버전에 **설명 96개** · `src/game/changelog/` 분리 · README 10개 재작성 · **256 테스트** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-13 | **6개 섹션 설정**(프리셋 · 사운드 · 화면 · 언어 · 백업 · 데이터) · 0–100 음량 · 흔들림 세기 · 그래픽 품질 · 탭 전환 자동 일시정지 · 언어를 설정으로 이동 · 프리셋 4종 · JSON 내보내기/가져오기 · 다층 애니메이션 메뉴 · 제작자 카드 그라데이션 · 모달 포커스 가둠 · 새로고침 후 음악 버그 수정 · **150개 테스트** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-13 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-12 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-12 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-11-12 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-11-12 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-11-12 | 첫 릴리스: 완성된 엔진, 11가지 재료, 항아리 내리치기, 콤보 ×9 |
 
 [CHANGELOG.md](CHANGELOG.md)도 참고하세요.
 
@@ -342,9 +292,9 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 | 마일스톤 | 시기 | 아이디어 |
 | --- | --- | --- |
-| **v1.2.0** | 2026 Q1 | 모드별 프로시저럴 배경음악 · CI의 시각 회귀 테스트 (Playwright) · 폰트 서브셋 심화로 번들 축소 |
-| **v1.3.0** | 2026 Q1–Q2 | 10번째 모드 (후보: **파리 폭풍** — 파리만 등장, 베어내며 생존) · 일일 챌린지용 시드 모드 |
-| **v1.4.0** | 2026 Q2 | **opt-in** 온라인 리더보드 (serverless, 암호화) — 오프라인 우선은 그대로 기본값 |
+| **v1.2.0** | TBD | 모드별 프로시저럴 배경음악 · CI의 시각 회귀 테스트 (Playwright) · 폰트 서브셋 심화로 번들 축소 |
+| **v1.3.0** | TBD | 10번째 모드 (후보: **파리 폭풍** — 파리만 등장, 베어내며 생존) · 일일 챌린지용 시드 모드 |
+| **v1.4.0** | TBD | **opt-in** 온라인 리더보드 (serverless, 암호화) — 오프라인 우선은 그대로 기본값 |
 | Backlog | — | 최고 기록 고스트 리플레이 · 포토 모드 (HUD 숨기고 PNG 내보내기) · 태국어(ไทย) 로캘 검토 중 |
 
 *로드맵은 약속이 아닙니다 — 우선순위는 항상: 안정성 → 더 재미있게 → 더 많은 콘텐츠.*
@@ -367,7 +317,7 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 ## 🤝 기여하기
 
 1. 리포지토리를 Fork하고 `arena/<이름>` 또는 `feat/<이름>` 규칙으로 브랜치를 만듭니다.
-2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 256개 + build).
+2. PR 전에 `npm run check`가 그린이어야 합니다 (typecheck + 테스트 262개 + build).
 3. 정말 필요한 경우가 아니면 런타임 의존성을 추가하지 않습니다 — 철학: **단일 파일, 네트워크 없이, 영원히 플레이 가능**.
 4. PR에 영향받는 화면/모드를 명시하고, 게임플레이 변경 시 클립을 첨부해 주세요.
 

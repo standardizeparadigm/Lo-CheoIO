@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
-[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](docs/releases/v1.1.8.md)
+[![Tests](https://img.shields.io/badge/tests-262%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](tests/README.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
@@ -37,68 +37,15 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.7 新特性
+## 🆕 v1.1.8 新内容
 
-> 1.2.0 之前的**最后一个补丁版本**。没有新增游戏模式——只把还让人不舒服的地方彻底修好。
+> 1.2.0 前的最终补丁将 LỌ CHÉO 标志居中，罐子和光环置于下方。键盘与触屏说明移至 **GAME → 玩法**；角落菜单和存档保持不变，开发工具也已更新以修复安全警告。
 
-### 🌫️ 菜单背景不再模糊——从根源修复
+<img src="assets/menu-hero.svg" alt="Lọ Chéo 1.1.8 — GAME → How to play" width="100%" />
 
-玩家说得对：*「菜单后面的背景还是糊的」*。原因不是一层，而是**四层叠加互相放大**：
+[📋 v1.1.8](docs/releases/v1.1.8.md) · [📜 CHANGELOG](CHANGELOG.md) · [🧭 Menu hero](docs/design/menu-hero.md)
 
-| 图层 | 之前 | 之后 | 原因 |
-| --- | --- | --- | --- |
-| 星云 `.nebula-*` | `blur(64px)`，峰值 `1.0` | **`blur(22px)`，峰值 `0.80`** | 64px 超过 46vw 光斑半径的一半——边缘消失了，整块变成雾 |
-| 菜单暗角 | 行内样式，**铺满全屏**，`0.42 → 0.88 → 1.0` | **`.menu-vignette`**，只压暗角落，`0.30 → 0.62` | 从「整幅均匀压暗」改成「角落暗、中间亮」 |
-| CRT 边框 | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px 在小窗口上几乎吃掉四个角 |
-| 地面砖纹 | `opacity-45` | **`opacity-70`** | 45% 时地面只是一片灰噪点，不再是可辨识的细节 |
-
-`.menu-vignette` 与 `.app-vignette` 现在是**有名字的 CSS 规则**，不再是埋在 JSX 里的工具类——只需调一处，而且 `prefers-reduced-motion` 也能作用到它们。
-
-### 🏷️ 更新日志分层——每层一种颜色
-
-| 层级 | 标签 | 颜色 | 含义 | 示例 |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 粉色 `#ff5fb0` | 大版本——新增系统 | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 金色 `#f5a81c` | 升级——新增内容 | 1.1.0 |
-| `patch` | **PATCH** | 🟣 紫色 `#9d6bff` | 修复与清理 | 1.1.1 → 1.1.7 |
-
-层级由 `tierFor(version)` **从 SemVer 推导**，绝不手写——因此标签永远不会和它旁边的版本号冲突。面板新增**筛选**：全部 · MAJOR · UPDATE · PATCH，并显示各层版本数。
-
-<img src="assets/release-tiers.svg" alt="三个层级 MAJOR/UPDATE/PATCH 及其配色，以及九个版本的发布时间轴（SMIL 动画）" width="100%" />
-
-### 📖 八个旧版本：从一行变成一页
-
-九个版本里有六个的条目数组是**空的**——面板只能显示一行摘要。v1.1.7 全部重写：
-
-- **96 条越南语条目 + 96 条英语条目**，新写或扩写
-- 内容取自 `docs/releases/v1.1.x.md` **以及**源码本身（9 个模式、16 个成就）
-- **发布日期重新排列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——两天一版，没有任何两个版本同一天
-
-### 🗂️ 项目拆成更多目录
-
-```
-src/game/changelog/        ← 取代原来的 300 行单文件
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               每个版本一个文件 —— v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 个辅助函数
-```
-
-以后加 1.2.0 只需**一个新文件**加一行 import。
-
-### 🐛 修复
-
-| # | 问题 | 修复 |
-| --- | --- | --- |
-| 1 | 菜单背景模糊发闷 | 上面四处修改 |
-| 2 | 地面砖纹看不见 | `opacity-45` → `opacity-70` |
-| 3 | 日志标签名不副实（`kind` 手写） | `tierFor(version)` 从 SemVer 推导 |
-| 4 | 日志描述太单薄（6 个版本 `items: []`） | 重写 96 条 |
-| 5 | 发布日期重复且不合理 | 九个连续日期，无重复 |
-| 6 | 文档/SVG/启动器版本滞后 | 全量扫描 → 1.1.7 |
-| 7 | `check-readme-sync` 注释写死 1.1.6 | 改为读取 `package.json` |
-
-→ 完整详情：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 上一版：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+<img src="assets/release-tiers.svg" alt="MAJOR · UPDATE · PATCH" width="100%" />
 
 <img src="assets/settings-sections.svg" alt="六段设置（自 v1.1.6）——开关、等级条与选择器（SMIL 动画）" width="100%" />
 
@@ -118,7 +65,7 @@ src/game/changelog/        ← 取代原来的 300 行单文件
 | 💾 **TOP 8 名人堂** | 本地存档，读取时校验并归一化，姓名自动大写，新纪录高亮 |
 | 🎨 **60fps 画质** | Canvas 2D，粒子上限 460，DPR 上限 2，离屏预渲染花砖地板，星光闪烁 + 菜单极光 |
 | 📴 **真·离线优先** | 自托管字体（latin + 越南文子集，woff2），无 CDN、无接口 —— 双击 `dist/index.html` 即玩 |
-| 🧪 **质量保障** | 256 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
+| 🧪 **质量保障** | 262 项单元测试（vitest）覆盖 modes / achievements / storage / i18n / settings —— `npm run check` 为 CI 关卡 |
 
 <img src="assets/items.svg" alt="14 种食材 — 要接的腌菜、要捡的黄金道具、要躲的危险物" width="100%" />
 
@@ -181,7 +128,7 @@ npm run build      # → dist/index.html（单个自包含文件）
 npm run dev        # 带 HMR 的开发服务器（http://localhost:5173）
 npm run preview    # 本地预览生产构建
 npm run typecheck  # tsc --noEmit（strict，noUnusedLocals…）
-npm run test       # vitest — 256 项单元测试（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 262 项单元测试（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 
@@ -190,7 +137,7 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.7，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.8，dev/build/test/check 脚本
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
@@ -227,7 +174,7 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -241,7 +188,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 入口，StrictMode
 │  ├─ App.tsx              # 阶段状态机 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7"（唯一版本来源）
+│  ├─ version.ts           # APP_VERSION = "1.1.8"（唯一版本来源）
 │  ├─ index.css            # tailwind v4 主题 + 全部动画/渐变
 │  ├─ assets/fonts/        # woff2 子集（Be Vietnam Pro ×6，Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range，100% 离线
@@ -253,6 +200,8 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # 画布 + 浮动摇杆 + 键盘 + 可见性处理
 │  │  ├─ StartScreen.tsx   # 菜单：主视觉 + 多层动效 + 角落面板
 │  │  ├─ menu/              # 角落 GAME/INFO 面板 + 弹窗 + icons/
+│  │  │  ├─ hero/          # centered menu wordmark + mascot (v1.1.8)
+│  │  │  ├─ HowToPlayModal.tsx # GAME → instructions
 │  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # 9 张模式卡（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # 已锁/已解锁徽章墙
@@ -283,11 +232,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
-└─ tests/                  # vitest — 33 个文件 · 256 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 35 个文件 · 262 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
-<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 架构——输入 → 引擎 → 状态 → 渲染，另含服务层（SMIL 动画）" width="100%" />
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.8 架构——输入 → 引擎 → 状态 → 渲染，另含服务层（SMIL 动画）" width="100%" />
 
 
 - **游戏主循环** `requestAnimationFrame`，增量时间钳制到 `1/20s`，乘以 `timeScale`（寒冰慢动作），每次接住还有几十毫秒 **hit-stop** 停顿带来打击感。
@@ -326,15 +275,16 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | 版本 | Tier | 日期 | 说明 |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **菜单背景去雾**（四层叠加：`blur 64→22px`、角落暗角替换全屏、CRT 边框 140→90px、地面 45→70%）· **分层彩色日志** · 8 个旧版 **96 条新描述** · 日期重排 · `src/game/changelog/` 拆分 · 10 个 README 重做 · **256 测试** |
-| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
-| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
-| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
-| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | 游戏内 i18n VI/EN/ZH · README 7 种语言 · 全面修 BUG · 45 项测试 |
-| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 种模式 · 黄金蒜护盾 · 菜虫 · 金卷心菜 · 10 项成就 · 自托管字体 |
-| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 首发：完整引擎，11 种食材，拍罐冲击波，×9 连击 |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-13 | 1.2.0 前的最终补丁将 LỌ CHÉO 标志居中，罐子和光环置于下方。键盘与触屏说明移至 **GAME → 玩法**；角落菜单和存档保持不变，开发工具也已更新以修复安全警告。 |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-13 | **菜单背景去雾**（四层叠加：`blur 64→22px`、角落暗角替换全屏、CRT 边框 140→90px、地面 45→70%）· **分层彩色日志** · 8 个旧版 **96 条新描述** · `src/game/changelog/` 拆分 · 10 个 README 重做 · **256 测试** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-13 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-13 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-12 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-12 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-12 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-11-12 | 游戏内 i18n VI/EN/ZH · README 7 种语言 · 全面修 BUG · 45 项测试 |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-11-12 | 3 种模式 · 黄金蒜护盾 · 菜虫 · 金卷心菜 · 10 项成就 · 自托管字体 |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-11-12 | 首发：完整引擎，11 种食材，拍罐冲击波，×9 连击 |
 
 另见 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -342,9 +292,9 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 | 里程碑 | 预期 | 创意 |
 | --- | --- | --- |
-| **v1.2.0** | 2026 Q1 | 每种玩法的程序化配乐 · CI 中的视觉回归测试（Playwright）· 更深入的字体子集化以压缩体积 |
-| **v1.3.0** | 2026 Q1–Q2 | 第 10 个玩法（候选：**蜂群风暴** —— 全是苍蝇，靠斩杀求生）· 每日挑战的 seed 玩法 |
-| **v1.4.0** | 2026 Q2 | **可选（opt-in）** 在线排行榜（serverless，加密）—— 离线优先依然是默认 |
+| **v1.2.0** | TBD | 每种玩法的程序化配乐 · CI 中的视觉回归测试（Playwright）· 更深入的字体子集化以压缩体积 |
+| **v1.3.0** | TBD | 第 10 个玩法（候选：**蜂群风暴** —— 全是苍蝇，靠斩杀求生）· 每日挑战的 seed 玩法 |
+| **v1.4.0** | TBD | **可选（opt-in）** 在线排行榜（serverless，加密）—— 离线优先依然是默认 |
 | Backlog | — | 最佳对局幽灵回放 · 摄影模式（隐藏 HUD，导出 PNG）· 泰语（ไทย）译本评估中 |
 
 *路线图不是承诺 — 优先级永远是：稳定 → 更好玩 → 更多内容。*
@@ -367,7 +317,7 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 ## 🤝 贡献
 
 1. Fork 仓库，按 `arena/<名称>` 或 `feat/<名称>` 规范创建分支。
-2. 提 PR 前 `npm run check` 必须全绿（typecheck + 256 项测试 + build）。
+2. 提 PR 前 `npm run check` 必须全绿（typecheck + 262 项测试 + build）。
 3. 非必要不新增运行时依赖 —— 理念：**一个文件、不联网、永久可玩**。
 4. PR 描述请注明受影响的界面/模式；若涉及玩法变更请附录屏。
 

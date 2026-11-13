@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
-[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](docs/releases/v1.1.8.md)
+[![Tests](https://img.shields.io/badge/tests-262%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](tests/README.md)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-ติดตั้ง--เริ่มเล่น)
@@ -37,68 +37,15 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 สิ่งใหม่ใน v1.1.7
+## 🆕 สิ่งใหม่ใน v1.1.8
 
-> **แพตช์สุดท้าย**ก่อน 1.2.0 ไม่มีโหมดใหม่ — แก้เฉพาะสิ่งที่ยังรบกวนอยู่ ให้จบที่ต้นเหตุ
+> แพตช์สุดท้ายก่อน 1.2.0 จัดข้อความ LỌ CHÉO ไว้กลางจอและวางโหลพร้อมวงแสงด้านล่าง ย้ายคำแนะนำแป้นพิมพ์และสัมผัสไปที่ **GAME → วิธีเล่น** โดยคงเมนูและข้อมูลเดิม พร้อมอัปเดตเครื่องมือเพื่อความปลอดภัย
 
-### 🌫️ พื้นหลังเมนูไม่เบลอแล้ว — แก้ที่ต้นเหตุ
+<img src="assets/menu-hero.svg" alt="Lọ Chéo 1.1.8 — GAME → How to play" width="100%" />
 
-ผู้เล่นพูดถูก: *«พื้นหลังหลังเมนูยังเบลออยู่»* ต้นเหตุไม่ใช่ชั้นเดียว แต่เป็น**สี่ชั้นซ้อนที่ขยายกันเอง**:
+[📋 v1.1.8](docs/releases/v1.1.8.md) · [📜 CHANGELOG](CHANGELOG.md) · [🧭 Menu hero](docs/design/menu-hero.md)
 
-| ชั้น | ก่อน | หลัง | ทำไม |
-| --- | --- | --- | --- |
-| เนบิวลา `.nebula-*` | `blur(64px)` สูงสุด `1.0` | **`blur(22px)` สูงสุด `0.80`** | 64px เกินครึ่งรัศมีของก้อน 46vw — ขอบหายไปทั้งก้อนกลายเป็นหมอก |
-| วิชเน็ตต์เมนู | อินไลน์ **เต็มจอ** `0.42 → 0.88 → 1.0` | **`.menu-vignette`** เฉพาะมุม `0.30 → 0.62` | จาก «มืดทั้งกรอบเท่ากัน» เป็น «มุมมืด กลางสว่าง» |
-| กรอบ CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px กลืนเกือบทุกมุมเมื่อหน้าต่างเล็ก |
-| พื้นกระเบื้อง | `opacity-45` | **`opacity-70`** | ที่ 45% พื้นเป็นแค่สัญญาณรบกวนสีเทา ไม่ใช่รายละเอียดที่จำได้ |
-
-`.menu-vignette` และ `.app-vignette` ตอนนี้เป็น**กฎ CSS ที่มีชื่อ** ไม่ใช่ยูทิลิตี้ที่ฝังใน JSX — ปรับที่เดียว และ `prefers-reduced-motion` เข้าถึงได้
-
-### 🏷️ ชั้นของ changelog — หนึ่งชั้นหนึ่งสี
-
-| ชั้น | ป้าย | สี | ความหมาย | ตัวอย่าง |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 ชมพู `#ff5fb0` | เวอร์ชันใหญ่ — ระบบใหม่ | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 ทอง `#f5a81c` | อัปเกรด — เนื้อหาใหม่ | 1.1.0 |
-| `patch` | **PATCH** | 🟣 ม่วง `#9d6bff` | แก้บั๊กและจัดระเบียบ | 1.1.1 → 1.1.7 |
-
-ชั้นนี้**อนุมานจาก SemVer** ด้วย `tierFor(version)` ไม่มีการพิมพ์มือ — ป้ายจึงขัดกับเลขเวอร์ชันที่พิมพ์ข้าง ๆ ไม่ได้เลย แผงมี**ตัวกรอง**เพิ่ม: ทั้งหมด · MAJOR · UPDATE · PATCH พร้อมจำนวนแต่ละชั้น
-
-<img src="assets/release-tiers.svg" alt="สามชั้น MAJOR/UPDATE/PATCH กับสี และเส้นเวลาของเก้าเวอร์ชัน (แอนิเมชัน SMIL)" width="100%" />
-
-### 📖 แปดเวอร์ชันเก่า: จากหนึ่งบรรทัดเป็นหนึ่งหน้า
-
-เก้าเวอร์ชันมีหกตัวที่**อาร์เรย์หัวข้อว่างเปล่า** — แผงแสดงได้แค่สรุปหนึ่งบรรทัด v1.1.7 เขียนใหม่ทั้งหมด:
-
-- **96 หัวข้อภาษาเวียดนาม + 96 ภาษาอังกฤษ** เขียนใหม่หรือขยาย
-- เนื้อหาจาก `docs/releases/v1.1.x.md` **และ**จากโค้ดจริง (9 โหมด 16 ความสำเร็จ)
-- **จัดวันวางจำหน่ายใหม่**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — ห่างกันสองวัน ไม่มีสองเวอร์ชันวันเดียวกัน
-
-### 🗂️ โปรเจกต์แยกเป็นโฟลเดอร์มากขึ้น
-
-```
-src/game/changelog/        ← แทนไฟล์เดียว 300 บรรทัด
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               หนึ่งไฟล์ต่อหนึ่งเวอร์ชัน — v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 ตัวช่วย
-```
-
-การเพิ่ม 1.2.0 ต่อไปคือ**ไฟล์ใหม่หนึ่งไฟล์**กับ import อีกหนึ่งบรรทัด
-
-### 🐛 การแก้ไข
-
-| # | บั๊ก | การแก้ |
-| --- | --- | --- |
-| 1 | พื้นหลังเมนูเบลอ/ขุ่น | สี่การเปลี่ยนแปลงข้างบน |
-| 2 | พื้นกระเบื้องมองไม่เห็น | `opacity-45` → `opacity-70` |
-| 3 | ป้าย changelog บอกผิด (`kind` พิมพ์มือ) | `tierFor(version)` อนุมานจาก SemVer |
-| 4 | คำอธิบายบางเกินไป (6 เวอร์ชันมี `items: []`) | เขียนใหม่ 96 หัวข้อ |
-| 5 | วันวางจำหน่ายซ้ำและไม่สมเหตุสมผล | เก้าวันต่อเนื่อง ไม่ซ้ำ |
-| 6 | เอกสาร/SVG/ตัวเรียกเกมล้าหลังเวอร์ชัน | ตรวจทั้งหมด → 1.1.7 |
-| 7 | คอมเมนต์ `check-readme-sync` ฝัง 1.1.6 | อ่านจาก `package.json` แทน |
-
-→ รายละเอียดเต็ม: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · เวอร์ชันก่อน: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+<img src="assets/release-tiers.svg" alt="MAJOR · UPDATE · PATCH" width="100%" />
 
 <img src="assets/settings-sections.svg" alt="การตั้งค่าหกส่วน (ตั้งแต่ v1.1.6) — สวิตช์ แถบระดับ และตัวเลือก (แอนิเมชัน SMIL)" width="100%" />
 
@@ -118,7 +65,7 @@ src/game/changelog/        ← แทนไฟล์เดียว 300 บร�
 | 💾 **ตาราง TOP 8** | เก็บลงเครื่อง ตรวจสอบ/ปรับค่าเมื่ออ่าน ชื่อตัวพิมพ์ใหญ่ ไฮไลต์สถิติใหม่ |
 | 🎨 **กราฟิก 60fps** | Canvas 2D งบอนุภาค ≤460 จำกัด DPR ≤ 2 พื้นกระเบื้องพรีเรนเดอร์ลง offscreen ดาวระยิบ + ออโรร่าในเมนู |
 | 📴 **ออฟไลน์จริง** | ฟอนต์โฮสเอง (subset latin + vietnamese woff2) ไม่มี CDN ไม่มี API — ดับเบิลคลิก `dist/index.html` แล้วเล่นได้เลย |
-| 🧪 **คุณภาพ** | 256 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
+| 🧪 **คุณภาพ** | 262 เทสต์ (vitest) ครอบคลุม modes / achievements / storage / i18n / settings — `npm run check` คือประตู CI |
 
 <img src="assets/items.svg" alt="14 วัตถุดิบ — ผักดองให้รับ พลังทองให้คว้า อันตรายให้หลบ" width="100%" />
 
@@ -181,7 +128,7 @@ npm run build      # → dist/index.html (ไฟล์เดียวจบ)
 npm run dev        # dev server พร้อม HMR (http://localhost:5173)
 npm run preview    # เสิร์ฟ production build ในเครื่อง
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256 เทสต์ (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 262 เทสต์ (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (ประตูคุณภาพ CI)
 ```
 
@@ -190,7 +137,7 @@ npm run check      # typecheck + test + build (ประตูคุณภาพ
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (ไม่มี CDN)
-├─ package.json            # lo-cheoio v1.1.7, สคริปต์ dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.8, สคริปต์ dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; ครอบคลุม src + tests
@@ -227,7 +174,7 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -241,7 +188,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7" (แหล่งความจริงเดียว)
+│  ├─ version.ts           # APP_VERSION = "1.1.8" (แหล่งความจริงเดียว)
 │  ├─ index.css            # tailwind v4 theme + แอนิเมชัน/ gradient ทั้งหมด
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, ออฟไลน์ 100%
@@ -253,6 +200,8 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
 │  │  ├─ StartScreen.tsx   # เมนู: ฮีโร่ + ฉากหลายชั้น + พาเนลมุม
 │  │  ├─ menu/              # พาเนล GAME/INFO + โมดัล + icons/
+│  │  │  ├─ hero/          # centered menu wordmark + mascot (v1.1.8)
+│  │  │  ├─ HowToPlayModal.tsx # GAME → instructions
 │  │  │  └─ background/     # 8 background layers as data (v1.1.7)
 │  │  ├─ ModeSelector.tsx  # การ์ด 9 โหมด (classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # กำแพงป้าย locked/unlocked
@@ -283,11 +232,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # กักโฟกัสในโมดัล (v1.1.6)
-└─ tests/                  # vitest — 33 ไฟล์ · 256 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 35 ไฟล์ · 262 เทสต์ (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 สถาปัตยกรรม & ประสิทธิภาพ
-<img src="assets/architecture.svg" alt="สถาปัตยกรรม Lọ Chéo v1.1.7 — อินพุต → เอนจิน → สถานะ → เรนเดอร์ พร้อมชั้นบริการ (แอนิเมชัน SMIL)" width="100%" />
+<img src="assets/architecture.svg" alt="สถาปัตยกรรม Lọ Chéo v1.1.8 — อินพุต → เอนจิน → สถานะ → เรนเดอร์ พร้อมชั้นบริการ (แอนิเมชัน SMIL)" width="100%" />
 
 
 - **Game loop** บน `requestAnimationFrame` delta-time จำกัดที่ `1/20s` คูณ `timeScale` (สโลว์โมชันจากน้ำแข็ง) และ **hit-stop** แช่แข็งสั้น ๆ ทุกครั้งที่รับของ ให้ความรู้สึก "หนักแน่น"
@@ -326,15 +275,16 @@ lo-cheoio/
 
 | เวอร์ชัน | Tier | วันที่ | บันทึก |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **พื้นหลังเมนูหมอกหาย** (สี่ชั้นซ้อน: `blur 64→22px`, วิชเน็ตต์เฉพาะมุมแทนเต็มจอ, กรอบ CRT 140→90px, พื้น 45→70%) · **changelog แบ่งชั้นมีสี** · **96 หัวข้อใหม่** ให้ 8 เวอร์ชัน · จัดวันใหม่ · แยก `src/game/changelog/` · ทำ README 10 ภาษใหม่ · **256 เทสต์** |
-| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **ตั้งค่า 6 หมวด** (พรีเซ็ต · เสียง · ภาพ · ภาษา · สำรอง · ข้อมูล) · ความดัง 0–100 · ความแรงสั่น · คุณภาพภาพ · หยุดเมื่อสลับแท็บ · ย้ายภาษาเข้าตั้งค่า · พรีเซ็ต 4 แบบ · นำเข้า/ส่งออก JSON · เมนูหลายชั้นเคลื่อนไหว · การ์ดผู้สร้างไล่ระดับ · กักโฟกัสในโมดัล · แก้เพลงหลังรีโหลด · **150 เทสต์** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **113 เทสต์** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 โหมด** (เทศกาลคอมโบ · งานเลี้ยงใหญ่) · **16 ความสำเร็จ** · **7 ภาษา** (เพิ่ม ES/FR) · แก้ play-windows.bat (CRLF+BOM) · ตัวเปิด 7 ภาษา · 61 เทสต์ |
-| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 โหมด (พายุผักดอง · เซรามิกบาง) · 14 ความสำเร็จ · 5 ภาษา · favicon · ตัวเปิดหลายภาษา · 55 เทสต์ |
-| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 โหมด (60-Second Rush · Gold Rush) · 12 ความสำเร็จ · คอมโบไฟ · ตัวเปิดดับเบิลคลิก · README 10 ภาษา · 49 เทสต์ |
-| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | i18n ในเกม VI/EN/ZH · README 7 ภาษา · กวาดบั๊กทั้งหมด · 45 เทสต์ |
-| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 โหมด · เกราะกระเทียมทอง · หนอน · ผักทอง · 10 ความสำเร็จ · ฟอนต์โฮสเอง |
-| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | รีลีสแรก: เอนจินครบ 11 วัตถุดิบ JAR SLAM ×9 คอมโบ |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-13 | แพตช์สุดท้ายก่อน 1.2.0 จัดข้อความ LỌ CHÉO ไว้กลางจอและวางโหลพร้อมวงแสงด้านล่าง ย้ายคำแนะนำแป้นพิมพ์และสัมผัสไปที่ **GAME → วิธีเล่น** โดยคงเมนูและข้อมูลเดิม พร้อมอัปเดตเครื่องมือเพื่อความปลอดภัย |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-13 | **พื้นหลังเมนูหมอกหาย** (สี่ชั้นซ้อน: `blur 64→22px`, วิชเน็ตต์เฉพาะมุมแทนเต็มจอ, กรอบ CRT 140→90px, พื้น 45→70%) · **changelog แบ่งชั้นมีสี** · **96 หัวข้อใหม่** ให้ 8 เวอร์ชัน · แยก `src/game/changelog/` · ทำ README 10 ภาษใหม่ · **256 เทสต์** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-13 | **ตั้งค่า 6 หมวด** (พรีเซ็ต · เสียง · ภาพ · ภาษา · สำรอง · ข้อมูล) · ความดัง 0–100 · ความแรงสั่น · คุณภาพภาพ · หยุดเมื่อสลับแท็บ · ย้ายภาษาเข้าตั้งค่า · พรีเซ็ต 4 แบบ · นำเข้า/ส่งออก JSON · เมนูหลายชั้นเคลื่อนไหว · การ์ดผู้สร้างไล่ระดับ · กักโฟกัสในโมดัล · แก้เพลงหลังรีโหลด · **150 เทสต์** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-13 | **เมนูมุม GAME/INFO**（เล่น · เล่นต่อ · โหมด · อันดับ · ความสำเร็จ · ตั้งค่า / เกี่ยวกับ · Changelog · ออก）· **บันทึก & เล่นเกมค้างต่อ**（`locheo.run.v1`）· ตั้งค่าในเกม（เสียง/เพลง/สั่น/ลดแอนิเมชัน）· แก้คีย์ลัดทะลุโมดัล · prefers-reduced-motion ครบทุกตัว · **113 เทสต์** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-12 | **9 โหมด** (เทศกาลคอมโบ · งานเลี้ยงใหญ่) · **16 ความสำเร็จ** · **7 ภาษา** (เพิ่ม ES/FR) · แก้ play-windows.bat (CRLF+BOM) · ตัวเปิด 7 ภาษา · 61 เทสต์ |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-12 | 7 โหมด (พายุผักดอง · เซรามิกบาง) · 14 ความสำเร็จ · 5 ภาษา · favicon · ตัวเปิดหลายภาษา · 55 เทสต์ |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-12 | 5 โหมด (60-Second Rush · Gold Rush) · 12 ความสำเร็จ · คอมโบไฟ · ตัวเปิดดับเบิลคลิก · README 10 ภาษา · 49 เทสต์ |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-11-12 | i18n ในเกม VI/EN/ZH · README 7 ภาษา · กวาดบั๊กทั้งหมด · 45 เทสต์ |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-11-12 | 3 โหมด · เกราะกระเทียมทอง · หนอน · ผักทอง · 10 ความสำเร็จ · ฟอนต์โฮสเอง |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-11-12 | รีลีสแรก: เอนจินครบ 11 วัตถุดิบ JAR SLAM ×9 คอมโบ |
 
 ดูเพิ่มเติมที่ [CHANGELOG.md](CHANGELOG.md)
 
@@ -342,9 +292,9 @@ lo-cheoio/
 
 | ไมล์สโตน | ETA | ไอเดีย |
 | --- | --- | --- |
-| **v1.2.0** | 2026 Q1 | เพลงประกอบแบบ procedural ต่อโหมด · visual regression tests (Playwright) ใน CI · ลดขนาดฟอนต์ subset ให้ลึกขึ้นเพื่อลด bundle |
-| **v1.3.0** | 2026 Q1–Q2 | โหมดที่ 10 (ตัวเลือก: **พายุแมลงวัน** — มีแต่แมลงวัน ต้องฟันรอด) · โหมด seed สำหรับ daily challenge |
-| **v1.4.0** | 2026 Q2 | กระดานออนไลน์แบบ **opt-in** (serverless, เข้ารหัส) — offline-first ยังเป็นค่าเริ่มต้นเสมอ |
+| **v1.2.0** | TBD | เพลงประกอบแบบ procedural ต่อโหมด · visual regression tests (Playwright) ใน CI · ลดขนาดฟอนต์ subset ให้ลึกขึ้นเพื่อลด bundle |
+| **v1.3.0** | TBD | โหมดที่ 10 (ตัวเลือก: **พายุแมลงวัน** — มีแต่แมลงวัน ต้องฟันรอด) · โหมด seed สำหรับ daily challenge |
+| **v1.4.0** | TBD | กระดานออนไลน์แบบ **opt-in** (serverless, เข้ารหัส) — offline-first ยังเป็นค่าเริ่มต้นเสมอ |
 | Backlog | — | Ghost replay ของรอบที่ดีที่สุด · โหมดถ่ายภาพ (ซ่อน HUD ส่งออก PNG) · กำลังพิจารณา locale ไทย |
 
 *แผนงานไม่ใช่คำสัญญา — ลำดับความสำคัญคือ: เสถียร → เล่นง่ายขึ้น → เนื้อหาเยอะขึ้น*
@@ -367,7 +317,7 @@ lo-cheoio/
 ## 🤝 ร่วมพัฒนา
 
 1. Fork repo แล้วแตก branch ตามรูปแบบ `arena/<name>` หรือ `feat/<name>`
-2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 256 เทสต์ + build)
+2. `npm run check` ต้องเขียวก่อนเปิด PR (typecheck + 262 เทสต์ + build)
 3. เลี่ยงการเพิ่ม dependency ตอน runtime ถ้าไม่จำเป็นจริง ๆ — ปรัชญา: **ไฟล์เดียว ไม่มีเน็ต เล่นได้ตลอดกาล**
 4. ใน PR ระบุหน้าจอ/โหมดที่ได้รับผลกระทบ และแนบคลิปถ้ามีการเปลี่ยน gameplay
 
