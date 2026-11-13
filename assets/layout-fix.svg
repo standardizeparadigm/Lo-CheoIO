@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" role="img" aria-label="Sơ đồ bố cục màn hình bắt đầu v1.1.8 — scene chiếm toàn bộ chiều cao, hàng panel GAME/INFO và ticker nổi phía trên (hoạt họa SMIL)">
+  <defs>
+    <linearGradient id="lbScene" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d3330"/>
+      <stop offset="1" stop-color="#061a1a"/>
+    </linearGradient>
+    <linearGradient id="lbChrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b2a28" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#061a1a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="lbGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9d6bff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#bfa2ff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#9d6bff" stop-opacity="0"/>
+      <animate attributeName="x1" values="-0.5;0.5;-0.5" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="-0.1;0.9;-0.1" dur="7s" repeatCount="indefinite"/>
+    </linearGradient>
+    <marker id="lbArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#8cc63f"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="260" fill="#061a1a"/>
+
+  <!-- ================= BEFORE (left) ================= -->
+  <text x="60" y="34" font-family="Bungee, sans-serif" font-size="15" fill="#e63b2e" letter-spacing="2">TRƯỚC · v1.1.7</text>
+  <text x="60" y="54" font-family="system-ui, sans-serif" font-size="11" fill="#7d9d94">scene 250px · cột flex 732px &gt; 720px</text>
+
+  <g transform="translate(60,68)">
+    <rect width="470" height="176" fill="#0a2220" stroke="#e63b2e" stroke-width="2" stroke-dasharray="6 5"/>
+    <!-- scene, clipped by the too-tall chrome -->
+    <rect x="8" y="8" width="454" height="70" fill="url(#lbScene)"/>
+    <text x="20" y="30" font-family="Bungee, sans-serif" font-size="17" fill="#fdf3e0">LỌ</text>
+    <text x="20" y="58" font-family="Bungee, sans-serif" font-size="22" fill="#f5a81c">CHÉO</text>
+    <!-- the seam: everything below is cut -->
+    <line x1="8" y1="78" x2="462" y2="78" stroke="#e63b2e" stroke-width="2.5"/>
+    <text x="16" y="74" font-family="system-ui, sans-serif" font-size="9" fill="#ff8f7a">cắt ở y≈247px</text>
+    <rect x="8" y="80" width="454" height="86" fill="#111c1a" opacity="0.35"/>
+    <!-- the row that ate the space -->
+    <rect x="8" y="80" width="150" height="86" fill="#0b2a28" stroke="#166153" stroke-width="2"/>
+    <rect x="316" y="80" width="146" height="86" fill="#0b2a28" stroke="#166153" stroke-width="2"/>
+    <text x="20" y="100" font-family="Bungee, sans-serif" font-size="9" fill="#ffc94a">GAME</text>
+    <text x="328" y="100" font-family="Bungee, sans-serif" font-size="9" fill="#ffc94a">INFO</text>
+    <text x="18" y="152" font-family="system-ui, sans-serif" font-size="9" fill="#8cc63f">415px</text>
+    <text x="340" y="152" font-family="system-ui, sans-serif" font-size="9" fill="#8cc63f">341px</text>
+    <!-- ticker, sliced -->
+    <rect x="8" y="168" width="454" height="8" fill="#10403a"/>
+    <text x="18" y="186" font-family="system-ui, sans-serif" font-size="8" fill="#7d9d94" opacity="0.6">v1.1.7 · AGPL-3.0 · … (bị cắt)</text>
+    <!-- annotation -->
+    <line x1="470" y1="8" x2="500" y2="8" stroke="#2bb48c" stroke-width="1" marker-end="url(#lbArrow)"/>
+    <text x="476" y="22" font-family="system-ui, sans-serif" font-size="10" fill="#2bb48c">scene</text>
+    <text x="476" y="36" font-family="system-ui, sans-serif" font-size="10" fill="#2bb48c">= 250px</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="590" y1="70" x2="590" y2="236" stroke="#166153" stroke-width="1" stroke-dasharray="4 6"/>
+
+  <!-- ================= AFTER (right) ================= -->
+  <text x="640" y="34" font-family="Bungee, sans-serif" font-size="15" fill="#8cc63f" letter-spacing="2">SAU · v1.1.8</text>
+  <text x="640" y="54" font-family="system-ui, sans-serif" font-size="11" fill="#7d9d94">scene 720px · chrome nổi · không cắt gì</text>
+
+  <g transform="translate(640,68)">
+    <rect width="470" height="176" fill="#0a2220" stroke="#8cc63f" stroke-width="2"/>
+    <!-- scene fills everything -->
+    <rect x="8" y="8" width="454" height="160" fill="url(#lbScene)"/>
+    <text x="20" y="26" font-family="system-ui, sans-serif" font-size="9" fill="#2bb48c">scene = 720px (toàn bộ)</text>
+    <text x="20" y="58" font-family="Bungee, sans-serif" font-size="19" fill="#fdf3e0">LỌ</text>
+    <text x="20" y="88" font-family="Bungee, sans-serif" font-size="24" fill="#f5a81c">CHÉO</text>
+    <!-- jar, whole -->
+    <g transform="translate(360,34)">
+      <ellipse cx="30" cy="30" rx="22" ry="4" fill="#0b2a28" opacity="0.6"/>
+      <path d="M12 8C2 16 4 40 11 50h38c7-10 9-34-1-42z" fill="#f3e3c8" stroke="#0b2a28" stroke-width="3"/>
+      <rect x="14" y="36" width="32" height="7" fill="#10403a"/>
+      <circle cx="22" cy="22" r="3.4" fill="#fffdf6" stroke="#0b2a28" stroke-width="1.4"/>
+      <circle cx="38" cy="22" r="3.4" fill="#fffdf6" stroke="#0b2a28" stroke-width="1.4"/>
+      <animateTransform attributeName="transform" type="translate" values="360,34;360,28;360,34" dur="4s" repeatCount="indefinite"/>
+    </g>
+    <!-- reserved band -->
+    <rect x="8" y="120" width="454" height="48" fill="url(#lbChrome)"/>
+    <line x1="8" y1="120" x2="462" y2="120" stroke="#9d6bff" stroke-width="1.4" stroke-dasharray="5 4"/>
+    <text x="14" y="134" font-family="system-ui, sans-serif" font-size="8.5" fill="#bfa2ff">panel nổi — scene giữ chỗ bằng padding-bottom</text>
+    <rect x="8" y="138" width="150" height="30" fill="#0b2a28" stroke="#166153" stroke-width="1.6"/>
+    <rect x="316" y="138" width="146" height="30" fill="#0b2a28" stroke="#166153" stroke-width="1.6"/>
+    <text x="18" y="152" font-family="Bungee, sans-serif" font-size="8" fill="#ffc94a">GAME</text>
+    <text x="326" y="152" font-family="Bungee, sans-serif" font-size="8" fill="#ffc94a">INFO</text>
+    <text x="122" y="152" font-family="system-ui, sans-serif" font-size="7.5" fill="#8cc63f">268px</text>
+    <text x="404" y="152" font-family="system-ui, sans-serif" font-size="7.5" fill="#8cc63f">268px</text>
+    <!-- ticker, one row, whole -->
+    <rect x="8" y="160" width="454" height="8" fill="#10403a"/>
+    <text x="14" y="166.5" font-family="system-ui, sans-serif" font-size="6.5" fill="#8cc63f">v1.1.8 · AGPL-3.0 · Standardize Paradigm · 100% offline</text>
+    <!-- annotation -->
+    <line x1="470" y1="8" x2="500" y2="8" stroke="#2bb48c" stroke-width="1" marker-end="url(#lbArrow)"/>
+    <text x="476" y="22" font-family="system-ui, sans-serif" font-size="10" fill="#2bb48c">scene</text>
+    <text x="476" y="36" font-family="system-ui, sans-serif" font-size="10" fill="#8cc63f">= 720px</text>
+    <text x="476" y="150" font-family="system-ui, sans-serif" font-size="9" fill="#9d6bff">reserve</text>
+    <text x="476" y="164" font-family="system-ui, sans-serif" font-size="9" fill="#9d6bff">338px</text>
+  </g>
+
+  <!-- moving highlight across the fix -->
+  <rect x="640" y="246" width="470" height="3" fill="url(#lbGlow)"/>
+
+  <text x="60" y="252" font-family="system-ui, sans-serif" font-size="9" fill="#7d9d94">src/components/menu/layout/metrics.ts · fit.ts — 22 test khoá phép cộng</text>
+</svg>
