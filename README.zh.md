@@ -190,7 +190,7 @@ npm run check      # typecheck + test + build（CI 质量关卡）
 ```
 lo-cheoio/
 ├─ index.html              # 入口，SEO/OG 元信息（无 CDN）
-├─ package.json            # lo-cheoio v1.1.6，dev/build/test/check 脚本
+├─ package.json            # lo-cheoio v1.1.7，dev/build/test/check 脚本
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；包含 src + tests
@@ -226,7 +226,8 @@ lo-cheoio/
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
-│     └─ v1.1.6.md         # current release notes (1.1.6)
+│     ├─ v1.1.6.md         # release notes (1.1.6)
+│     └─ v1.1.7.md         # current release notes (1.1.7)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文（本文件）
@@ -240,7 +241,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 入口，StrictMode
 │  ├─ App.tsx              # 阶段状态机 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.6"（唯一版本来源）
+│  ├─ version.ts           # APP_VERSION = "1.1.7"（唯一版本来源）
 │  ├─ index.css            # tailwind v4 主题 + 全部动画/渐变
 │  ├─ assets/fonts/        # woff2 子集（Be Vietnam Pro ×6，Bungee）
 │  ├─ styles/fonts.css     # @font-face + unicode-range，100% 离线

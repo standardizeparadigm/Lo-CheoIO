@@ -188,7 +188,7 @@ npm run check      # typecheck + test + build (CI quality gate)
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (no CDN)
-├─ package.json            # lo-cheoio v1.1.6, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.7, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; includes src + tests
@@ -224,7 +224,8 @@ lo-cheoio/
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
-│     └─ v1.1.6.md         # current release notes (1.1.6)
+│     ├─ v1.1.6.md         # release notes (1.1.6)
+│     └─ v1.1.7.md         # current release notes (1.1.7)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English (this file)
 ├─ README.zh.md            # 🇨🇳 中文
@@ -238,7 +239,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.6" (single source of truth)
+│  ├─ version.ts           # APP_VERSION = "1.1.7" (single source of truth)
 │  ├─ index.css            # tailwind v4 theme + all animation/gradient
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline

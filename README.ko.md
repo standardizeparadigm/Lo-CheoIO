@@ -190,7 +190,7 @@ npm run check      # typecheck + test + build (CI 품질 게이트)
 ```
 lo-cheoio/
 ├─ index.html              # 엔트리, SEO/OG 메타 (CDN 없음)
-├─ package.json            # lo-cheoio v1.1.6, dev/build/test/check 스크립트
+├─ package.json            # lo-cheoio v1.1.7, dev/build/test/check 스크립트
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; src + tests 포함
@@ -226,7 +226,8 @@ lo-cheoio/
 │     ├─ v1.1.3.md         # v1.1.3 release notes
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
-│     └─ v1.1.6.md         # current release notes (1.1.6)
+│     ├─ v1.1.6.md         # release notes (1.1.6)
+│     └─ v1.1.7.md         # current release notes (1.1.7)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -240,7 +241,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React 루트, StrictMode
 │  ├─ App.tsx              # 페이즈 머신 menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.6" (단일 진실 공급원)
+│  ├─ version.ts           # APP_VERSION = "1.1.7" (단일 진실 공급원)
 │  ├─ index.css            # tailwind v4 테마 + 모든 애니메이션/그라디언트
 │  ├─ assets/fonts/        # woff2 서브셋 (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% 오프라인
