@@ -48,11 +48,26 @@ Nguồn: `src/game/settings.ts`. Pattern giống `locheo.run.v1`: validate + mer
 
 ## UI (v1.1.6)
 
-`src/components/settings/` — `SettingsModal` chia **4 section**: ÂM THANH · GIAO DIỆN & CHUYỂN ĐỘNG ·
-NGÔN NGỮ · DỮ LIỆU. Control tái dùng: `Switch` (toggle), `SegmentedControl` (picker 2 lựa chọn),
-`VolumeStepper` (mức 0–100 theo bước 10). Ngôn ngữ chuyển từ menu (đã xoá `LanguageSwitcher`) vào Settings.
+`src/components/settings/` — `SettingsModal` chia **6 section**, xếp từ "ăn liền" tới "vùng nguy hiểm":
+
+| # | Section | Control |
+| --- | --- | --- |
+| 1 | CẤU HÌNH NHANH | `PresetsSection` — 4 preset (MƯỢT · CÂN BẰNG · ĐIỆN ẢNH · SPEEDRUN) + nhãn TUỲ CHỈNH khi lệch |
+| 2 | ÂM THANH | 2 `Switch` (sfx/music) + 2 `VolumeStepper` (0–100, bước 10) |
+| 3 | GIAO DIỆN & CHUYỂN ĐỘNG | `Switch` shake · `SegmentedControl` level · `Switch` reduced-motion · `SegmentedControl` quality · `Switch` auto-pause |
+| 4 | NGÔN NGỮ | `LanguageSection` — 7 cờ, 2 cột, đọc từ `languageMeta` |
+| 5 | SAO LƯU | `BackupSection` — xuất/nhập JSON (xem `settingsIO.ts`) |
+| 6 | DỮ LIỆU | `DataSection` — khôi phục mặc định (giữ ngôn ngữ) · xoá dữ liệu 2 bước |
+
+Control tái dùng: `Switch` (toggle có `role="switch"`), `SegmentedControl` (2 lựa chọn, roving tabindex,
+←/→/↑/↓/Home/End, `aria-pressed`), `VolumeStepper` (−/+ + 10 vạch nghiêng + readout). Ngôn ngữ chuyển
+từ menu (đã xoá `LanguageSwitcher`) vào Settings và **không bao giờ** bị preset ghi đè.
 
 ## Test
 
-- `tests/settings.test.ts` — normalize/load/save/updateSettings, clamps, tập giá trị, reset-keep-language.
+- `tests/settings.test.ts` — normalize/load/save/updateSettings, clamps, tập giá trị, reset-keep-language,
+  OS-default chỉ áp dụng lần chạy đầu.
 - `tests/settings-v116.test.ts` — round-trip persist, save cũ thiếu field, JSON hỏng, idempotent normalize.
+- `tests/settingsPresets.test.ts` — 4 preset, không chạm language, idempotent, `matchPreset` phát hiện tuỳ chỉnh.
+- `tests/settingsIO.test.ts` — envelope xuất/nhập, bare object, JSON rác, object lạ.
+- `tests/settings-wiring.test.ts` — guard tĩnh: mọi setting thực sự chạm audio/engine/canvas.
