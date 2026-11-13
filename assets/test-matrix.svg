@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="Ma trận kiểm thử v1.1.8 — 35 file, 286 test, tám cổng chất lượng (hoạt họa SMIL)">
+  <defs>
+    <linearGradient id="tmBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8cc63f"/>
+      <stop offset="1" stop-color="#2bb48c"/>
+    </linearGradient>
+    <linearGradient id="tmCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d3330"/>
+      <stop offset="1" stop-color="#08201e"/>
+    </linearGradient>
+    <filter id="tmGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="300" fill="#061a1a"/>
+
+  <!-- header -->
+  <text x="40" y="40" font-family="Bungee, sans-serif" font-size="17" fill="#ffc94a" letter-spacing="1.5">MA TRẬN KIỂM THỬ · v1.1.8</text>
+  <text x="40" y="60" font-family="system-ui, sans-serif" font-size="11" fill="#7d9d94">286 test · 35 file · 8 cổng · mọi cổng xanh trước khi phát hành</text>
+
+  <!-- the big number, breathing -->
+  <g transform="translate(1050,30)" filter="url(#tmGlow)">
+    <text x="0" y="30" text-anchor="middle" font-family="Bungee, sans-serif" font-size="42" fill="#8cc63f">286
+      <animate attributeName="opacity" values="0.75;1;0.75" dur="3.2s" repeatCount="indefinite"/>
+    </text>
+    <text x="0" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#7d9d94">PASSING</text>
+  </g>
+
+  <!-- eight gate cards, each with an animated bar -->
+  <g font-family="system-ui, sans-serif">
+    <!-- row 1 -->
+    <g transform="translate(40,84)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">tsc --noEmit</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">không lỗi kiểu</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(330,84)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">vitest run</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">286 / 286 · 35 file</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="0.6s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(620,84)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-readme-sync</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">10 README đồng bộ</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="1.2s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="0.6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(910,84)">
+      <rect width="250" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-i18n</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">7 locale × 302 key</text>
+      <rect x="150" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="150" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="1.8s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="236" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- row 2 -->
+    <g transform="translate(40,142)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">check-assets</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">14 SVG, kiểm hai chiều</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="2.4s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(330,142)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">smoke-ssr</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">mọi modal render được</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="3s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(620,142)">
+      <rect width="270" height="46" rx="4" fill="url(#tmCard)" stroke="#9d6bff" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#c39bff" font-weight="700">probe-menu-layout</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">11/11 trên DOM thật · mới 1.1.8</text>
+      <rect x="170" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="170" y="14" width="0" height="7" rx="3.5" fill="#9d6bff">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="3.6s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="256" cy="34" r="3.5" fill="#9d6bff">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(910,142)">
+      <rect width="250" height="46" rx="4" fill="url(#tmCard)" stroke="#166153" stroke-width="1.4"/>
+      <text x="12" y="19" font-size="10.5" fill="#d9f2c8" font-weight="700">vite build</text>
+      <text x="12" y="33" font-size="8.5" fill="#7d9d94">840 KB · gzip 391 KB</text>
+      <rect x="150" y="14" width="88" height="7" rx="3.5" fill="#0b2a28"/>
+      <rect x="150" y="14" width="0" height="7" rx="3.5" fill="url(#tmBar)">
+        <animate attributeName="width" values="0;88;88;0" dur="9s" begin="4.2s" repeatCount="indefinite"/>
+      </rect>
+      <circle cx="236" cy="34" r="3.5" fill="#8cc63f">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.4s" begin="2.1s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- distribution bar: where the 286 tests live -->
+  <text x="40" y="216" font-family="system-ui, sans-serif" font-size="9.5" fill="#7d9d94" letter-spacing="1">PHÂN BỐ 286 TEST THEO NHÓM</text>
+  <g transform="translate(40,224)">
+    <rect width="1120" height="22" rx="11" fill="#0b2a28"/>
+    <!-- gameplay 91 -->
+    <rect x="0" y="0" width="0" height="22" fill="#f5a81c">
+      <animate attributeName="width" values="0;356;356;0" dur="9s" begin="0.0s" repeatCount="indefinite"/>
+    </rect>
+    <!-- i18n 42 -->
+    <rect x="356" y="0" width="0" height="22" fill="#2bb48c">
+      <animate attributeName="width" values="0;164;164;0" dur="9s" begin="0.8s" repeatCount="indefinite"/>
+    </rect>
+    <!-- ui/layout 60 -->
+    <rect x="520" y="0" width="0" height="22" fill="#9d6bff">
+      <animate attributeName="width" values="0;235;235;0" dur="9s" begin="1.6s" repeatCount="indefinite"/>
+    </rect>
+    <!-- storage/settings 93 -->
+    <rect x="755" y="0" width="0" height="22" rx="11" fill="#8cc63f">
+      <animate attributeName="width" values="0;364;364;0" dur="9s" begin="2.4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- legend -->
+  <g font-family="system-ui, sans-serif" font-size="9" fill="#7d9d94">
+    <circle cx="48" cy="266" r="4" fill="#f5a81c"/><text x="58" y="269">gameplay</text>
+    <circle cx="148" cy="266" r="4" fill="#2bb48c"/><text x="158" y="269">i18n</text>
+    <circle cx="218" cy="266" r="4" fill="#9d6bff"/><text x="228" y="269">ui · layout</text>
+    <circle cx="320" cy="266" r="4" fill="#8cc63f"/><text x="330" y="269">storage · settings</text>
+  </g>
+  <text x="1160" y="269" text-anchor="end" font-family="system-ui, sans-serif" font-size="8.5" fill="#166153">tests/ · 35 file ngang</text>
+</svg>
