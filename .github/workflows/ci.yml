@@ -7,6 +7,7 @@ on:
 
 jobs:
   check:
+    name: Typecheck · tests · build (Node 22)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,5 +23,14 @@ jobs:
       - name: Typecheck + unit tests + single-file build
         run: npm run check
 
-      - name: README sync (10 locales)
+      - name: SSR render smoke (menu/modal tree)
+        run: npm run smoke
+
+  readme-sync:
+    name: README sync (10 locales)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify version badge · release link · corner-menu embed · historical rows
         run: node scripts/check-readme-sync.mjs
