@@ -64,6 +64,7 @@ export default function StartScreen({
   settings,
   onPatchSettings,
   onChangeLanguage,
+  onQuickSettings,
   onResetDefaults,
   onClearAllData,
 }: {
@@ -79,6 +80,7 @@ export default function StartScreen({
   settings: GameSettings;
   onPatchSettings: (patch: Partial<GameSettings>) => void;
   onChangeLanguage: (lang: SettingLanguage) => void;
+  onQuickSettings: (patch: Partial<GameSettings>) => void;
   onResetDefaults: () => void;
   onClearAllData: () => void;
 }) {
@@ -288,6 +290,7 @@ export default function StartScreen({
           settings={settings}
           onPatch={onPatchSettings}
           onChangeLanguage={onChangeLanguage}
+          onQuickSettings={onQuickSettings}
           onResetDefaults={onResetDefaults}
           onClearAllData={onClearAllData}
           onClose={closeModal}

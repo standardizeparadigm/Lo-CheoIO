@@ -369,6 +369,7 @@ export default function App() {
           settings={settings}
           onPatchSettings={patchSettings}
           onChangeLanguage={changeLanguage}
+          onQuickSettings={patchSettings}
           onResetDefaults={resetDefaults}
           onClearAllData={clearAllData}
         />

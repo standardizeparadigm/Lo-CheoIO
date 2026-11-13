@@ -7,3 +7,5 @@ export { default as AudioSection } from "./AudioSection";
 export { default as DisplaySection } from "./DisplaySection";
 export { default as LanguageSection } from "./LanguageSection";
 export { default as DataSection } from "./DataSection";
+export { default as PresetsSection } from "./PresetsSection";
+export { default as BackupSection } from "./BackupSection";
