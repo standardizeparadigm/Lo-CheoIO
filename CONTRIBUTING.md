@@ -19,14 +19,19 @@ Cảm ơn bạn đã quan tâm tới hũ dưa này! Dưới đây là quy tắc 
 ## Thêm ngôn ngữ mới
 
 1. Tạo `src/i18n/locales/<lang>.ts` export `Record<MessageKey, string>` với **đúng key set** của `vi.ts` (thiếu/thừa key sẽ fail test `tests/i18n.test.ts`).
-2. Cập nhật `LANGUAGES` trong `src/i18n/i18n.ts` và thêm nút vào `LanguageSwitcher.tsx` (+ key `lang.<lang>` trong cả 3 locale).
-3. Đồng bộ `<html lang>` (đã tự động) và số locale trong `numberLocale`.
+2. Cập nhật `LANGUAGES` trong `src/i18n/i18n.ts` và thêm nút vào `LanguageSwitcher.tsx` (+ key `lang.<lang>` trong **cả 7 locale**).
+3. Xem `docs/guides/adding-a-locale.md` — parity test (`tests/i18n.test.ts`) ép đồng bộ key + placeholder.
+4. Đồng bộ `<html lang>` (đã tự động) và số locale trong `numberLocale`.
 
 ## Kiểm thử
 
 - `npm run typecheck` — TypeScript strict, `noUnusedLocals`.
-- `npm run test` — vitest.
+- `npm run test` — vitest (76 tests).
 - `npm run build` — phải ra đúng 1 file `dist/index.html`.
+- `npx vite-node scripts/smoke-ssr.tsx` — headless render smoke cho toàn bộ menu/modal.
+- `node scripts/check-readme-sync.mjs` — bảo vệ README 10 ngôn ngữ khỏi lệch version.
+
+Tài liệu sâu hơn: [docs/guides/](docs/guides/) (engine overview, storage keys, a11y, performance, release process, thêm locale).
 
 ## Báo lỗi
 
