@@ -259,6 +259,17 @@ Doble clic en [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`
 
 Ver también [CHANGELOG.md](CHANGELOG.md).
 
+## 🗺️ Hoja de ruta (borrador — sujeta a cambios según feedback)
+
+| Hito | ETA | Ideas |
+| --- | --- | --- |
+| **v1.2.0** | 2026 Q1 | Música procedural por modo · tests de regresión visual (Playwright) en CI · subsetting de fuentes más agresivo para reducir el bundle |
+| **v1.3.0** | 2026 Q1–Q2 | 10º modo de juego (candidato: **TORMENTA DE MOSCAS** — solo moscas, sobrevive cortando) · modo con semilla para retos diarios |
+| **v1.4.0** | 2026 Q2 | Tabla de clasificación online **opt-in** (serverless, cifrada) — offline-first sigue siendo el valor por defecto |
+| Backlog | — | Ghost replay de tu mejor partida · modo foto (oculta el HUD, exporta PNG) · locale tailandés (ไทย) en evaluación |
+
+*Una hoja de ruta no es una promesa — la prioridad siempre es: estabilidad → que sea más fácil de jugar → más contenido.*
+
 ## 📚 Documentación adicional y desarrollo
 
 Notas de diseño y documentación técnica más profunda:
