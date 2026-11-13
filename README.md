@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-cài-đặt--chạy)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-build-production)
@@ -32,23 +32,18 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Mới trong v1.1.4
+## 🆕 Mới trong v1.1.5
 
-- 🎮 **2 chế độ chơi MỚI — 9 chế độ tổng cộng** — **LỄ HỘI COMBO** (cửa sổ combo sống **gấp đôi** 5.4s, +15% điểm mỗi củ, dưa rơi dày hơn một chút, đồ hư ×1.25 — multiplier nhảy vọt như pháo bông) và **ĐẠI TIỆC DƯA** (dưa rơi chậm ×0.78 mà dày gần gấp đôi, **hũ thưởng ×2.5**, điểm mỗi củ ×0.6 — lối chơi «trồng lúa», đổ thật nhiều hũ). Cả hai chế độ đều có glyph riêng trong menu và hoạt ảnh lựa chọn.
-- 🏆 **2 thành tựu mới** — **DÂY THÉP COMBO** (chuỗi 40 củ liên tiếp, mọi chế độ) & **TẤM LÒNG TRẨY HỘI** (đầy 3 hũ trong một ván Đại Tiệc Dưa). Tổng cộng **16 thành tựu**.
-- 🌐 **7 ngôn ngữ trong game** — thêm **Español** và **Français** bên cạnh VI/EN/中/日/한: mỗi locale ~270 khóa dịch, đồng bộ `<html lang>`, số theo locale (es-ES / fr-FR mới thêm).
-- 🐛 **Sửa triệt để lỗi trình chạy Windows** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat` nay là **CRLF + UTF-8 BOM** với `chcp 65001`, chuỗi delayed-expansion `!TSTR!`, text tiếng Việt **giữ nguyên dấu**. Kèm `.gitattributes` ép CRLF cho mọi `*.bat`/`*.cmd` — không bao giờ tái phát.
-- 🚀 **Trình chạy đa ngôn ngữ + hoạt ảnh** — cả 3 launcher (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) nay hỗ trợ **7 ngôn ngữ** (VI/EN/中/日/한/ES/FR), phím `L` xoay vòng đủ 7 thứ tiếng, thanh lấp lánh đổi màu xoay gold/pink/cyan; menu tiếng Việt hiển thị **dấu đầy đủ**. Xem [scripts/README.md](scripts/README.md).
-- 📖 **README 10 ngôn ngữ — đẹp hơn, nhiều hoạt ảnh hơn** — banner, lưới 9 chế độ, dải 7 ngôn ngữ, divider lóe sáng (tất cả SMIL), nội dung chi tiết & đầy đủ hơn.
-- 🧪 **61 unit tests** (tăng từ 55) — `npm run check` xanh.
+- 🧭 **Menu chính gọn lại đúng nghĩa** — mọi thứ về game dồn vào **panel GAME ở góc dưới-trái**: **Chơi** · **Chơi tiếp** · **Chế độ chơi** · **Bảng xếp hạng** (TOP 8) · **Thành tựu** (16) · **Cài đặt**. Mọi thứ về dự án dồn vào **panel INFO ở góc dưới-phải**: **Giới thiệu tác giả** · **Changelog** (đọc ngay trong game) · **Thoát**.
+- ⏸️ **«Chơi tiếp» — ván dở nay chỉ một nút bấm** — rời màn giữa chừng (Pause → Về menu) là ván được snapshot vào `locheo.run.v1`; bấm **Chơi tiếp** là khôi phục nguyên trạng: điểm, hũ, vết nứt, stamina, combo, khiên. Nút chỉ mở khi thực sự có ván đang dở — không ván thì mờ hẳn.
+- ⚙️ **Cài đặt trong game** — **SFX** · **Nhạc nền** · **Rung màn hình** · **Giảm chuyển động** — áp dụng tức thì, không cần reload; thêm mục **«Xóa dữ liệu đã lưu»** (2 bước xác nhận) cho máy công cộng.
+- 🐛 **Sửa phím tắt rò rỉ qua modal** — Enter/R/P/M/Space không còn kích hoạt game phía sau modal; **stale closure ở «Chơi tiếp»**; **`prefers-reduced-motion` giờ chặn mọi animation**.
+- 📖 **README 10 ngôn ngữ đẹp hơn nữa** — banner V1.1.5, animation 2 panel góc mới (SMIL), chi tiết & đầy đủ hơn.
+- 🧪 **76 unit tests** (tăng từ 61) — `npm run check` xanh; thêm **GitHub Actions CI** (npm ci → npm run check).
 
-<img src="assets/new-modes.svg" alt="2 chế độ mới trong v1.1.4 — Combo Festival & Grand Feast" width="100%" />
+<img src="assets/corner-menu.svg" alt="Panel GAME (góc dưới-trái) & INFO (góc dưới-phải) trượt vào (hoạt họa SMIL)" width="100%" />
 
-<img src="assets/modes.svg" alt="9 chế độ chơi — Classic · Zen · Inferno · Blitz 60s · Gold Rush · Mưa Dưa · Gốm Mỏng · Lễ Hội Combo · Đại Tiệc Dưa" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="Favicon Lọ Chéo — hũ dưa nghiêng với nắp vàng (hoạt họa SMIL)" width="150" /></div>
-
-→ Chi tiết đầy đủ: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ Chi tiết đầy đủ: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Tính năng nổi bật
 
@@ -64,7 +59,7 @@
 | 💾 **Bảng vàng TOP 8** | Điểm lưu cục bộ, validate & chuẩn hoá khi đọc, tên tự viết hoa, highlight dòng vừa lập kỷ lục |
 | 🎨 **Đồ hoạ 60fps** | Canvas 2D, particle budget 460, DPR cap 2, nền gạch bông pre-render offscreen, star twinkle + aurora menu |
 | 📴 **Offline-first thật sự** | Fonts tự host (subset latin + vietnamese, woff2), không CDN, không API — mở `dist/index.html` là chơi |
-| 🧪 **Chất lượng** | 61 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
+| 🧪 **Chất lượng** | 76 unit tests (vitest) cho modes / achievements / storage / i18n — `npm run check` là cổng CI |
 
 <img src="assets/items.svg" alt="14 nguyên liệu Lọ Chéo — nhóm hứng, nhóm power, nhóm né" width="100%" />
 
@@ -127,7 +122,7 @@ npm run build      # → dist/index.html (một file tự chứa mọi thứ)
 npm run dev        # dev server với HMR (http://localhost:5173)
 npm run preview    # xem thử bản build bằng server tĩnh
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 61 unit tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 76 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 
@@ -136,7 +131,7 @@ npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 lo-cheoio/
 ├─ index.html              # entry, meta SEO/OG (không CDN)
-├─ package.json            # lo-cheoio v1.1.4, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.5, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binary
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; include src + tests
@@ -149,6 +144,7 @@ lo-cheoio/
 │  ├─ modes.svg            # 9 chế độ chơi (SMIL animation)
 │  ├─ languages.svg        # 7 ngôn ngữ trong game (SMIL animation)
 │  ├─ new-modes.svg        # 2 chế độ mới v1.1.4 (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # divider lóe sáng (SMIL animation)
 │  ├─ license.svg          # dấu AGPL-3.0 copyleft (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -165,7 +161,8 @@ lo-cheoio/
 │     ├─ v1.1.1.md         # release notes v1.1.1
 │     ├─ v1.1.2.md         # release notes v1.1.2
 │     ├─ v1.1.3.md         # release notes v1.1.3
-│     └─ v1.1.4.md         # bản hiện tại (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt (file này)
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -179,7 +176,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4" (nguồn duy nhất)
+│  ├─ version.ts           # APP_VERSION = "1.1.5" (nguồn duy nhất)
 │  ├─ index.css            # tailwind v4 theme + toàn bộ animation/gradient
 │  ├─ assets/fonts/        # woff2 subset (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, offline 100%
@@ -189,7 +186,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (nguồn key) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + joystick nổi + bàn phím + visibility
-│  │  ├─ StartScreen.tsx   # menu: aurora, shimmer, chọn chế độ, thành tựu
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # 9 thẻ chế độ (classic… hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # tường huy hiệu locked/unlocked
 │  │  ├─ GameOverScreen.tsx     # VỠ HŨ! + điểm + new achievements
@@ -201,7 +199,10 @@ lo-cheoio/
 │  │  ├─ modes.ts          # chế độ chơi + công thức cân bằng (pure)
 │  │  ├─ achievements.ts   # 16 huy hiệu + checker thuần (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
-│  │  └─ audio.ts          # Web Audio synth: sfx + pentatonic music
+│  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
 └─ tests/                  # vitest — modes, achievements, storage, i18n
 ```
@@ -244,6 +245,7 @@ Nhấn đúp vào [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 | Phiên bản | Ngày | Ghi chú |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **76 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 chế độ** (thêm Lễ Hội Combo · Đại Tiệc Dưa) · **16 thành tựu** · **7 ngôn ngữ** (thêm ES/FR) · sửa play-windows.bat (CRLF+BOM) · trình chạy 7 ngôn ngữ · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 chế độ · 14 thành tựu · 5 ngôn ngữ · favicon · trình chạy đa ngôn ngữ · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 chế độ · 12 thành tựu · combo lửa · trình chạy double-click · README 10 ngôn ngữ · 49 tests |
@@ -256,7 +258,7 @@ Xem thêm [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Đóng góp
 
 1. Fork repo, tạo branch theo quy ước `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm run check` phải xanh trước khi mở PR (typecheck + 61 tests + build).
+2. `npm run check` phải xanh trước khi mở PR (typecheck + 76 tests + build).
 3. Không thêm dependency runtime nếu không thực sự cần — triết lý: **một file, không mạng, chơi được mãi mãi**.
 4. Mô tả PR ghi rõ chế độ/màn hình bị ảnh hưởng và kèm clip nếu thay đổi gameplay.
 
