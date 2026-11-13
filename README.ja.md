@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
+[![Tests](https://img.shields.io/badge/tests-286%20%C2%B7%2035%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-インストールと実行)
@@ -37,68 +37,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.7 の新機能
+## 🆕 v1.1.8 の新着
 
-> 1.2.0 前の**最後のパッチ**。新しいゲームモードはありません——まだ引っかかっていた点を根本から直しました。
+> **1.2.0 前の最後のパッチ**。新モードは追加せず、スタート画面のレイアウト崩れを修正し、3つのフォルダを追加し、全ドキュメントを同期しました。
 
-### 🌫️ メニュー背景のかすみが消えました——根本から修正
+### 📐 スタート画面のオーバーフローを解消
 
-プレイヤーの指摘は正しかった：*「メニューの後ろがまだぼやけている」*。原因は一層ではなく、**四つのレイヤーが重なって増幅していた**ことです：
+スクリーンショットには**4つの不具合が同時に**写っていました。`CHÉO` のロゴが真ん中で切れ、マスコットの壺は下半身を失い、GAME パネルは下端で切断され、ティッカーの著作権行も切られていました。4つとも**原因は1つ**——誰も管理していない足し算です。
 
-| レイヤー | 変更前 | 変更後 | 理由 |
+```
+1280×720 での旧 flex カラム：
+  scene      flex-1     →  250px しか得られず（約 700px 必要）
+  panel row  shrink-0   →      415px
+  ticker     shrink-0   →       55px
+                          ─────────────
+                          720 − 415 − 55 = 250
+```
+
+`shrink-0` のため後ろ2つは縮まず、scene は **250px** だけ。それより高いもの（ロゴ、壺）は `overflow-y-auto` により `y≈247px` で切られます。画像で測った切れ目は **247.3px**、計算は **250.0px**。誤差 2.7px で一致します。
+
+<img src="assets/layout-fix.svg" alt="v1.1.7 と v1.1.8 のレイアウト比較 — 250px で切れる scene と、浮遊する chrome を伴う 720px の scene（SMIL アニメーション）" width="100%" />
+
+**修正内容**——chrome をフローから外し、合計に責任者を持たせる：
+
+| 変更 | 効果 |
+| --- | --- |
+| `MenuChrome` を `position: absolute` に | scene を縮められない——常に 720px 全体を確保 |
+| scene に `padding-bottom: plan.reserve` | 内容がパネルの下に隠れず、しかも scene は全高でいられる |
+| `.menu-ticker` を 48px 固定 + `overflow: hidden` | 著作権行がマーキーと同じ行に入る |
+
+スクリーンショットと同じサイズで、scene は **250px → 382px**。壺もロゴも完全なまま。**SVG は一切触っていません**——`jar.tsx` は `viewBox 0 0 120 140` 全体を描いており、下半身が単に見える範囲の外にあっただけです。
+
+### 🔍 計測中に見つかった副次的な4件
+
+| # | 不具合 | 原因 | 修正 |
 | --- | --- | --- | --- |
-| 星雲 `.nebula-*` | `blur(64px)`、ピーク `1.0` | **`blur(22px)`、ピーク `0.80`** | 64px は 46vw の光の半径の半分以上——輪郭が消え、塊全体が霧になる |
-| メニュー・ヴィネット | インライン、**全画面**、`0.42 → 0.88 → 1.0` | **`.menu-vignette`**、四隅だけ、`0.30 → 0.62` | 「画面全体を均一に暗く」から「隅は暗く、中央は明るく」へ |
-| CRT フレーム | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px は小さい窓で四隅をほぼ飲み込んでいた |
-| タイル床 | `opacity-45` | **`opacity-70`** | 45% では床は灰色のノイズで、識別できるディテールではなかった |
+| 1 | 右端の**青いスクロールバー**が星雲に重なる | 内容があふれ scene が 8px のトラックを露出 | 非表示にし、`padding-bottom` で余白を確保 |
+| 2 | スマホで**パネルが重なる** | `208 + 224px` は `375px` に収まらない | 520px 未満は縦積み |
+| 3 | 低くて広い窓で **`CHÉO` が高すぎる** | 文字サイズが `17vw` だけを見ていた | `clamp(3.4rem, min(17vw, 20vh), 10.5rem)` |
+| 4 | **パネル高が言語で変わる** | 行の高さがヒントの折返し次第。ベトナム語/ドイツ語で3行 | `--menu-row-h` 固定 + ヒント2行クランプ |
 
-`.menu-vignette` と `.app-vignette` は JSX に埋まったユーティリティではなく**名前付き CSS ルール**になりました——調整は一か所、しかも `prefers-reduced-motion` が届きます。
+### 🗂️ 新しい3フォルダ——22ファイル
 
-### 🏷️ 変更履歴の階層——一階層に一色
+各実績が**独立ファイル**になり、解除条件と存在理由を記述——旧16行の表では答えられなかった問いです。
 
-| 階層 | ラベル | 色 | 意味 | 例 |
-| --- | --- | --- | --- | --- |
-| `major` | **MAJOR** | 🩷 ピンク `#ff5fb0` | 大きな版——新しい仕組み | 1.0.0 |
-| `minor` | **UPDATE** | 🟡 ゴールド `#f5a81c` | アップグレード——新内容 | 1.1.0 |
-| `patch` | **PATCH** | 🟣 ヴァイオレット `#9d6bff` | 修正と整理 | 1.1.1 → 1.1.7 |
+### 🧪 新規30テストで固定
 
-階層は `tierFor(version)` が **SemVer から導出**し、手書きしません——だからラベルが隣に印字されたバージョンと食い違うことはありません。パネルには**フィルター**（すべて · MAJOR · UPDATE · PATCH、階層ごとの件数付き）が加わりました。
+| ファイル | テスト | 固定する内容 |
+| --- | --- | --- |
+| `tests/menu-layout.test.ts` | **22** | かつてあふれた足し算、CSS と TypeScript の全定数一致、浮遊行に `shrink-0` がないこと |
+| `tests/achievements-split.test.ts` | **8** | 16ファイル分割で id 順が変わらず、全 id が `grant` されること |
+| `scripts/probe-menu-layout.tsx` | **11** | 同じ性質を `react-dom/server` が生成した**実 DOM** で検査 |
 
-<img src="assets/release-tiers.svg" alt="三つの階層 MAJOR/UPDATE/PATCH と配色、九つのリリースの時間軸（SMIL アニメーション）" width="100%" />
-
-### 📖 八つの旧リリース：一行から一ページへ
-
-九つのうち六つは箇条書き配列が**空**で、パネルは一行の要約しか出せませんでした。v1.1.7 ですべて書き直しました：
-
-- **ベトナム語 96 項目 + 英語 96 項目**を新規作成または拡充
-- 内容は `docs/releases/v1.1.x.md` **と**ソースコードそのもの（9 モード、16 実績）から
-- **リリース日を再整列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——二日おき、同じ日のリリースはゼロ
-
-### 🗂️ プロジェクトがさらに多くのフォルダに
-
-```
-src/game/changelog/        ← 300 行の単一ファイルを置き換え
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               リリースごとに 1 ファイル —— v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 ヘルパー
-```
-
-今後 1.2.0 を足すのは**新しいファイル 1 つ**と import 一行だけです。
-
-### 🐛 修正
+### 🐛 修正一覧
 
 | # | 不具合 | 修正 |
 | --- | --- | --- |
-| 1 | メニュー背景のかすみ・濁り | 上記四つの変更 |
-| 2 | タイル床が見えない | `opacity-45` → `opacity-70` |
-| 3 | 履歴ラベルが実態と違う（`kind` 手書き） | `tierFor(version)` が SemVer から導出 |
-| 4 | 履歴の説明が薄い（6 リリースが `items: []`） | 96 項目を書き直し |
-| 5 | リリース日の重複と不整合 | 九つの連続した日付、重複なし |
-| 6 | ドキュメント/SVG/ランチャーが版に遅れ | 全数走査 → 1.1.7 |
-| 7 | `check-readme-sync` のコメントが 1.1.6 固定 | `package.json` から読むよう変更 |
+| 1 | `CHÉO` が途中で切れる | chrome をフロー外へ + scene が自前で余白を確保 |
+| 2 | 壺の下半身が消える | 同じ原因——SVG ではない |
+| 3 | GAME パネルが下端で切れる | 720px の箱に 732px の flex カラム |
+| 4 | 著作権行が切れる | ティッカーを 48px 単一行に |
+| 5 | スクロールバーが画面に重なる | `scrollbar-width: none` |
+| 6 | スマホでパネルが重なる | 520px 未満は縦積み |
+| 7 | `CHÉO` が枠より高い | `20vh` でも上限を設定 |
+| 8 | パネル高が言語依存 | `--menu-row-h` 固定 + ヒントクランプ |
 
-→ 詳細：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 前回：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+→ 詳細：[docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · 前版：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 <img src="assets/settings-sections.svg" alt="六つの設定セクション（v1.1.6 以降）——スイッチ、レベルバー、ピッカー（SMIL アニメーション）" width="100%" />
 
@@ -118,7 +122,7 @@ src/game/changelog/        ← 300 行の単一ファイルを置き換え
 | 💾 **TOP 8 ランキング** | ローカル保存、読み込み時に検証・正規化、名前は自動大文字化、新記録はハイライト |
 | 🎨 **60fpsグラフィックス** | Canvas 2D、パーティクル上限460、DPR上限2、オフスクリーン事前描画の花柄床、星の瞬き + メニューオーロラ |
 | 📴 **真のオフラインファースト** | 自己ホストフォント（latin + ベトナム語サブセット、woff2）、CDN・API不使用 — `dist/index.html` をダブルクリックするだけ |
-| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする256件のユニットテスト（vitest）— `npm run check` がCIゲート |
+| 🧪 **品質ゲート** | modes / achievements / storage / i18n / settings をカバーする286件のユニットテスト（vitest）— `npm run check` がCIゲート |
 
 <img src="assets/items.svg" alt="14種の食材 — キャッチすべき漬物、取るべき黄金パワー、避けるべき危険物" width="100%" />
 
@@ -181,7 +185,7 @@ npm run build      # → dist/index.html（単一の自己完結ファイル）
 npm run dev        # HMR付き開発サーバー（http://localhost:5173）
 npm run preview    # プロダクションビルドをローカルで確認
 npm run typecheck  # tsc --noEmit（strict、noUnusedLocals…）
-npm run test       # vitest — 256件のユニットテスト（modes / achievements / storage / i18n / settings）
+npm run test       # vitest — 286件のユニットテスト（modes / achievements / storage / i18n / settings）
 npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 
@@ -190,7 +194,7 @@ npm run check      # typecheck + test + build（CI品質ゲート）
 ```
 lo-cheoio/
 ├─ index.html              # エントリ、SEO/OGメタ（CDNなし）
-├─ package.json            # lo-cheoio v1.1.7、dev/build/test/check スクリプト
+├─ package.json            # lo-cheoio v1.1.8、dev/build/test/check スクリプト
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict；src + tests を含む
@@ -203,8 +207,13 @@ lo-cheoio/
 │  ├─ modes.svg            # 9モード（SMILアニメーション）
 │  ├─ languages.svg        # 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
-│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation)
+│  ├─ corner-menu.svg      # corner GAME/INFO panels (SMIL animation)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
+│  ├─ palette-ribbon.svg   # 7-slice palette ribbon, sheen sweep (SMIL, v1.1.7)
+│  ├─ architecture.svg     # architecture + data flow diagram (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tiers + 10-release timeline (SMIL, v1.1.7)
+│  ├─ layout-fix.svg       # v1.1.7 vs v1.1.8 layout, side by side (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # AGPL-3.0 copyleft 印章（SMILアニメーション）
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -227,7 +236,8 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     ├─ v1.1.7.md         # release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -253,7 +263,9 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # キャンバス + フローティングジョイスティック + キーボード
 │  │  ├─ StartScreen.tsx   # メニュー：ヒーロー + 多層アニメ + コーナーパネル
 │  │  ├─ menu/              # コーナー GAME/INFO パネル + モーダル + icons/
-│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  ├─ layout/         # metrics · fit · planMenuLayout, 22 tests (v1.1.8)
+│  │  │  └─ ticker/         # bottom ticker band, 14 strings (v1.1.8)
 │  │  ├─ ModeSelector.tsx  # 9枚のモードカード（classic/zen/inferno/blitz/goldrush/storm/hardcore · combo · feast）
 │  │  ├─ AchievementsPanel.tsx  # ロック/解除バッジウォール
 │  │  ├─ GameOverScreen.tsx     # 壺が割れた！+ スコア + 新実績
@@ -267,13 +279,14 @@ lo-cheoio/
 │  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
 │  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
 │  │  ├─ modes.ts          # barrel — keeps every old import working
-│  │  ├─ achievements.ts   # 16バッジ + pureチェッカー（pure）
+│  │  ├─ achievements/      # 16バッジ + pureチェッカー（pure · v1.1.8）
+│  │  │  └─ defs/           # one file per achievement
 │  │  ├─ storage.ts        # localStorage：TOP 8、進行度、実績
 │  │  ├─ audio.ts          # Web Audioシンセ：効果音 + 五音音階ミュージック
 │  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
-│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
+│  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_8.ts
 │  │  │  └─ index.ts        #   ordered list + 5 helpers
 │  │  ├─ runSave.ts         # 中断ランの保存
 │  │  ├─ settings.ts        # 設定スキーマ・既定値・正規化
@@ -283,7 +296,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # モーダルのフォーカス封じ込め（v1.1.6）
-└─ tests/                  # vitest — 33ファイル · 256テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 35ファイル · 286テスト（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 アーキテクチャとパフォーマンス
@@ -322,10 +335,15 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 **ターミナルが苦手？**
 [`scripts/play-mac.command`](scripts/play-mac.command)（macOS）、[`scripts/play-windows.bat`](scripts/play-windows.bat)（Windows）、[`scripts/play-linux.sh`](scripts/play-linux.sh)（Linux）をダブルクリック —— カラーメニューが開き、`1` を選ぶとビルドしてすぐ遊べます。開発時は `2`。詳しくは [scripts/README.md](scripts/README.md)。
 
+<img src="assets/release-tiers.svg" alt="Three tiers MAJOR/UPDATE/PATCH with their colours and a ten-release timeline (SMIL animation)" width="100%" />
+
+<img src="assets/test-matrix.svg" alt="v1.1.8 テストマトリクス——8つの合格ゲート、35ファイルの286テスト、領域別（SMIL アニメーション）" width="100%" />
+
 ## 📦 リリースと変更履歴
 
 | バージョン | Tier | 日付 | ノート |
 | --- | --- | --- | --- |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-14 | **スタート画面のオーバーフロー解消**（chrome を flex フローから外し scene は `250px → 382px`、ロゴと壺は完全） · **ティッカー 48px 固定** · **スクロールバーを非表示** · **スマホでは縦積み** · **`menu/layout/` + `menu/ticker/` + `achievements/` は16ファイル** · **新規30テスト** · 全ドキュメントを 1.1.8 に同期 · **286 テスト** |
 | [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **メニュー背景のかすみ除去**（四層の重なり：`blur 64→22px`、全画面ヴィネットを四隅のみに、CRT 枠 140→90px、床 45→70%）· **階層別カラー履歴** · 旧八版に **96 項目の説明** · 日付再整列 · `src/game/changelog/` 分割 · README 10 本刷新 · **256 テスト** |
 | [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6セクション設定**（プリセット · サウンド · 表示 · 言語 · バックアップ · データ）· 音量 0–100 · 揺れの強さ · 画質 · タブ切替で自動停止 · 言語を設定へ移設 · 4プリセット · JSON 入出力 · 多層アニメのメニュー · 作者カードの流れるグラデーション · モーダルのフォーカス封じ込め · 再読込後の音楽バグ修正 · **150テスト** |
 | [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **四隅 GAME/INFO メニュー**（プレイ · つづきから · モード · ランキング · 実績 · 設定 / 作者について · 更新履歴 · 終了）· **中断ランの保存＆再開**（`locheo.run.v1`）· ゲーム内設定（効果音/BGM/揺れ/動作を減らす）· モーダル越しショートカット修正 · prefers-reduced-motion 完全対応 · **113テスト** |
@@ -367,7 +385,7 @@ v1.1.4で修正済み：`play-windows.bat` は CRLF + UTF-8 BOM と `chcp 65001`
 ## 🤝 コントリビュート
 
 1. リポジトリをForkし、`arena/<名前>` または `feat/<名前>` の命名規則でブランチを作成。
-2. PRを出す前に `npm run check` をグリーンに（typecheck + 256テスト + build）。
+2. PRを出す前に `npm run check` をグリーンに（typecheck + 286テスト + build）。
 3. 本当に必要な場合以外、ランタイム依存を追加しない — 理念：**1ファイル、ネットワーク不要、永遠に遊べる**。
 4. PRには影響する画面/モードを明記し、ゲームプレイ変更時はクリップを添付してください。
 
