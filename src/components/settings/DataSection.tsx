@@ -31,7 +31,12 @@ export default function DataSection({
               {t("settings.clearDataDesc")}
             </span>
           </span>
-          <GameButton size="sm" variant="danger" onClick={() => setConfirmClear(true)}>
+          <GameButton
+            size="sm"
+            variant="danger"
+            onClick={() => setConfirmClear(true)}
+            aria-label={t("settings.clearData")}
+          >
             !
           </GameButton>
         </div>
@@ -69,7 +74,12 @@ export default function DataSection({
               {t("settings.resetDefaultsDesc")}
             </span>
           </span>
-          <GameButton size="sm" variant="ghost" onClick={() => setConfirmReset(true)}>
+          <GameButton
+            size="sm"
+            variant="ghost"
+            onClick={() => setConfirmReset(true)}
+            aria-label={t("settings.resetDefaults")}
+          >
             ↺
           </GameButton>
         </div>
@@ -90,7 +100,7 @@ export default function DataSection({
                 setConfirmReset(false);
               }}
             >
-              ↺
+              {t("settings.resetDefaults")}
             </GameButton>
           </div>
         </div>
