@@ -37,7 +37,9 @@ export default function App() {
   const [run, setRun] = useState<RunStats>(EMPTY);
   const [showOver, setShowOver] = useState(false);
   const [savedId, setSavedId] = useState<string | null>(null);
-  const [muted, setMuted] = useState(false);
+  // mute survives a reload — it used to reset to "sound on" every boot,
+  // which was jarring for players who muted deliberately (v1.1.6)
+  const [muted, setMuted] = useState(() => readRaw(STORAGE_KEYS.muted) === "1");
   const [touchMode, setTouchMode] = useState(false);
   const [mode, setMode] = useState<ModeId>(() => {
     const v = readRaw(STORAGE_KEYS.mode); // returns null when storage is blocked
@@ -78,6 +80,7 @@ export default function App() {
 
   useEffect(() => {
     audio.setMuted(muted);
+    writeRaw(STORAGE_KEYS.muted, muted ? "1" : "0");
   }, [muted]);
 
   // settings.language is the source of truth → drives the i18n module
