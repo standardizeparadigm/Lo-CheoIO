@@ -3,6 +3,7 @@ import { useI18n } from "../../i18n/useI18n";
 import { GameButton } from "../ui";
 import SettingsSection from "./SettingsSection";
 import { exportSettings, importSettings } from "../../game/settingsIO";
+import { copyText } from "../../utils/clipboard";
 import type { GameSettings } from "../../game/settings";
 
 /**
@@ -24,12 +25,9 @@ export default function BackupSection({
   const doExport = async () => {
     const json = exportSettings(settings);
     setBlob(json);
-    try {
-      await navigator.clipboard?.writeText(json);
-      setStatus("copied");
-    } catch {
-      setStatus("ok"); // textarea still holds the payload — no hard failure
-    }
+    // only claim "copied" when the clipboard API actually accepted it —
+    // the textarea still holds the payload either way
+    setStatus((await copyText(json)) ? "copied" : "ok");
   };
 
   const doImport = () => {
