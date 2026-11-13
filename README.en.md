@@ -9,7 +9,7 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.4-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.4.md)
+[![Version](https://img.shields.io/badge/version-1.1.5-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.5.md)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-install--run)
 [![Single File](https://img.shields.io/badge/single--file-HTML-8cc63f.svg?style=for-the-badge)](#-production-build)
@@ -30,23 +30,18 @@
 
 This is a **single-screen action arcade** inspired by Vietnam's humble pickled vegetables. No linear levels, no cluttered menus — just the jar, an endless downpour of produce, and your blazing reflexes.
 
-## 🆕 What's new in v1.1.4
+## 🆕 What's new in v1.1.5
 
-- 🎮 **2 NEW modes — 9 total** — **COMBO FESTIVAL** (combo window lives **twice as long** at 5.4s, +15% per catch, slightly denser rain, ×1.25 hazards — the multiplier climbs like fireworks) and **GRAND FEAST** (produce falls ×0.78 yet nearly twice as dense, **jar bonus ×2.5**, ×0.6 score — the "pickle farmer" playstyle: fill jar after jar). Both modes got their own menu glyphs and card glows.
-- 🏆 **2 new achievements** — **IRON CHAIN** (a 40-catch streak, any mode) & **FEAST TABLE FULL** (fill 3 jars in a single Grand Feast run). That's **16 achievements** in total.
-- 🌐 **7 in-game languages** — added **Español** and **Français** next to VI/EN/中/日/한: 207 translation keys per locale, `<html lang>` sync, locale-aware numbers (es-ES / fr-FR included).
-- 🐛 **The Windows launcher crash is fixed for good** — `'Ọ' is not recognized as an internal or external command` / `else was unexpected at this time.`: `play-windows.bat` is now **CRLF + UTF-8 BOM** with `chcp 65001`, delayed-expansion `!TSTR!` strings, and Vietnamese text kept with **full diacritics**. A new `.gitattributes` enforces CRLF for every `*.bat`/`*.cmd` — this can never regress.
-- 🚀 **Multilingual, animated launchers** — all three launchers (`play-linux.sh` · `play-mac.command` · `play-windows.bat`) now speak **7 languages** (VI/EN/中/日/한/ES/FR), the `L` key cycles all seven, and the sparkle divider rotates gold/pink/cyan; the Vietnamese menu keeps **full diacritics**. See [scripts/README.md](scripts/README.md).
-- 📖 **This README got a makeover across all 10 languages** — more animations (banner, 9-mode grid, 7-language ribbon, sparkle divider — all SMIL), more detail, more completeness.
-- 🧪 **61 unit tests** (up from 55) — `npm run check` is green.
+- 🧭 **The main menu, tamed at last** — everything game-related lives in the **GAME panel, bottom-left**: **Play** · **Continue** · **Game Modes** · **Leaderboard** (TOP 8) · **Achievements** (16) · **Settings**. Everything project-related lives in the **INFO panel, bottom-right**: **About the author** · **Changelog** (read it right in-game) · **Quit**.
+- ⏸️ **"Continue" — your suspended run is one click away** — leaving mid-run (Pause → Back to menu) snapshots to `locheo.run.v1`; **Continue** restores it as-is: score, jars, cracks, stamina, combo, shields. The button lights up only when a run is actually suspended — otherwise it sleeps.
+- ⚙️ **In-game settings** — **SFX** · **Music** · **Screen shake** · **Reduced motion** — applied instantly, no reload; plus a two-step **"Clear saved data"** danger zone for shared machines.
+- 🐛 **Shortcuts no longer leak through modals** — Enter/R/P/M/Space don't fire the game behind an open modal; **stale closure on Continue** fixed; **`prefers-reduced-motion` now kills every animation**.
+- 📖 **READMEs prettier than ever** — V1.1.5 banner, new corner-panels SMIL animation, more detail across all 10 languages.
+- 🧪 **76 unit tests** (up from 61) — green `npm run check`; new **GitHub Actions CI** (npm ci → npm run check).
 
-<img src="assets/new-modes.svg" alt="New in v1.1.4 — Combo Festival & Grand Feast" width="100%" />
+<img src="assets/corner-menu.svg" alt="Corner GAME (bottom-left) & INFO (bottom-right) panels sliding in (SMIL animation)" width="100%" />
 
-<img src="assets/modes.svg" alt="The 9 game modes — Classic · Zen · Inferno · 60-Second Rush · Gold Rush · Pickle Rain · Thin Ceramic · Combo Festival · Grand Feast" width="100%" />
-
-<div align="center"><img src="assets/favicon.svg" alt="Lọ Chéo favicon — a slanted pickle jar with a gold lid (SMIL animation)" width="150" /></div>
-
-→ Full details: [docs/releases/v1.1.4.md](docs/releases/v1.1.4.md)
+→ Full details: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Highlights
 
@@ -62,7 +57,7 @@ This is a **single-screen action arcade** inspired by Vietnam's humble pickled v
 | 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
 | 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
 | 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
-| 🧪 **Quality gates** | 61 unit tests (vitest) for modes / achievements / storage / i18n — `npm run check` is the CI gate |
+| 🧪 **Quality gates** | 76 unit tests (vitest) for modes / achievements / storage / i18n — `npm run check` is the CI gate |
 
 <img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
 
@@ -125,7 +120,7 @@ npm run build      # → dist/index.html (one self-contained file)
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 61 unit tests (modes / achievements / storage / i18n)
+npm run test       # vitest — 76 unit tests (modes / achievements / storage / i18n)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
@@ -134,7 +129,7 @@ npm run check      # typecheck + test + build (CI quality gate)
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (no CDN)
-├─ package.json            # lo-cheoio v1.1.4, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.5, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; includes src + tests
@@ -147,6 +142,7 @@ lo-cheoio/
 │  ├─ modes.svg            # the 9 modes (SMIL animation)
 │  ├─ languages.svg        # the 7 in-game languages (SMIL animation)
 │  ├─ new-modes.svg        # the 2 new v1.1.4 modes (SMIL animation)
+│  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # animated AGPL-3.0 copyleft seal (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -163,7 +159,8 @@ lo-cheoio/
 │     ├─ v1.1.1.md         # v1.1.1 release notes
 │     ├─ v1.1.2.md         # v1.1.2
 │     ├─ v1.1.3.md         # v1.1.3 release notes
-│     └─ v1.1.4.md         # current release notes (1.1.4)
+│     ├─ v1.1.4.md         # release notes (1.1.4)
+│     └─ v1.1.5.md         # current release notes (1.1.5)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English (this file)
 ├─ README.zh.md            # 🇨🇳 中文
@@ -177,7 +174,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.4" (single source of truth)
+│  ├─ version.ts           # APP_VERSION = "1.1.5" (single source of truth)
 │  ├─ index.css            # tailwind v4 theme + all animation/gradient
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
@@ -187,7 +184,8 @@ lo-cheoio/
 │  │  └─ locales/          # vi.ts (key source) · en · zh · ja · ko · es · fr
 │  ├─ components/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
-│  │  ├─ StartScreen.tsx   # menu: aurora, shimmer, mode picker, achievements
+│  │  ├─ StartScreen.tsx   # menu: hero + corner GAME/INFO panels (v1.1.5)
+│  │  ├─ menu/              # corner GAME/INFO panels + modals (v1.1.5)
 │  │  ├─ ModeSelector.tsx  # 9 mode cards (classic… hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # locked/unlocked badge wall
 │  │  ├─ GameOverScreen.tsx     # JAR SHATTERED! + score + new achievements
@@ -199,7 +197,10 @@ lo-cheoio/
 │  │  ├─ modes.ts          # game modes + balance math (pure)
 │  │  ├─ achievements.ts   # 16 badges + pure checker (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
-│  │  └─ audio.ts          # Web Audio synth: sfx + pentatonic music
+│  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
+│  │  ├─ changelog.ts       # in-game changelog data (v1.1.5)
+│  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
+│  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
 └─ tests/                  # vitest — modes, achievements, storage, i18n
 ```
@@ -242,6 +243,7 @@ Double-click [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`s
 
 | Version | Date | Notes |
 | --- | --- | --- |
+| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **76 tests** |
 | [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 modes** (Combo Festival · Grand Feast) · **16 achievements** · **7 languages** (ES/FR added) · play-windows.bat fix (CRLF+BOM) · 7-language launchers · 61 tests |
 | [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 modes · 14 achievements · 5 languages · favicon · multilingual launchers · 55 tests |
 | [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 modes (60-Second Rush · Gold Rush) · 12 achievements · combo flames · double-click launchers · README in 10 languages · 49 tests |
@@ -254,7 +256,7 @@ See also [CHANGELOG.md](CHANGELOG.md).
 ## 🤝 Contributing
 
 1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
-2. `npm run check` must be green before opening a PR (typecheck + 61 tests + build).
+2. `npm run check` must be green before opening a PR (typecheck + 76 tests + build).
 3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
 4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 
