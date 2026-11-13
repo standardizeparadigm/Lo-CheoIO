@@ -43,7 +43,7 @@ export default function GameMenu({
 
   return (
     <CornerPanel title={t("menu.game")} corner="left">
-      <MenuItemButton icon={<PlayIcon className="h-5 w-5" />} label={t("game.play")} variant="primary" onClick={onPlay} />
+      <MenuItemButton icon={<PlayIcon className="h-5 w-5" />} label={t("game.play")} variant="primary" shine onClick={onPlay} />
       <MenuItemButton
         icon={<ContinueIcon className="h-5 w-5" />}
         label={t("game.continue")}
