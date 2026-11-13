@@ -1,8 +1,11 @@
 /**
- * Keycap — a keyboard key chip.
+ * Keycap — a keyboard key chip, e.g. `W` or `Space`.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * `wide` widens the cap for named keys so the row stays optically balanced.
+ * Purely presentational: it is always wrapped in a `<kbd>`-ish context by the
+ * caller, never bound to a real key handler.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import { ReactNode } from "react";
 
