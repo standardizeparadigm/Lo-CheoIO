@@ -41,7 +41,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 - 🎛️ **Cuatro preajustes de un toque + copia JSON** — **FLUIDO** · **EQUILIBRADO** · **CINE** · **SPEEDRUN** (nunca tocan el idioma) y exportación/importación para llevar la configuración a otra máquina.
 - ✨ **El menú es ahora un escenario** — nebulosas a la deriva, un haz de luz que respira, **dos capas de estrellas parpadeantes**, un anillo de luz girando alrededor del tarro, halo del tarro, un destello que cruza JUGAR; la **tarjeta del autor** tiene un borde degradado en movimiento perpetuo.
 - 🐛 **Cinco fallos reales corregidos** — música más alta de lo configurado tras recargar · Tab escapando de los modales · la pista del changelog fijada en v1.1.5 · `updateSettings` devolviendo valores sin normalizar · el foco no se retenía en el diálogo.
-- 🧪 **177 pruebas unitarias** (23 archivos, antes 113/14) — nueva cobertura del esquema de ajustes, preajustes, códec de copia, matemática de ganancia y un test de contrato i18n↔UI.
+- 🧪 **222 pruebas unitarias** (29 archivos, antes 113/14) — nueva cobertura del esquema de ajustes, preajustes, códec de copia, matemática de ganancia y un test de contrato i18n↔UI.
 
 <img src="assets/settings-sections.svg" alt="Ajustes de v1.1.6 — seis secciones con interruptores, barras de nivel y selectores (animación SMIL)" width="100%" />
 
@@ -65,7 +65,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 | 💾 **Clasificación TOP 8** | Guardado local, validado y normalizado al leer, nombres en mayúsculas automáticas, highlight para el récord recién marcado |
 | 🎨 **Gráficos 60fps** | Canvas 2D, presupuesto de 460 partículas, DPR tope 2, suelo de losetas pre-renderizado offscreen, titileo de estrellas + aurora en el menú |
 | 📴 **Offline-first de verdad** | Fuentes auto-alojadas (subsets latin + vietnamita, woff2), sin CDN ni APIs — abre `dist/index.html` y a jugar |
-| 🧪 **Calidad** | 177 tests unitarios (vitest) para modes / achievements / storage / i18n / settings — `npm run check` es la puerta de CI |
+| 🧪 **Calidad** | 222 tests unitarios (vitest) para modes / achievements / storage / i18n / settings — `npm run check` es la puerta de CI |
 
 <img src="assets/items.svg" alt="Los 14 ingredientes — encurtidos para atrapar, poderes dorados para agarrar, peligros para esquivar" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (un único archivo autocontenido)
 npm run dev        # servidor de desarrollo con HMR (http://localhost:5173)
 npm run preview    # sirve el build de producción localmente
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 177 tests unitarios (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 222 tests unitarios (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (puerta de calidad CI)
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # foco atrapado en modales (v1.1.6)
-└─ tests/                  # vitest — 23 archivos · 177 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 29 archivos · 222 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Arquitectura y rendimiento
@@ -301,7 +301,7 @@ Notas de diseño y documentación técnica más profunda:
 ## 🤝 Contribuir
 
 1. Haz fork, crea una rama con la convención `arena/<nombre>` o `feat/<nombre>`.
-2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 177 tests + build).
+2. `npm run check` debe estar en verde antes de abrir PR (typecheck + 222 tests + build).
 3. Evita nuevas dependencias de runtime salvo necesidad real — filosofía: **un archivo, sin red, jugable para siempre**.
 4. En el PR indica las pantallas/modos afectados y adjunta un clip si cambia el gameplay.
 

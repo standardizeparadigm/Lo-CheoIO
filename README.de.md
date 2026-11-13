@@ -41,7 +41,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 - 🎛️ **Vier Ein-Tipp-Presets + JSON-Backup** — **FLÜSSIG** · **AUSGEWOGEN** · **KINO** · **SPEEDRUN** (fassen die Sprache nie an) sowie Export/Import der Konfiguration.
 - ✨ **Das Menü wird zur Bühne** — treibende Nebel, ein atmender Lichtstrahl, **zwei funkelnde Sternenfelder**, ein rotierender Lichtring um das Glas, ein Glas-Halo, ein Glanzstreifen über SPIELEN; die **Autorenkarte** bekommt einen endlos wandernden Verlaufsrahmen.
 - 🐛 **Fünf echte Fehler behoben** — Musik lauter als eingestellt nach einem Reload · Tab entkam aus Modals · der Changelog-Hinweis war auf v1.1.5 festgenagelt · `updateSettings` gab unnormalisierte Werte zurück · der Fokus blieb nicht im Dialog.
-- 🧪 **177 Unit-Tests** (23 Dateien, vorher 113/14) — neue Abdeckung für Settings-Schema, Presets, Backup-Codec, Audio-Gain-Mathematik und einen i18n↔UI-Kontrakttest.
+- 🧪 **222 Unit-Tests** (29 Dateien, vorher 113/14) — neue Abdeckung für Settings-Schema, Presets, Backup-Codec, Audio-Gain-Mathematik und einen i18n↔UI-Kontrakttest.
 
 <img src="assets/settings-sections.svg" alt="Einstellungen in v1.1.6 — sechs Abschnitte mit Schaltern, Pegelbalken und Pickern (SMIL-Animation)" width="100%" />
 
@@ -65,7 +65,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 | 💾 **TOP-8-Bestenliste** | Lokal gespeichert, beim Lesen validiert & normalisiert, Namen automatisch großgeschrieben, Highlight für frisch gesetzte Rekorde |
 | 🎨 **60fps-Grafik** | Canvas 2D, 460-Partikel-Budget, DPR-Cap 2, vorgerenderter Offscreen-Boden, funkelnde Sterne + Aurora im Menü |
 | 📴 **Echt offline-first** | Selbst gehostete Fonts (latein + vietnamesisch, woff2), kein CDN, keine API — `dist/index.html` doppelklicken und spielen |
-| 🧪 **Qualitätstor** | 177 Unit-Tests (vitest) für modes / achievements / storage / i18n / settings — `npm run check` ist das CI-Tor |
+| 🧪 **Qualitätstor** | 222 Unit-Tests (vitest) für modes / achievements / storage / i18n / settings — `npm run check` ist das CI-Tor |
 
 <img src="assets/items.svg" alt="Die 14 Zutaten — Pickles zum Fangen, goldene Power-ups zum Greifen, Gefahren zum Ausweichen" width="100%" />
 
@@ -128,7 +128,7 @@ npm run build      # → dist/index.html (eine in sich geschlossene Datei)
 npm run dev        # Dev-Server mit HMR (http://localhost:5173)
 npm run preview    # Produktions-Build lokal ausliefern
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 177 Unit-Tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 222 Unit-Tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI-Qualitätstor)
 ```
 
@@ -220,7 +220,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # Fokus im Modal halten (v1.1.6)
-└─ tests/                  # vitest — 23 Dateien · 177 Tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 29 Dateien · 222 Tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architektur & Performance
@@ -301,7 +301,7 @@ Design-Notizen und tiefergehende technische Doku:
 ## 🤝 Mitwirken
 
 1. Forke das Repo, Branch nach dem Schema `arena/<name>` oder `feat/<name>`.
-2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 177 Tests + build).
+2. `npm run check` muss grün sein, bevor du einen PR öffnest (typecheck + 222 Tests + build).
 3. Vermeide neue Laufzeit-Abhängigkeiten, sofern nicht unbedingt nötig — Philosophie: **eine Datei, kein Netz, ewig spielbar**.
 4. Nenne in deinem PR die betroffenen Screens/Modi und hänge bei Gameplay-Änderungen einen Clip an.
 
