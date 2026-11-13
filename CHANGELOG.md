@@ -13,6 +13,7 @@ Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn 
 - **Nền sau menu vẫn mờ** — bốn lớp phủ cộng hưởng: `.nebula-*` `blur(64px)` + opacity đỉnh `1.0`; vignette nội tuyến `rgba(6,26,26, 0.42 → 0.88 → 1.0)` phủ toàn màn hình; khung CRT `inset 0 0 140px rgba(6,26,26,0.9)`; `.tile-floor` chỉ `opacity-45` nên gần như vô hình. Sửa: `blur(22px)`, đỉnh `0.80`, `.menu-vignette` chỉ tối ở góc (`0.30` / `0.62`), `.app-vignette` `90px @ 0.55`, sàn `opacity-70`
 - **Ngày phát hành trùng và phi logic** — bảy bản liền nhau đều ghi `2026-11-12`, riêng 1.1.6 ghi `2026-11-13` (sau thời điểm phát hành). Chuỗi mới: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 (nhịp 2 ngày, không bản nào trùng ngày)
 - **Nhãn changelog sai bản chất** — trường `kind` viết tay (`feature`/`fix`/`polish`) không suy ra từ SemVer nên đã từng lệch. Nay `tierFor(version)` suy tầng trực tiếp từ số phiên bản; `kind` còn đó nhưng `@deprecated` và không còn được đọc khi render
+- **Năm chuỗi chưa dịch lọt qua mọi cổng** — `changelog.title` / `info.changelog` ở es và fr, `scoreboard.top` ở es/fr/ko vẫn là tiếng Anh. Bật luật thứ 5 trong `check:i18n` (một locale không được mang nguyên văn chuỗi tiếng Anh) và dịch: **CAMBIOS** / **NOUVEAUTÉS** / **MEJORES** / **MEILLEURS** / **상위**
 - **Comment của `scripts/check-readme-sync.mjs` ghi cứng `1.1.6`** — đọc từ `package.json` thay vì sao chép tay qua từng bản
 - **Tài liệu/SVG/launcher còn sót phiên bản cũ** — quét toàn bộ `1.1.4`/`1.1.5`/`1.1.6` trong README, `docs/`, `assets/*.svg`, ba launcher và badge; đồng bộ hết về 1.1.7
 
@@ -24,8 +25,10 @@ Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn 
 - **Helper mới** — `latestEntry()` · `entryFor(version)` · `copyFor(entry, vi)` · `TIER_ORDER` · `TIER_LABEL_KEY`
 - **6 khoá i18n mới × 7 locale** — `changelog.tier.{major,minor,patch}` · `changelog.filter.all` · `changelog.releases` · `changelog.filterHint` (302 khoá mỗi locale)
 - **`tests/changelog-tiers.test.ts`** — 13 test khoá ánh xạ tầng, độ dài mô tả tối thiểu, tính duy nhất của từng gạch và thứ tự ngày nghiêm ngặt
+- **`tests/changelog-ui.test.ts` · `tests/menu-background.test.ts` · `tests/modes-split.test.ts`** — 21 test mới khoá màu theo tầng, bốn luật tương phản nền menu và cấu trúc 9 chế độ sau khi tách file
 
 ### Changed
+- **Dự án tách thành nhiều thư mục hơn** — `src/game/changelog/` (types · tiers · entries/ · index) · `src/components/ui/` (8 primitive + barrel) · `src/game/modes/` (9 record + modeTypes · modesIndex · modeMath) · `src/components/menu/background/` (8 lớp nền khai báo bằng dữ liệu). Mọi barrel giữ nguyên import cũ, **không call site nào phải sửa**
 - **`APP_VERSION` → 1.1.7**; `package.json` + lock, `src/version.ts`, thẻ `<meta name="version">` trong `index.html`, badge 10 README, ba launcher
 - **README 10 ngôn ngữ** — dải màu động SMIL, sơ đồ kiến trúc SVG, bảng so sánh 9 bản phát hành, mục kiểm chứng chất lượng, mục giải thích "nền menu đã hết mờ"
 - **`.menu-vignette` / `.app-vignette`** thành rule CSS có tên thay cho utility viết thẳng trong JSX — chỉnh một chỗ, và `prefers-reduced-motion` áp dụng được
