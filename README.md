@@ -247,7 +247,7 @@ lo-cheoio/
 │  ├─ architecture.svg     # sơ đồ kiến trúc + luồng dữ liệu (SMIL, v1.1.7)
 │  ├─ release-tiers.svg    # 3 tầng + thời gian biểu 10 bản (SMIL, v1.1.7)
 │  ├─ layout-fix.svg       # v1.1.7 vs 1.1.8 layout, side by side (SMIL, v1.1.8)
-│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 9 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # divider lóe sáng (SMIL animation)
 │  ├─ license.svg          # dấu AGPL-3.0 copyleft (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -360,7 +360,7 @@ $ npm run smoke        # SSR smoke: mọi menu/modal render được
 $ npx vite-node scripts/probe-menu-layout.tsx   # 11 kiểm bố cục trên DOM thật
 ```
 
-<img src="assets/test-matrix.svg" alt="Ma trận kiểm thử v1.1.8 — 8 cổng xanh, 286 test trên 35 file, phân bố theo nhóm (hoạt họa SMIL)" width="100%" />
+<img src="assets/test-matrix.svg" alt="Ma trận kiểm thử v1.1.8 — 9 cổng xanh, 286 test trên 35 file, phân bố theo nhóm (hoạt họa SMIL)" width="100%" />
 
 | Cổng | Phạm vi | Trạng thái 1.1.8 |
 | --- | --- | --- |

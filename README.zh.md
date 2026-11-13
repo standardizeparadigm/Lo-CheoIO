@@ -223,7 +223,7 @@ lo-cheoio/
 │  ├─ architecture.svg     # architecture + data flow diagram (SMIL, v1.1.7)
 │  ├─ release-tiers.svg    # 3 tiers + 10-release timeline (SMIL, v1.1.7)
 │  ├─ layout-fix.svg       # v1.1.7 vs v1.1.8 layout, side by side (SMIL, v1.1.8)
-│  ├─ test-matrix.svg      # 8 gates · 286 tests · distribution (SMIL, v1.1.8)
+│  ├─ test-matrix.svg      # 9 gates · 286 tests · distribution (SMIL, v1.1.8)
 │  ├─ divider.svg          # sparkle divider (SMIL animation)
 │  ├─ license.svg          # 动态 AGPL-3.0 copyleft 印章（SMIL 动画）
 │  └─ favicon.svg          # favicon (SMIL animation)
