@@ -1,7 +1,8 @@
-import { useEffect, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { useEffect, useRef, type ButtonHTMLAttributes, type ReactNode, type Ref } from "react";
 import type { ScoreEntry } from "../game/storage";
 import { fmtNum } from "../i18n/i18n";
 import { useI18n } from "../i18n/useI18n";
+import { useFocusTrap } from "../utils/useFocusTrap";
 
 /* ------------------------------------------------------------------ jar */
 
@@ -67,13 +68,17 @@ export function Panel({
   children,
   className = "",
   tilt = 0,
+  panelRef,
 }: {
   children: ReactNode;
   className?: string;
   tilt?: number;
+  /** optional handle for the modal focus trap */
+  panelRef?: Ref<HTMLDivElement>;
 }) {
   return (
     <div
+      ref={panelRef}
       style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
       className={`relative border-[3px] border-jade-700/90 bg-jade-950/92 hard-shadow ${className}`}
     >
@@ -172,6 +177,8 @@ export function Modal({
   wide?: boolean;
 }) {
   const { t } = useI18n();
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(panelRef, true);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -199,7 +206,10 @@ export function Modal({
         onClick={onClose}
         className="absolute inset-0 cursor-default bg-jade-950/70 backdrop-blur-[2px]"
       />
-      <Panel className={`anim-pop relative flex max-h-[86vh] w-full flex-col ${wide ? "max-w-2xl" : "max-w-md"}`}>
+      <Panel
+        panelRef={panelRef}
+        className={`anim-pop relative flex max-h-[86vh] w-full flex-col ${wide ? "max-w-2xl" : "max-w-md"}`}
+      >
         <div className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-jade-800 px-4 py-2.5">
           <h2 className="font-display text-xs tracking-[0.22em] text-tumeric-400 uppercase">{title}</h2>
           <button
