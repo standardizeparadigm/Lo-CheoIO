@@ -7,9 +7,9 @@ Mọi dữ liệu đều nằm trên máy người chơi — game **không gửi
 | `locheo.scores.v1` | `storage.ts` | TOP 8 (normalize, dedupe theo id) | Hard reset (không có nút) |
 | `locheo.progress.v1` | `storage.ts` | `{runs, totalJars, totalSliced, bestScore}` cộng dồn | Settings → Xóa dữ liệu |
 | `locheo.achievements.v1` | `storage.ts` | Mảng id thành tựu đã mở | Settings → Xóa dữ liệu |
-| `locheo.lang.v1` | `i18n/i18n.ts` | `"vi" \| "en" \| "zh" \| "ja" \| "ko" \| "es" \| "fr"` | Xóa thủ công |
+| `locheo.lang.v1` | `i18n/i18n.ts` | `"vi" \| "en" \| "zh" \| "ja" \| "ko" \| "es" \| "fr"` — gương của `settings.language` (v1.1.6: chọn ngôn ngữ nằm trong Settings) | Xóa thủ công |
 | `locheo.mode.v1` | `App.tsx` | Chế độ đã chọn (`ModeId`) | Xóa thủ công |
-| `locheo.settings.v1` | `settings.ts` | `{sfx, music, shake, reducedMotion}` | Xóa thủ công |
+| `locheo.settings.v1` | `settings.ts` | `{sfx, sfxVolume, music, musicVolume, shake, shakeLevel, reducedMotion, visualQuality, autoPauseOnBlur, language}` (v1.1.6) — xem `docs/design/settings-format.md` | Xóa thủ công · Settings → Khôi phục mặc định (giữ ngôn ngữ) |
 | `locheo.run.v1` | `runSave.ts` | Snapshot ván dở (xem `docs/design/save-format.md`) | Game over · ván mới · Resume · Xóa dữ liệu |
 
 ## Ghi chú an toàn
