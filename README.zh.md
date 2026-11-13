@@ -9,7 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
+[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
+[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-安装与运行)
@@ -20,6 +22,8 @@
 <img src="assets/demo.svg" alt="Lọ Chéo 实战演示 — 陶罐斜冲、接住腌菜、斩碎霉菌" width="100%" />
 
 <img src="assets/languages.svg" alt="7 种语言 — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+<img src="assets/palette-ribbon.svg" alt="Lọ Chéo 调色板——七条色带轮流呼吸（SMIL 动画）" width="100%" />
 
 </div>
 
@@ -33,23 +37,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.6 新特性
+## 🆕 v1.1.7 新特性
 
-- ⚙️ **设置重做为 6 个分区** —— **快速预设** · **音频** · **画面与动态效果** · **语言** · **备份** · **数据**，三种控件：开关、二选一选择器、0–100 级别。
-- 🔊 **真正的调节，而不只是开关** —— 音效与音乐音量 **0–100**（10 格斜切条）、**震动强度** 弱/强、**画质** 低/高（粒子 230 vs 460、关闭辉光）、**切换标签页自动暂停**。
-- 🌐 **语言彻底移入设置** —— 主菜单右上浮动切换器和暂停界面的选择行都已移除；现在是 7 种语言的 2 列网格（国旗 · 本族语名称 · 勾选标记）。
-- 🎛️ **4 个一键预设 + JSON 备份** —— **流畅** · **均衡** · **电影感** · **速通**（永不改变语言），并可导出/导入配置带到别的机器。
-- ✨ **菜单变成舞台** —— 漂移星云、呼吸光束、**两层闪烁星空**、环绕陶罐的旋转光环、罐体光晕、掠过「开始」按钮的扫光；**作者卡片**带无限流动的渐变边框。
-- 🐛 **修复 11 个真实缺陷** —— 刷新后音乐比设定更响 · Tab 逃出弹窗 · 更新日志提示硬编码 v1.1.5 · `updateSettings` 返回未归一化值 · 焦点不受限于对话框 · 存储被阻止时导出谎称“已复制” · 开关在存储被阻止时回退默认 · 刷新后自动恢复声音 · 零权重道具出现在低级 · 分数显示 “NaN” · 确认按钮只有一个 ← 符号。
-- 🧪 **222 项单元测试**（29 个文件，从 113/14 增加）—— 新增设置 schema、预设、备份编解码、音频增益计算与 i18n↔UI 契约测试。
+> 1.2.0 之前的**最后一个补丁版本**。没有新增游戏模式——只把还让人不舒服的地方彻底修好。
 
-<img src="assets/settings-sections.svg" alt="v1.1.6 设置 —— 6 个分区，含开关、级别条与选择器（SMIL 动画）" width="100%" />
+### 🌫️ 菜单背景不再模糊——从根源修复
 
-<img src="assets/corner-menu.svg" alt="左下 GAME 面板与右下 INFO 面板滑入（SMIL 动画）" width="100%" />
+玩家说得对：*「菜单后面的背景还是糊的」*。原因不是一层，而是**四层叠加互相放大**：
 
-→ 完整细节：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+| 图层 | 之前 | 之后 | 原因 |
+| --- | --- | --- | --- |
+| 星云 `.nebula-*` | `blur(64px)`，峰值 `1.0` | **`blur(22px)`，峰值 `0.80`** | 64px 超过 46vw 光斑半径的一半——边缘消失了，整块变成雾 |
+| 菜单暗角 | 行内样式，**铺满全屏**，`0.42 → 0.88 → 1.0` | **`.menu-vignette`**，只压暗角落，`0.30 → 0.62` | 从「整幅均匀压暗」改成「角落暗、中间亮」 |
+| CRT 边框 | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px 在小窗口上几乎吃掉四个角 |
+| 地面砖纹 | `opacity-45` | **`opacity-70`** | 45% 时地面只是一片灰噪点，不再是可辨识的细节 |
 
-→ 上一版：[docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+`.menu-vignette` 与 `.app-vignette` 现在是**有名字的 CSS 规则**，不再是埋在 JSX 里的工具类——只需调一处，而且 `prefers-reduced-motion` 也能作用到它们。
+
+### 🏷️ 更新日志分层——每层一种颜色
+
+| 层级 | 标签 | 颜色 | 含义 | 示例 |
+| --- | --- | --- | --- | --- |
+| `major` | **MAJOR** | 🩷 粉色 `#ff5fb0` | 大版本——新增系统 | 1.0.0 |
+| `minor` | **UPDATE** | 🟡 金色 `#f5a81c` | 升级——新增内容 | 1.1.0 |
+| `patch` | **PATCH** | 🟣 紫色 `#9d6bff` | 修复与清理 | 1.1.1 → 1.1.7 |
+
+层级由 `tierFor(version)` **从 SemVer 推导**，绝不手写——因此标签永远不会和它旁边的版本号冲突。面板新增**筛选**：全部 · MAJOR · UPDATE · PATCH，并显示各层版本数。
+
+<img src="assets/release-tiers.svg" alt="三个层级 MAJOR/UPDATE/PATCH 及其配色，以及九个版本的发布时间轴（SMIL 动画）" width="100%" />
+
+### 📖 八个旧版本：从一行变成一页
+
+九个版本里有六个的条目数组是**空的**——面板只能显示一行摘要。v1.1.7 全部重写：
+
+- **96 条越南语条目 + 96 条英语条目**，新写或扩写
+- 内容取自 `docs/releases/v1.1.x.md` **以及**源码本身（9 个模式、16 个成就）
+- **发布日期重新排列**：10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——两天一版，没有任何两个版本同一天
+
+### 🗂️ 项目拆成更多目录
+
+```
+src/game/changelog/        ← 取代原来的 300 行单文件
+├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
+├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
+├── entries/               每个版本一个文件 —— v1_0_0.ts … v1_1_7.ts
+└── index.ts               CHANGELOG_ENTRIES + 5 个辅助函数
+```
+
+以后加 1.2.0 只需**一个新文件**加一行 import。
+
+### 🐛 修复
+
+| # | 问题 | 修复 |
+| --- | --- | --- |
+| 1 | 菜单背景模糊发闷 | 上面四处修改 |
+| 2 | 地面砖纹看不见 | `opacity-45` → `opacity-70` |
+| 3 | 日志标签名不副实（`kind` 手写） | `tierFor(version)` 从 SemVer 推导 |
+| 4 | 日志描述太单薄（6 个版本 `items: []`） | 重写 96 条 |
+| 5 | 发布日期重复且不合理 | 九个连续日期，无重复 |
+| 6 | 文档/SVG/启动器版本滞后 | 全量扫描 → 1.1.7 |
+| 7 | `check-readme-sync` 注释写死 1.1.6 | 改为读取 `package.json` |
+
+→ 完整详情：[docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 上一版：[docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+<img src="assets/settings-sections.svg" alt="六段设置（自 v1.1.6）——开关、等级条与选择器（SMIL 动画）" width="100%" />
+
+<img src="assets/corner-menu.svg" alt="GAME（左下）与 INFO（右下）面板滑入（SMIL 动画）" width="100%" />
 
 ## ✨ 亮点功能
 
@@ -220,10 +273,12 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 弹窗焦点捕获（v1.1.6）
-└─ tests/                  # vitest — 29 个文件 · 222 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
+└─ tests/                  # vitest — 30 个文件 · 222 项测试（modes · achievements · storage · i18n · runSave · settings · presets · audio…）
 ```
 
 ## 🧱 架构与性能
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 架构——输入 → 引擎 → 状态 → 渲染，另含服务层（SMIL 动画）" width="100%" />
+
 
 - **游戏主循环** `requestAnimationFrame`，增量时间钳制到 `1/20s`，乘以 `timeScale`（寒冰慢动作），每次接住还有几十毫秒 **hit-stop** 停顿带来打击感。
 - **画布 HUD** 每帧直绘；React 只按 `phase` 渲染界面 —— 热循环中不重渲染 React；切换语言后 HUD 下一帧即读取新词典。
@@ -259,16 +314,17 @@ v1.1.4 已修复：`play-windows.bat` 为 CRLF + UTF-8 BOM、`chcp 65001`，越�
 
 ## 📦 发行版与更新日志
 
-| 版本 | 日期 | 说明 |
-| --- | --- | --- |
-| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
-| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
-| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | 游戏内 i18n VI/EN/ZH · README 7 种语言 · 全面修 BUG · 45 项测试 |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 种模式 · 黄金蒜护盾 · 菜虫 · 金卷心菜 · 10 项成就 · 自托管字体 |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 首发：完整引擎，11 种食材，拍罐冲击波，×9 连击 |
+| 版本 | Tier | 日期 | 说明 |
+| --- | --- | --- | --- |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **菜单背景去雾**（四层叠加：`blur 64→22px`、角落暗角替换全屏、CRT 边框 140→90px、地面 45→70%）· **分层彩色日志** · 8 个旧版 **96 条新描述** · 日期重排 · `src/game/changelog/` 拆分 · 10 个 README 重做 · **235 测试** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **六分区设置**（预设 · 音频 · 画面 · 语言 · 备份 · 数据）· 0–100 音量 · 震动强度 · 画质 · 切标签自动暂停 · 语言移入设置 · 4 个预设 · JSON 导入导出 · 多层动态菜单 · 作者卡片渐变流动 · 弹窗焦点捕获 · 修复刷新后音乐 · **150 项测试** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **双角 GAME/INFO 菜单**（开始 · 继续 · 模式 · 排行榜 · 成就 · 设置 / 关于 · 更新日志 · 退出）· **保存并恢复未完成对局**（`locheo.run.v1`）· 游戏内设置（音效/音乐/震动/减少动态）· 修复快捷键穿透弹窗 · prefers-reduced-motion 全覆盖 · **113 项测试** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 种模式**（新增连击节庆 · 腌菜盛宴）· **16 项成就** · **7 种语言**（新增 ES/FR）· 修复 play-windows.bat（CRLF+BOM）· 7 语言启动器 · 61 项测试 |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 种模式（新增腌菜暴雨 · 薄瓷）· 14 项成就 · 5 种语言 · favicon · 多语言启动器 · 55 项测试 |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 种模式（60秒冲刺 · 黄金丰收）· 12 项成就 · 连击火焰 · 双击启动器 · README 10 种语言 · 49 项测试 |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | 游戏内 i18n VI/EN/ZH · README 7 种语言 · 全面修 BUG · 45 项测试 |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 种模式 · 黄金蒜护盾 · 菜虫 · 金卷心菜 · 10 项成就 · 自托管字体 |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 首发：完整引擎，11 种食材，拍罐冲击波，×9 连击 |
 
 另见 [CHANGELOG.md](CHANGELOG.md)。
 
