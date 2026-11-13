@@ -1,5 +1,13 @@
 /* =====================================================================
-   Lọ Chéo — Spanish (Español) messages. Must mirror vi.ts exactly (tested).
+   Lọ Chéo — Spanish messages (Español)
+   =====================================================================
+   302 keys · number locale: es-ES
+
+   Mirrors vi.ts 1:1. Peninsular Spanish: «tú» imperatives in instructions,
+   «ajustes» for settings, «récord» for best score.
+
+   Parity with vi.ts is enforced by tests/i18n.test.ts and by
+   `npm run check:i18n` (v1.1.7: 302 keys × 7 locales).
    ===================================================================== */
 
 import type { MessageKey } from "./vi";
