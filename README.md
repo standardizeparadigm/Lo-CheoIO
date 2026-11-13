@@ -9,7 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
+[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20t%C3%ADm-9d6bff.svg?style=for-the-badge)](#-changelog-chia-t%E1%BA%A7ng)
+[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-kiểm-chứng-chất-lượng)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-cài-đặt--chạy)
@@ -20,6 +22,10 @@
 <img src="assets/demo.svg" alt="Demo Lọ Chéo — lọ lướt chéo, hứng dưa, chém mốc" width="100%" />
 
 <img src="assets/languages.svg" alt="7 ngôn ngữ trong game — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+<img src="assets/palette-ribbon.svg" alt="Bảng màu Lọ Chéo v1.1.7 — 7 dải màu chạy sáng luân phiên (hoạt họa SMIL)" width="100%" />
+
+**v1.1.7** · bản vá cuối trước **1.2.0** · *nền menu đã hết mờ* · *changelog có tầng và có màu* · 235 test / 30 file
 
 </div>
 
@@ -33,23 +39,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 Mới trong v1.1.6
+## 🆕 Mới trong v1.1.7
 
-- ⚙️ **Cài đặt chia 6 mục** — **Cấu hình nhanh** · **Âm thanh** · **Giao diện & chuyển động** · **Ngôn ngữ** · **Sao lưu** · **Dữ liệu** — ba kiểu điều khiển: công tắc bật/tắt, bộ chọn 2 lựa chọn, mức 0–100.
-- 🔊 **Điều khiển thật, không còn chỉ bật/tắt** — âm lượng SFX và nhạc **0–100** (thanh 10 vạch nghiêng), **mức rung** nhẹ/mạnh, **chất lượng hình** thấp/cao (trần hạt 230 vs 460, tắt phát sáng), **tự tạm dừng khi đổi tab**.
-- 🌐 **Ngôn ngữ dời hẳn vào Cài đặt** — bỏ nút nổi góc phải ở menu và thanh chọn ở màn tạm dừng; nay là lưới 2 cột 7 ngôn ngữ (cờ · tên bản ngữ · dấu check).
-- 🎛️ **4 preset một chạm + sao lưu JSON** — **MƯỢT** · **CÂN BẰNG** · **ĐIỆN ẢNH** · **SPEEDRUN** (không bao giờ đổi ngôn ngữ) và xuất/nhập cấu hình để mang sang máy khác.
-- ✨ **Menu là sân khấu** — tinh vân trôi, tia sáng thở, **2 lớp sao nhấp nháy**, vòng sáng xoay quanh lọ, quầng sáng lọ, vệt sáng chạy qua nút CHƠI; mục **giới thiệu tác giả** có viền gradient chạy vòng vô hạn.
-- 🐛 **Sửa 11 lỗi thật** — nhạc nền phát to hơn mức đã đặt sau reload · Tab thoát khỏi modal · gợi ý changelog ghi cứng v1.1.5 · `updateSettings` trả giá trị chưa chuẩn hoá · focus không được giữ trong hộp thoại · nút Xuất báo “đã copy” khi clipboard trống · toggle tự về mặc định khi storage bị chặn · âm thanh tự bật lại sau reload · vật phẩm trọng số 0 lọt vào cấp thấp · điểm in ra “NaN” · nút xác nhận chỉ có dấu ←.
-- 🧪 **222 unit tests** (29 file, tăng từ 113/14) — thêm test cho schema cài đặt, preset, sao lưu, phép tính âm lượng và một test hợp đồng i18n↔UI.
+> Bản **vá cuối** trước 1.2.0. Không thêm chế độ chơi — chỉ sửa đúng những gì còn khó chịu.
 
-<img src="assets/settings-sections.svg" alt="Cài đặt v1.1.6 — 6 mục với công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
+### 🌫️ Nền menu đã hết mờ — sửa tận gốc
+
+Người chơi nói đúng: *"nền sau menu vẫn mờ"*. Nguyên nhân không phải một lớp, mà **bốn lớp phủ cộng hưởng**:
+
+| Lớp | Trước | Sau | Vì sao |
+| --- | --- | --- | --- |
+| Tinh vân `.nebula-*` | `blur(64px)`, đỉnh `1.0` | **`blur(22px)`, đỉnh `0.80`** | 64px là quá nửa bán kính khối 46vw — mép biến mất, cả khối thành sương |
+| Vignette menu | nội tuyến, phủ **toàn màn hình**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`** chỉ tối ở góc, `0.30 → 0.62` | đổi từ "tối đều cả khung" sang "tối ở góc, sáng ở giữa" |
+| Khung CRT | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px ăn gần hết bốn góc ở cửa sổ nhỏ |
+| Sàn gạch | `opacity-45` | **`opacity-70`** | ở 45% sàn chỉ còn là nhiễu xám, không còn là chi tiết nhận diện |
+
+Hai rule `.menu-vignette` / `.app-vignette` nay là **CSS có tên** thay vì utility viết thẳng trong JSX — chỉnh một chỗ, và `prefers-reduced-motion` áp dụng được.
+
+### 🏷️ Changelog chia tầng — mỗi tầng một màu
+
+| Tầng | Nhãn | Màu | Nghĩa | Ví dụ |
+| --- | --- | --- | --- | --- |
+| `major` | **MAJOR** | 🩷 hồng `#ff5fb0` | bản lớn — thêm hệ thống | 1.0.0 |
+| `minor` | **UPDATE** | 🟡 vàng `#f5a81c` | nâng cấp — thêm nội dung | 1.1.0 |
+| `patch` | **PATCH** | 🟣 tím `#9d6bff` | vá lỗi, dọn dẹp | 1.1.1 → 1.1.7 |
+
+Tầng **suy ra từ SemVer** bằng `tierFor(version)`, không gõ tay — nên nhãn không thể lệch khỏi số phiên bản in cạnh nó. Panel có thêm **bộ lọc** TẤT CẢ · MAJOR · UPDATE · PATCH kèm số bản mỗi tầng.
+
+<img src="assets/release-tiers.svg" alt="Ba tầng MAJOR/UPDATE/PATCH với màu tương ứng và thời gian biểu 9 bản (hoạt họa SMIL)" width="100%" />
+
+### 📖 Mô tả 8 bản cũ: từ một dòng thành một trang
+
+Sáu trong chín bản trước đây có **mảng gạch đầu dòng rỗng** — panel chỉ hiện được một dòng tóm tắt. v1.1.7 viết lại toàn bộ:
+
+- **96 gạch tiếng Việt + 96 gạch tiếng Anh** được viết mới hoặc mở rộng
+- Nội dung lấy từ `docs/releases/v1.1.x.md` **và** từ chính mã nguồn (9 chế độ, 16 thành tựu)
+- **Ngày phát hành xếp lại**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — nhịp 2 ngày, không bản nào trùng ngày
+
+### 🗂️ Dự án tách thành nhiều thư mục hơn
+
+```
+src/game/changelog/        ← thay cho một file 300 dòng
+├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
+├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
+├── entries/               1 file / 1 bản — v1_0_0.ts … v1_1_7.ts
+└── index.ts               CHANGELOG_ENTRIES + 5 helper
+```
+
+Thêm 1.2.0 sau này chỉ là **một file mới** + một dòng import.
+
+### 🐛 Sửa lỗi
+
+| # | Lỗi | Cách sửa |
+| --- | --- | --- |
+| 1 | Nền menu mờ / đục | bốn thay đổi ở bảng trên |
+| 2 | Sàn gạch không nhìn thấy | `opacity-45` → `opacity-70` |
+| 3 | Nhãn changelog sai bản chất (`kind` gõ tay) | `tierFor(version)` suy từ SemVer |
+| 4 | Changelog "mỏng" (6 bản có `items: []`) | viết lại 96 gạch |
+| 5 | Ngày phát hành trùng & phi logic | chuỗi 9 ngày liền mạch |
+| 6 | Tài liệu/SVG/launcher lệch phiên bản | quét toàn bộ → 1.1.7 |
+| 7 | Comment `check-readme-sync` ghi cứng 1.1.6 | đọc từ `package.json` |
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · Bản trước: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+<img src="assets/settings-sections.svg" alt="Cài đặt 6 mục (từ v1.1.6) — công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="Panel GAME (góc dưới-trái) & INFO (góc dưới-phải) trượt vào (hoạt họa SMIL)" width="100%" />
-
-→ Chi tiết đầy đủ: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
-
-→ Bản trước: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
 
 ## ✨ Tính năng nổi bật
 
@@ -137,7 +192,7 @@ npm run check      # typecheck + test + build (cổng chất lượng ci)
 ```
 lo-cheoio/
 ├─ index.html              # entry, meta SEO/OG (không CDN)
-├─ package.json            # lo-cheoio v1.1.6, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.7, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binary
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; include src + tests
@@ -152,6 +207,9 @@ lo-cheoio/
 │  ├─ new-modes.svg        # 2 chế độ mới v1.1.4 (SMIL animation)
 │  ├─ corner-menu.svg     # corner GAME/INFO panels (SMIL animation, v1.1.5)
 │  ├─ settings-sections.svg # 6-section settings tour (SMIL, v1.1.6)
+│  ├─ palette-ribbon.svg   # 7 dải màu chạy sáng (SMIL, v1.1.7)
+│  ├─ architecture.svg     # sơ đồ kiến trúc + luồng dữ liệu (SMIL, v1.1.7)
+│  ├─ release-tiers.svg    # 3 tầng + thời gian biểu 9 bản (SMIL, v1.1.7)
 │  ├─ divider.svg          # divider lóe sáng (SMIL animation)
 │  ├─ license.svg          # dấu AGPL-3.0 copyleft (SMIL animation)
 │  └─ favicon.svg          # favicon (SMIL animation)
@@ -175,7 +233,8 @@ lo-cheoio/
 │     ├─ v1.1.3.md         # release notes v1.1.3
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
-│     └─ v1.1.6.md         # current release notes (1.1.6)
+│     ├─ v1.1.6.md         # release notes (1.1.6)
+│     └─ v1.1.7.md         # current release notes (1.1.7)
 ├─ README.md               # 🇻🇳 Tiếng Việt (file này)
 ├─ README.en.md            # 🇬🇧 English
 ├─ README.zh.md            # 🇨🇳 中文
@@ -189,7 +248,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.6" (nguồn duy nhất)
+│  ├─ version.ts           # APP_VERSION = "1.1.7" (nguồn duy nhất)
 │  ├─ index.css            # tailwind v4 theme + toàn bộ animation/gradient
 │  ├─ assets/fonts/        # woff2 subset (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, offline 100%
@@ -213,7 +272,11 @@ lo-cheoio/
 │  │  ├─ achievements.ts   # 16 huy hiệu + checker thuần (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
-│  │  ├─ changelog.ts        # in-game changelog data
+│  │  ├─ changelog/          # in-game changelog (v1.1.7 — tách từ 1 file)
+│  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
+│  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
+│  │  │  ├─ entries/        #   1 file / 1 bản — v1_0_0.ts … v1_1_7.ts
+│  │  │  └─ index.ts        #   danh sách có thứ tự + 5 helper
 │  │  ├─ runSave.ts         # suspended-run persistence
 │  │  ├─ settings.ts        # game settings schema + normalize
 │  │  ├─ settingsIO.ts      # settings backup/restore codec (v1.1.6)
@@ -222,10 +285,12 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # trap Tab trong modal (v1.1.6)
-└─ tests/                  # vitest — 29 files · 222 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 30 files · 235 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio · changelog-tiers…)
 ```
 
 ## 🧱 Kiến trúc & hiệu năng
+
+<img src="assets/architecture.svg" alt="Sơ đồ kiến trúc Lọ Chéo v1.1.7 — input → engine → state → render, kèm audio/i18n/storage/changelog (hoạt họa SMIL)" width="100%" />
 
 - **Vòng lặp game** trên `requestAnimationFrame` với delta-time kẹp `1/20s`, nhân `timeScale` (slow-mo khi ĐÁ LẠNH) và **hit-stop** `freeze` vài chục ms trên mỗi catch để cảm giác "nện".
 - **Canvas HUD** vẽ trực tiếp mỗi frame; React chỉ render các màn hình theo `phase` — không re-render React trong hot loop; khi đổi ngôn ngữ, HUD tự đọc dictionary ở frame kế tiếp.
@@ -235,6 +300,30 @@ lo-cheoio/
 - **Budget**: ≤460 particles, ≤70 items, ≤34 popups, DPR ≤ 2; va chạm quét theo hitbox; decal dưa văng trên nền tự dọn.
 - **localStorage** với validate/chuẩn hoá đầu vào — 1 bản ghi lỗi không làm hỏng cả bảng; storage bị chặn (Safari private) thì chơi tiếp bộ nhớ; lựa chọn ngôn ngữ lưu riêng ở `locheo.lang.v1`.
 - **Giảm chấn motion**: `prefers-reduced-motion` tắt aurora/shimmer/spin; sao nền và shake đều có thể tắt theo media query.
+
+## ✅ Kiểm chứng chất lượng
+
+Mỗi thay đổi phải qua **năm cổng** trước khi vào `main` — chạy hết bằng một lệnh:
+
+```console
+$ npm run check        # typecheck + toàn bộ test
+$ npm run check:readme # 10 README đồng bộ phiên bản + liên kết release
+$ npm run check:i18n   # 7 locale × 302 khoá, không thiếu không thừa
+$ npm run check:assets # 11 SVG — không file mồ côi, không tham chiếu hỏng
+$ npm run smoke        # SSR smoke: mọi menu/modal render được
+```
+
+| Cổng | Phạm vi | Trạng thái 1.1.7 |
+| --- | --- | --- |
+| `typecheck` | `src/` + `tests/` (TypeScript strict) | ✅ |
+| `vitest run` | **235 test / 30 file** | ✅ |
+| `smoke-ssr` | menu, 6 mục cài đặt, changelog, 9 modal | ✅ |
+| `check-readme-sync` | 10 README × badge/link/SVG | ✅ |
+| `check-i18n` | 7 locale × 302 khoá | ✅ |
+| `check-assets` | 11 SVG, 2 chiều tham chiếu | ✅ |
+| `build` | `dist/index.html` ~831 KB · gzip ~388 KB | ✅ |
+
+Điểm đáng chú ý của bộ test v1.1.7: **`tests/changelog-tiers.test.ts`** khoá ánh xạ `tierFor()` (kể cả đầu vào rác), bắt mỗi bản phải có **≥5 gạch mô tả**, kiểm tra không gạch nào trùng nhau, và bắt buộc **thứ tự ngày nghiêm ngặt** — chính test này đã phát hiện 1.1.5 và 1.1.6 đang trùng ngày.
 
 ## ❓ FAQ
 
@@ -261,18 +350,21 @@ Nhấn đúp vào [`scripts/play-mac.command`](scripts/play-mac.command) (macOS)
 
 ## 📦 Releases & changelog
 
-| Phiên bản | Ngày | Ghi chú |
-| --- | --- | --- |
-| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **Cài đặt 6 mục** (nhanh · âm thanh · giao diện · ngôn ngữ · sao lưu · dữ liệu) · âm lượng 0–100 · mức rung · chất lượng hình · tự pause khi đổi tab · ngôn ngữ dời vào Cài đặt · 4 preset · xuất/nhập JSON · nền menu nhiều lớp · gradient chạy vòng ở mục tác giả · trap focus modal · fix nhạc reload · **150 tests** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **113 tests** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9 chế độ** (thêm Lễ Hội Combo · Đại Tiệc Dưa) · **16 thành tựu** · **7 ngôn ngữ** (thêm ES/FR) · sửa play-windows.bat (CRLF+BOM) · trình chạy 7 ngôn ngữ · 61 tests |
-| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7 chế độ · 14 thành tựu · 5 ngôn ngữ · favicon · trình chạy đa ngôn ngữ · 55 tests |
-| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5 chế độ · 12 thành tựu · combo lửa · trình chạy double-click · README 10 ngôn ngữ · 49 tests |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | i18n VI/EN/ZH trong game · README 7 ngôn ngữ · sửa toàn bộ lỗi tồn đọng · 45 tests |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau · Cải Vàng · 10 thành tựu · fonts self-host |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, LẮC HŨ, combo ×9 |
+Mỗi bản có một tầng: <kbd>MAJOR</kbd> 🩷 hồng · <kbd>UPDATE</kbd> 🟡 vàng · <kbd>PATCH</kbd> 🟣 tím — đúng quy ước dùng trong panel changelog của game.
 
-Xem thêm [CHANGELOG.md](CHANGELOG.md).
+| Bản | Tầng | Ngày | Ghi chú |
+| --- | --- | --- | --- |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Nền menu hết mờ** (4 lớp phủ cộng hưởng: `blur 64→22px`, vignette góc thay vignette toàn màn hình, khung CRT 140→90px, sàn 45→70%) · **changelog chia tầng có màu** · **96 gạch mô tả mới** cho 8 bản cũ · ngày phát hành xếp lại · `src/game/changelog/` tách thư mục · README 10 ngôn ngữ làm lại · **235 tests** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Cài đặt 6 mục** (nhanh · âm thanh · giao diện · ngôn ngữ · sao lưu · dữ liệu) · âm lượng 0–100 · mức rung · chất lượng hình · tự pause khi đổi tab · ngôn ngữ dời vào Cài đặt · 4 preset · xuất/nhập JSON · nền menu nhiều lớp · gradient chạy vòng ở mục tác giả · trap focus modal · fix nhạc reload · **222 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Menu góc GAME/INFO** (Chơi · Chơi tiếp · Chế độ · BXH · Thành tựu · Cài đặt / About · Changelog · Thoát) · **lưu & Chơi tiếp ván dở** (`locheo.run.v1`) · cài đặt trong game (SFX/nhạc/rung/giảm chuyển động) · fix phím tắt rò rỉ modal · prefers-reduced-motion toàn bộ · **113 tests** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 chế độ** (thêm Lễ Hội Combo · Đại Tiệc Dưa) · **16 thành tựu** · **7 ngôn ngữ** (thêm ES/FR) · sửa play-windows.bat (CRLF+BOM) · trình chạy 7 ngôn ngữ · 61 tests |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 chế độ · 14 thành tựu · 5 ngôn ngữ · favicon · trình chạy đa ngôn ngữ · 55 tests |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 chế độ · 12 thành tựu · combo lửa · trình chạy double-click · README 10 ngôn ngữ · 49 tests |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | i18n VI/EN/ZH trong game · README 7 ngôn ngữ · sửa toàn bộ lỗi tồn đọng · 45 tests |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau · Cải Vàng · 10 thành tựu · fonts self-host |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, LẮC HŨ, combo ×9 |
+
+Xem thêm [CHANGELOG.md](CHANGELOG.md) — hoặc mở panel **CHANGELOG** ngay trong game, nơi có bộ lọc theo tầng.
 
 ## 🗺️ Lộ trình (nháp — có thể thay đổi theo phản hồi)
 
@@ -291,6 +383,7 @@ Tài liệu thiết kế & hướng dẫn kỹ thuật sâu hơn:
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) | Release v1.1.7 — nền menu hết mờ (chẩn đoán 4 lớp), changelog chia tầng, 96 gạch mô tả mới |
 | [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | Release v1.1.6 — cài đặt 6 mục, preset, sao lưu, nền menu nhiều lớp |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | Release v1.1.5 — menu góc, lưu/tiếp tục ván dở, cài đặt, fixes |
 | [docs/design/menu-corners.md](docs/design/menu-corners.md) | Thiết kế menu góc GAME/INFO — nguyên tắc, a11y, responsive |
@@ -303,7 +396,7 @@ Tài liệu thiết kế & hướng dẫn kỹ thuật sâu hơn:
 ## 🤝 Đóng góp
 
 1. Fork repo, tạo branch theo quy ước `arena/<tên>` hoặc `feat/<tên>`.
-2. `npm run check` phải xanh trước khi mở PR (typecheck + 222 tests + build).
+2. `npm run check` phải xanh trước khi mở PR (typecheck + 235 tests + build).
 3. Không thêm dependency runtime nếu không thực sự cần — triết lý: **một file, không mạng, chơi được mãi mãi**.
 4. Mô tả PR ghi rõ chế độ/màn hình bị ảnh hưởng và kèm clip nếu thay đổi gameplay.
 
