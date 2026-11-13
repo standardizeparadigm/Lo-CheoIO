@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * MUỐI DƯA CỔ ĐIỂN — badge "×1.0 ĐIỂM".
+ *
+ * "Cân bằng hương vị truyền thống"
+ *
+ * score ×1 · speed ×1 · hazard ×1 · spawn ×1.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const classic: ModeConfig = {
   id: "classic",
   name: "MUỐI DƯA CỔ ĐIỂN",
