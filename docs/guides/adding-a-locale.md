@@ -21,6 +21,13 @@
 - **Tên mode giữ nguyên** tên riêng (MUỐI DƯA CỔ ĐIỂN…), dịch phần mô tả/tagline.
 - **Tiếng Việt có dấu đầy đủ** — tuyệt đối không bỏ dấu.
 - Key mới → thêm vào **tất cả** 7 locale cùng commit (tests ép đồng bộ).
+- **Đừng copy nguyên chuỗi tiếng Anh.** Từ v1.1.7, `check:i18n` có luật thứ 5: một locale không được
+  mang nguyên văn chuỗi tiếng Anh. Nó đã bắt được 5 chuỗi chưa dịch khi mới bật (CHANGELOG → CAMBIOS /
+  NOUVEAUTÉS, TOP → MEJORES / MEILLEURS / 상위). Miễn trừ có chủ đích:
+  - `changelog.tier.{major,minor,patch}` — nhãn tầng là tiếng Anh ở mọi locale
+  - mọi key kết thúc `.badge` — badge dạng `×1.25 · 60S` là số + một từ, dịch tay khi ra mode mới
+  - danh sách `SAME_BY_DESIGN[locale]` trong `scripts/check-i18n.mjs` — chỉ thêm từ **đúng chính tả**
+    ở locale đó (vd. tiếng Pháp `le score`, `la pause`), không thêm để né lỗi.
 
 ## Kiểm thử nhanh
 
@@ -29,5 +36,5 @@ npm run check:i18n                                  # parity text-level, ~40 ms,
 npx vitest run tests/i18n.test.ts tests/languageMeta.test.ts
 ```
 
-`check:i18n` là bản chạy trong CI (job `readme-sync`) — nó đọc file locale dưới dạng **text**, nên bắt được
+`check:i18n` (v1.1.7: **302 key × 7 locale**, 5 luật) là bản chạy trong CI (job `readme-sync`) — nó đọc file locale dưới dạng **text**, nên bắt được
 cả lỗi cú pháp mà test TypeScript không thấy: key trùng trong cùng một file, value rỗng, placeholder lệch.
