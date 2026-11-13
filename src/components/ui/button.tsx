@@ -1,8 +1,12 @@
 /**
- * GameButton — the primary/ghost button.
+ * GameButton — the primary action button.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * Variants: `primary` (turmeric fill, the PLAY/restart treatment), `ghost`
+ * (bordered, secondary actions) and `danger` (chili, destructive). It forwards
+ * every native button attribute, so `disabled`, `aria-*` and `type` all pass
+ * through untouched.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import { ButtonHTMLAttributes } from "react";
 
