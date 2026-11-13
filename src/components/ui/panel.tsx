@@ -1,8 +1,11 @@
 /**
- * Panel — the bevelled container used by every screen.
+ * Panel — the bevelled container every screen sits in.
  *
- * Split out of the monolithic `components/ui.tsx` in v1.1.7: one primitive
- * per file so a change to, say, the modal shell cannot touch the scoreboard.
+ * One prop (`tone`) drives the border/glow pair; the hard 5px offset shadow
+ * comes from `.hard-shadow` in index.css, so the depth is identical wherever
+ * a panel appears. Prefer this over hand-rolling `border-2 border-jade-800`.
+ *
+ * Split out of `components/ui.tsx` in v1.1.7.
  */
 import { ReactNode, Ref } from "react";
 
