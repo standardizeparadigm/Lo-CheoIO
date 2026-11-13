@@ -56,7 +56,7 @@
 
 `shrink-0` 때문에 뒤의 둘은 줄지 않고, scene은 **250px**만 남습니다. 그보다 큰 것(로고, 항아리)은 `overflow-y-auto`에 의해 `y≈247px`에서 잘렸습니다. 이미지에서 잰 절단선은 **247.3px**, 계산은 **250.0px**. 오차 2.7px로 일치합니다.
 
-<img src="assets/layout-fix.svg" alt="v1.1.7와 v1.1.8 레이아웃 비교 — 250px에서 잘리는 scene과, 떠 있는 chrome을 동반한 720px scene (SMIL 애니메이션)" width="100%" />
+<img src="assets/layout-fix.svg" alt="v1.1.7와 v1.1.8 레이아웃 비교 — 250px에서 잘리는 scene과, 떠 있는 chrome을 동반한 382px scene + 338px reserve (SMIL 애니메이션)" width="100%" />
 
 **해결** — chrome을 플로우에서 빼고, 합계에 주인을 만듭니다:
 

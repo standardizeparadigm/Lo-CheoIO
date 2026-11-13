@@ -56,7 +56,7 @@ l'ancienne colonne flex à 1280×720 :
 
 `shrink-0` empêchait les deux derniers de se réduire ; la scène ne gardait donc que **250px**, et tout ce qui était plus haut — le logotype, la jarre — était rogné par `overflow-y-auto` à `y≈247px`. La couture mesurée sur l'image fait **247.3px** ; le calcul donne **250.0px**. Ils concordent à 2.7px près.
 
-<img src="assets/layout-fix.svg" alt="Comparaison de mise en page v1.1.7 / v1.1.8 — scène de 250px tranchée contre 720px avec le chrome flottant (animation SMIL)" width="100%" />
+<img src="assets/layout-fix.svg" alt="Comparaison de mise en page v1.1.7 / v1.1.8 — scène de 250px tranchée contre 382px + 338px de réserve avec le chrome flottant (animation SMIL)" width="100%" />
 
 **La correction** — sortir le chrome du flux et donner un propriétaire au total :
 

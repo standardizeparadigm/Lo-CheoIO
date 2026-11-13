@@ -54,7 +54,7 @@ the old flex column at 1280×720:
 
 `shrink-0` made the last two inflexible, so the scene kept only **250px** and anything taller — the wordmark, the jar — was clipped by `overflow-y-auto` at `y≈247px`. The seam measured in the image is **247.3px**; the arithmetic says **250.0px**. They agree to within 2.7px.
 
-<img src="assets/layout-fix.svg" alt="v1.1.7 vs v1.1.8 layout — a 250px scene cut in half against a 720px scene with floating chrome (SMIL animation)" width="100%" />
+<img src="assets/layout-fix.svg" alt="v1.1.7 vs v1.1.8 layout — a 250px scene cut in half against a 382px scene plus 338px reserve with floating chrome (SMIL animation)" width="100%" />
 
 **The fix** — take the chrome out of the flow and give the total an owner:
 

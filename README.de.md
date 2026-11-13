@@ -56,7 +56,7 @@ die alte Flex-Spalte bei 1280×720:
 
 `shrink-0` machte die beiden unteren unflexibel, die Szene behielt nur **250px**, und alles Höhere — Schriftzug, Krug — wurde von `overflow-y-auto` bei `y≈247px` abgeschnitten. Die im Bild gemessene Naht liegt bei **247.3px**, die Rechnung bei **250.0px**. Abweichung: 2.7px.
 
-<img src="assets/layout-fix.svg" alt="Layoutvergleich v1.1.7 gegen v1.1.8 — eine 250px hohe, zerschnittene Szene gegen 720px mit schwebendem Chrome (SMIL-Animation)" width="100%" />
+<img src="assets/layout-fix.svg" alt="Layoutvergleich v1.1.7 gegen v1.1.8 — eine 250px hohe, zerschnittene Szene gegen 382px Szene plus 338px Reserve mit schwebendem Chrome (SMIL-Animation)" width="100%" />
 
 **Die Lösung** — das Chrome aus dem Fluss nehmen und der Summe einen Eigentümer geben:
 

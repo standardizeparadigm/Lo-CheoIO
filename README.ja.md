@@ -56,7 +56,7 @@
 
 `shrink-0` のため後ろ2つは縮まず、scene は **250px** だけ。それより高いもの（ロゴ、壺）は `overflow-y-auto` により `y≈247px` で切られます。画像で測った切れ目は **247.3px**、計算は **250.0px**。誤差 2.7px で一致します。
 
-<img src="assets/layout-fix.svg" alt="v1.1.7 と v1.1.8 のレイアウト比較 — 250px で切れる scene と、浮遊する chrome を伴う 720px の scene（SMIL アニメーション）" width="100%" />
+<img src="assets/layout-fix.svg" alt="v1.1.7 と v1.1.8 のレイアウト比較 — 250px で切れる scene と、浮遊する chrome を伴う 382px scene + 338px reserve（SMIL アニメーション）" width="100%" />
 
 **修正内容**——chrome をフローから外し、合計に責任者を持たせる：
 

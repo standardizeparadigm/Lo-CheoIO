@@ -56,7 +56,7 @@ a antiga coluna flex a 1280×720:
 
 `shrink-0` impedia os dois últimos de encolher, pelo que a cena ficava apenas com **250px**, e tudo o que fosse mais alto — o logótipo, o boião — era cortado por `overflow-y-auto` em `y≈247px`. A costura medida na imagem é **247.3px**; a aritmética dá **250.0px**. Coincidem com 2.7px de diferença.
 
-<img src="assets/layout-fix.svg" alt="Comparação de layout v1.1.7 vs v1.1.8 — cena de 250px cortada contra 720px com o chrome flutuante (animação SMIL)" width="100%" />
+<img src="assets/layout-fix.svg" alt="Comparação de layout v1.1.7 vs v1.1.8 — cena de 250px cortada contra 382px + 338px de reserva com o chrome flutuante (animação SMIL)" width="100%" />
 
 **A correção** — tirar o chrome do fluxo e dar dono ao total:
 

@@ -56,7 +56,7 @@
 
 `shrink-0` 让后两项无法收缩，scene 只剩 **250px**；比它高的一切（标题、罐子）都被 `overflow-y-auto` 在 `y≈247px` 处切掉。截图中量到的切缝是 **247.3px**，算式给出 **250.0px**，相差 2.7px。
 
-<img src="assets/layout-fix.svg" alt="v1.1.7 与 v1.1.8 布局对比——250px 的 scene 被截断 vs 720px 的 scene 与浮动 chrome（SMIL 动画）" width="100%" />
+<img src="assets/layout-fix.svg" alt="v1.1.7 与 v1.1.8 布局对比——250px 的 scene 被截断 vs 382px 的 scene + 338px reserve 与浮动 chrome（SMIL 动画）" width="100%" />
 
 **修法**——把 chrome 移出文档流，让"总和"有负责人：
 

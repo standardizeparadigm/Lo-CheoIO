@@ -56,7 +56,7 @@ la antigua columna flex a 1280×720:
 
 `shrink-0` impedía que los dos últimos se encogieran, así que la escena conservaba solo **250px** y todo lo más alto —el rótulo, la vasija— quedaba recortado por `overflow-y-auto` en `y≈247px`. La costura medida en la imagen es **247.3px**; la aritmética da **250.0px**. Coinciden con 2.7px de margen.
 
-<img src="assets/layout-fix.svg" alt="Comparación de maquetación v1.1.7 vs v1.1.8 — escena de 250px cortada frente a 720px con el chrome flotante (animación SMIL)" width="100%" />
+<img src="assets/layout-fix.svg" alt="Comparación de maquetación v1.1.7 vs v1.1.8 — escena de 250px cortada frente a 382px + 338px reserve con el chrome flotante (animación SMIL)" width="100%" />
 
 **La solución** — sacar el chrome del flujo y darle dueño al total:
 
