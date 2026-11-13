@@ -4,6 +4,7 @@ import {
   SETTINGS_KEY,
   loadSettings,
   normalizeSettings,
+  resetSettingsKeepingLanguage,
   saveSettings,
   updateSettings,
 } from "../src/game/settings";
@@ -32,17 +33,63 @@ describe("normalizeSettings", () => {
     expect(normalizeSettings([])).toEqual(DEFAULT_SETTINGS);
   });
 
-  it("keeps valid booleans and drops garbage", () => {
+  it("keeps valid values and drops garbage", () => {
     expect(
-      normalizeSettings({ sfx: false, music: "yes", shake: 0, reducedMotion: true, junk: "x" }),
-    ).toEqual({ sfx: false, music: true, shake: true, reducedMotion: true });
+      normalizeSettings({
+        sfx: false,
+        music: "yes",
+        shake: 0,
+        reducedMotion: true,
+        junk: "x",
+        sfxVolume: 55,
+        musicVolume: "loud",
+        shakeLevel: "hurricane",
+        visualQuality: "ultra",
+        autoPauseOnBlur: "no",
+        language: "klingon",
+      }),
+    ).toEqual({
+      ...DEFAULT_SETTINGS,
+      sfx: false,
+      shake: true,
+      reducedMotion: true,
+      sfxVolume: 55,
+    });
+  });
+
+  it("clamps volumes into 0–100 integers", () => {
+    expect(normalizeSettings({ sfxVolume: -20 }).sfxVolume).toBe(0);
+    expect(normalizeSettings({ sfxVolume: 240 }).sfxVolume).toBe(100);
+    expect(normalizeSettings({ musicVolume: 62.7 }).musicVolume).toBe(63);
+    expect(normalizeSettings({ musicVolume: Number.NaN }).musicVolume).toBe(DEFAULT_SETTINGS.musicVolume);
+  });
+
+  it("validates language against the 7 supported ids", () => {
+    expect(normalizeSettings({ language: "fr" }).language).toBe("fr");
+    expect(normalizeSettings({ language: "TH" }).language).toBe(DEFAULT_SETTINGS.language);
+    expect(normalizeSettings({ language: 12 }).language).toBe(DEFAULT_SETTINGS.language);
+  });
+
+  it("languageFallback seeds missing language from the i18n layer", () => {
+    expect(normalizeSettings(null, "ja").language).toBe("ja");
+    expect(normalizeSettings({}, "fr").language).toBe("fr");
+    expect(normalizeSettings({ language: "en" }, "fr").language).toBe("en");
+    expect(normalizeSettings(null, "not-a-lang").language).toBe(DEFAULT_SETTINGS.language);
+  });
+
+  it("accepts shakeLevel / visualQuality only from the allowed set", () => {
+    expect(normalizeSettings({ shakeLevel: "low" }).shakeLevel).toBe("low");
+    expect(normalizeSettings({ shakeLevel: "high" }).shakeLevel).toBe("high");
+    expect(normalizeSettings({ shakeLevel: "off" }).shakeLevel).toBe(DEFAULT_SETTINGS.shakeLevel);
+    expect(normalizeSettings({ visualQuality: "low" }).visualQuality).toBe("low");
+    expect(normalizeSettings({ visualQuality: "medium" }).visualQuality).toBe(DEFAULT_SETTINGS.visualQuality);
   });
 });
 
 describe("load/save roundtrip", () => {
   it("persists and reloads settings", () => {
-    saveSettings({ sfx: false, music: false, shake: true, reducedMotion: true });
-    expect(loadSettings()).toEqual({ sfx: false, music: false, shake: true, reducedMotion: true });
+    saveSettings({ ...DEFAULT_SETTINGS, sfx: false, music: false, sfxVolume: 35 });
+    expect(loadSettings()).toEqual({ ...DEFAULT_SETTINGS, sfx: false, music: false, sfxVolume: 35 });
     expect(store.get(SETTINGS_KEY)).toContain('"sfx":false');
   });
 
@@ -59,5 +106,14 @@ describe("load/save roundtrip", () => {
     expect(next.music).toBe(false);
     expect(next.sfx).toBe(true);
     expect(loadSettings().music).toBe(false);
+  });
+
+  it("resetSettingsKeepingLanguage restores defaults but keeps language", () => {
+    saveSettings({ ...DEFAULT_SETTINGS, language: "ja", sfx: false, sfxVolume: 10 });
+    const next = resetSettingsKeepingLanguage({ ...DEFAULT_SETTINGS, language: "ja", sfx: false, sfxVolume: 10 });
+    expect(next.language).toBe("ja");
+    expect(next.sfx).toBe(true);
+    expect(next.sfxVolume).toBe(DEFAULT_SETTINGS.sfxVolume);
+    expect(loadSettings().language).toBe("ja");
   });
 });
