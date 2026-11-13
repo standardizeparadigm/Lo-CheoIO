@@ -355,7 +355,7 @@ Mỗi thay đổi phải qua **sáu cổng** trước khi vào `main` — chạy
 $ npm run check        # typecheck + toàn bộ test + build
 $ npm run check:readme # 10 README đồng bộ phiên bản + liên kết release
 $ npm run check:i18n   # 7 locale × 302 khoá, không thiếu không thừa
-$ npm run check:assets # 14 SVG — không file mồ côi, không tham chiếu hỏng
+$ npm run check:assets # 16 SVG — không file mồ côi, không tham chiếu hỏng
 $ npm run smoke        # SSR smoke: mọi menu/modal render được
 $ npx vite-node scripts/probe-menu-layout.tsx   # 11 kiểm bố cục trên DOM thật
 ```
@@ -369,7 +369,7 @@ $ npx vite-node scripts/probe-menu-layout.tsx   # 11 kiểm bố cục trên DOM
 | `smoke-ssr` | menu, 6 mục cài đặt, changelog, 9 modal | ✅ |
 | `check-readme-sync` | 10 README × badge/link/SVG | ✅ |
 | `check-i18n` | 7 locale × 302 khoá | ✅ |
-| `check-assets` | 14 SVG, 2 chiều tham chiếu | ✅ |
+| `check-assets` | 16 SVG, 2 chiều tham chiếu | ✅ |
 | `probe-menu-layout` | 11 kiểm bố cục trên DOM thật | ✅ |
 | `build` | `dist/index.html` ~840 KB · gzip ~391 KB | ✅ |
 

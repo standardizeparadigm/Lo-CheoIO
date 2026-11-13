@@ -336,7 +336,7 @@ Every change must clear **six gates** before it reaches `main` — one command r
 $ npm run check        # typecheck + every test
 $ npm run check:readme # 10 READMEs in version + release-link sync
 $ npm run check:i18n   # 7 locales × 302 keys, nothing missing or extra
-$ npm run check:assets # 14 SVGs — no orphans, no broken references
+$ npm run check:assets # 16 SVGs — no orphans, no broken references
 $ npm run smoke        # SSR smoke: every menu/modal renders
 $ npx vite-node scripts/probe-menu-layout.tsx   # 11 layout checks on the real DOM
 ```
@@ -350,7 +350,7 @@ $ npx vite-node scripts/probe-menu-layout.tsx   # 11 layout checks on the real D
 | `smoke-ssr` | menu, 6 settings sections, changelog, 9 modals | ✅ |
 | `check-readme-sync` | 10 READMEs × badge/link/SVG | ✅ |
 | `check-i18n` | 7 locales × 302 keys | ✅ |
-| `check-assets` | 14 SVGs, references checked both ways | ✅ |
+| `check-assets` | 16 SVGs, references checked both ways | ✅ |
 | `probe-menu-layout` | 11 layout checks on the real DOM | ✅ |
 | `build` | `dist/index.html` ~840 KB · gzip ~391 KB | ✅ |
 
