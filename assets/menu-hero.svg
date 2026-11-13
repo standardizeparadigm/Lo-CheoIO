@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 210" role="img" aria-label="Lọ Chéo 1.1.8: logo ở giữa, lọ và vòng sáng, hướng dẫn trong GAME">
+  <style>@media (prefers-reduced-motion: reduce){.orbit {animation:none}} .orbit{transform-origin:600px 115px;animation:spin 16s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
+  <rect width="1200" height="210" rx="12" fill="#0b302a"/>
+  <path d="M0 35h430M770 35h430M0 175h430M770 175h430" stroke="#2bb48c" opacity=".3"/>
+  <text x="600" y="43" text-anchor="middle" fill="#fdf3e0" font-family="sans-serif" font-weight="900" font-size="23" letter-spacing="6">LỌ CHÉO <tspan fill="#f5a81c">1.1.8</tspan></text>
+  <g class="orbit"><circle cx="600" cy="115" r="64" fill="none" stroke="#f5a81c" stroke-width="2" stroke-dasharray="6 12"/><circle cx="600" cy="115" r="52" fill="none" stroke="#b6e07a" stroke-dasharray="3 8"/></g>
+  <path d="M576 84 Q568 99 573 138 L579 151 H621 L627 138 Q632 99 624 84Z" fill="#a8d372" stroke="#061a1a" stroke-width="5"/><ellipse cx="600" cy="84" rx="24" ry="7" fill="#f5a81c" stroke="#061a1a" stroke-width="5"/>
+  <circle cx="590" cy="109" r="4" fill="#061a1a"/><circle cx="610" cy="109" r="4" fill="#061a1a"/><path d="M592 122 Q600 131 608 122" fill="none" stroke="#061a1a" stroke-width="4" stroke-linecap="round"/>
+  <text x="600" y="198" text-anchor="middle" fill="#b6e07a" font-family="sans-serif" font-weight="700" font-size="12" letter-spacing="3">GAME → CÁCH CHƠI</text>
+</svg>

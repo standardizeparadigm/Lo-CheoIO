@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 230" role="img" aria-label="New in v1.1.4 — Combo Festival (combo window ×2) and Grand Feast (jar bonus ×2.5)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 230" role="img" aria-label="Lọ Chéo v1.1.8 — Combo Festival (combo window ×2) and Grand Feast (jar bonus ×2.5)">
   <defs>
     <radialGradient id="nmGlowA" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0" stop-color="#ff8ad4" stop-opacity="0.4"/>
@@ -11,7 +11,7 @@
   </defs>
   <rect width="1200" height="230" rx="16" fill="#061a1a"/>
   <rect width="1200" height="230" rx="16" fill="none" stroke="#123f38" stroke-width="2"/>
-  <text x="600" y="26" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="6" fill="#2bb48c">— NEW IN v1.1.4 · 2 NEW MODES —</text>
+  <text x="600" y="26" text-anchor="middle" font-family="'Courier New',monospace" font-weight="700" font-size="11" letter-spacing="6" fill="#2bb48c">— LỌ CHÉO v1.1.8 · MODE SPOTLIGHT —</text>
 
   <!-- Combo Festival card -->
   <circle cx="315" cy="125" r="130" fill="url(#nmGlowA)">
