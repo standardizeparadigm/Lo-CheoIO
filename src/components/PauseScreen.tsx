@@ -5,7 +5,7 @@ import { APP_VERSION } from "../version";
 import { fmtNum } from "../i18n/i18n";
 import type { MessageKey } from "../i18n/i18n";
 import { GameButton, Keycap, Panel, Stat } from "./ui";
-import { fmtTime } from "../utils/time";
+import { fmtCountdown, fmtTime } from "../utils/time";
 
 export default function PauseScreen({
   stats,
@@ -25,6 +25,7 @@ export default function PauseScreen({
   onToggleMute: () => void;
 }) {
   const { t, lang } = useI18n();
+  const timeLimit = MODES[mode].timeLimit;
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center overflow-y-auto px-4 py-6">
       <div className="pointer-events-none absolute inset-0 bg-jade-950/70 backdrop-blur-[2px]" />
@@ -47,9 +48,11 @@ export default function PauseScreen({
               >
                 {t(`mode.${mode}.name` as MessageKey)}
               </span>
-              {/* elapsed run time — was only visible after the run ended */}
+              {/* elapsed run time — was only visible after the run ended.
+                  Timed modes show what is LEFT instead, which is the number
+                  the player is actually racing. */}
               <span className="inline-block border border-jade-700 px-1.5 py-0.5 font-body text-[9px] font-extrabold tracking-[0.14em] text-clay-100/70 tabular-nums">
-                {fmtTime(stats.time)}
+                {timeLimit ? `${fmtCountdown(timeLimit - stats.time)} ${t("pause.leftSuffix")}` : fmtTime(stats.time)}
               </span>
             </span>
           </div>

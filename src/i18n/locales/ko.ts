@@ -343,6 +343,7 @@ const ko: Record<MessageKey, string> = {
   "settings.resetDefaultsDesc": "모든 설정을 기본값으로 (언어는 유지)",
   "settings.resetDefaultsConfirm": "기본값으로 되돌릴까요? 언어는 그대로 유지됩니다.",
   "common.cancel": "취소",
+  "pause.leftSuffix": "남음",
 };
 
 export default ko;

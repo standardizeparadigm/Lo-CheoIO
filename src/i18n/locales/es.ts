@@ -343,6 +343,7 @@ const es: Record<MessageKey, string> = {
   "settings.resetDefaultsDesc": "Restaura todo (mantiene el idioma)",
   "settings.resetDefaultsConfirm": "¿Restablecer? El idioma se conserva.",
   "common.cancel": "CANCELAR",
+  "pause.leftSuffix": "RESTANTE",
 };
 
 export default es;
