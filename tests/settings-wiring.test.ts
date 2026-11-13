@@ -56,6 +56,11 @@ describe("settings → runtime wiring (v1.1.6)", () => {
     expect(read("src/index.css")).toContain('[data-reduced-motion="true"]');
   });
 
+  it("mute state is persisted instead of reset every boot", () => {
+    expect(app).toContain('readRaw(STORAGE_KEYS.muted) === "1"');
+    expect(app).toContain("writeRaw(STORAGE_KEYS.muted, muted ? \"1\" : \"0\")");
+  });
+
   it("the language switcher component is gone and the settings modal is re-exported", () => {
     const barrel = read("src/components/menu/index.ts");
     expect(barrel).toContain("SettingsModal");
