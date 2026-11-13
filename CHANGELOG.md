@@ -5,7 +5,7 @@ Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến đ
 
 ## [1.1.6] — 2026-11-13
 
-Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · README 10 ngôn ngữ làm mới · 177 unit tests (23 file)**.
+Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · lớp truy cập storage duy nhất · bảng màu canvas/CSS dùng chung · README 10 ngôn ngữ làm mới · 222 unit tests (29 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
 
@@ -24,7 +24,7 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - **`useFocusTrap`** (`src/utils/useFocusTrap.ts`): Tab/Shift+Tab quấn trong modal, focus trả về phần tử trước khi mở
 - **Changelog trong game** có mục 1.1.6 (`src/game/changelog.ts`)
 - **21 + 10 + 9 key i18n mới × 7 locale** (settings viền/mức/chất lượng/auto-pause/reset · preset · sao lưu) — parity test giữ nguyên
-- Tests: **177/177** (23 files) — 9 file mới: `i18n-v116` 8 · `settings-v116` 9 · `settingsIO` 6 · `settingsPresets` 9 · `audioLevels` 6 · `i18n-settings-ui` 4 · `settings-wiring` 6 · `mediaQuery` 6 · `languageMeta` 5
+- Tests: **222/222** (29 files) — 15 file mới/thêm: `i18n-v116` 8 · `settings-v116` 9 · `settingsIO` 6 · `settingsPresets` 9 · `audioLevels` 6 · `i18n-settings-ui` 4 · `settings-wiring` 9 · `mediaQuery` 6 · `languageMeta` 5 · `safeStorage` 7 · `spawn` 9 · `palette` 4 · `time` 6 · `math` 8 · `clipboard` 3
 
 ### Fixed
 - **Nhạc phát to hơn mức đã đặt sau khi tải lại trang** — `audio.unlock()` mở bus nhạc ở `0.5` cố định, bỏ qua `musicVolume` cho tới lần setter kế tiếp; giờ mở đúng `musicBusGain(musicEnabled, musicVolume)`
@@ -33,12 +33,18 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - `settings.updateSettings` giờ trả bản **đã normalize** (trước đó trả patch thô, state React có thể giữ giá trị ngoài biên)
 - `LanguageSwitcher.tsx` xoá hẳn (không còn mount ở `StartScreen`/`PauseScreen`) — `menu/index.ts` re-export `SettingsModal` từ module mới
 - `scripts/smoke-ssr.tsx` trỏ `src/components/menu/SettingsModal` (đã di chuyển) → sửa import + prop mới
+- **Nút "Xuất" báo "Đã copy" khi clipboard trống** — `await navigator.clipboard?.writeText()` resolve cả khi API không tồn tại; `utils/clipboard.ts` giờ trả `true` chỉ khi copy thật sự xảy ra
+- **Toggle cài đặt tự quay về mặc định khi storage bị chặn** — `updateSettings()` đọc lại storage; `patchSettings` persist thẳng `prev + patch`, `updateSettings(patch, base?)` nhận base tường minh
+- **Âm thanh tự bật lại sau reload** — cờ mute giờ lưu ở `locheo.muted.v1`
+- **`sau` có thể rơi ở cấp 1** — `weightedPick` fallback về kind cuối **có trọng số dương**, không phải kind cuối mảng
+- **HUD/bảng điểm in "NaN"** — `fmtNum` kẹp non-finite về 0 và có fallback khi thiếu `Intl`
+- **Nút xác nhận xoá dữ liệu chỉ có dấu ←** — thêm `common.cancel` ×7 locale + `aria-label` cho hai nút trigger
 
 ### Changed
 - **`APP_VERSION` → 1.1.6**; `package.json` + lock, `src/version.ts`, badge 10 README
 - **`docs/design/settings-format.md`** viết lại theo schema mới; `docs/guides/storage-keys.md` thêm dòng settings mới + ghi chú `locheo.lang.v1` là gương của `settings.language`
 - **`docs/guides/adding-a-locale.md`** — ngôn ngữ chọn trong Settings (`LanguageSection`), không còn `LanguageSwitcher`
-- **`tests/README.md`** — bảng 23 file / 177 test
+- **`tests/README.md`** — bảng 29 file / 222 test
 - Reduced-motion bao phủ **toàn bộ** animation mới (nebula, starfield, light-ray, glow-ring, jar-glow, about-card, cta-shine)
 - Build ~771 KB
 
