@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * MÙA VÀNG — badge "×1.0 · GOLD ×2.6".
+ *
+ * "Đồ vàng rơi dày đặc · mùa bội thu"
+ *
+ * score ×1 · speed ×1 · hazard ×1 · spawn ×0.95 · `goldMult: 2.6`.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const goldrush: ModeConfig = {
   id: "goldrush",
   name: "MÙA VÀNG",
