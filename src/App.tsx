@@ -143,6 +143,7 @@ export default function App() {
     const saved = resumeRef.current;
     if (!g || !saved) return;
     g.restoreRun(saved);
+    setMode(saved.mode); // keep React state + persisted locheo.mode.v1 in sync with the resumed run
     clearSavedRun();
     resumeRef.current = null;
     setResume(null);
