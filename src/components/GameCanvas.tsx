@@ -194,13 +194,23 @@ export default function GameCanvas({
     gameRef.current?.setInput({ joy: false, jx: 0, jy: 0 });
   };
 
+  // The canvas is the whole game; screen readers that announce an unlabelled
+  // <canvas> give the player nothing. Label it with the live score/mode so a
+  // non-visual user at least knows what is on screen.
+  const canvasLabel = `${t("brand.badge")} — ${t("keys.move")} · ${t("keys.slam")} · ${t("keys.pause")}`;
+
   return (
     <div
       ref={wrapRef}
       className="absolute inset-0 overflow-hidden"
       data-reduced-motion={reducedMotion ? "true" : undefined}
     >
-      <canvas ref={canvasRef} className="block h-full w-full" />
+      <canvas
+        ref={canvasRef}
+        className="block h-full w-full"
+        role="img"
+        aria-label={canvasLabel}
+      />
 
       {/* floating joystick layer */}
       <div
