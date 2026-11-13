@@ -52,6 +52,8 @@ export default function App() {
   modeRef.current = mode;
   const phaseRef = useRef<Phase>(phase);
   phaseRef.current = phase;
+  const resumeRef = useRef<SavedRun | null>(resume);
+  resumeRef.current = resume;
 
   const best = bestScore(scores);
 
@@ -138,18 +140,16 @@ export default function App() {
   // Resume the suspended run snapshot (GAME → «Chơi tiếp»)
   const resumeRun = useCallback(() => {
     const g = gameRef.current;
-    if (!g) return;
-    setResume((saved) => {
-      if (saved) {
-        g.restoreRun(saved);
-        clearSavedRun();
-        setSavedId(null);
-        setNewAchievements([]);
-        setRun({ ...saved.stats });
-        setShowOver(false);
-      }
-      return null;
-    });
+    const saved = resumeRef.current;
+    if (!g || !saved) return;
+    g.restoreRun(saved);
+    clearSavedRun();
+    resumeRef.current = null;
+    setResume(null);
+    setSavedId(null);
+    setNewAchievements([]);
+    setRun({ ...saved.stats });
+    setShowOver(false);
   }, []);
 
   // Wipe every locally persisted byte (settings danger zone)
