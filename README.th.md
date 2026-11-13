@@ -155,7 +155,10 @@ lo-cheoio/
 │  ├─ play-linux.sh        # ตัวเปิด Linux — ดับเบิลคลิก เมนูสีสันจัดเต็ม
 │  └─ README.md            # คู่มือตัวเปิดสำหรับคนไม่ถนัดเทอร์มินัล
 ├─ docs/
-│  ├─ DESCRIPTION.md       # บล็อกแนะนำโปรเจกต์หลายภาษา (vi/en/zh + SEO)
+│  ├─ README.md            # สารบัญเอกสาร (v1.1.5)
+│  ├─ DESCRIPTION.md       # คำอธิบายโปรเจกต์หลายภาษา (vi/en/zh + SEO)
+│  ├─ design/              # สเปก menu-corners / save-format / settings-format
+│  ├─ guides/              # ภาพรวม engine · a11y · ประสิทธิภาพ · storage keys · ขั้นตอน release…
 │  └─ releases/
 │     ├─ v1.0.0.md         # release notes ฉบับแรก
 │     ├─ v1.1.0.md         # release notes v1.1.0
@@ -205,7 +208,7 @@ lo-cheoio/
 │  │  ├─ runSave.ts         # suspended-run persistence (v1.1.5)
 │  │  └─ settings.ts        # game settings persistence (v1.1.5)
 │  └─ utils/cn.ts          # clsx + tailwind-merge
-└─ tests/                  # vitest — modes, achievements, storage, i18n
+└─ tests/                  # vitest — 13 ไฟล์ · 107 เทสต์ (modes · achievements · storage · i18n · runSave · settings · changelog…)
 ```
 
 ## 🧱 สถาปัตยกรรม & ประสิทธิภาพ
