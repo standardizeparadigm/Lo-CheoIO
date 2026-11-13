@@ -9,7 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.6-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.6.md)
+[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)]
+[![Tests](https://img.shields.io/badge/tests-235%20%C2%B7%2030%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)]
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-설치--실행)
@@ -20,6 +22,8 @@
 <img src="assets/demo.svg" alt="Lọ Chéo 플레이 장면 — 항아리가 대각선으로 돌진하고, 절임 재료를 받고, 곰팡이를 자른다" width="100%" />
 
 <img src="assets/languages.svg" alt="7개 언어 — VI · EN · 中文 · 日本語 · 한국어 · Español · Français" width="100%" />
+
+<img src="assets/palette-ribbon.svg" alt="Lọ Chéo 팔레트——일곱 밴드가 번갈아 숨 쉼 (SMIL 애니메이션)" width="100%" />
 
 </div>
 
@@ -33,23 +37,72 @@
 
 <img src="assets/divider.svg" alt="" width="100%" />
 
-## 🆕 v1.1.6 새로운 점
+## 🆕 v1.1.7 새로운 점
 
-- ⚙️ **설정을 6개 섹션으로 재구성** —— **빠른 프리셋** · **사운드** · **화면 & 모션** · **언어** · **백업** · **데이터**, 세 가지 조작 방식: 켜기/끄기 스위치, 2택 피커, 0–100 레벨.
-- 🔊 **단순 토글이 아닌 실제 조절** —— 효과음·음악 음량 **0–100**(비스듬한 10칸 바), **흔들림 세기** 약/강, **그래픽 품질** 낮음/높음(파티클 230 대 460, 발광 끔), **탭 전환 시 자동 일시정지**.
-- 🌐 **언어를 설정 안으로 완전히 이동** —— 메뉴 오른쪽 위 플로팅 스위처와 일시정지 화면의 행을 제거했습니다; 이제 7개 언어의 2열 그리드(국기 · 원어 이름 · 체크)입니다.
-- 🎛️ **원터치 프리셋 4종 + JSON 백업** —— **부드럽게** · **균형** · **시네마틱** · **스피드런**(언어는 절대 건드리지 않음)과 설정 내보내기/가져오기.
-- ✨ **메뉴가 무대가 되다** —— 떠도는 성운, 호흡하는 광선, **두 겹의 반짝이는 별밭**, 항아리를 도는 빛의 링, 항아리 후광, PLAY를 스치는 광택; **제작자 카드**에는 끝없이 흐르는 그라데이션 테두리.
-- 🐛 **실제 버그 11건 수정** —— 새로고침 후 음악이 설정보다 큼 · Tab이 모달을 벗어남 · 변경 이력 힌트가 v1.1.5로 고정 · `updateSettings`가 정규화 전 값을 반환 · 대화상자 안에서 포커스가 유지되지 않음 · 클립보드가 비어 있어도 “복사됨” 표시 · 저장소 차단 시 토글이 기본값으로 되돌아감 · 새로고침 후 소리가 저절로 켜짐 · 가중치 0 아이템이 낮은 레벨에 등장 · 점수가 “NaN”으로 표시 · 확인 버튼이 ← 하나뿐.
-- 🧪 **유닛 테스트 222개**(29개 파일, 113/14에서 증가) —— 설정 스키마, 프리셋, 백업 코덱, 오디오 게인 계산, i18n↔UI 계약 테스트를 추가로 검증.
+> 1.2.0 이전의 **마지막 패치**. 새 게임 모드는 없습니다——아직 불편했던 것들을 근본부터 고쳤습니다.
 
-<img src="assets/settings-sections.svg" alt="v1.1.6 설정 — 스위치·레벨 바·피커가 있는 6개 섹션(SMIL 애니메이션)" width="100%" />
+### 🌫️ 메뉴 배경의 뿌연 느낌 제거——원인부터 수정
 
-<img src="assets/corner-menu.svg" alt="왼쪽 아래 GAME 패널과 오른쪽 아래 INFO 패널이 슬라이드인(SMIL 애니메이션)" width="100%" />
+플레이어 말이 맞았습니다: *「메뉴 뒤 배경이 아직 흐릿해요」*. 원인은 한 겹이 아니라 **네 겹이 겹쳐 증폭된 것**이었습니다:
 
-→ 전체 내용: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+| 레이어 | 이전 | 이후 | 이유 |
+| --- | --- | --- | --- |
+| 성운 `.nebula-*` | `blur(64px)`, 최대 `1.0` | **`blur(22px)`, 최대 `0.80`** | 64px는 46vw 광원 반지름의 절반 이상——경계가 사라지고 덩어리 전체가 안개가 됨 |
+| 메뉴 비네트 | 인라인, **전체 화면**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`**, 모서리만, `0.30 → 0.62` | 「화면 전체를 고르게 어둡게」에서 「모서리는 어둡고 가운데는 밝게」로 |
+| CRT 프레임 | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px는 작은 창에서 네 모서리를 거의 삼켰음 |
+| 타일 바닥 | `opacity-45` | **`opacity-70`** | 45%에서는 바닥이 회색 잡음일 뿐, 알아볼 수 있는 디테일이 아니었음 |
 
-→ 이전 릴리스: [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md)
+`.menu-vignette`와 `.app-vignette`는 이제 JSX에 박힌 유틸리티가 아니라 **이름 있는 CSS 규칙**입니다——한 곳만 조정하면 되고, `prefers-reduced-motion`도 적용됩니다.
+
+### 🏷️ 변경 이력 계층——계층마다 한 가지 색
+
+| 계층 | 라벨 | 색 | 의미 | 예 |
+| --- | --- | --- | --- | --- |
+| `major` | **MAJOR** | 🩷 핑크 `#ff5fb0` | 큰 버전——새 시스템 | 1.0.0 |
+| `minor` | **UPDATE** | 🟡 골드 `#f5a81c` | 업그레이드——새 콘텐츠 | 1.1.0 |
+| `patch` | **PATCH** | 🟣 바이올렛 `#9d6bff` | 수정과 정리 | 1.1.1 → 1.1.7 |
+
+계층은 `tierFor(version)`이 **SemVer에서 도출**하며 손으로 적지 않습니다——그래서 라벨이 옆에 찍힌 버전과 어긋날 수 없습니다. 패널에는 **필터**(전체 · MAJOR · UPDATE · PATCH, 계층별 개수 포함)가 추가되었습니다.
+
+<img src="assets/release-tiers.svg" alt="세 계층 MAJOR/UPDATE/PATCH와 색상, 아홉 릴리스 타임라인 (SMIL 애니메이션)" width="100%" />
+
+### 📖 여덟 개의 예전 릴리스: 한 줄에서 한 페이지로
+
+아홉 중 여섯 개는 항목 배열이 **비어 있어** 패널이 한 줄 요약만 보여줄 수 있었습니다. v1.1.7에서 전부 다시 썼습니다:
+
+- **베트남어 96개 + 영어 96개** 항목을 새로 쓰거나 확장
+- 내용은 `docs/releases/v1.1.x.md` **그리고** 소스 코드 자체(9 모드, 16 업적)에서
+- **릴리스 날짜 재정렬**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12**——이틀 간격, 같은 날 릴리스 없음
+
+### 🗂️ 프로젝트가 더 많은 폴더로
+
+```
+src/game/changelog/        ← 300줄 단일 파일을 대체
+├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
+├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
+├── entries/               릴리스마다 1파일 —— v1_0_0.ts … v1_1_7.ts
+└── index.ts               CHANGELOG_ENTRIES + 5 헬퍼
+```
+
+앞으로 1.2.0을 추가하는 일은 **새 파일 하나**와 import 한 줄뿐입니다.
+
+### 🐛 수정
+
+| # | 버그 | 수정 |
+| --- | --- | --- |
+| 1 | 메뉴 배경이 뿌옇고 탁함 | 위의 네 가지 변경 |
+| 2 | 타일 바닥이 보이지 않음 | `opacity-45` → `opacity-70` |
+| 3 | 이력 라벨이 실제와 다름 (`kind` 수기) | `tierFor(version)`이 SemVer에서 도출 |
+| 4 | 이력 설명이 빈약함 (6개 릴리스가 `items: []`) | 96개 항목 재작성 |
+| 5 | 릴리스 날짜 중복·비논리 | 아홉 개 연속 날짜, 중복 없음 |
+| 6 | 문서/SVG/런처가 버전보다 뒤처짐 | 전수 점검 → 1.1.7 |
+| 7 | `check-readme-sync` 주석이 1.1.6 고정 | `package.json`에서 읽도록 변경 |
+
+→ 전체 내용: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · 이전 버전: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
+
+<img src="assets/settings-sections.svg" alt="여섯 구역 설정(v1.1.6부터)——스위치, 레벨 바, 피커 (SMIL 애니메이션)" width="100%" />
+
+<img src="assets/corner-menu.svg" alt="GAME(왼쪽 아래)과 INFO(오른쪽 아래) 패널 슬라이드 인 (SMIL 애니메이션)" width="100%" />
 
 ## ✨ 하이라이트
 
@@ -220,10 +273,12 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # 모달 포커스 가둠 (v1.1.6)
-└─ tests/                  # vitest — 29개 파일 · 222개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 30개 파일 · 222개 테스트(modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 아키텍처 & 성능
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 아키텍처——입력 → 엔진 → 상태 → 렌더와 서비스 계층 (SMIL 애니메이션)" width="100%" />
+
 
 - **게임 루프** `requestAnimationFrame`, 델타 타임을 `1/20초`로 클램프, `timeScale`(얼음 슬로모) 곱셈, 캐치마다 수십 ms의 **히트 스톱**으로 타격감.
 - **Canvas HUD**를 매 프레임 직접 그립니다. React는 `phase`에 따라 화면만 그립니다 — 핫 루프에서 React 재렌더 없음. 언어를 바꾸면 HUD는 다음 프레임부터 새 사전을 읽습니다.
@@ -259,16 +314,17 @@ v1.1.4에서 수정: `play-windows.bat`은 CRLF + UTF-8 BOM과 `chcp 65001`, 베
 
 ## 📦 릴리스 & 변경 이력
 
-| 버전 | 날짜 | 노트 |
-| --- | --- | --- |
-| [v1.1.6](docs/releases/v1.1.6.md) | 2026-11-13 | **6개 섹션 설정**(프리셋 · 사운드 · 화면 · 언어 · 백업 · 데이터) · 0–100 음량 · 흔들림 세기 · 그래픽 품질 · 탭 전환 자동 일시정지 · 언어를 설정으로 이동 · 프리셋 4종 · JSON 내보내기/가져오기 · 다층 애니메이션 메뉴 · 제작자 카드 그라데이션 · 모달 포커스 가둠 · 새로고침 후 음악 버그 수정 · **150개 테스트** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 2026-11-12 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 2026-11-12 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
-| [v1.1.3](docs/releases/v1.1.3.md) | 2026-11-12 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
-| [v1.1.2](docs/releases/v1.1.2.md) | 2026-11-12 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
-| [v1.1.1](docs/releases/v1.1.1.md) | 2026-11-12 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
-| [v1.1.0](docs/releases/v1.1.0.md) | 2026-11-12 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
-| [v1.0.0](docs/releases/v1.0.0.md) | 2026-10-26 | 첫 릴리스: 완성된 엔진, 11가지 재료, 항아리 내리치기, 콤보 ×9 |
+| 버전 | Tier | 날짜 | 노트 |
+| --- | --- | --- | --- |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **메뉴 배경 안개 제거**(네 겹 중첩: `blur 64→22px`, 전체 화면 비네트를 모서리만으로, CRT 프레임 140→90px, 바닥 45→70%) · **계층별 컬러 이력** · 예전 8개 버전에 **설명 96개** · 날짜 재정렬 · `src/game/changelog/` 분리 · README 10개 재작성 · **235 테스트** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **6개 섹션 설정**(프리셋 · 사운드 · 화면 · 언어 · 백업 · 데이터) · 0–100 음량 · 흔들림 세기 · 그래픽 품질 · 탭 전환 자동 일시정지 · 언어를 설정으로 이동 · 프리셋 4종 · JSON 내보내기/가져오기 · 다층 애니메이션 메뉴 · 제작자 카드 그라데이션 · 모달 포커스 가둠 · 새로고침 후 음악 버그 수정 · **150개 테스트** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **모서리 GAME/INFO 메뉴**（플레이 · 이어하기 · 모드 · 랭킹 · 업적 · 설정 / 제작자 · 변경 이력 · 종료）· **중단한 판 저장 & 이어하기**（`locheo.run.v1`）· 게임 내 설정（효과음/음악/흔들림/동작 줄이기）· 모달 단축키 누출 수정 · prefers-reduced-motion 전면 적용 · **113개 테스트** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9가지 모드**(콤보 축제 · 절임 대잔치 추가) · **16개 업적** · **7개 언어**(ES/FR 추가) · play-windows.bat 수정(CRLF+BOM) · 7개 언어 런처 · 61개 테스트 |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7가지 모드(절임비 대폭풍 · 얇은 도자기) · 14개 업적 · 5개 언어 · favicon · 다국어 런처 · 55개 테스트 |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5가지 모드(60초 스프린트 · 골드 러시) · 12개 업적 · 콤보 불꽃 · 더블클릭 런처 · 10개 언어 README · 테스트 49개 |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | 게임 내 i18n VI/EN/ZH · 7개 언어 README · 버그 전수 수정 · 테스트 45개 |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3가지 모드 · 황금마늘 실드 · 배추벌레 · 황금 겨자채 · 10 업적 · 셀프호스팅 폰트 |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | 첫 릴리스: 완성된 엔진, 11가지 재료, 항아리 내리치기, 콤보 ×9 |
 
 [CHANGELOG.md](CHANGELOG.md)도 참고하세요.
 
