@@ -1,6 +1,16 @@
 import type { ModeConfig } from "../modeTypes";
 
-/** Mode balance record — see docs/design/modes-balance.md. */
+/**
+ * LỄ HỘI COMBO — badge "×1.15 · COMBO ×2".
+ *
+ * "Cửa sổ combo rộng gấp đôi · kéo dây thả ga"
+ *
+ * score ×1.15 · speed ×1.05 · hazard ×1.25 · spawn ×0.92 · `comboWindowMult: 2`.
+ *
+ * v1.1.7: extracted into its own file so a balance tweak touches one record
+ * and one diff. Numbers are pinned by tests/modes-balance.test.ts — change
+ * them here, never in the engine.
+ */
 export const combo: ModeConfig = {
   id: "combo",
   name: "LỄ HỘI COMBO",
