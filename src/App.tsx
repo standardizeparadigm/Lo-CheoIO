@@ -25,6 +25,7 @@ import { loadSettings, resetSettingsKeepingLanguage, updateSettings, type GameSe
 import { detectInitialLanguage, setLanguage } from "./i18n/i18n";
 import { clearSavedRun, loadSavedRun, saveSavedRun, type SavedRun } from "./game/runSave";
 import { prefersCoarsePointer } from "./utils/mediaQuery";
+import { STORAGE_KEYS, readRaw, writeRaw } from "./game/safeStorage";
 
 const EMPTY: RunStats = { score: 0, catches: 0, bestCombo: 0, level: 1, jars: 0, sliced: 0, time: 0 };
 
@@ -39,12 +40,8 @@ export default function App() {
   const [muted, setMuted] = useState(false);
   const [touchMode, setTouchMode] = useState(false);
   const [mode, setMode] = useState<ModeId>(() => {
-    try {
-      const v = localStorage.getItem("locheo.mode.v1");
-      return isModeId(v) ? v : "classic";
-    } catch {
-      return "classic";
-    }
+    const v = readRaw(STORAGE_KEYS.mode); // returns null when storage is blocked
+    return isModeId(v) ? v : "classic";
   });
   const [achievements, setAchievements] = useState<string[]>(() => loadAchievements());
   const [newAchievements, setNewAchievements] = useState<AchievementDef[]>([]);
@@ -117,7 +114,7 @@ export default function App() {
   useEffect(() => {
     gameRef.current?.setMode(mode);
     try {
-      localStorage.setItem("locheo.mode.v1", mode);
+      writeRaw(STORAGE_KEYS.mode, mode);
     } catch {
       /* storage blocked — session default only */
     }

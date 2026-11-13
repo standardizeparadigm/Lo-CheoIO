@@ -15,11 +15,12 @@ import ja from "./locales/ja";
 import ko from "./locales/ko";
 import es from "./locales/es";
 import fr from "./locales/fr";
+import { STORAGE_KEYS } from "../game/safeStorage";
 
 export type Language = "vi" | "en" | "zh" | "ja" | "ko" | "es" | "fr";
 export const LANGUAGES: Language[] = ["vi", "en", "zh", "ja", "ko", "es", "fr"];
 
-export const LANG_STORAGE_KEY = "locheo.lang.v1";
+export const LANG_STORAGE_KEY = STORAGE_KEYS.lang;
 
 const messages: Record<Language, Record<MessageKey, string>> = { vi, en, zh, ja, ko, es, fr };
 
