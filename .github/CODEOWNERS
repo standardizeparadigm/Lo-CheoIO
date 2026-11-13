@@ -1,0 +1,8 @@
+# Mọi thay đổi cần review của owner trước khi merge
+* @standardizeparadigm
+
+# i18n: phải đồng bộ 7 locale
+/src/i18n/ @standardizeparadigm
+
+# Release tooling
+/.github/ @standardizeparadigm
