@@ -26,10 +26,14 @@ Nguồn: `src/game/settings.ts`. Pattern giống `locheo.run.v1`: validate + mer
 - `normalizeSettings(value, languageFallback?)`: từng field được validate **theo kiểu** —
   boolean qua `Boolean`, số kẹp `0..100` (`Number.isFinite` chặn `NaN`), chuỗi chỉ nhận trong tập cho phép
   (`shakeLevel ∈ {low, high}`, `visualQuality ∈ {low, high}`, `language ∈ 7 mã`). Giá trị lạ → default.
-- `loadSettings(languageFallback?)`: đọc key → `normalizeSettings` → thiếu/hỏng → DEFAULT + seed ngôn ngữ.
-- `updateSettings(patch)`: merge patch vào bản đã load **rồi normalize lại** → persist; trả bản đã persist.
+- `loadSettings(languageFallback?, osDefaults?)`: đọc key → `normalizeSettings` → thiếu/hỏng → DEFAULT + seed ngôn ngữ.
+  `osDefaults` (ví dụ `prefers-reduced-motion`) **chỉ** áp dụng khi chưa có gì trong storage; dữ liệu đã lưu luôn thắng.
+- `saveSettings(next)`: normalize → persist (qua `safeStorage.writeJSON`) → **trả bản đã persist**. Đây là đường
+  ghi duy nhất của app; UI dùng luôn giá trị trả về để state React không bao giờ lệch storage.
+- `updateSettings(patch, base?)`: merge patch vào `base` (hoặc bản đã load nếu không truyền) → normalize → persist.
+  Truyền `base` là state hiện tại để không mất thay đổi in-memory khi storage bị chặn.
 - `resetSettingsKeepingLanguage(prev)`: `DEFAULT_SETTINGS` + giữ `prev.language` → dùng cho nút "Khôi phục mặc định".
-- Lỗi storage (private mode…) → im lặng, trả DEFAULT/patch in-memory.
+- Lỗi storage (private mode…) → im lặng, state vẫn đúng trong phiên; **không** quay về DEFAULT giữa chừng.
 
 ## Áp dụng (ai lắng nghe gì)
 
