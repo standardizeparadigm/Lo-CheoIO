@@ -1,5 +1,10 @@
 /**
- * The deck: a daily challenge, a daily tip, and the mode you are about to play.
+ * Today's challenge and today's rule — the date maths.
+ *
+ * ROUND 6 renamed this file: it was `menu-deck.test.ts` and covered the deck
+ * component as well. The deck is gone (three columns of prose cannot live
+ * inside a fixed-height hero), so the *display* tests went with it, but every
+ * *date* test below stayed — they were never about the UI:
  *
  * The interesting failures here are not visual, they are *temporal* and
  * *catalogue* failures:
@@ -20,9 +25,8 @@ import {
   isToday,
   localDayNumber,
   mix,
-} from "../src/components/menu/deck/daily";
-import { RULE_COUNT, tipIndexFor } from "../src/components/menu/deck/tip";
-import { DECK_HIDE_WIDTH, DECK_MIN_WIDTH } from "../src/components/menu/deck/width";
+} from "../src/game/daily";
+import { RULE_COUNT, tipIndexFor } from "../src/game/daily";
 
 const MODES = ["classic", "zen", "inferno", "blitz", "goldrush", "hardcore", "storm", "feast", "combo"];
 
@@ -166,26 +170,29 @@ describe("tipIndexFor", () => {
   });
 });
 
-describe("the deck does not drift from the catalogue", () => {
+describe("the daily data does not drift from the catalogue", () => {
   it("has exactly six how-to rules in the locale files", () => {
     // RULE_COUNT is a number; the rule texts are data. If they disagree the
-    // deck shows `rule.6.t` and renders the raw key.
+    // how-to modal shows `rule.6.t` and renders the raw key.
     const vi = readFileSync("src/i18n/locales/vi.ts", "utf8");
     const rules = [...vi.matchAll(/^\s+"rule\.(\d+)\.t":/gm)].map((m) => Number(m[1]));
     expect(rules).toEqual([0, 1, 2, 3, 4, 5]);
     expect(rules.length).toBe(RULE_COUNT);
   });
 
-  it("hides the whole deck at Tailwind's sm breakpoint", () => {
-    // `.deck` is `hidden sm:grid`; sm is 640px. A change to one without the
-    // other leaves the deck visible-but-empty or invisible-but-branching.
-    expect(DECK_HIDE_WIDTH).toBe(640);
+  it("no longer ships a deck component or its stylesheet block", () => {
+    /*
+     * Round 6 deleted the deck: three columns of prose cannot live inside a
+     * fixed-height hero, and at 1920×1080 the right column was clipped
+     * mid-sentence. The date maths above is what survived, in `game/daily/`.
+     *
+     * This test exists so the deletion is not quietly undone: the deck was
+     * asked for removal once already and came back with a different name.
+     */
+    expect(() => readFileSync("src/components/menu/deck/MenuDeck.tsx", "utf8")).toThrow();
     const css = readFileSync("src/index.css", "utf8");
-    expect(css).toContain(".deck");
-  });
-
-  it("needs more width for three columns than for two", () => {
-    expect(DECK_MIN_WIDTH).toBeGreaterThan(DECK_HIDE_WIDTH);
+    expect(css).not.toContain(".deck {");
+    expect(css).not.toContain(".deck-cell");
   });
 
   it("renders the challenge target with the player's locale grouping", () => {
