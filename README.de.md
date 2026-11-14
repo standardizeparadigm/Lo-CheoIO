@@ -177,6 +177,36 @@ Die Stufe wird von `tierFor(version)` **aus dem SemVer abgeleitet**, nie getippt
 
 <img src="assets/settings-sections.svg" alt="Einstellungen in sechs Abschnitten (seit v1.1.6) — Schalter, Pegelbalken und Auswahlen (SMIL-Animation)" width="100%" />
 
+## 📐 Adaptives Layout — wie der Hero seine Form wählt
+
+Der Startbildschirm entscheidet sein Layout nicht über Media Queries. Er **misst** das Fenster und wählt aus fünf Fähigkeiten: `sideBySide`, `halo`, `badgeRow`, `mascot`, `liveBadge`.
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = Höhe
+            │
+            └─ scene ist genau die Zahl, die das Chrome reserviert
+                        │
+    heroLayout({ scene, width }) → 5 Booleans
+```
+
+| Flag | Aktiv wenn | Was ohne es fehlt |
+| --- | --- | --- |
+| `sideBySide` | Breite ≥ 1024 **und** Hero ≥ 300px | das Maskottchen rutscht unter das Wordmark |
+| `halo` | Hero ≥ 300px | der Ring um das Glas |
+| `badgeRow` | Hero ≥ 232px | die Plakette «HŨ DƯA ĐẠI CHIẾN» und die Rekordzeile |
+| `mascot` | fast immer | — (nur in der minimalen Ökonomie verborgen) |
+| `liveBadge` | Hero ≥ 232px | die Zeile LIVE AUS DER KÜCHE und die Version |
+
+Die drei Schwellen sind **keine runden Zahlen** — jede entspricht der realen Höhe dessen, was sie steuert:
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 Wordmark + 40 Plakette + 22 Live + 20 Luft
+HEIGHT_FOR_HALO         = 300  // 150 Lockup + 240 Ring − 90 Überlappung
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // höhere Spalte: 192 Maskottchen + 24 Chip
+```
+
+`tests/menu-adaptive.test.ts` prüft **1.682 Viewports** und verlangt `heroContentHeight(layout) ≤ scene` bei jedem Sample. Beim Größenändern hören beide Hooks auf **sechs** Events und aktualisieren in einem Frame.
+
 ## ✨ Die Highlights
 
 | Bereich | Details |
