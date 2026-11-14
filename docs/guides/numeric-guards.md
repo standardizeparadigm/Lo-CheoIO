@@ -1,7 +1,8 @@
 # Chặn số hỏng — vì sao `Math.max(0, x)` không phải guard
 
-Vòng 6 tìm ra **sáu** chỗ trong năm module khác nhau dùng `Math.max(0, x)` như
-thể nó chặn được giá trị không hữu hạn. Nó không.
+Vòng 6 tìm ra **tám** chỗ trong sáu module khác nhau dùng một phép toán như thể
+nó chặn được giá trị không hữu hạn. Sáu chỗ dùng `Math.max(0, x)`, hai chỗ dùng
+`?? 1`. Cả hai đều không chặn.
 
 Chỗ thứ sáu đến muộn: nó nằm trong footer của panel góc, nơi bị đọc là "chỉ là
 một dòng trạng thái", và nó in ra `✓NaN/NaN` cho tới khi có người viết test cho
@@ -20,7 +21,7 @@ Math.min(1, Infinity) // 1        — nhưng chỉ khi có cận trên hữu h�
 Nên `Math.max(0, x)` chỉ chặn **số âm**. Nó không phải guard cho `NaN`, không
 phải guard cho `Infinity`, và tên hàm (`max`) trông như thể nó bao quát hơn.
 
-## Năm chỗ đã sai
+## Các chỗ đã sai
 
 | Module | Triệu chứng trước khi sửa |
 | --- | --- |
@@ -30,9 +31,46 @@ phải guard cho `Infinity`, và tên hàm (`max`) trông như thể nó bao qu�
 | `game/audioLevels.ts` | `Infinity` vào `GainNode.gain.value`; WebAudio clip và có thể chốt node — hiệu ứng tắt hẳn |
 | `menu/layout/fit.ts` | `Math.max(1, NaN)` = `NaN`; React **bỏ im lặng** `style={{ height: NaN }}` nên hero mất chiều cao khai báo |
 | `menu/panel/stat.ts` | Footer panel in `✓NaN/NaN` và `✓5/Infinity`; giá trị đến từ localStorage nên người chơi **sửa được** |
+| `game/modeMath.ts` ×2 | `comboWindowFor("id-không-tồn-tại")` ném `TypeError` **trong tick engine** → mất cả ván; `?? 1` để `Infinity` thành cửa sổ combo vô hạn |
+
+Đó là sáu chỗ dùng `Math.max`. Chỗ thứ bảy và thứ tám không dùng `Math.max` mà
+dùng **`??`** như một guard số — cùng một sai lầm, khác cú pháp:
+
+```ts
+const mult = MODES[mode].comboWindowMult ?? 1;   // hai lỗi trong một dòng
+```
+
+`??` chặn `null` và `undefined`. Nó không chặn `Infinity`, không chặn `NaN`,
+không chặn số âm, **và nó cũng chặn nhầm `0`** — một chế độ muốn "không có cửa
+sổ combo" bị âm thầm nâng thành hệ số 1.
+
+Tệ hơn: `MODES[mode]` có thể là `undefined` với `mode` không tồn tại, và phép đọc
+trường trên `undefined` **ném lỗi**. `mode` đến từ `locheo.run.v1`, tức là người
+chơi sửa storage là tới được trạng thái đó — và lỗi ném trong tick thì mất ván.
+
+**`?? 1` không phải guard. Nó là phép chọn giữa hai giá trị.**
 
 Điểm chung: mỗi chỗ đều có một **comment khẳng định nó an toàn**. Đó là lý do
 chúng sống lâu — người đọc tin comment hơn đọc phép toán.
+
+## Khi nào `??` là đúng
+
+`x ?? y` đúng khi `y` là **giá trị thay thế cho sự vắng mặt**, và khi mọi giá trị
+không vắng mặt đều hợp lệ:
+
+```ts
+// ĐÚNG — nhãn i18n optional, chuỗi rỗng không phải trạng thái người dùng muốn
+const label = t(entry.hintKey ?? "menu.hintFallback");
+
+// ĐÚNG — cờ ba trạng thái, `false` là câu trả lời thật
+const autoPause = settings.autoPauseOnBlur ?? true;
+
+// SAI — hệ số nhân: 0, Infinity, NaN đều "có mặt" và đều không phải hệ số
+const mult = def.comboWindowMult ?? 1;
+```
+
+Câu hỏi phân biệt: **"giá trị này có phải là một câu trả lời?"** Nếu `Infinity`
+không phải câu trả lời, `??` là sai công cụ.
 
 ## Mẫu đúng
 
