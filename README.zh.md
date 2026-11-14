@@ -177,6 +177,36 @@ wordmark 下方的空带现在是**故意的**。那就是一个在任何尺寸�
 
 <img src="assets/settings-sections.svg" alt="六段设置（自 v1.1.6）——开关、等级条与选择器（SMIL 动画）" width="100%" />
 
+## 📐 自适应布局 —— 首屏如何选择自己的形态
+
+开始屏幕不用媒体查询决定布局。它**测量**窗口，从五种能力中挑选：`sideBySide`、`halo`、`badgeRow`、`mascot`、`liveBadge`。
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = 高度
+            │
+            └─ scene 正是边框保留的那个数
+                        │
+    heroLayout({ scene, width }) → 5 个布尔
+```
+
+| 标志 | 何时开启 | 关闭后消失什么 |
+| --- | --- | --- |
+| `sideBySide` | 宽度 ≥ 1024 **且** 首屏 ≥ 300px | 吉祥物落到 wordmark 下方 |
+| `halo` | 首屏 ≥ 300px | 坛子周围的环 |
+| `badgeRow` | 首屏 ≥ 232px | 「HŨ DƯA ĐẠI CHIẾN」牌和纪录行 |
+| `mascot` | 几乎始终 | ——（仅在最精简模式隐藏） |
+| `liveBadge` | 首屏 ≥ 232px | 「厨房直播」行和版本号 |
+
+三个阈值**都不是整数** —— 每一个都等于它所守护之物的真实高度：
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 wordmark + 40 牌 + 22 live + 20 余量
+HEIGHT_FOR_HALO         = 300  // 150 锁定区 + 240 环 − 90 重叠
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // 较高的一列：192 吉祥物 + 24 标签
+```
+
+`tests/menu-adaptive.test.ts` 扫描 **1,682 个视口**，在每个样本上验证 `heroContentHeight(layout) ≤ scene`。窗口变化时，两个 hook 监听**六个**事件，在一帧内更新。
+
 ## ✨ 亮点功能
 
 | 分类 | 详情 |
