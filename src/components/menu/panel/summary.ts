@@ -58,3 +58,30 @@ export function summaryLines(input: SummaryInput): readonly SummaryLine[] {
 export function summaryText(line: SummaryLine): string {
   return `${line.count} ${line.key}`;
 }
+
+/**
+ * The line the deck used to own: today's challenge.
+ *
+ * The deck was deleted in round 6 — three columns of prose cannot live inside a
+ * fixed-height hero without being clipped, and at 1920×1080 its right column
+ * was cut mid-sentence. But `daily.ts` is not prose: it is a deterministic
+ * function of the local day, and the challenge is *content* the player wants.
+ *
+ * So it moves here, as one line: `mode · target`. The mode name comes from
+ * i18n, the target from `daily.ts`, the number formatting from the caller.
+ * Nothing is re-derived, so the challenge cannot disagree with itself.
+ */
+export interface ChallengeLine {
+  /** i18n key of the mode the challenge uses. */
+  modeKey: string;
+  /** Target score. Always a positive integer. */
+  target: number;
+}
+
+/** Build the challenge line, clamping a corrupt target to zero. */
+export function challengeLine(mode: string, target: number): ChallengeLine {
+  return {
+    modeKey: `mode.${mode}.name`,
+    target: Number.isFinite(target) ? Math.max(0, Math.trunc(target)) : 0,
+  };
+}
