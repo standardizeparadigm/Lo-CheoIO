@@ -49,7 +49,7 @@ Chỉ cần **nhấn đúp** file tương ứng với hệ điều hành của b
 | **1) Chơi ngay (Production)** | `npm run build` → mở `dist/index.html` | Build bản tự chứa rồi mở game bằng trình duyệt mặc định |
 | **2) Dev mode** | `npm run dev` | Server HMR tại <http://localhost:5173>; <kbd>Ctrl</kbd>+<kbd>C</kbd> để dừng |
 | **3) Build production** | `npm run build` | Tạo đúng 1 file `dist/index.html` (single-file) |
-| **4) Chạy tests** | `npm run test` | vitest — **308 tests / 36 file** |
+| **4) Chạy tests** | `npm run test` | vitest — **675 tests / 63 file** |
 | **5) Kiểm tra toàn bộ** | `npm run check` | typecheck + tests + build — cổng chất lượng |
 | **6) Cài đặt dependencies** | `npm install` | Cài/cập nhật `node_modules` |
 | **7) Dọn dẹp** | xoá `node_modules/` và `dist/` | Yêu cầu gõ `YES` để xác nhận; không đụng mã nguồn |
@@ -116,12 +116,31 @@ node scripts/check-readme-sync.mjs
 
 Bản CI (không cần build) của bộ test parity i18n — đọc thẳng file locale dạng text nên chạy trong ~40 ms, không import TypeScript:
 
-1. **đủ key**: 6 bản dịch phải có đúng bộ key của `vi` (296 key), không thiếu không thừa
+1. **đủ key**: 6 bản dịch phải có đúng bộ key của `vi` (327 key), không thiếu không thừa
 2. **placeholder**: `{n}`, `{jars}`… phải khớp từng key với bản gốc
 3. **không rỗng**: value `""` bị chặn
 4. **không trùng key**: hai dòng cùng key trong một file bị chặn
 
 ```bash
 npm run check:i18n
-# → ✓ vi/en/zh/ja/ko/es/fr — 296 keys · "All 7 locales in parity."
+# → ✓ vi/en/zh/ja/ko/es/fr — 327 key · "All 7 locales in parity."
 ```
+
+## `sync-test-badge.mjs`
+
+Giữ badge `tests-<số test>%20%C2%B7%20<số file>%20files` trong cả 10 README khớp
+với suite thật.
+
+```bash
+node scripts/sync-test-badge.mjs            # sửa badge
+node scripts/sync-test-badge.mjs --verify   # chỉ báo, exit 1 nếu lệch (CI)
+npm run sync:badge
+```
+
+**Số lấy từ đâu:** từ chính vitest (`--reporter=json` → `numTotalTests`), không
+phải từ `grep`. Đếm tĩnh `it(` trong mã nguồn báo **587** cho một suite **675
+test**: `it.each(BẢNG)` là một lời gọi và mười một test, và có bốn chỗ như vậy.
+
+**Vì sao chịu được exit code khác 0:** lượt chạy có cả `docs-numbers.test.ts`,
+và nó **fail chính vì badge cũ** — đúng thứ script này sinh ra để sửa. Đọc báo
+cáo bất kể exit code là cách phá vòng luẩn quẩn.
