@@ -38,6 +38,15 @@ function num(v: unknown, fallback = 0): number {
   return typeof v === "number" && Number.isFinite(v) ? v : fallback;
 }
 
+/** A timestamp a `Date` can render, or now. */
+function saneDate(v: unknown): number {
+  const now = Date.now();
+  if (typeof v !== "number" || !Number.isFinite(v)) return now;
+  const max = 4_102_444_800_000; // 2100-01-01
+  if (v < 0 || v > max) return now;
+  return Math.round(v);
+}
+
 /**
  * Normalise an untrusted value into a clean, sorted top-8 list.
  * Silently drops malformed entries instead of rejecting the whole board.
@@ -52,12 +61,25 @@ export function normalizeScores(v: unknown): ScoreEntry[] {
     if (typeof e.name !== "string" || e.name.trim().length === 0) continue;
     clean.push({
       id: typeof e.id === "string" && e.id ? e.id : `imp-${Math.random().toString(36).slice(2, 8)}`,
-      name: e.name.slice(0, 16),
+      name: e.name.trim().slice(0, 16),
       score: Math.max(0, Math.round(e.score)),
       level: Math.max(1, Math.round(num(e.level, 1))),
       jars: Math.max(0, Math.round(num(e.jars, 0))),
       combo: Math.max(0, Math.round(num(e.combo, 0))),
-      date: num(e.date, Date.now()),
+      /*
+       * `num()` rejects NaN and Infinity but accepts any finite number, and a
+       * date is not any finite number. Both ends of the range are reachable
+       * from a hand-edited save and both render as garbage on the board:
+       *
+       *     1e308   →  `new Date(1e308)` is Invalid Date; the row prints
+       *                "Invalid Date" beside a perfectly good score
+       *     -1e15   →  a year roughly -31 million, printed as "30/12/-31688902"
+       *
+       * `saneDate()` clamps to the range a JavaScript `Date` can represent and
+       * a human can read (1970 → 2100). Anything outside becomes "now", which
+       * is what an unparseable date meant before the field existed.
+       */
+      date: saneDate(e.date),
     });
   }
   return clean.sort((a, b) => b.score - a.score).slice(0, SIZE);
