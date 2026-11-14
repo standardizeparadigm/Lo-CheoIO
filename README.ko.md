@@ -177,6 +177,36 @@ src/components/menu/
 
 <img src="assets/settings-sections.svg" alt="여섯 구역 설정(v1.1.6부터)——스위치, 레벨 바, 피커 (SMIL 애니메이션)" width="100%" />
 
+## 📐 적응형 레이아웃 — 히어로가 자기 모양을 고르는 방법
+
+시작 화면은 레이아웃을 미디어 쿼리로 결정하지 않습니다. 창을 **측정**하고 다섯 가지 능력 중에서 고릅니다: `sideBySide`·`halo`·`badgeRow`·`mascot`·`liveBadge`.
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = 높이
+            │
+            └─ scene은 크롬이 예약하는 바로 그 숫자
+                        │
+    heroLayout({ scene, width }) → 5개의 불리언
+```
+
+| 플래그 | 켜지는 조건 | 꺼지면 사라지는 것 |
+| --- | --- | --- |
+| `sideBySide` | 너비 ≥ 1024 **그리고** 히어로 ≥ 300px | 마스코트가 워드마크 아래로 내려감 |
+| `halo` | 히어로 ≥ 300px | 단지 주변의 링 |
+| `badgeRow` | 히어로 ≥ 232px | 「HŨ DƯA ĐẠI CHIẾN」판과 기록 줄 |
+| `mascot` | 거의 항상 | — (최소 경제에서만 숨김) |
+| `liveBadge` | 히어로 ≥ 232px | 「주방에서 생중계」줄과 버전 |
+
+세 임계값은 **둥근 숫자가 아닙니다** — 각각이 제어하는 대상의 실제 높이입니다:
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 워드마크 + 40 판 + 22 라이브 + 20 여백
+HEIGHT_FOR_HALO         = 300  // 150 록업 + 240 링 − 90 겹침
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // 더 높은 열: 192 마스코트 + 24 칩
+```
+
+`tests/menu-adaptive.test.ts`는 **1,682개 뷰포트**를 훑고 각 샘플에서 `heroContentHeight(layout) ≤ scene`을 검증합니다. 크기 변경 시 두 훅이 **여섯** 이벤트를 듣고 한 프레임에 갱신합니다.
+
 ## ✨ 하이라이트
 
 | 분류 | 세부 |
