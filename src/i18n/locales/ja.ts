@@ -279,6 +279,8 @@ const ja: Record<MessageKey, string> = {
   "shortcuts.pause": "ポーズ",
   "shortcuts.mute": "ミュート",
   "shortcuts.touch": "タップ＆ドラッグ",
+  "shortcuts.start": "スタート",
+  "shortcuts.restart": "すぐやり直す",
   "shortcuts.footer": "すべての操作はキーボードとタッチの両方で使えます。",
   "info.shortcuts": "ショートカット",
   "info.shortcutsHint": "操作",
