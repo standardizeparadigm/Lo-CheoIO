@@ -39,7 +39,7 @@ Das hier ist ein **Ein-Bildschirm-Action-Arcade** nach dem Vorbild des schlichte
 
 ## 🆕 Neu in v1.1.8
 
-> Der **letzte Patch** vor 1.2.0. Kein neuer Spielmodus, keine Balance-Änderung, kein neues Speicherformat — nur ein Startbildschirm, der nicht mehr überläuft, ein «Spielanleitung», die in das GAME-Menü umzieht, und ein dekorierter Hero.
+> Der **letzte Patch** vor 1.2.0. Kein neuer Modus, keine Balance-Änderung, kein neues Speicherformat. Diese letzte Runde tut eines: **der Hero misst das Fenster und wählt sein eigenes Layout** — bei jeder Größe, ohne Scrollen und ohne Abschneiden. Das Deck-Band entfällt, alle 20 SVGs sind neu gezeichnet.
 
 ### 📐 Eine Addition, die niemand verwaltete — und vier Fehler auf einmal
 
@@ -106,6 +106,58 @@ src/components/menu/
 | 8 | Doku/SVGs/Launcher hinkten der Version hinterher | kompletter Durchlauf 10 READMEs + Docs + 19 SVGs → 1.1.8 |
 
 → Vollständige Details: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Vorherige Version: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
+
+### 🪟 Zwei Aufnahmen, ein Fenster, 260 Pixel Unterschied
+
+Die letzten beiden Aufnahmen dieser Runde zeigen **dieselbe Anwendung**: `1920×1080` im Vollbild und `1920×820` im Fenster. Die Breite hat sich um keinen Pixel geändert. In der zweiten liegt die untere Hälfte des Hero jedoch **unter** den beiden Eckpanels, und der Chip `CHẾ ĐỘ CHƠI` ist halbiert.
+
+Die Ursache ist nicht fehlende Höhe, sondern die falsche Frage:
+
+| Was das Layout entscheidet | Weiß | Weiß nicht |
+| --- | --- | --- |
+| `sm:` · `lg:` in CSS | die **Breite** | die **Höhe** |
+| `plan.minimal` | die **Höhe** (unter 220px) | die Breite, und erst wenn es zu spät ist |
+| `heroLayout()` (neu) | **beides**, aus derselben Zahl, die das Chrome nutzt | — |
+
+Eine Entscheidung, die von *zwei Achsen* abhängt, lässt sich nicht als einachsige Media Query schreiben. Das Hero-Layout verlässt also das CSS und wird eine reine Funktion: `heroLayout({ scene, width, minimal })`.
+
+`scene` ist die Höhe, die `planMenuLayout()` dem Hero zugewiesen hat — **genau die Zahl**, die das Chrome reserviert. Sie kann nicht abweichen, weil beide aus einer Funktion lesen.
+
+#### Drei Schwellen, alle drei abgeleitet
+
+| Konstante | Wert | Abgeleitet aus |
+| --- | --- | --- |
+| `HEIGHT_FOR_BADGE_ROW` | **232** | Wordmark 150 + Badge 40 + Live-Badge 22 = 212, plus 20px Luft |
+| `HEIGHT_FOR_HALO` | **300** | Lockup 150 + Halo-Ring 240 − Überlappung 90 |
+| `HEIGHT_FOR_SIDE_BY_SIDE` | **300** | die höhere Spalte: Maskottchen 192 + Chip 24 + Rand |
+
+`232` ist ein **gefangener Bug**: Der erste Entwurf setzte `210` — unter dem 212px-Lockup, das er steuert. Ein 210px-Band zeichnete dann ein 212px-Lockup, und die Rekordzeile wurde abgeschnitten. Genau die Fehlerklasse dieser Runde, erzeugt durch die Korrektur selbst.
+
+`tests/menu-adaptive.test.ts` prüft **1.682 Viewports** und verlangt `heroContentHeight(layout) ≤ scene` bei jedem Sample.
+
+#### Das vierte fehlende Ereignis
+
+Der Nutzer erzeugte diese beiden Aufnahmen durch **Drücken der Vollbildtaste**. Die App lauschte auf `resize` und `orientationchange`. Firefox feuert beim Vollbildwechsel keines von beiden; älteres Safari nur `webkitfullscreenchange`. Also änderte sich die Fensterhöhe, der Hero behielt seinen alten Plan, und der Chip blieb abgeschnitten.
+
+`VIEWPORT_EVENTS` bündelt alle sechs Schreibweisen an einer Stelle, weil `useMenuPlan()` und `useViewportWidth()` sie **beide** brauchen — jede registrierte zuvor ihre eigene Kopie, also zwei Kopien, die zwei verschiedene Fenster beschreiben können.
+
+### 🗑️ Das Trennband aus Bild 12 — und das Deck, das mitging
+
+Das dritte Bild ist ein `1443×180`-Streifen aus der Bildmitte: ein `🎮`-Marker, eine goldene Linie, dann drei Überschriften `GAME / HEUTIGE HERAUSFORDERUNG / TAGESREGEL`. Das ist das **Deck** — drei Textspalten in einem Band fester Höhe.
+
+Es kann dort nicht leben, und die beiden anderen Aufnahmen sagen warum: bei `1920×1080` wurde die rechte Spalte **mitten im Satz** abgeschnitten, bei `1920×820` lag die ganze Reihe unter den Panels. Ein Band, das hoch genug für ein 200px-Wordmark ist, ist es nicht auch für drei Absätze.
+
+Nichts, was das Deck sagte, geht verloren:
+
+| Was das Deck sagte | Wo es jetzt lebt |
+| --- | --- |
+| der gewählte Modus | der Chip unter dem Maskottchen; die volle Liste in GAME |
+| **die heutige Herausforderung** | eine Zeile im INFO-Panel — `Modus · Ziel` |
+| die Tagesregel | eine Zeile des Anleitungs-Modals, das immer die vollständige Fassung dieser sechs Regeln war |
+
+Die Datumsrechnung ist **nicht** mitgegangen: `challengeFor()` und `tipIndexFor()` zogen nach `src/game/daily/`, mit ihren 21 Tests und ihren Namen.
+
+Das leere Band unter dem Wordmark ist jetzt **Absicht**. Das ist der Preis eines Hero, der bei jeder Größe passt.
 
 ### 🏷️ Changelog in Stufen — eine Farbe pro Stufe
 
