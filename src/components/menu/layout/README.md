@@ -109,3 +109,18 @@ phần dư ở hai đầu bằng nhau, chứ không đẩy ai ra ngoài tầm v�
   300→2000px theo bước 5px.
 - `scripts/probe-menu-layout.tsx` — render `StartScreen` thành HTML thật và
   kiểm 30 tính chất trên DOM, không chỉ trên mã nguồn.
+
+## `viewportEvents.ts`
+
+One list of the six window events that can change the plan:
+
+    resize · orientationchange · fullscreenchange · webkitfullscreenchange
+    visualViewport.resize · visualViewport.scroll
+
+Both hooks (`useMenuPlan` and `useViewportWidth`) subscribe through this module
+instead of each registering its own copies — the bug it fixed was a plan that
+went stale on entering fullscreen, because the app listened only for `resize`
+and Firefox fires no `resize` for a fullscreen change.
+
+`tests/viewport-events.test.ts` has 16 cases, including the 0×0 `visualViewport`
+that used to produce a 1×1 plan.
