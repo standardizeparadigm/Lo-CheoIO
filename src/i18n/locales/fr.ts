@@ -279,6 +279,8 @@ const fr: Record<MessageKey, string> = {
   "shortcuts.pause": "Mettre en pause",
   "shortcuts.mute": "Muet",
   "shortcuts.touch": "Toucher et glisser",
+  "shortcuts.start": "Démarrer",
+  "shortcuts.restart": "Recommencer",
   "shortcuts.footer": "Toutes les commandes fonctionnent au clavier comme au tactile.",
   "info.shortcuts": "RACCOURCIS",
   "info.shortcutsHint": "Commandes",
