@@ -78,3 +78,43 @@ describe("the shortcut list", () => {
     expect(howto).not.toContain("keyBindings");
   });
 });
+
+describe("the list is complete, not just correct", () => {
+  /*
+   * The check above proves nothing is *invented*. This one proves nothing is
+   * *missing* — the opposite failure, and the one that actually happened: the
+   * first draft left out `P`, `R` and `Enter`, all three of which `GameCanvas`
+   * handles and the README's control table has documented since 1.1.0.
+   *
+   * A panel that is merely correct is not useful. It has to be enough.
+   */
+  it("covers every action key the game switches on", () => {
+    // `Space` and the four arrow codes have no single-letter form, and the
+    // movement block is claimed by WASD as well — so map back to the action.
+    const ACTION_CODES = [
+      "Space", "KeyP", "Escape", "KeyR", "Enter", "KeyM",
+    ];
+    const printed = new Set(
+      keyBindings()
+        .filter((b) => b.kind === "key")
+        .flatMap((b) => b.caps)
+        .map(capToCode),
+    );
+    for (const code of ACTION_CODES) {
+      expect(printed.has(code), `${code} is handled but not shown in the panel`).toBe(true);
+    }
+  });
+
+  it("names the restart and start actions", () => {
+    const actions = keyBindings().map((b) => b.action);
+    expect(actions).toContain("shortcuts.restart");
+    expect(actions).toContain("shortcuts.start");
+  });
+
+  it("groups P and Escape under one pause row", () => {
+    // Both keys call the same handler; two rows would be noise.
+    const pauseRows = keyBindings().filter((b) => b.action === "shortcuts.pause");
+    expect(pauseRows).toHaveLength(1);
+    expect(pauseRows[0].caps).toEqual(["P", "ESC"]);
+  });
+});
