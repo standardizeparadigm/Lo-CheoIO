@@ -39,7 +39,7 @@ Isto é um **arcade de ação de tela única** inspirado nas singelas conservas 
 
 ## 🆕 Novidades no v1.1.8
 
-> O **último patch** antes do 1.2.0. Nenhum modo novo, nenhuma mudança de balanceamento, nenhuma mudança no formato de salvamento — apenas uma tela inicial que já não transborda, o «Como jogar» movido para o menu GAME e um hero decorado.
+> O **patch final** antes de 1.2.0. Sem modo novo, sem mudança de balanceamento, sem mudança no formato de save. Esta última rodada faz uma coisa: **o hero mede a janela e escolhe o próprio layout** — em todos os tamanhos, sem rolagem nem corte. A faixa do deck sai, e os 20 SVGs são redesenhados.
 
 ### 📐 Uma soma que ninguém geria — e quatro bugs de uma vez
 
@@ -106,6 +106,58 @@ src/components/menu/
 | 8 | Documentação/SVGs/launchers atrasados | varredura de 10 READMEs + docs + 19 SVGs → 1.1.8 |
 
 → Detalhes completos: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Versão anterior: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
+
+### 🪟 Duas capturas, uma janela, 260 pixels de diferença
+
+As duas últimas capturas desta rodada são **o mesmo app**: `1920×1080` em tela cheia e `1920×820` em janela. A largura não mudou um pixel. Mas na segunda, a metade inferior do hero fica **sob** os dois painéis de canto e o chip `CHẾ ĐỘ CHƠI` aparece cortado ao meio.
+
+A causa não é falta de altura. É a pergunta errada:
+
+| O que decide o layout | Sabe | Não sabe |
+| --- | --- | --- |
+| `sm:` · `lg:` no CSS | a **largura** | a **altura** |
+| `plan.minimal` | a **altura** (abaixo de 220px) | a largura, e só quando já é tarde |
+| `heroLayout()` (novo) | **as duas**, do mesmo número que o chrome usa | — |
+
+Uma decisão que depende de *dois eixos* não se escreve como media query de um eixo. Então o layout do hero saiu do CSS e virou uma função pura: `heroLayout({ scene, width, minimal })`.
+
+`scene` é a altura que `planMenuLayout()` atribuiu — **exatamente o número** que o chrome reserva. Não pode divergir, porque os dois leem de uma função só.
+
+#### Três limiares, todos os três derivados
+
+| Constante | Valor | Derivada de |
+| --- | --- | --- |
+| `HEIGHT_FOR_BADGE_ROW` | **232** | wordmark 150 + badge 40 + live badge 22 = 212, mais 20px de ar |
+| `HEIGHT_FOR_HALO` | **300** | lockup 150 + anel 240 − sobreposição 90 |
+| `HEIGHT_FOR_SIDE_BY_SIDE` | **300** | a coluna mais alta: mascote 192 + chip 24 + margem |
+
+`232` é um **bug pego**: o primeiro rascunho usava `210` — abaixo do lockup de 212px que ele mesmo controla. Uma faixa de 210 desenhava um lockup de 212 e a linha de recorde era cortada. Exatamente a classe de bug que esta rodada corrige, produzida pela própria correção.
+
+`tests/menu-adaptive.test.ts` varre **1.682 viewports** e exige `heroContentHeight(layout) ≤ scene` em cada amostra.
+
+#### O quarto evento que faltava
+
+O usuário produziu essas duas capturas **apertando a tecla de tela cheia**. O app escutava `resize` e `orientationchange`. O Firefox não dispara nenhum dos dois ao alternar tela cheia; o Safari antigo dispara só `webkitfullscreenchange`. Então a janela mudou de altura, o hero manteve o plano antigo, e o chip continuou cortado.
+
+`VIEWPORT_EVENTS` reúne as seis grafias num lugar só, porque `useMenuPlan()` e `useViewportWidth()` precisam **as duas** dele — e cada uma registrava a própria cópia, ou seja, duas cópias que podem descrever duas janelas diferentes.
+
+### 🗑️ A faixa divisória da imagem 12 — e o deck que foi junto
+
+A terceira imagem é uma tira de `1443×180` recortada do meio da tela: um marcador `🎮`, uma linha dourada e três títulos `GAME / DESAFIO DE HOJE / REGRA DO DIA`. Esse é o **deck** — três colunas de prosa dentro de uma faixa de altura fixa.
+
+Ele não cabe ali, e as outras duas capturas dizem por quê: em `1920×1080` a coluna direita era cortada **no meio da frase**, em `1920×820` a linha inteira ficava sob os painéis. Uma faixa alta o bastante para um wordmark de 200px não é alta o bastante para três parágrafos.
+
+Nada do que o deck dizia se perde:
+
+| O que o deck dizia | Onde vive agora |
+| --- | --- |
+| o modo que você vai jogar | o chip sob a mascote; a lista completa está em GAME |
+| **o desafio de hoje** | uma linha no painel INFO — `modo · meta` |
+| a regra do dia | uma linha do modal de instruções, que sempre foi a versão completa dessas seis regras |
+
+A matemática de data **não** foi junto: `challengeFor()` e `tipIndexFor()` mudaram para `src/game/daily/`, com seus 21 testes e seus nomes.
+
+A faixa vazia sob o wordmark agora é **proposital**. Esse é o preço de um hero que cabe em qualquer tamanho.
 
 ### 🏷️ Changelog por níveis — uma cor por nível
 
