@@ -30,9 +30,27 @@ fall speed      = (186 + level × 18) × S × def.speed × speedMult × (frenzy 
 hazard weight   = def.weight(level) × hazardMult × (level < requiredLevel ? 0 : 1)
 gold weight     = def.weight(level) × (goldMult ?? 1)        (nếu def.power || def.fillBoost)
 score           = round(def.pts × comboMult(combo, frenzy) × scoreMult)
-jar bonus       = jarBonusFor(level) × (jarBonusMult ?? 1)
-combo window    = COMBO_WINDOW (2.7s) × (comboWindowMult ?? 1)
+jar bonus       = jarBonusFor(level, mode)      ← 200 + level×50, rồi × multOf(mode, jarBonusMult)
+combo window    = comboWindowFor(mode)          ← COMBO_WINDOW (2.7s) × multOf(mode, comboWindowMult)
 ```
+
+## Hệ số: `multOf()`, không phải `?? 1`
+
+Dòng công thức cũ ghi `(jarBonusMult ?? 1)` — và đó **chính là mã cũ**, trước khi
+sửa. `?? 1` chỉ chặn `undefined` và `null`:
+
+| Giá trị `jarBonusMult` | `?? 1` cho | `multOf()` cho | Vì sao |
+| --- | --- | --- | --- |
+| `undefined` | 1 | 1 | đúng cả hai |
+| `0` | **1** | **0** | chế độ "không thưởng hũ" là thiết kế hợp lệ |
+| `Infinity` | **Infinity** | 1 | thưởng hũ vô hạn |
+| `NaN` | **NaN** | 1 | `NaN` lan vào điểm |
+| `-2` | **-2** | 1 | thưởng âm |
+| `"2"` (chuỗi) | **"2"** | 1 | phép nhân với chuỗi vẫn ra số, nhưng không phải hệ số |
+
+Và `comboWindowFor("không-tồn-tại")` còn ném `TypeError` **trong vòng tick của
+engine** trước khi sửa — xem `multOf()` trong `src/game/modeMath.ts` và
+`tests/mode-multiplier.test.ts` (12 test).
 
 ## Triết lý thiết kế
 

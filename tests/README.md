@@ -1,6 +1,6 @@
 # `tests/` — unit tests (vitest)
 
-**256 tests / 33 files.** Pure logic only — engine/canvas được phủ bởi `npm run check` (build) + `scripts/smoke-ssr.tsx` (SSR render smoke).
+**802 tests / 75 files.** Pure logic only — engine/canvas được phủ bởi `npm run check` (build) + `scripts/smoke-ssr.tsx` (SSR render smoke).
 
 | File | Phủ | Pattern |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 | `settingsPresets.test.ts` | 4 preset, không chạm language, idempotent, `matchPreset` phát hiện tuỳ chỉnh | pure |
 | `audioLevels.test.ts` | `unit`/`musicBusGain`/`sfxPeak`/`masterGain` + hồi quy bug bus 0.5 cố định | pure |
 | `runSave.test.ts` | normalizeSavedRun (clamp/garbage), roundtrip, clearSavedRun | `memStorage()` |
-| `i18n.test.ts` | parity 7 locale × 302 keys + placeholders + number formats + `fmtNum` chịu NaN/thiếu Intl | import trực tiếp dict |
+| `i18n.test.ts` | parity 7 locale × 304 keys + placeholders + number formats + `fmtNum` chịu NaN/thiếu Intl | import trực tiếp dict |
 | `i18n-v115.test.ts` | 53 key v1.1.5 tồn tại + placeholder khớp VI | import trực tiếp dict |
 | `i18n-v116.test.ts` | 21 key settings v1.1.6 × 7 locale — tồn tại, không rỗng, không placeholder lạc | import trực tiếp dict |
 | `i18n-settings-ui.test.ts` | hợp đồng UI↔i18n — mọi key `SettingsModal` gọi `t()` có ở cả 7 locale, nhãn preset ≤ 14 ký tự | import trực tiếp dict + preset catalogue |
@@ -35,6 +35,9 @@
 | `storage-migrate.test.ts` | normalizeScores: hàng hỏng, id `imp-*`, cap-8, JSON corrupt → SEED, round/truncate | `memStorage()` |
 | `changelog-tiers.test.ts` | `tierFor()` SemVer→tầng (major/minor/patch + đầu vào rác), tierCounts/entriesForTier, ≥5 gạch mỗi bản, gạch không trùng, dãy ngày nghiêm ngặt | pure |
 | `changelog-ui.test.ts` | wiring UI changelog — modal dùng `tierFor` chứ không `entry.kind`, mỗi tầng một họ màu, 3 màu phân biệt, token violet/pink có trong theme, filter có `aria-pressed`, hint menu đọc `latestEntry()` | đọc file qua `node:fs` |
+| `menu-layout.test.ts` | phép cộng chiều cao của màn hình bắt đầu — metrics <-> fit nhất quán, panel 318/458px, reserve đúng, plan cho 6 kích thước cửa sổ, và cấm ba lớp CSS từng gây lỗi cuộn quay lại (`flex-1 overflow-y-auto`, `min-h-full`, `justify-center`) | pure + fs |
+| `menu-decor.test.ts` | 14 món trang trí hero — số lượng, toạ độ trong khung, không chồng lên chữ, id duy nhất, hai dải trên/dưới | pure |
+| `menu-ticker.test.ts` | dải chạy chữ — 14 chuỗi đủ cả 7 locale, `tickerTone()` thuần, không chuỗi rỗng, bản quyền cùng khối | pure |
 | `menu-background.test.ts` | khoá bản sửa nền 1.1.7 — trần 8 lớp, id duy nhất, sàn trước vignette, nebula KHÔNG `inset-0`, blur ≤ 24px, đỉnh opacity ≤ 0.85, vignette phải 2 radial ở góc, khung CRT nhẹ hơn 140px@0.9 | fs + pure |
 | `modes-split.test.ts` | sau khi tách `modes/`: 9 id đúng thứ tự, MODE_LIST ↔ MODES 1:1, mỗi record tự khai đúng id, đủ trường bắt buộc, knob tuỳ chọn hợp lệ, `isModeId` từ chối `"Classic"` | pure |
 

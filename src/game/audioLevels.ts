@@ -24,9 +24,25 @@ export function musicBusGain(enabled: boolean, volume: number): number {
   return enabled ? MUSIC_BUS_BASE * unit(volume, 1) : 0;
 }
 
-/** Final SFX peak for one sound: base gain × SFX volume (0..1). */
+/**
+ * Final SFX peak for one sound: base gain × SFX volume (0..1).
+ *
+ * ROUND 6: the base gain is clamped to 0..1, not merely floored at zero.
+ *
+ * `Math.max(0, Infinity)` is Infinity, so `sfxPeak(Infinity, 1)` returned
+ * Infinity and went straight into `GainNode.gain.value`. WebAudio does not
+ * reject that — it clips to full scale and, on some implementations, latches
+ * the node into a state that later ramps cannot recover, which presents as
+ * "the sound effects stopped working after one loud frame" and is not
+ * reproducible without the exact value.
+ *
+ * Clamping at 1 is also the correct *audio* answer: a peak above unity is
+ * digital clipping by definition, so there is nothing to preserve above it.
+ * `volume` was already going through `unit()`, which clamps — the base gain
+ * simply never got the same treatment.
+ */
 export function sfxPeak(baseGain: number, volume: number): number {
-  return Math.max(0, baseGain) * unit(volume, 1);
+  return unit(baseGain, 0) * unit(volume, 1);
 }
 
 /** Master gain for the muted flag. */

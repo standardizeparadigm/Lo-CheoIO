@@ -1,9 +1,15 @@
 /* =====================================================================
    Lọ Chéo — game settings persistence (locheo.settings.v1)
 
-   v1.1.6: the settings schema grows into four sections —
-     Âm thanh (audio) · Giao diện & chuyển động (display & motion) ·
-     Ngôn ngữ (language) · Dữ liệu (danger zone handled in the UI).
+   v1.1.6 grew the schema; v1.1.8 has six UI sections:
+     Presets · Âm thanh (audio) · Giao diện & chuyển động (display & motion) ·
+     Ngôn ngữ (language) · Sao lưu (backup) · Dữ liệu (danger zone).
+
+   Only four of the six are represented *here*: presets and backup are pure UI
+   (a preset writes other fields; a backup serialises the whole object), and the
+   danger zone deletes storage keys rather than setting one. Writing "four
+   sections" above a six-section modal is how a reader concludes the other two
+   are missing.
 
    Mix of control types:
      • on/off toggles  — sfx, music, shake, reducedMotion, autoPauseOnBlur
