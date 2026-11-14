@@ -18,20 +18,49 @@
  */
 import { MODES, type ModeId } from "./modesIndex";
 
+/**
+ * Coerce a possibly-corrupt number into a usable non-negative integer.
+ *
+ * THE CLAIM THIS FILE USED TO MAKE, AND DID NOT KEEP
+ * -------------------------------------------------
+ * The header says "every one of them clamps its input, so a corrupted save or a
+ * NaN from the HUD cannot propagate into the score". It clamped the *floor*
+ * with `Math.max(0, x)` — and `Math.max(0, NaN)` is `NaN`. So a NaN did
+ * propagate, straight into `state.score`, where it renders as the literal text
+ * "NaN" in the HUD and can never be recovered from: every later addition is
+ * still NaN.
+ *
+ * `Infinity` was worse than NaN in one direction: `jarBonus(Infinity)` is
+ * `Infinity`, so a corrupted level makes the *next* jar bonus infinite and the
+ * score becomes unwinnable-but-unloseable. Only a reload fixes it.
+ *
+ * The order matters: `Number.isFinite` first, because `Math.floor(Infinity)` is
+ * `Infinity`, not a large number.
+ */
+function saneInt(n: number): number {
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.floor(n));
+}
+
 /** Combo multiplier: +1 per 4-catch streak, capped at ×9, doubled in frenzy. */
 export function multiplierForCombo(combo: number, frenzy: boolean): number {
-  const base = Math.min(9, 1 + Math.floor(Math.max(0, combo) / 4));
+  const base = Math.min(9, 1 + Math.floor(saneInt(combo) / 4));
   return base * (frenzy ? 2 : 1);
 }
 
 /** Level curve: one level per 10 catches, starting at level 1. */
 export function levelForCatches(catches: number): number {
-  return 1 + Math.floor(Math.max(0, catches) / 10);
+  return 1 + Math.floor(saneInt(catches) / 10);
 }
 
 /** Bonus granted when a jar is filled, scaled by current level. */
 export function jarBonus(level: number): number {
-  return 200 + Math.max(1, level) * 50;
+  /*
+   * The floor is 1, not 0 — a jar filled at level 0 (never reachable, since
+   * `levelForCatches` starts at 1) still pays the base bonus rather than
+   * paying nothing.
+   */
+  return 200 + Math.max(1, saneInt(level)) * 50;
 }
 
 /** Seconds a combo survives without a fresh catch. */
