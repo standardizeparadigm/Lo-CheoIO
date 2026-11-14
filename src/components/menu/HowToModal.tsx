@@ -15,6 +15,7 @@
  * with rule 01.
  */
 import { useI18n } from "../../i18n/useI18n";
+import { tipIndexFor } from "../../game/daily";
 import { Keycap, Modal } from "../ui";
 import { HOW_TO_RULES, KEYBOARD_KEYS, HOW_TO_GOAL_KEY } from "./howto/rules";
 
@@ -27,6 +28,21 @@ const ACCENT_CLASS = {
 export default function HowToModal({ onClose, touchMode }: { onClose: () => void; touchMode: boolean }) {
   const { t } = useI18n();
 
+  /*
+   * ROUND 6: one rule carries a "today" marker.
+   *
+   * The deck used to rotate a rule daily and open this modal from it, which
+   * meant the modal was the *complete* version of what the deck teased. The
+   * deck is gone, so the rotation would have died with it — `tipIndexFor()`
+   * would have had no caller at all.
+   *
+   * Rather than keep a function nobody calls, the rotation moves to where it
+   * belongs: the full rules list marks which of the six is today's. That is
+   * the same information the deck's third column carried, in a place with
+   * room for it, and it is the only place the six are all visible at once.
+   */
+  const todayRule = tipIndexFor(Math.floor(Date.now() / 86_400_000));
+
   return (
     <Modal title={t("menu.howtoOpen")} onClose={onClose} wide>
       <p className="mb-4 border-l-[3px] border-tumeric-500 bg-jade-900/40 px-3 py-2 font-body text-xs leading-relaxed text-clay-100/85">
@@ -34,14 +50,22 @@ export default function HowToModal({ onClose, touchMode }: { onClose: () => void
       </p>
 
       <ol className="grid gap-2.5 sm:grid-cols-2">
-        {HOW_TO_RULES.map((r) => (
+        {HOW_TO_RULES.map((r, i) => (
           <li
             key={r.id}
+            data-today-rule={i === todayRule ? "true" : undefined}
             className={`flex gap-2.5 border-l-[3px] bg-jade-900/30 px-2.5 py-2 ${ACCENT_CLASS[r.accent]}`}
           >
             <span className="font-display text-lg leading-none tabular-nums">0{r.n}</span>
             <span className="min-w-0">
-              <span className="block font-display text-[11px] tracking-[0.12em]">{t(r.titleKey)}</span>
+              <span className="block font-display text-[11px] tracking-[0.12em]">
+                {t(r.titleKey)}
+                {i === todayRule && (
+                  <span className="ml-1.5 border border-tumeric-500/60 px-1 py-px align-middle font-body text-[8px] font-bold tracking-[0.2em] text-tumeric-400 uppercase">
+                    {t("deck.tip")}
+                  </span>
+                )}
+              </span>
               <span className="mt-0.5 block font-body text-[11px] leading-relaxed text-clay-100/70">
                 {t(r.bodyKey)}
               </span>
