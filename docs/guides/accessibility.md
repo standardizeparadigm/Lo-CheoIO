@@ -39,8 +39,30 @@ nhìn thấy được bằng mắt thường và không ném lỗi nào.
 
 ### Màu
 
-`clay-100` trên `jade-950` ≈ 12:1; palette jade/clay/turmeric giữ tỉ lệ đọc tốt
-trên nền tối. Vàng `tumeric-400` **không** dùng cho body text — chỉ cho nhãn ngắn.
+Mọi tỉ lệ dưới đây **được tính** trong `tests/palette-contrast.test.ts`, không
+phải chép tay — đổi một mã màu thì test nói ngay tỉ lệ mới có hợp lệ không.
+
+| Màu | Trên `jade-950` | Trên `jade-900` | Dùng cho |
+| --- | --- | --- | --- |
+| `clay-100` (cream) | **16.30:1** AAA | **13.86:1** AAA | body copy |
+| `brine-400` | 11.90:1 AAA | — | nhãn phụ |
+| `tumeric-400` | 11.71:1 AAA | — | nhãn ngắn, số |
+| `tumeric-500` (gold) | 8.97:1 AAA | — | điểm số |
+| `jade-500` | 6.84:1 AA | — | điểm nhấn |
+| `chili-500` | 4.30:1 **AA-large** | — | chỉ chữ LỚN: nút SLAM, viền nguy hiểm |
+| `jade-800` | 1.55:1 — | — | **chỉ viền**, không bao giờ là chữ |
+
+Hai dòng cuối là **quyết định**, không phải sơ suất:
+
+- `chili` nằm giữa ngưỡng body (4.5) và ngưỡng chữ lớn (3.0), và nó chỉ xuất
+  hiện ở cỡ lớn. Test khoá **cả hai chiều** — nếu ai đó "sửa" nó lên 4.5, test
+  vẫn xanh nhưng việc đổi thiết kế sẽ phải có chủ đích.
+- `jade-800` ở 1.55:1 là **viền panel**. Một khung phải là sợi chỉ, không phải
+  tiêu đề. Đòi 4.5 ở đây sẽ biến mọi khung thành một cái hộp nhìn thấy rõ.
+
+Ngoài tỉ lệ tương phản, test còn kiểm **khả năng phân biệt**: vàng và đỏ mang hai
+tín hiệu quan trọng nhất của HUD (điểm và sát thương) nên phải cách xa nhau — thứ
+mà không thang tương phản nào đo được.
 
 ## Ba lỗi a11y đã sửa, và vì sao chúng khó thấy
 
