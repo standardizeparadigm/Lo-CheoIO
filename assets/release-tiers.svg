@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" role="img" aria-label="Ba tầng phát hành Lọ Chéo v1.1.8 — MAJOR hồng, UPDATE vàng, PATCH tím — kèm thời gian biểu 10 bản từ 26/10 tới 14/11/2026 (hoạt họa SMIL)">
   <defs>
+    <filter id="rt-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
     <linearGradient id="rtBg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#0a2422"/>
       <stop offset="1" stop-color="#061a1a"/>
@@ -12,6 +17,18 @@
 
   <rect width="1200" height="250" rx="18" fill="url(#rtBg)"/>
   <rect x="1" y="1" width="1198" height="248" rx="18" fill="none" stroke="#123f38" stroke-width="2"/>
+
+  <!-- Bloom under the heading: the same radial falloff the
+
+       banner uses, at a fifth of the size. It is what stops a
+
+       dark-on-dark diagram from looking printed rather than lit. -->
+
+  <ellipse cx="240" cy="40" rx="200" ry="34" fill="#f5a81c" opacity="0.10">
+
+    <animate attributeName="opacity" values="0.06;0.14;0.06" dur="6s" repeatCount="indefinite"/>
+
+  </ellipse>
 
   <text x="600" y="32" text-anchor="middle" font-family="'Arial Black','Bungee',sans-serif" font-weight="900" font-size="18" letter-spacing="4" fill="#fdf3e0">BA TẦNG PHÁT HÀNH <tspan fill="#f5a81c">v1.1.8</tspan></text>
   <text x="600" y="50" text-anchor="middle" font-family="'Courier New',monospace" font-size="10" letter-spacing="2.6" fill="#2bb48c">TẦNG SUY RA TỪ SEMVER — KHÔNG GÕ TAY</text>
