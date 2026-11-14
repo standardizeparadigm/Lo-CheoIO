@@ -44,7 +44,28 @@ Bản **vá cuối cùng trước 1.2.0**, sáu vòng: **màn hình bắt đầu
 - **20 hình SVG vẽ lại** — mỗi file thêm filter glow; `divider.svg` từ 1 060 lên 5 828 byte (file được thấy nhiều nhất, giữa mọi mục của cả 10 README); `no-scroll-steps.svg` thêm hiện dần bốn khung
 - **`tests/menu-deck.test.ts` → `tests/daily-challenge.test.ts`** — 21 test ngày tháng giữ nguyên, 2 test về component đã xoá thì đi theo component
 
-### Fixed — vòng sáu
+### Fixed — vòng sáu: năm lỗi "clamp giả"
+
+Bốn module khác nhau, cùng một dạng sai: dùng `Math.max(0, x)` như thể nó chặn
+được giá trị không hữu hạn. Nó không — `Math.max` là một phép **so sánh**, và
+mọi so sánh với `NaN` đều sai, còn `Infinity` thì thắng mọi so sánh.
+
+| Nơi | Trước | Sau |
+| --- | --- | --- |
+| `modeMath.ts` `jarBonus` / `levelForCatches` / `multiplierForCombo` | `NaN` và `Infinity` đi thẳng vào `state.score`; HUD in ra chữ "NaN" và không phục hồi được | `saneInt()`: `Number.isFinite` → `Math.floor` → chặn ở 0 |
+| `utils/math.ts` `damp` | `damp(0, Infinity, …)` trả `Infinity` ngay frame đầu; canvas bỏ qua toạ độ không hữu hạn nên hình **biến mất** không báo lỗi | giữ nguyên `current` khi target không hữu hạn |
+| `engine.ts` `restoreRun` | sáu trường thân ván (`shield` · `slamCd` · `combo` · `comboT` · `frenzy` · `slow`) nhận `Infinity` từ save JSON hợp lệ (`1e999`) | `finiteOr()` — cùng kỷ luật với `nonNegInt` của `runSave`, áp ở tầng tiêu thụ |
+| `audioLevels.ts` `sfxPeak` | `sfxPeak(Infinity, 1)` = `Infinity` vào `GainNode.gain.value`; WebAudio clip và có thể chốt node, hiệu ứng tắt hẳn | `unit(baseGain, 0)` — chặn ở 1, đúng cả về mặt âm thanh (peak > 1 là clipping) |
+| `layout/fit.ts` `planMenuLayout` | `Math.trunc(NaN)` = `NaN`, `Math.max(1, NaN)` = `NaN`; `style={{ height: NaN }}` bị React **bỏ im lặng**, hero mất chiều cao khai báo | `sane()` kiểm `Number.isFinite` **trước** khi truncate |
+
+Ngoài ra:
+
+- **`i18n.ts` `interpolate` chạy hai lượt và phụ thuộc thứ tự key** — nếu giá trị của một tham số lại là placeholder của tham số khác thì kết quả phụ thuộc thứ tự key trong object; hai call site cùng object ra hai chuỗi khác nhau. Nay là một lượt regex trên *template*, không đệ quy.
+- **`fit.ts` vẽ footer trong chế độ `minimal`** — `footer` tính từ chiều cao thô (`≥ 470`), `minimal` tính từ `available` sau reserve, nên cửa sổ 475px vừa `minimal` vừa giữ 30px cho dải thống kê. Nay `footer` dùng chung phép gấp với `minimal`.
+- **`tipIndexFor()` mất người gọi duy nhất khi deck bị xoá** — hàm thuần còn 6 test xanh và không ảnh hưởng gì tới app. Nay modal Cách chơi đánh dấu luật của hôm nay, và có test khoá "mỗi hàm export phải có caller thật".
+- **Panel THÔNG TIN trống ~126px** — `flex-start` + `margin-top: auto` đẩy footer xuống đáy; nay `space-between` chỉ trên panel phải.
+
+### Fixed — vòng sáu (giao diện)
 
 - **`1920×820` cắt mất nửa chip `CHẾ ĐỘ CHƠI`** — band ~452px, hero hai cột cần ~460px, `minimal` là `false`, nên hàng ngang được dựng rồi bị cắt ở đáy
 - **Toàn màn hình không kích hoạt re-plan** — Firefox không bắn `resize` khi vào toàn màn hình, Safari cũ chỉ bắn `webkitfullscreenchange`. Cửa sổ đổi chiều cao mà hero giữ kế hoạch cũ
