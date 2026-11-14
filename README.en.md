@@ -9,9 +9,9 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 中文](README.zh.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇪🇸 Español](README.es.md) · [🇫🇷 Français](README.fr.md) · [🇹🇭 ไทย](README.th.md) · [🇩🇪 Deutsch](README.de.md) · [🇵🇹 Português](README.pt.md)
 
-[![Version](https://img.shields.io/badge/version-1.1.7-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.7.md)
+[![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20violet-9d6bff.svg?style=for-the-badge)](#-changelog-tiers--one-colour-per-tier)
-[![Tests](https://img.shields.io/badge/tests-256%20%C2%B7%2033%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-quality-gates)
+[![Tests](https://img.shields.io/badge/tests-513%20%C2%B7%2050%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-quality-gates)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-install--run)
@@ -35,22 +35,75 @@
 
 This is a **single-screen action arcade** inspired by Vietnam's humble pickled vegetables. No linear levels, no cluttered menus — just the jar, an endless downpour of produce, and your blazing reflexes.
 
-## 🆕 What's new in v1.1.7
+## 🆕 What's new in v1.1.8
 
-> The **final patch** before 1.2.0. No new game mode — just the things that were still annoying, fixed properly.
+> The **final patch** before 1.2.0. No new game mode, no balance change, no save-format change — just a start screen that no longer overflows, how-to-play moved into the GAME menu, and a decorated hero.
 
-### 🌫️ The menu background is no longer foggy — fixed at the root
+### 📐 One unmanaged addition — and four bugs at once
 
-Players were right: *"the background behind the menu is still blurry."* The cause was not one layer but **four overlays compounding**:
+The screenshot reported four problems, but they had exactly **one** cause. The corner panel row and the ticker used to be `shrink-0` flex siblings of the hero, so they took their height first and only the leftover went to the hero:
 
-| Layer | Before | After | Why |
-| --- | --- | --- | --- |
-| Nebula `.nebula-*` | `blur(64px)`, peak `1.0` | **`blur(22px)`, peak `0.80`** | 64px is more than half the radius of a 46vw blob — the edge stops existing and the whole thing turns to mist |
-| Menu vignette | inline, **full-screen**, `0.42 → 0.88 → 1.0` | **`.menu-vignette`**, corner-only, `0.30 → 0.62` | from "darken the whole frame evenly" to "dark at the corners, clear in the middle" |
-| CRT frame | `inset 0 0 140px @ 0.9` | **`.app-vignette` 90px @ 0.55** | 140px ate almost every corner on a small window |
-| Tile floor | `opacity-45` | **`opacity-70`** | at 45% the floor was grey noise, not a recognisable detail |
+```
+720px window
+├── 415px   GAME/INFO panel row   (as tall as its content, shrink-0)
+├──  55px   ticker                (as tall as its text, shrink-0)
+└── 250px   hero                  ← the remainder, out of ~430px needed
+```
 
-`.menu-vignette` and `.app-vignette` are now **named CSS rules** instead of utilities buried in JSX — one place to tune, and `prefers-reduced-motion` can reach them.
+| Symptom in the screenshot | Why |
+| --- | --- |
+| `LỌ` clipped at the top edge | 250px hero, 430px of content |
+| `CÀI ĐẶT` spilling out of the panel | panel sized by content, not by the window |
+| Copyright line sliced in two | ticker needed 55px, was granted 48px |
+| The `×` of «How to play» floating mid-screen | the accordion holding it had scrolled away |
+
+The fix was not to add a few pixels of slack, but to **declare the height once and have everything read it back**: `layout/metrics.ts` owns every number, `layout/fit.ts` returns a pure `MenuPlan`, `MenuChrome` is a single `absolute inset-x-0 bottom-0` band, and the hero reserves its space with a `padding-bottom` computed by the **same** function.
+
+<img src="assets/layout-fix.svg" alt="Before and after the 1.1.8 fix — 1.1.7 squeezed the scene to 250px and cut the jar, 1.1.8 keeps a 342px scene and reserves 378px for the panels (SMIL animation)" width="100%" />
+
+### 🌀 The scroll bug: a scroll container inside a scroll container
+
+The bottom stood still while the top still scrolled up and down — exactly as reported. v1.1.7 wrapped the hero content in an `overflow-y-auto` box and centred it with `min-h-full` + `justify-center`. That only works while the content is **shorter** than the box; once it is **taller**, `justify-center` pushes it up and its top sits *above the scroll origin* — no scroll position can reach it.
+
+Now the whole screen is **one** scroll container (`.menu-scroll`), content anchored to the top, never vertically centred. The three CSS classes that caused it — `flex-1 overflow-y-auto`, `min-h-full`, `justify-center` — are banned from coming back by `tests/menu-layout.test.ts`.
+
+### 🎯 Hero: `LỌ CHÉO` centred, lifted a little
+
+- The wordmark is **horizontally centred** and then **lifted**, as asked, with its size capped against *both* width and height so a short window cannot overflow the glyph.
+- The ceramic jar moved to the right, surrounded by **three halo rings on 18s / 26s / 34s** — the old single 14s ring read as a loading spinner.
+- **Fourteen decorations** (stars, sparks, rings, bubbles, chilies, lime leaves, flies, fish-sauce drops) in two bands above and below the title, each with its own duration and delay — replacing the complaint that *"the wordmark and the jar alone are too little"*.
+- The coordinates are **data** in `scene/decor.ts` with a collision helper, so `tests/menu-decor.test.ts` can pin both position and count.
+
+### 📖 How-to-play moved into the GAME menu
+
+The six rules and the control legend no longer live in the hero — opening them used to push the `LỌ` wordmark off the screen. They are now **a row in the GAME panel** that opens a modal (`HowToModal`), so the layout does not move whether the modal is open or closed. The stray `×` disappeared together with the accordion that produced it.
+
+### 🗂️ The project grew more folders again
+
+```
+src/components/menu/
+├── layout/          metrics.ts · fit.ts · useMenuPlan.ts       ← NEW: every number in one place
+├── scene/           decor.ts · DecorGlyph · HeroDecor · JarHalo ← NEW: the decorated hero
+├── ticker/          strings.ts · tickerTone.ts · MenuTicker     ← NEW: the strip as a module
+├── howto/           rules.ts                                    ← NEW: 6 rules + key legend
+├── background/      layers.ts · MenuBackground                  ← 8 background layers as data
+└── MenuChrome.tsx · HowToModal.tsx                              ← NEW: the bottom band + modal
+```
+
+### 🐛 Fixes
+
+| # | Bug | Fix |
+| --- | --- | --- |
+| 1 | The top still scrolled while the bottom stood still | drop the nested scroll box — **one** top-anchored `.menu-scroll` |
+| 2 | `LỌ` clipped at the top edge | hero keeps a 342px scene instead of being squeezed to 250px |
+| 3 | `CÀI ĐẶT` spilling out of the GAME panel | `CornerPanel.height` is now **required**: 318px (compact) / 458px (rich) |
+| 4 | Copyright line sliced in two | fixed 48px ticker, copyright inside the marquee block |
+| 5 | The `×` of «How to play» floating mid-screen | accordion → modal, nothing `absolute` on a box that has scrolled away |
+| 6 | Panel height followed translation length (German/Thai overflowed first) | declared height, independent of content |
+| 7 | One 14s halo ring read as a spinner | three rings on 18s / 26s / 34s that almost never align |
+| 8 | Docs/SVGs/launchers lagging behind the version | full sweep of 10 READMEs + docs + 19 SVGs → 1.1.8 |
+
+→ Full details: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Previous release: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 ### 🏷️ Changelog tiers — one colour per tier
 
@@ -58,49 +111,17 @@ Players were right: *"the background behind the menu is still blurry."* The caus
 | --- | --- | --- | --- | --- |
 | `major` | **MAJOR** | 🩷 pink `#ff5fb0` | a big release — new systems | 1.0.0 |
 | `minor` | **UPDATE** | 🟡 gold `#f5a81c` | an upgrade — new content | 1.1.0 |
-| `patch` | **PATCH** | 🟣 violet `#9d6bff` | fixes and cleanup | 1.1.1 → 1.1.7 |
+| `patch` | **PATCH** | 🟣 violet `#9d6bff` | fixes and cleanup | 1.1.1 → **1.1.8** |
 
-The tier is **derived from SemVer** by `tierFor(version)`, never typed by hand — so a label can never disagree with the version printed beside it. The panel gained a **filter**: ALL · MAJOR · UPDATE · PATCH with per-tier counts.
+The tier is **derived from SemVer** by `tierFor(version)`, never typed by hand. The panel gained a **filter**: ALL · MAJOR · UPDATE · PATCH with per-tier counts.
 
-<img src="assets/release-tiers.svg" alt="The three tiers MAJOR/UPDATE/PATCH with their colours and the nine-release timeline (SMIL animation)" width="100%" />
+<img src="assets/release-tiers.svg" alt="The three tiers MAJOR/UPDATE/PATCH with their colours and the ten-release timeline (SMIL animation)" width="100%" />
 
-### 📖 Eight older releases: from one line to one page
-
-Six of the nine releases used to have an **empty bullet array** — the panel could only show a one-line summary. v1.1.7 rewrote every one:
-
-- **96 Vietnamese bullets + 96 English bullets** written new or expanded
-- Content drawn from `docs/releases/v1.1.x.md` **and** from the source itself (9 modes, 16 achievements)
-- **Release dates re-sequenced**: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · **11-12** — two days apart, no two releases share a day
-
-### 🗂️ The project grew more folders
-
-```
-src/game/changelog/        ← replaces one 300-line file
-├── types.ts               ChangelogEntry · ReleaseTier · copyFor()
-├── tiers.ts               tierFor() · TIER_ORDER · TIER_LABEL_KEY
-├── entries/               one file per release — v1_0_0.ts … v1_1_7.ts
-└── index.ts               CHANGELOG_ENTRIES + 5 helpers
-```
-
-Adding 1.2.0 later is now **one new file** plus one import line.
-
-### 🐛 Fixes
-
-| # | Bug | Fix |
-| --- | --- | --- |
-| 1 | Foggy / murky menu background | the four changes above |
-| 2 | Tile floor invisible | `opacity-45` → `opacity-70` |
-| 3 | Changelog labels describing the wrong thing (`kind` typed by hand) | `tierFor(version)` derives it from SemVer |
-| 4 | Changelog descriptions too thin (6 releases with `items: []`) | 96 bullets rewritten |
-| 5 | Release dates duplicated and illogical | nine consecutive days, no collisions |
-| 6 | Docs/SVGs/launchers lagging behind the version | full sweep → 1.1.7 |
-| 7 | `check-readme-sync` comment hardcoded 1.1.6 | reads `package.json` instead |
-
-→ Full details: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) · Previous release: [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md)
-
-<img src="assets/settings-sections.svg" alt="Six-section settings (since v1.1.6) — switches, level bars and pickers (SMIL animation)" width="100%" />
+<img src="assets/test-matrix.svg" alt="The 1.1.8 test matrix — 501 tests across 48 files, nine gates (SMIL animation)" width="100%" />
 
 <img src="assets/corner-menu.svg" alt="Corner GAME (bottom-left) & INFO (bottom-right) panels sliding in (SMIL animation)" width="100%" />
+
+<img src="assets/settings-sections.svg" alt="Six-section settings (since v1.1.6) — switches, level bars and pickers (SMIL animation)" width="100%" />
 
 ## ✨ Highlights
 
@@ -116,7 +137,7 @@ Adding 1.2.0 later is now **one new file** plus one import line.
 | 💾 **TOP 8 leaderboard** | Local storage, validated & normalised on read, auto upper-case names, highlight for freshly set records |
 | 🎨 **60fps graphics** | Canvas 2D, 460-particle budget, DPR cap 2, pre-rendered offscreen tile floor, star twinkle + menu aurora |
 | 📴 **Truly offline-first** | Self-hosted fonts (latin + vietnamese subsets, woff2), no CDN, no API — double-click `dist/index.html` and play |
-| 🧪 **Quality gates** | 256 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
+| 🧪 **Quality gates** | 501 unit tests (vitest) for modes / achievements / storage / i18n / settings — `npm run check` is the CI gate |
 
 <img src="assets/items.svg" alt="The 14 ingredients — pickles to catch, golden powers to grab, hazards to dodge" width="100%" />
 
@@ -179,7 +200,7 @@ npm run build      # → dist/index.html (one self-contained file)
 npm run dev        # dev server with HMR (http://localhost:5173)
 npm run preview    # serve the production build locally
 npm run typecheck  # tsc --noEmit (strict, noUnusedLocals…)
-npm run test       # vitest — 256 unit tests (modes / achievements / storage / i18n / settings)
+npm run test       # vitest — 501 unit tests (modes / achievements / storage / i18n / settings)
 npm run check      # typecheck + test + build (CI quality gate)
 ```
 
@@ -188,7 +209,7 @@ npm run check      # typecheck + test + build (CI quality gate)
 ```
 lo-cheoio/
 ├─ index.html              # entry, SEO/OG meta (no CDN)
-├─ package.json            # lo-cheoio v1.1.7, scripts dev/build/test/check
+├─ package.json            # lo-cheoio v1.1.8, scripts dev/build/test/check
 ├─ .gitattributes          # *.bat/*.cmd → CRLF · posix scripts → LF · binaries
 ├─ vite.config.ts          # vite + react + tailwind v4 + singlefile
 ├─ tsconfig.json           # strict; includes src + tests
@@ -225,7 +246,7 @@ lo-cheoio/
 │     ├─ v1.1.4.md         # release notes (1.1.4)
 │     ├─ v1.1.5.md         # release notes (1.1.5)
 │     ├─ v1.1.6.md         # release notes (1.1.6)
-│     └─ v1.1.7.md         # current release notes (1.1.7)
+│     └─ v1.1.8.md         # current release notes (1.1.8)
 ├─ README.md               # 🇻🇳 Tiếng Việt
 ├─ README.en.md            # 🇬🇧 English (this file)
 ├─ README.zh.md            # 🇨🇳 中文
@@ -239,7 +260,7 @@ lo-cheoio/
 ├─ src/
 │  ├─ main.tsx             # React root, StrictMode
 │  ├─ App.tsx              # phase machine menu/playing/paused/gameover
-│  ├─ version.ts           # APP_VERSION = "1.1.7" (single source of truth)
+│  ├─ version.ts           # APP_VERSION = "1.1.8" (single source of truth)
 │  ├─ index.css            # tailwind v4 theme + all animation/gradient
 │  ├─ assets/fonts/        # woff2 subsets (Be Vietnam Pro ×6, Bungee)
 │  ├─ styles/fonts.css     # @font-face + unicode-range, 100% offline
@@ -251,24 +272,24 @@ lo-cheoio/
 │  │  ├─ GameCanvas.tsx    # canvas + floating joystick + keyboard + visibility
 │  │  ├─ StartScreen.tsx   # menu: hero + layered animated scene + corner panels
 │  │  ├─ menu/              # corner GAME/INFO panels + modals + icons/
-│  │  │  └─ background/     # 8 background layers as data (v1.1.7)
+│  │  │  └─ background/     # 8 background layers as data (v1.1.8)
 │  │  ├─ ModeSelector.tsx  # 9 mode cards (classic… hardcore · combo · feast)
 │  │  ├─ AchievementsPanel.tsx  # locked/unlocked badge wall
 │  │  ├─ GameOverScreen.tsx     # JAR SHATTERED! + score + new achievements
 │  │  ├─ PauseScreen.tsx        # PAUSED + run stats
 │  │  ├─ settings/           # six-section settings module + controls (v1.1.6)
-│  │  └─ ui/               # eight primitives, one file each (v1.1.7 — split from ui.tsx)
+│  │  └─ ui/               # eight primitives, one file each (v1.1.8 — split from ui.tsx)
 │  ├─ game/
 │  │  ├─ engine.ts         # entire simulation + canvas rendering (~2260 lines)
-│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.7)
-│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.7)
-│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.7)
-│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.7)
+│  │  ├─ modeTypes.ts      # ModeId · ModeConfig (types-only, v1.1.8)
+│  │  ├─ modes/            # 9 balance records — classic.ts … feast.ts (v1.1.8)
+│  │  ├─ modesIndex.ts     # MODES · MODE_LIST · isModeId (v1.1.8)
+│  │  ├─ modeMath.ts       # multiplierForCombo · jarBonus · comboWindowFor… (v1.1.8)
 │  │  ├─ modes.ts          # barrel — keeps every old import working
 │  │  ├─ achievements.ts   # 16 badges + pure checker (pure)
 │  │  ├─ storage.ts        # localStorage: top 8, progress, achievements
 │  │  ├─ audio.ts          # Web Audio synth: sfx + pentatonic music
-│  │  ├─ changelog/          # in-game changelog (v1.1.7 — split from one file)
+│  │  ├─ changelog/          # in-game changelog (v1.1.8 — split from one file)
 │  │  │  ├─ types.ts        #   ChangelogEntry · ReleaseTier · copyFor()
 │  │  │  ├─ tiers.ts        #   tierFor() · TIER_ORDER · TIER_LABEL_KEY
 │  │  │  ├─ entries/        #   1 file per release — v1_0_0.ts … v1_1_7.ts
@@ -281,11 +302,11 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # modal focus containment (v1.1.6)
-└─ tests/                  # vitest — 33 files · 256 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
+└─ tests/                  # vitest — 48 files · 501 tests (modes · achievements · storage · i18n · runSave · settings · presets · audio…)
 ```
 
 ## 🧱 Architecture & performance
-<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.7 architecture — input → engine → state → render plus services (SMIL animation)" width="100%" />
+<img src="assets/architecture.svg" alt="Lọ Chéo v1.1.8 architecture — input → engine → state → render plus services (SMIL animation)" width="100%" />
 
 
 - **Game loop** on `requestAnimationFrame` with delta-time clamped to `1/20s`, multiplied by `timeScale` (ICE slow-mo) and a short **hit-stop** freeze on each catch for that “punch”.
@@ -304,22 +325,22 @@ Every change must clear **five gates** before it reaches `main` — one command 
 ```console
 $ npm run check        # typecheck + every test
 $ npm run check:readme # 10 READMEs in version + release-link sync
-$ npm run check:i18n   # 7 locales × 302 keys, nothing missing or extra
-$ npm run check:assets # 14 SVGs — no orphans, no broken references
+$ npm run check:i18n   # 7 locales × 306 keys, nothing missing or extra
+$ npm run check:assets # 19 SVGs — no orphans, no broken references
 $ npm run smoke        # SSR smoke: every menu/modal renders
 ```
 
-| Gate | Scope | 1.1.7 status |
+| Gate | Scope | 1.1.8 status |
 | --- | --- | --- |
 | `typecheck` | `src/` + `tests/` (TypeScript strict) | ✅ |
-| `vitest run` | **256 tests / 33 files** | ✅ |
+| `vitest run` | **501 tests / 48 files** | ✅ |
 | `smoke-ssr` | menu, 6 settings sections, changelog, 9 modals | ✅ |
 | `check-readme-sync` | 10 READMEs × badge/link/SVG | ✅ |
-| `check-i18n` | 7 locales × 302 keys | ✅ |
-| `check-assets` | 14 SVGs, references checked both ways | ✅ |
-| `build` | `dist/index.html` ~831 KB · gzip ~388 KB | ✅ |
+| `check-i18n` | 7 locales × 306 keys | ✅ |
+| `check-assets` | 19 SVGs, references checked both ways | ✅ |
+| `build` | `dist/index.html` ~867 KB · gzip ~399 KB | ✅ |
 
-The 1.1.7 highlight is **`tests/changelog-tiers.test.ts`**: it locks the `tierFor()` mapping (junk input included), demands **≥5 bullets** per release, rejects duplicate bullets and enforces a **strictly ordered date timeline** — that test is what caught 1.1.5 and 1.1.6 sharing a day.
+The 1.1.8 highlight is **`tests/menu-layout.test.ts`**: 32 tests pin the whole height addition and forbid the three CSS classes that caused the scroll bug — `flex-1 overflow-y-auto`, `min-h-full`, `justify-center`. Also new: **`tests/changelog-tiers.test.ts`** locks the `tierFor()` mapping (junk input included), demands **≥5 bullets** per release, rejects duplicate bullets and enforces a **strictly ordered date timeline** — that test is what caught 1.1.5 and 1.1.6 sharing a day.
 
 ## ❓ FAQ
 
@@ -348,15 +369,16 @@ Double-click [`scripts/play-mac.command`](scripts/play-mac.command) (macOS), [`s
 
 | Version | Tier | Date | Notes |
 | --- | --- | --- | --- |
-| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-12 | **Menu background un-fogged** (four compounding overlays: `blur 64→22px`, corner vignette instead of full-screen, CRT frame 140→90px, floor 45→70%) · **tiered colour changelog** · **96 new description bullets** for 8 older releases · dates re-sequenced · `src/game/changelog/` split · 10 READMEs rebuilt · **256 tests** |
-| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-10 | **Six-section settings** (presets · audio · display · language · backup · data) · 0–100 volumes · shake level · visual quality · auto-pause on blur · language moved into Settings · 4 presets · JSON export/import · layered animated menu scene · looping gradient on the author card · modal focus trap · music-after-reload fix · **150 tests** |
-| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-08 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **113 tests** |
-| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-06 | **9 modes** (Combo Festival · Grand Feast) · **16 achievements** · **7 languages** (ES/FR added) · play-windows.bat fix (CRLF+BOM) · 7-language launchers · 61 tests |
-| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-04 | 7 modes · 14 achievements · 5 languages · favicon · multilingual launchers · 55 tests |
-| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-11-02 | 5 modes (60-Second Rush · Gold Rush) · 12 achievements · combo flames · double-click launchers · README in 10 languages · 49 tests |
-| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-31 | In-game i18n VI/EN/ZH · README in 7 languages · full bug sweep · 45 tests |
-| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-29 | 3 game modes · Gold Garlic shield · Caterpillar · Gold Greens · 10 achievements · self-hosted fonts |
-| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-26 | First release: complete engine, 11 ingredients, JAR SLAM, ×9 combo |
+| [v1.1.8](docs/releases/v1.1.8.md) | 🟣 **PATCH** | 2026-11-12 | **The start screen no longer overflows**: one bad height addition left the hero only 250px and clipped `LỌ` · **scroll bug** (nested scroll box + `justify-center`) fixed with a single top-anchored `.menu-scroll` · **how-to-play moved into the GAME menu** as a modal · panels declared at **318px/458px** instead of sizing to content · 48px ticker · **14 hero decorations** + **3 halo rings** · `src/components/menu/{layout,scene,ticker,howto}/` · **501 tests / 48 files** |
+| [v1.1.7](docs/releases/v1.1.7.md) | 🟣 **PATCH** | 2026-11-10 | **Menu background un-fogged** (four compounding overlays: `blur 64→22px`, corner vignette instead of full-screen, CRT frame 140→90px, floor 45→70%) · **tiered colour changelog** · **96 new description bullets** for 8 older releases · dates re-sequenced · `src/game/changelog/` split · 10 READMEs rebuilt · **256 tests** |
+| [v1.1.6](docs/releases/v1.1.6.md) | 🟣 **PATCH** | 2026-11-08 | **Six-section settings** (presets · audio · display · language · backup · data) · 0–100 volumes · shake level · visual quality · auto-pause on blur · language moved into Settings · 4 presets · JSON export/import · layered animated menu scene · looping gradient on the author card · modal focus trap · music-after-reload fix · **150 tests** |
+| [v1.1.5](docs/releases/v1.1.5.md) | 🟣 **PATCH** | 2026-11-06 | **Corner GAME/INFO menus** (Play · Continue · Modes · Leaderboard · Achievements · Settings / About · Changelog · Quit) · **save & resume suspended run** (`locheo.run.v1`) · in-game settings (SFX/music/shake/reduced motion) · modal shortcut-leak fix · prefers-reduced-motion everywhere · **113 tests** |
+| [v1.1.4](docs/releases/v1.1.4.md) | 🟣 **PATCH** | 2026-11-04 | **9 modes** (Combo Festival · Grand Feast) · **16 achievements** · **7 languages** (ES/FR added) · play-windows.bat fix (CRLF+BOM) · 7-language launchers · 61 tests |
+| [v1.1.3](docs/releases/v1.1.3.md) | 🟣 **PATCH** | 2026-11-02 | 7 modes · 14 achievements · 5 languages · favicon · multilingual launchers · 55 tests |
+| [v1.1.2](docs/releases/v1.1.2.md) | 🟣 **PATCH** | 2026-10-31 | 5 modes (60-Second Rush · Gold Rush) · 12 achievements · combo flames · double-click launchers · README in 10 languages · 49 tests |
+| [v1.1.1](docs/releases/v1.1.1.md) | 🟣 **PATCH** | 2026-10-29 | In-game i18n VI/EN/ZH · README in 7 languages · full bug sweep · 45 tests |
+| [v1.1.0](docs/releases/v1.1.0.md) | 🟡 **UPDATE** | 2026-10-27 | 3 game modes · Gold Garlic shield · Caterpillar · Gold Greens · 10 achievements · self-hosted fonts |
+| [v1.0.0](docs/releases/v1.0.0.md) | 🩷 **MAJOR** | 2026-10-24 | First release: complete engine, 11 ingredients, JAR SLAM, ×9 combo |
 
 See also [CHANGELOG.md](CHANGELOG.md).
 
@@ -377,6 +399,7 @@ Design notes and deeper technical docs:
 
 | Doc | What it covers |
 | --- | --- |
+| [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) | Release v1.1.8 — four layout bugs from one height addition, the nested scroll bug, how-to-play in the GAME menu, 14 hero decorations |
 | [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md) | Release v1.1.7 — background un-fogged (four-layer diagnosis), tiered changelog, 96 new bullets |
 | [docs/releases/v1.1.6.md](docs/releases/v1.1.6.md) | Release v1.1.6 — six-section settings, presets, backup, layered menu scene |
 | [docs/releases/v1.1.5.md](docs/releases/v1.1.5.md) | Release v1.1.5 — corner menus, save/resume, settings, fixes |
@@ -390,7 +413,7 @@ Design notes and deeper technical docs:
 ## 🤝 Contributing
 
 1. Fork the repo, branch with the `arena/<name>` or `feat/<name>` convention.
-2. `npm run check` must be green before opening a PR (typecheck + 256 tests + build).
+2. `npm run check` must be green before opening a PR (typecheck + 501 tests + build).
 3. Avoid new runtime dependencies unless truly necessary — philosophy: **one file, no network, playable forever**.
 4. In your PR, note the screens/modes affected and attach a clip if gameplay changes.
 
