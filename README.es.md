@@ -208,6 +208,38 @@ El nivel se **deriva del SemVer** con `tierFor(version)`, nunca se escribe a man
 
 <img src="assets/settings-sections.svg" alt="Ajustes en seis secciones (desde v1.1.6) — interruptores, barras de nivel y selectores (animación SMIL)" width="100%" />
 
+## 📐 Diseño adaptable — cómo el hero elige su forma
+
+La pantalla de inicio no usa media queries para decidir su diseño. **Mide** la ventana y elige entre cinco capacidades: `sideBySide`, `halo`, `badgeRow`, `mascot`, `liveBadge`.
+
+El flujo tiene dos etapas, ambas puras:
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = altura
+            │
+            └─ scene es el número exacto que reserva el chrome
+                        │
+    heroLayout({ scene, width }) → 5 booleanos
+```
+
+| Bandera | Activa cuando | Qué desaparece si está apagada |
+| --- | --- | --- |
+| `sideBySide` | ancho ≥ 1024 **y** hero ≥ 300px | la mascota baja bajo el wordmark |
+| `halo` | hero ≥ 300px | el anillo alrededor del tarro |
+| `badgeRow` | hero ≥ 232px | la placa «HŨ DƯA ĐẠI CHIẾN» y la línea de récord |
+| `mascot` | casi siempre | — (solo se oculta en la economía mínima) |
+| `liveBadge` | hero ≥ 232px | la línea EN DIRECTO DESDE LA COCINA y la versión |
+
+Los tres umbrales **no son números redondos** — cada uno es la altura real de lo que controla:
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 wordmark + 40 placa + 22 live + 20 aire
+HEIGHT_FOR_HALO         = 300  // 150 lockup + 240 anillo − 90 solape
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // columna más alta: 192 mascota + 24 chip
+```
+
+`tests/menu-adaptive.test.ts` recorre **1.682 viewports** y verifica `heroContentHeight(layout) ≤ scene` en cada muestra. Al redimensionar, ambos hooks escuchan **seis** eventos y actualizan en un solo frame.
+
 ## ✨ Lo destacado
 
 | Grupo | Detalles |
