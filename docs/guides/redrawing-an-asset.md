@@ -9,7 +9,7 @@ liệu**. Mỗi cái giải thích một quyết định thiết kế, và mỗi
 ```
 1. đọc script/check-svg.mjs       → biết sàn chất lượng
 2. sửa file
-3. python3 -c "import xml.etree.ElementTree as ET; ET.parse('assets/x.svg')"
+3. python3 -c "import xml.etree.ElementTree as ET; ET.parse('assets/<tên>.svg')"
 4. node scripts/check-svg.mjs
 5. node scripts/check-assets.mjs  → vẫn được tham chiếu, không mồ côi
 6. npx vitest run tests/docs-numbers.test.ts
