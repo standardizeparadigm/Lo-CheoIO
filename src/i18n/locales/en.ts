@@ -280,6 +280,8 @@ const en: Record<MessageKey, string> = {
   "shortcuts.pause": "Pause",
   "shortcuts.mute": "Mute",
   "shortcuts.touch": "Tap & drag",
+  "shortcuts.start": "Start",
+  "shortcuts.restart": "Restart",
   "shortcuts.footer": "Every control is available on a keyboard and on the on-screen touch pad.",
   "info.shortcuts": "SHORTCUTS",
   "info.shortcutsHint": "Controls",
