@@ -21,7 +21,22 @@ export const RULE_COUNT = 6;
  * repeats.
  */
 export function tipIndexFor(day: number, count = RULE_COUNT): number {
-  if (!Number.isFinite(day) || count <= 0) return 0;
+  /*
+   * `count <= 0` is not enough. Two values get past it and both break the
+   * caller, which does `rule.${idx}.t`:
+   *
+   *   · `count = NaN`   → `NaN <= 0` is false, so it is accepted; the modulo
+   *                       yields NaN and the key becomes `rule.NaN.t`, which
+   *                       the table does not have — the tip renders empty;
+   *   · `count = 5.5`   → accepted, `%` is a float remainder, and the result
+   *                       is 0.5 — an index, in the sense that it is a number,
+   *                       and a missing key in every other sense.
+   *
+   * Both are reachable: `count` defaults to RULE_COUNT but is a parameter, and
+   * the test suite calls it with a computed value. Guard the *integer* case,
+   * not the positive case.
+   */
+  if (!Number.isFinite(day) || !Number.isInteger(count) || count <= 0) return 0;
   // Stride 5 over 6 slots is coprime with 6 → a full cycle of 6 days.
   const stride = 5;
   const n = Math.trunc(day);
