@@ -98,3 +98,56 @@ describe("both callers use the same function", () => {
     expect(body).toContain("if (!document.hidden) return;");
   });
 });
+
+describe("typing a name must not fire the game's shortcuts", () => {
+  /*
+   * Every keyboard handler in `GameCanvas` is on `window`, and a `keydown` in
+   * a text input still bubbles to it. The game-over screen focuses a name
+   * field 420ms after the run ends, so this is not a hypothetical:
+   *
+   *     "MINH" → the M mutes the game
+   *     "PHÚC" → the P pauses (i.e. tries to) a finished run
+   *     "R"    → restarts, wiping the score the player was about to submit
+   *
+   * The guard is on `e.target`, not `document.activeElement`, because the
+   * latter reflects focus when the handler runs rather than where the
+   * keystroke was aimed.
+   */
+  it("has a typing guard that checks the event target", () => {
+    const at = src.indexOf("const isTyping = ");
+    expect(at, "isTyping guard missing").toBeGreaterThan(-1);
+    const body = src.slice(at, src.indexOf("};", at));
+    expect(body).toContain("e.target");
+    expect(body).not.toContain("document.activeElement");
+  });
+
+  it("recognises every editable element type", () => {
+    const at = src.indexOf("const isTyping = ");
+    const body = src.slice(at, src.indexOf("};", at));
+    for (const tag of ["INPUT", "TEXTAREA", "SELECT", "isContentEditable"]) {
+      expect(body, `isTyping misses ${tag}`).toContain(tag);
+    }
+  });
+
+  it("returns before recording the key, not after", () => {
+    /*
+     * Returning *before* `set(e.code, true)` matters: a key recorded but never
+     * released leaves the engine holding a direction, which is the same
+     * "walks by itself" bug from the tests above, re-introduced through the
+     * text field.
+     */
+    const at = src.indexOf("const down = (e: KeyboardEvent)");
+    const body = src.slice(at, src.indexOf("const up =", at));
+    const guard = body.indexOf("if (isTyping(e)) return;");
+    const record = body.indexOf("set(e.code, true);");
+    expect(guard, "no typing guard in the keydown handler").toBeGreaterThan(-1);
+    expect(guard).toBeLessThan(record);
+  });
+
+  it("the game-over name field is a real input, which is what bubbles", () => {
+    // If this ever becomes a `<div contenteditable>`, the guard already
+    // covers it — but the test records where the keystrokes come from.
+    const over = readFileSync("src/components/GameOverScreen.tsx", "utf8");
+    expect(over).toContain("<input");
+  });
+});
