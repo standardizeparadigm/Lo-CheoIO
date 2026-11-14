@@ -932,9 +932,17 @@
  * ở hình 2 hình số 2". Fair — those three numbers are already stated in the
  * tagline one paragraph above, so the strip repeated them in a louder voice.
  *
- * The band it occupied is not left empty; `menu/stage/` became `menu/deck/`,
- * which fills the same space with things the menu actually needs: the current
- * mode, the day's challenge, and a rotating tip. See `.deck-*` below.
+ * Round 3 replaced the strip with a three-column "deck" that carried the
+ * current mode, the day's challenge and a rotating rule. ROUND 6 removed that
+ * too: the deck was three paragraphs in a fixed-height band, and no band tall
+ * enough for the 200px wordmark was also tall enough for three paragraphs —
+ * at 1920×1080 its right column was clipped mid-sentence.
+ *
+ * So the band under the wordmark is empty now, on purpose. The hero holds the
+ * wordmark, the badge and the record, and nothing else; what the deck knew
+ * either moved to the INFO panel (the challenge, one line) or was already
+ * somewhere better (the mode chip on the mascot, the rules in the how-to
+ * modal). An empty band is the price of a hero that fits at every size.
  */
 
 /*
@@ -968,150 +976,6 @@
 .corner-panel[data-tight="1"] h2 {
   height: 18px;
   letter-spacing: 0.28em;
-}
-
-/*
- * ---- the deck -----------------------------------------------------------
- *
- * Three cells in the band under the tagline. This replaces `.stage-facts`
- * (round 2), which the report asked to remove: it stated the mode/ingredient/
- * achievement counts, and the tagline one paragraph above already states them.
- *
- * The deck keeps the same *shape* — three hairline-separated cells, numbers
- * and labels — because that shape was not the problem. Only the content
- * changed: from counts to things the menu does not say twice.
- */
-.deck {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px;
-  padding-top: 12px;
-  border-top: 2px solid rgba(245, 168, 28, 0.22);
-  text-align: left;
-}
-/* The middle column is dropped below DECK_MIN_WIDTH by the component, so the
- * grid has to re-flow rather than leave a hole. */
-.deck[data-cols="2"] {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.deck-cell {
-  position: relative;
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0 10px;
-  text-align: left;
-}
-/* Hairline between cells, skipped on the first one. */
-.deck-cell + .deck-cell::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 6%;
-  height: 88%;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(140, 198, 63, 0.35), transparent);
-}
-.deck-cell--button {
-  cursor: pointer;
-  transition: background-color 140ms ease-out;
-}
-.deck-cell--button:hover {
-  background-color: rgba(43, 180, 140, 0.07);
-}
-.deck-cell--button:focus-visible {
-  outline: 2px solid #2bb48c;
-  outline-offset: 2px;
-}
-/* Small caps caption at the top of a cell. */
-.deck-cap {
-  font-family: var(--font-body, system-ui, sans-serif);
-  font-size: 7.5px;
-  font-weight: 800;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: #3f8177;
-}
-.deck-line {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 0;
-}
-.deck-value {
-  overflow: hidden;
-  font-family: var(--font-display, "Arial Black", sans-serif);
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #fdf3e0;
-}
-.deck-value--gold {
-  color: #f5a81c;
-  font-variant-numeric: tabular-nums;
-}
-.deck-value--brine {
-  color: #8cc63f;
-}
-/* A pulsing dot in front of the current mode — "this is what is armed". */
-.deck-dot {
-  width: 5px;
-  height: 5px;
-  flex: none;
-  border-radius: 999px;
-  background: #f5a81c;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .deck-dot {
-    animation: lc-deck-pulse 2.4s ease-in-out infinite;
-  }
-  .deck-cell {
-    animation: lc-deck-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  }
-  .deck-cell:nth-child(1) {
-    animation-delay: 120ms;
-  }
-  .deck-cell:nth-child(2) {
-    animation-delay: 200ms;
-  }
-  .deck-cell:nth-child(3) {
-    animation-delay: 280ms;
-  }
-}
-/* One-line note under the value, clamped so a long Thai or German rule cannot
- * push the deck taller than the band the hero reserved for it. */
-.deck-note {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  font-family: var(--font-body, system-ui, sans-serif);
-  font-size: 8.5px;
-  line-height: 1.45;
-  color: #5c7d74;
-}
-@keyframes lc-deck-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.78);
-  }
-}
-@keyframes lc-deck-rise {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* A dotted orbit arc drawn behind the jar. */
