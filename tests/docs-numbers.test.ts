@@ -56,6 +56,30 @@ describe("documented counts match the repository", () => {
     }
   });
 
+  it("badge test count agrees with the badge file count's source", () => {
+    /*
+     * The file count was pinned and the *test* count was not — so a badge
+     * reading `tests-587 · 63 files` passed this file, because only the 63 was
+     * checked. The test count is checked now, and against the one honest
+     * source: the JSON report `sync-test-badge.mjs --verify` already produces
+     * in CI. When it is absent (a bare `vitest run`), skip rather than guess —
+     * grep cannot count `it.each` rows and would report 587 for 675.
+     */
+    let report: { numTotalTests?: number } | null = null;
+    try {
+      report = JSON.parse(readFileSync("/tmp/vitest-badge.json", "utf8"));
+    } catch {
+      return; // no report this run — `check:readme` is the gate for that
+    }
+    expect(report?.numTotalTests).toBeGreaterThan(400);
+    for (const file of READMES) {
+      const body = readFileSync(file, "utf8");
+      const badge = body.match(/badge\/tests-(\d+)%20/);
+      expect(badge, `${file} has no tests badge`).not.toBeNull();
+      expect(Number(badge![1]), `${file} test count is stale`).toBe(report!.numTotalTests);
+    }
+  });
+
   it("has no broken Portuguese plural in the pt README", () => {
     // "testses" is not a word. It survived several rounds because nothing read
     // the file; it was found by machine-updating the counts.
