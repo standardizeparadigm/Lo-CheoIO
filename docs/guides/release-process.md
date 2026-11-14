@@ -12,9 +12,13 @@
 8. **Smoke** — `npx vite-node scripts/smoke-ssr.tsx` (headless render) khi có UI mới.
 9. **PR** — một nhánh `arena/<id>` → base `main`; **user merge**, không tự merge.
 10. **Kiểm tra chéo trước khi mở PR** — ba cổng phải xanh **cùng lúc**:
-    `npm run check` (typecheck + 393 tests + build), `npm run smoke`, và
+    `npm run check` (typecheck + toàn bộ test + build), `npm run smoke`, và
     `npm run check:readme` + `npm run check:i18n` (10 README đồng bộ, 7 locale parity).
     Ghi lại output của cả ba vào phần *verification* của release notes.
+
+    **Đừng chép số test vào đây.** Câu cũ ghi "393 tests" và đúng vào lúc viết;
+    ba vòng sau nó sai và không ai đọc lại. Số test là thứ `npm run check:readme`
+    kiểm tra được; con số nằm trong tài liệu thì không.
 
 ## Tầng phát hành (từ v1.1.7)
 
