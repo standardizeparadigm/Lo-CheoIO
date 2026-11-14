@@ -28,6 +28,7 @@ Mỗi bản có một **tầng** (suy ra từ SemVer, xem `docs/guides/release-p
 - `save-format.md` — spec `locheo.run.v1` (snapshot ván dở).
 - `settings-format.md` — spec `locheo.settings.v1` (v1.1.6: 10 field, 6 mục UI).
 - `changelog-format.md` — spec module `src/game/changelog/` + ánh xạ tầng → màu (v1.1.8).
+- `adaptive-layout.md` — **hợp đồng** giữa `menu/layout/` và `menu/adaptive/`: ba bất biến, bốn ngưỡng và cột "nếu đặt sai thì hỏng gì" (v1.1.8, vòng 6).
 
 ## Hướng dẫn contributor (`guides/`)
 
@@ -42,6 +43,7 @@ Mỗi bản có một **tầng** (suy ra từ SemVer, xem `docs/guides/release-p
 | `release-process.md` | Playbook phát hành 1 version (học từ v1.1.5, 1.1.7 và 1.1.8) — gồm bảng tầng PATCH/UPDATE/MAJOR |
 | `glossary.md` | Từ vựng game cho translator |
 | `troubleshooting.md` | Sự cố thường gặp — đen màn hình, audio, «Chơi tiếp», launcher, build |
+| `redrawing-an-asset.md` | Vẽ lại một hình trong `assets/` — sàn chất lượng, bốn lỗi đã gặp, vì sao SMIL chứ không CSS |
 
 ## Khác
 
