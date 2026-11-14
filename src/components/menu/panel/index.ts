@@ -5,3 +5,6 @@ export { PanelStatStrip } from "./PanelStatStrip";
 export type { SummaryInput, SummaryLine } from "./summary";
 export { summaryLines, summaryText } from "./summary";
 export { PanelSummary } from "./PanelSummary";
+export type { ChallengeLine } from "./summary";
+export { challengeLine } from "./summary";
+export { PanelChallenge } from "./PanelChallenge";
