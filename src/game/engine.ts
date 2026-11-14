@@ -342,8 +342,22 @@ export class LoCheoGame {
   /* -------------------------------------------------------------- setup */
 
   resize(w: number, h: number) {
-    const cw = Math.max(240, Math.floor(w));
-    const ch = Math.max(320, Math.floor(h));
+    /*
+     * `Math.max(240, Math.floor(w))` clamps a *negative* width and lets `NaN`
+     * and `Infinity` straight through — the same shape as the six other clamps
+     * in this release. It only looked safe because negatives were the case
+     * anyone thought to try.
+     *
+     * The damage here is worse than a bad number in a variable: `canvas.width =
+     * NaN` makes the browser reset the backing store to its default 300×150, so
+     * the game keeps running at a size nothing else in the app knows about, and
+     * `this.w` stays `NaN` for every subsequent collision check.
+     *
+     * Zero is a real value a hidden/mounting canvas reports, so it falls back to
+     * the CSS defaults below rather than being treated as corrupt.
+     */
+    const cw = Math.max(240, Math.floor(Number.isFinite(w) && w > 0 ? w : 240));
+    const ch = Math.max(320, Math.floor(Number.isFinite(h) && h > 0 ? h : 320));
     this.dpr = clamp(window.devicePixelRatio || 1, 1, 2);
     this.canvas.width = Math.floor(cw * this.dpr);
     this.canvas.height = Math.floor(ch * this.dpr);
