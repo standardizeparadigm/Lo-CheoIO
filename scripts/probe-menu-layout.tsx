@@ -220,11 +220,17 @@ check(
 );
 
 check(
-  "the how-to entry point is a menu row in GAME",
-  // Two occurrences are correct since round 3: the GAME row and the deck's
-  // "rule of the day" cell, which opens the same modal.
-  count("Cách chơi") === 2,
-  `"Cách chơi" ×${count("Cách chơi")} — row label + deck cell`,
+  "the how-to entry point is exactly one menu row in GAME",
+  /*
+   * Round 6 removed the deck, so this went from two occurrences back to one:
+   * the GAME row label. The deck's "rule of the day" cell was the other one,
+   * and it opened the same modal — an entry point, not a second feature.
+   *
+   * Asserting the exact count is the point: a stray second copy is how the
+   * deck came back the first time.
+   */
+  count("Cách chơi") === 1,
+  `"Cách chơi" ×${count("Cách chơi")} — one row label`,
 );
 
 // ---------------------------------------------------------------------------
@@ -261,9 +267,19 @@ check(
 );
 
 check(
-  "the deck renders three cells (round 3 replaces the counters)",
-  count("data-deck-cell=") === 3,
-  `${count("data-deck-cell=")} deck cells`,
+  "the deck is gone (round 6 removes the three-column band)",
+  count("data-deck-cell=") === 0 && !html.includes("deck-cell"),
+  `${count("data-deck-cell=")} deck cells, CSS class ${html.includes("deck-cell") ? "present" : "absent"}`,
+);
+check(
+  "the hero carries a layout decision, not a media query",
+  /data-hero-layout="(row|stack)"/.test(html),
+  (html.match(/data-hero-layout="([a-z]+)"/) ?? ["", "missing"])[0],
+);
+check(
+  "the INFO panel carries today's challenge",
+  html.includes("THỬ THÁCH HÔM NAY"),
+  "challenge line rendered",
 );
 
 check(
