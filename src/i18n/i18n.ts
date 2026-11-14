@@ -76,13 +76,36 @@ export function setLanguage(lang: Language): void {
 /** Param values may be string/number; everything is stringified. */
 export type Params = Record<string, string | number>;
 
+/**
+ * Substitute `{name}` placeholders in one pass.
+ *
+ * THE BUG THIS FIXES
+ * ------------------
+ * The previous version looped over the param keys and ran `split().join()` once
+ * per key. When the *value* of one param is itself a placeholder for another,
+ * object key order decides the result:
+ *
+ *     interpolate("CẤP {level} · {jars} HŨ", { level: "{jars}", jars: "X" })
+ *
+ * With `level` first, the template becomes `CẤP {jars} · {jars} HŨ` and the
+ * next iteration replaces *both* — turn a param that was meant to be literal
+ * text into a substitution. With `jars` first, the output is
+ * `CẤP {jars} · X HŨ` and the literal survives. Two call sites passing the
+ * same object get different strings, which is undebuggable from a screenshot.
+ *
+ * A single regular-expression pass over the *template* makes substitution
+ * non-recursive by construction: each placeholder is looked up in `params`
+ * exactly once, and replacement text is never rescanned.
+ *
+ * `$` in a value is safe here because the replacer is a function — the
+ * `$&` / `$1` expansion only applies to string replacements.
+ */
 function interpolate(template: string, params?: Params): string {
   if (!params) return template;
-  let out = template;
-  for (const key of Object.keys(params)) {
-    out = out.split(`{${key}}`).join(String(params[key]));
-  }
-  return out;
+  return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (whole, name: string) => {
+    const own = Object.prototype.hasOwnProperty;
+    return own.call(params, name) ? String(params[name]) : whole;
+  });
 }
 
 /**
