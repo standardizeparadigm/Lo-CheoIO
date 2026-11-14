@@ -206,6 +206,38 @@ The tier is **derived from SemVer** by `tierFor(version)`, never typed by hand. 
 
 <img src="assets/settings-sections.svg" alt="Six-section settings (since v1.1.6) — switches, level bars and pickers (SMIL animation)" width="100%" />
 
+## 📐 Adaptive layout — how the hero picks its shape
+
+The start screen does not use media queries to decide its layout. It **measures** the window and chooses from five capabilities: `sideBySide`, `halo`, `badgeRow`, `mascot`, `liveBadge`.
+
+The flow has two stages, both pure:
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = height
+            │
+            └─ scene is the exact number the chrome reserves
+                        │
+    heroLayout({ scene, width }) → 5 booleans
+```
+
+| Flag | On when | What disappears when off |
+| --- | --- | --- |
+| `sideBySide` | width ≥ 1024 **and** hero ≥ 300px | the mascot moves under the wordmark |
+| `halo` | hero ≥ 300px | the ring around the jar |
+| `badgeRow` | hero ≥ 232px | the «HŨ DƯA ĐẠI CHIẾN» plate and the record line |
+| `mascot` | almost always | — (hidden only in the minimal economy) |
+| `liveBadge` | hero ≥ 232px | the LIVE FROM THE KITCHEN line and version |
+
+The three thresholds are **not round numbers** — each equals the real height of the thing it gates:
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 wordmark + 40 badge + 22 live + 20 air
+HEIGHT_FOR_HALO         = 300  // 150 lockup + 240 ring − 90 overlap
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // taller column: 192 mascot + 24 chip + padding
+```
+
+`tests/menu-adaptive.test.ts` sweeps **1,682 viewports** and asserts `heroContentHeight(layout) ≤ scene` at every sample — so a wrong threshold is a red test, not something a player finds. On resize, both hooks listen for **six** events and update in one animation frame.
+
 ## ✨ Highlights
 
 | Group | Details |
