@@ -53,6 +53,21 @@ ra xa khối trên **lần thứ hai**, tạo lại đúng cái lỗ vừa sửa
 
 `tests/panel-slack.test.ts` khoá cả bốn dòng trong bảng trên.
 
+## Cùng luật đó áp cho khối cuối body
+
+`PanelSummary.tsx` là con cuối của body INFO (footer là slot riêng, render sau).
+Nó mang `mt-auto` từ vòng 5 — hồi đó body còn `flex-start` nên cần ai đó đẩy nó
+xuống. Khi body chuyển sang `space-between`, auto margin đó xin **lát thứ hai**
+của cùng khoảng dư: khối tóm tắt dính đáy và mở ra một khe mới phía trên nó.
+Chính là lỗ của báo cáo v1.1.8, tái hiện thấp hơn 60px.
+
+Không test badge nào bắt được (class vẫn biên dịch), không ảnh 720px nào thấy
+(khe chỉ ~2px). Nó chỉ mở ra ở cửa sổ cao — nên có test riêng.
+
+**Luật tổng quát:** trong body `space-between`, **không** con nào được mang
+`margin-top: auto`. Khoảng dư chia đều giữa các khối; một auto margin sẽ lấy
+thêm lần nữa.
+
 ## Trạng thái «Chơi tiếp»
 
 | Điều kiện | Nút | Hint |
