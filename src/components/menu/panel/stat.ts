@@ -34,12 +34,32 @@ export interface PanelStat {
  * that the save file is lying.
  */
 export function progressStat(unlocked: number, total: number, modeCount: number): PanelStat[] {
-  const safeTotal = Math.max(0, Math.trunc(total));
-  const safeUnlocked = Math.min(safeTotal, Math.max(0, Math.trunc(unlocked)));
+  /*
+   * `Math.max(0, Math.trunc(x))` is the shape this file used, and it is the
+   * exact shape `docs/guides/numeric-guards.md` warns about: `Math.trunc(NaN)`
+   * is NaN, `Math.max(0, NaN)` is NaN, and the strip prints `✓NaN/NaN`.
+   * `Infinity` survives too — `Math.trunc(Infinity)` is Infinity, so the
+   * footer can read `✓5/Infinity`.
+   *
+   * Both are reachable from a corrupt save: the achievements count comes from
+   * localStorage, and `max` of an empty list is `-Infinity` before the clamp.
+   *
+   * A footer is the worst possible place to learn the save file is lying, so
+   * the fallback is the *caller's* total rather than zero: a missing unlocked
+   * count should read "0/16", not "0/0".
+   */
+  const safeTotal = whole(total);
+  const safeUnlocked = Math.min(safeTotal, whole(unlocked));
   return [
     { label: "✓", value: `${safeUnlocked}/${safeTotal}` },
-    { label: "◆", value: String(Math.max(0, Math.trunc(modeCount))) },
+    { label: "◆", value: String(whole(modeCount)) },
   ];
+}
+
+/** Truncate to a non-negative integer; NaN and ±Infinity collapse to 0. */
+function whole(n: number): number {
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.trunc(n));
 }
 
 /**
@@ -49,9 +69,16 @@ export function progressStat(unlocked: number, total: number, modeCount: number)
  * `PATCH` chip the changelog panel shows — one source, two surfaces.
  */
 export function buildStat(version: string, tier: string): PanelStat[] {
+  /*
+   * `tier` is typed `string`, but it arrives through `tierFor()`, whose return
+   * type narrows only if every call site is typed — and one of them reads a
+   * changelog entry field. An undefined tier used to throw here, inside the
+   * INFO panel's footer, which takes the whole panel down with it: a crash in
+   * the corner of the screen rather than a missing glyph.
+   */
   return [
-    { label: "v", value: version },
-    { label: "◆", value: tier.toUpperCase() },
+    { label: "v", value: version || "—" },
+    { label: "◆", value: String(tier || "—").toUpperCase() },
   ];
 }
 
