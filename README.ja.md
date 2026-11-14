@@ -177,6 +177,36 @@ wordmark 下の空いた帯は、いまや **意図的** です。それが、�
 
 <img src="assets/settings-sections.svg" alt="六区分の設定（v1.1.6 から）——スイッチ、レベルバー、ピッカー（SMIL アニメーション）" width="100%" />
 
+## 📐 適応レイアウト — ヒーローが自分の形を選ぶ仕組み
+
+スタート画面はレイアウトをメディアクエリで決めません。ウィンドウを**測って**、五つの能力から選びます: `sideBySide`・`halo`・`badgeRow`・`mascot`・`liveBadge`。
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = 高さ
+            │
+            └─ scene はクロームが予約しているのと同じ数値
+                        │
+    heroLayout({ scene, width }) → 5 つの真偽値
+```
+
+| フラグ | 有効になる条件 | 無いと消えるもの |
+| --- | --- | --- |
+| `sideBySide` | 幅 ≥ 1024 **かつ** ヒーロー ≥ 300px | マスコットが wordmark の下へ回る |
+| `halo` | ヒーロー ≥ 300px | 壺の周りのリング |
+| `badgeRow` | ヒーロー ≥ 232px | 「HŨ DƯA ĐẠI CHIẾN」プレートと記録の行 |
+| `mascot` | ほぼ常時 | —（最小エコノミーでのみ非表示） |
+| `liveBadge` | ヒーロー ≥ 232px | 「厨房から生中継」の行とバージョン |
+
+三つのしきい値は**丸い数字ではありません** — それぞれが制御する対象の実高さです:
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 wordmark + 40 プレート + 22 live + 20 余白
+HEIGHT_FOR_HALO         = 300  // 150 ロックアップ + 240 リング − 90 重なり
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // 高い方の列: 192 マスコット + 24 チップ
+```
+
+`tests/menu-adaptive.test.ts` は **1,682 のビューポート**を走査し、各サンプルで `heroContentHeight(layout) ≤ scene` を検証します。リサイズ時は両フックが**六つ**のイベントを購読し、1 フレームで更新します。
+
 ## ✨ ハイライト
 
 | グループ | 詳細 |
