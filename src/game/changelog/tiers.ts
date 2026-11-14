@@ -5,7 +5,7 @@ import type { ReleaseTier } from "./types";
  *
  *   1.0.0 · 2.0.0   → major  (a feature wave; the rarest tier)
  *   1.1.0 · 1.2.0   → minor  (an upgrade; what the UI labels UPDATE)
- *   1.1.1 … 1.1.7   → patch  (fixes/polish; what the UI labels PATCH)
+ *   1.1.1 … 1.1.8   → patch  (fixes/polish; what the UI labels PATCH)
  *
  * The tag on screen is derived here rather than typed into each entry, so a
  * release tag can never contradict the version string printed beside it.
