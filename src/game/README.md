@@ -43,3 +43,36 @@ written by 1.1.8 loads in 1.1.2 with the extra field ignored.
 
 `tests/storage-migrate.test.ts` feeds each loader the shapes earlier releases
 actually wrote, including truncated and hand-edited blobs.
+
+## Modules added after this README was written
+
+The table above stopped at v1.1.5 and four files have landed since. They are
+listed here rather than inserted into the table because the sorting matters
+less than the note on each:
+
+| File | Why it exists |
+| --- | --- |
+| `audio.ts` | The WebAudio graph: one `AudioContext`, lazily created, and the mute gate |
+| `modeMath.ts` | Every per-mode number the HUD shows, clamped in one place (`saneInt`) |
+| `modeTypes.ts` | `ModeId` and the type guard — `isModeId()` |
+| `index.ts` | The barrel; no logic, and deliberately never imported by the app |
+
+### `modeMath.ts` deserves the paragraph
+
+It exists because `state.score` once rendered as the string **"NaN"** and never
+recovered: `NaN + x` is `NaN`, so one bad frame poisoned the score for the rest
+of the run and every HUD row derived from it.
+
+The fix was not one clamp but a *location*: every number a mode contributes to
+the HUD goes through `saneInt()` here, and `tests/mode-math.test.ts` covers 25
+cases including `NaN`, `±Infinity`, and `undefined` from a corrupt save.
+
+It is the same story as `modeTypes.ts`: `isModeId("toString")` returned `true`
+before the guard, because `"toString" in MODES` walks the prototype chain. A
+restored run could therefore name a mode that does not exist.
+
+### What is *not* in this folder
+
+`daily/` and `changelog/` sit here because their output is game content, but
+neither is part of the engine: `daily/` is a pure function of the local date and
+`changelog/` is a read-only data set. Both have their own README.
