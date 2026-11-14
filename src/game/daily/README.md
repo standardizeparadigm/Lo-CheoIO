@@ -52,3 +52,10 @@ và người chơi chỉ học được một phần sáu trò chơi.
 Cả hai đều là chỗ **có chỗ chứa nội dung**, không phải chỗ nhét vừa. Đó là
 toàn bộ lý do deck biến mất: nó không phải chỗ chứa, nó là một band cao cố
 định cố chứa ba đoạn văn.
+
+## `index.ts`
+
+Exports `challengeFor`, `localDayNumber`, `mix`, `tipIndexFor` and `RULE_COUNT`
+— the whole public surface of this folder, in one place. `PanelChallenge` and
+`HowToModal` import from here and not from the individual modules, so moving a
+function between `challenge.ts` and `tip.ts` is a one-line change.
