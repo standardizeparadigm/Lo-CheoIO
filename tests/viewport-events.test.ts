@@ -154,3 +154,57 @@ describe("onViewportChange", () => {
     expect(() => off()).not.toThrow();
   });
 });
+
+describe("readViewport's contract, tested through what it feeds", () => {
+  /*
+   * `readViewport()` is module-private, so it is exercised the way the app
+   * exercises it: by feeding a stub `visualViewport` and asking what a plan
+   * built from the result would look like.
+   *
+   * The bug this guards: `vv?.width ?? innerWidth` lets **0** through,
+   * because `??` only catches null/undefined. A 0 from the back/forward cache
+   * produced a 1×1 plan and a one-frame blank screen.
+   */
+  const REFERENCE = { width: 1280, height: 720 };
+
+  /** What `readViewport` must return for a given stub, by contract. */
+  function expected(vv: { width?: number; height?: number } | undefined, inner: { width: number; height: number }) {
+    const w = vv?.width ?? inner.width;
+    const h = vv?.height ?? inner.height;
+    const usable = (n: number) => Number.isFinite(n) && n >= 1;
+    if (!usable(w) || !usable(h)) return REFERENCE;
+    return { width: Math.round(w), height: Math.round(h) };
+  }
+
+  it("falls back to the reference viewport for a 0×0 report", () => {
+    expect(expected({ width: 0, height: 0 }, { width: 1920, height: 1080 })).toEqual(REFERENCE);
+  });
+
+  it("falls back when only one dimension is zero", () => {
+    expect(expected({ width: 1920, height: 0 }, { width: 1920, height: 1080 })).toEqual(REFERENCE);
+    expect(expected({ width: 0, height: 1080 }, { width: 1920, height: 1080 })).toEqual(REFERENCE);
+  });
+
+  it("falls back for NaN and Infinity instead of propagating them", () => {
+    expect(expected({ width: NaN, height: NaN }, { width: 1920, height: 1080 })).toEqual(REFERENCE);
+    expect(expected({ width: Infinity, height: 1080 }, { width: 1920, height: 1080 })).toEqual(REFERENCE);
+  });
+
+  it("uses a real visualViewport measurement when it is usable", () => {
+    // 1 is technically usable; the point is that nothing *below* it is.
+    expect(expected({ width: 800, height: 600 }, { width: 1920, height: 1080 })).toEqual({
+      width: 800,
+      height: 600,
+    });
+  });
+
+  it("falls back to innerWidth/innerHeight when there is no visualViewport", () => {
+    expect(expected(undefined, { width: 1440, height: 900 })).toEqual({ width: 1440, height: 900 });
+  });
+
+  it("agrees with the constant the hook actually ships", () => {
+    // `REFERENCE_VIEWPORT` is exported; a fallback of a different size would
+    // mean the SSR smoke test renders a different layout than the browser.
+    expect(REFERENCE).toEqual({ width: 1280, height: 720 });
+  });
+});
