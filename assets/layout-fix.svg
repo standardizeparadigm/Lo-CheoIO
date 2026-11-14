@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Sơ đồ sửa lỗi bố cục v1.1.7 và v1.1.8 — 720px cửa sổ: trước 250px hero cộng 470px chrome, sau 342px hero cộng 378px chrome dự phòng (hoạt họa SMIL)">
   <defs>
+    <!-- Round 6: one reusable bloom. Every asset now has a light source —
+         before this, twelve of the twenty had gradients but not a single
+         filter, so the highlights were flat fills pretending to glow. -->
+    <filter id="lf-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
     <linearGradient id="lfBg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#0a2422"/>
       <stop offset="1" stop-color="#061a1a"/>
