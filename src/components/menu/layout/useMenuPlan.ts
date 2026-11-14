@@ -26,13 +26,33 @@ import { onViewportChange } from "./viewportEvents";
 /** The viewport the SSR smoke test and the fallback path use. */
 export const REFERENCE_VIEWPORT: Viewport = { width: 1280, height: 720 };
 
+/**
+ * Read the viewport, or the reference viewport when there is nothing usable.
+ *
+ * TWO THINGS THIS HAS TO GET RIGHT
+ * --------------------------------
+ * 1. `visualViewport` reports `0` for both dimensions while a page is being
+ *    restored from the back/forward cache, and momentarily during a rotation.
+ *    `??` does not catch that — it only catches `null`/`undefined` — so a 0
+ *    flowed through as a real measurement and produced a plan for a 1×1
+ *    viewport, which is a blank screen for one frame.
+ *
+ * 2. `Math.round(NaN)` is `NaN`. The plan's own `sane()` clamp now handles
+ *    that, but returning NaN from a function whose contract is "a viewport"
+ *    pushes the check to every caller. Falling back here keeps the contract.
+ *
+ * The fallback is the reference viewport rather than a "best guess": when the
+ * browser cannot say how big the window is, the honest answer is the size this
+ * layout was designed against, not a number invented from a broken one.
+ */
 function readViewport(): Viewport {
   if (typeof window === "undefined") return REFERENCE_VIEWPORT;
   const vv = window.visualViewport;
-  return {
-    width: Math.round(vv?.width ?? window.innerWidth),
-    height: Math.round(vv?.height ?? window.innerHeight),
-  };
+  const rawW = vv?.width ?? window.innerWidth;
+  const rawH = vv?.height ?? window.innerHeight;
+  const usable = (n: number) => Number.isFinite(n) && n >= 1;
+  if (!usable(rawW) || !usable(rawH)) return REFERENCE_VIEWPORT;
+  return { width: Math.round(rawW), height: Math.round(rawH) };
 }
 
 /** The current viewport width — the same value the plan was computed from. */
