@@ -39,7 +39,7 @@ C'est un **arcade d'action mono-écran** inspiré des pickles populaires vietnam
 
 ## 🆕 Nouveautés de v1.1.8
 
-> Le **dernier correctif** avant 1.2.0. Aucun mode inédit, aucun changement d'équilibrage, aucun changement de format de sauvegarde — juste un écran de départ qui ne déborde plus, le « Comment jouer » déplacé dans le menu GAME, et un hero décoré.
+> Le **dernier correctif** avant 1.2.0. Pas de nouveau mode, pas de changement d'équilibrage, pas de changement de format de sauvegarde. Cette dernière passe fait une chose : **le hero mesure la fenêtre et choisit sa propre disposition** — à toutes les tailles, sans défilement ni coupure. La bande du deck disparaît et les 20 SVG sont redessinés.
 
 ### 📐 Une addition que personne ne surveillait — et quatre bugs à la fois
 
@@ -106,6 +106,58 @@ src/components/menu/
 | 8 | Docs/SVG/lanceurs en retard sur la version | balayage des 10 README + docs + 19 SVG → 1.1.8 |
 
 → Détails complets : [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Version précédente : [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
+
+### 🪟 Deux captures, une fenêtre, 260 pixels d'écart
+
+Les deux dernières captures de cette passe montrent **la même application** : `1920×1080` en plein écran et `1920×820` en fenêtre. La largeur n'a pas changé d'un pixel. Pourtant, dans la seconde, la moitié basse du hero passe **sous** les deux panneaux d'angle et la puce `CHẾ ĐỘ CHƠI` est coupée en deux.
+
+La cause n'est pas un manque de hauteur, c'est la mauvaise question :
+
+| Ce qui décide de la mise en page | Sait | Ignore |
+| --- | --- | --- |
+| `sm:` · `lg:` en CSS | la **largeur** | la **hauteur** |
+| `plan.minimal` | la **hauteur** (sous 220px) | la largeur, et seulement trop tard |
+| `heroLayout()` (nouveau) | **les deux**, depuis le même nombre que le chrome | — |
+
+Une décision qui dépend de *deux axes* ne s'écrit pas en media query d'un seul axe. La mise en page du hero sort donc du CSS et devient une fonction pure : `heroLayout({ scene, width, minimal })`.
+
+`scene` est la hauteur que `planMenuLayout()` a attribuée au hero — **exactement** le nombre que le chrome réserve. Impossible de dériver : les deux lisent la même fonction.
+
+#### Trois seuils, tous les trois dérivés
+
+| Constante | Valeur | Dérivée de |
+| --- | --- | --- |
+| `HEIGHT_FOR_BADGE_ROW` | **232** | wordmark 150 + badge 40 + live badge 22 = 212, plus 20px d'air |
+| `HEIGHT_FOR_HALO` | **300** | lockup 150 + anneau 240 − chevauchement 90 |
+| `HEIGHT_FOR_SIDE_BY_SIDE` | **300** | la colonne la plus haute : mascotte 192 + puce 24 + marge |
+
+`232` est un **bug attrapé** : le premier jet valait `210`, sous le lockup de 212 qu'il conditionne. Une bande de 210 dessinait un lockup de 212 et la ligne de record était rognée. Exactement la classe de bug que cette passe corrige, produite par la correction elle-même.
+
+`tests/menu-adaptive.test.ts` balaie **1 682 viewports** et vérifie `heroContentHeight(layout) ≤ scene` à chaque échantillon.
+
+#### Le quatrième événement manquant
+
+L'utilisateur a produit ces deux captures en **appuyant sur la touche plein écran**. L'application écoutait `resize` et `orientationchange`. Firefox n'en déclenche aucun au passage en plein écran ; Safari ancien ne déclenche que `webkitfullscreenchange`. Donc la fenêtre changeait de hauteur, le hero gardait son ancien plan, et la puce restait coupée.
+
+`VIEWPORT_EVENTS` regroupe les six orthographes en un seul endroit, parce que `useMenuPlan()` et `useViewportWidth()` en ont **toutes les deux** besoin — chacune enregistrait sa propre copie, soit deux copies qui peuvent décrire deux fenêtres différentes.
+
+### 🗑️ La bande séparatrice de l'image 12 — et le deck parti avec elle
+
+La troisième image est une bande de `1443×180` découpée au milieu de l'écran : un repère `🎮`, un filet doré, puis trois titres `GAME / DÉFI DU JOUR / RÈGLE DU JOUR`. C'est le **deck** — trois colonnes de prose dans une bande de hauteur fixe.
+
+Il ne peut pas y vivre, et les deux autres captures disent pourquoi : en `1920×1080` sa colonne droite était coupée **en pleine phrase**, en `1920×820` toute la rangée passait sous les panneaux. Une bande assez haute pour un wordmark de 200px ne l'est pas aussi pour trois paragraphes.
+
+Rien de ce que disait le deck n'est perdu :
+
+| Ce que disait le deck | Où cela vit maintenant |
+| --- | --- |
+| le mode à jouer | la puce sous la mascotte ; la liste complète est dans GAME |
+| **le défi du jour** | une ligne du panneau INFO — `mode · objectif` |
+| la règle du jour | une ligne du modal des règles, qui en a toujours été la version complète |
+
+Les calculs de date ne sont **pas** partis avec lui : `challengeFor()` et `tipIndexFor()` ont déménagé dans `src/game/daily/`, avec leurs 21 tests et leurs noms.
+
+La bande vide sous le wordmark est désormais **volontaire**. C'est le prix d'un hero qui tient à toutes les tailles.
 
 ### 🏷️ Changelog par niveaux — une couleur par niveau
 
