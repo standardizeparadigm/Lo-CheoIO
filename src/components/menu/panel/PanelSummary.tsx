@@ -13,7 +13,18 @@ export function PanelSummary({ lines }: { lines: readonly SummaryLine[] }) {
   const { t } = useI18n();
 
   return (
-    <dl className="mt-auto space-y-1 border-t-2 border-dashed border-jade-800 pt-2 font-body text-[9px]">
+    /*
+      No `mt-auto`. This component is the *last* block in INFO's body, and that
+      body distributes with `space-between` (see `.corner-panel[data-panel=
+      "right"] .corner-panel-body`). An auto top margin would ask for a second
+      slice of the same leftover space — the footer would sit against the
+      bottom edge with a gap above it, which is the v1.1.8 report's complaint
+      reproduced 60px lower.
+
+      The same reasoning already applies to `.panel-footer`; this one was
+      missed because it predates that fix by one round.
+    */
+    <dl className="space-y-1 border-t-2 border-dashed border-jade-800 pt-2 font-body text-[9px]">
       {lines.map((line) => (
         <div key={line.key} className="flex items-baseline justify-between gap-2">
           <dt className="tracking-[0.16em] text-jade-500 uppercase">{t(line.key as MessageKey)}</dt>
