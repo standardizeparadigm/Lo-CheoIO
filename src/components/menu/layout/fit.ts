@@ -155,13 +155,49 @@ export function sceneFor(viewportHeight: number, reserve: number, floor = MIN_SC
  * negative scene and a panel narrower than its own border.
  */
 export function planMenuLayout(viewport: Viewport): MenuPlan {
-  const width = Math.max(1, Math.trunc(viewport.width));
-  const height = Math.max(1, Math.trunc(viewport.height));
+  /*
+   * `Math.max(1, NaN)` is NaN — the clamp does not survive a non-finite input.
+   *
+   * ROUND 6: `tests/layout-fit.test.ts` fed NaN through and got a plan whose
+   * `scene` was NaN, which then reached `style={{ height: NaN }}` and silently
+   * dropped the declaration. The comment above claimed the inputs were
+   * "clamped to sane positive integers"; they were clamped against the floor
+   * but not against non-finiteness.
+   *
+   * `Number.isFinite` first, then truncate, then floor at 1. Three steps, in
+   * that order, because `Math.trunc(Infinity)` is `Infinity`.
+   */
+  const sane = (n: number) => (Number.isFinite(n) ? Math.max(1, Math.trunc(n)) : 1);
+  const width = sane(viewport.width);
+  const height = sane(viewport.height);
 
   const dense = rowDensityFor(height) === "rich";
   const stacked = cornerLayoutFor(width) === "stacked";
+  /*
+   * Whether this height lands in the minimal economy, decided *before* the
+   * reserve is known — `footer` needs the answer and `footer` feeds the
+   * reserve. The two-step form is deliberate: `minimalHeight()` asks "could
+   * this window seat MIN_SCENE_HEIGHT at 26px rows and no ticker", which is
+   * exactly the condition `minimal` is finally set from, evaluated with the
+   * most generous reserve that is still possible.
+   */
+  const minimalFold = height - cornerRowReserve(false, true, false) < MIN_SCENE_HEIGHT;
+
   const ticker = height >= TICKER_HIDE_HEIGHT;
-  const footer = height >= FOOTER_HIDE_HEIGHT;
+  /*
+   * The footer is gated on height *and* on not being minimal.
+   *
+   * ROUND 6 caught this with a sweep: `FOOTER_HIDE_HEIGHT` is 470, but a
+   * 475px window can still land in the minimal economy (it depends on
+   * `available` after the reserve, not on the raw height). The result was a
+   * plan that said `minimal: true` — wordmark-only hero, no ticker — while
+   * still reserving 30px for a one-line stat strip under the INFO rows.
+   *
+   * That is the contradiction `tests/layout-fit.test.ts` now forbids: the
+   * minimal economy exists to buy back every pixel it can, and a decorative
+   * footer is the first thing it should not be paying for.
+   */
+  const footer = !minimalFold && height >= FOOTER_HIDE_HEIGHT;
   /*
    * Three things can give, and they give in this order:
    *
