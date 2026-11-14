@@ -144,3 +144,40 @@ test**: `it.each(BẢNG)` là một lời gọi và mười một test, và có 
 **Vì sao chịu được exit code khác 0:** lượt chạy có cả `docs-numbers.test.ts`,
 và nó **fail chính vì badge cũ** — đúng thứ script này sinh ra để sửa. Đọc báo
 cáo bất kể exit code là cách phá vòng luẩn quẩn.
+
+## `check-svg.mjs`
+
+Validator cho 20 file SVG trong `assets/`. Không có trình render SVG trong CI,
+nên nó kiểm đúng những cách một SVG **hỏng trên trình duyệt mà vẫn hợp lệ XML**:
+
+1. `url(#id)` trỏ tới `id` không tồn tại — gradient biến mất, hình phẳng.
+2. `width` / `height` cố định trên thẻ `<svg>` gốc — không co giãn theo khung.
+3. Gradient tự tham chiếu chính nó — vòng lặp, trình duyệt bỏ qua.
+4. `<script>` hoặc thuộc tính `on*=` — không được có trong tài nguyên tĩnh.
+5. `<animate>` thiếu `attributeName` — hợp lệ, nhưng không animate gì cả.
+
+Nó cũng áp **sàn chất lượng**: mỗi file phải có ít nhất một gradient, một
+animation SMIL và một filter.
+
+```bash
+node scripts/check-svg.mjs
+# → ASSETS OK — 20 SVG, all references resolve, all animated.
+```
+
+> **Vì sao có sàn:** trước vòng 6, 12/20 file có gradient và animation nhưng
+> **không một filter nào** — highlight là màu phẳng giả vờ phát sáng. Sàn này
+> là thứ khiến lần vẽ lại sau đó có kết quả.
+
+## `probe-menu-layout.tsx`
+
+Render menu ở 33 cỡ cửa sổ và đọc **DOM thật** để kiểm những gì `planMenuLayout()`
+hứa: không tràn, không cuộn, panel cao đúng, hero còn chỗ cho wordmark.
+
+```bash
+npx vite-node scripts/probe-menu-layout.tsx
+# → 33/33 DOM checks passed
+```
+
+Khác `smoke-ssr.tsx`: smoke chỉ trả lời "render có ném lỗi không"; probe trả lời
+"bố cục có đúng ở cỡ này không". Nó là cổng duy nhất bắt được lỗi hình học, vì
+`tsc` không thấy số và test đọc-source không thấy DOM.
