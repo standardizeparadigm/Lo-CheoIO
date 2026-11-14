@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" role="img"
      aria-label="Vì sao LỌ bị cắt: hero căn giữa đẩy nội dung ra cả hai phía, hero neo đỉnh thì không">
   <defs>
+    <!-- Round 6: one reusable bloom. Every asset now has a light source —
+         before this, twelve of the twenty had gradients but not a single
+         filter, so the highlights were flat fills pretending to glow. -->
+    <filter id="wc-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
     <linearGradient id="wcBg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0e3a35"/><stop offset="0.55" stop-color="#092723"/><stop offset="1" stop-color="#061a1a"/>
     </linearGradient>
