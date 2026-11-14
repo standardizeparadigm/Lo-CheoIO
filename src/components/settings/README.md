@@ -49,10 +49,16 @@ save formats break.
 
 ## Accessibility, because this is the modal people tab through
 
-- `SegmentedControl` is `role="radiogroup"` with `aria-checked` per option, and
-  arrow keys move between options — the same behaviour as a real radio group.
-- `VolumeStepper` is `role="slider"` with `aria-valuenow/min/max`, and Home/End
-  jump to the bounds.
+- `SegmentedControl` is `role="group"` + `aria-labelledby` with a **toggle
+  button** per option (`aria-pressed`), not a radio group. That is deliberate: a
+  radio group implies arrow-key navigation and a single roving tabindex, and this
+  control is a row of buttons that Tab walks through. Claiming `radiogroup`
+  without implementing the arrow keys is worse than claiming `group` — a screen
+  reader would announce a control the user cannot operate as announced.
+- `VolumeStepper` is a pair of labelled `−`/`+` buttons around a `role="img"`
+  read-out (`aria-label="<label> 40/100"`), not a `role="slider"`. Same reason:
+  a slider role promises `aria-valuenow` and arrow keys, and a stepper with two
+  buttons does not have either.
 - The destructive section requires two presses, and the confirm state resets if
   the modal is closed — a "are you sure" that survives reopening is not a
   confirmation.
