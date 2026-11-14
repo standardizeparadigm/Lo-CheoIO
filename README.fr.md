@@ -177,6 +177,36 @@ Le niveau est **déduit du SemVer** par `tierFor(version)`, jamais tapé à la m
 
 <img src="assets/settings-sections.svg" alt="Réglages en six sections (depuis v1.1.6) — interrupteurs, barres de niveau et sélecteurs (animation SMIL)" width="100%" />
 
+## 📐 Mise en page adaptative — comment le hero choisit sa forme
+
+L'écran d'accueil n'utilise pas de media queries pour décider sa disposition. Il **mesure** la fenêtre et choisit parmi cinq capacités : `sideBySide`, `halo`, `badgeRow`, `mascot`, `liveBadge`.
+
+```
+planMenuLayout(viewport) → { scene, reserve, … }    scene + reserve = hauteur
+            │
+            └─ scene est exactement le nombre que le chrome réserve
+                        │
+    heroLayout({ scene, width }) → 5 booléens
+```
+
+| Indicateur | Actif quand | Ce qui disparaît sinon |
+| --- | --- | --- |
+| `sideBySide` | largeur ≥ 1024 **et** hero ≥ 300px | la mascotte passe sous le wordmark |
+| `halo` | hero ≥ 300px | l'anneau autour du bocal |
+| `badgeRow` | hero ≥ 232px | la plaque « HŨ DƯA ĐẠI CHIẾN » et la ligne de record |
+| `mascot` | presque toujours | — (masquée uniquement en économie minimale) |
+| `liveBadge` | hero ≥ 232px | la ligne EN DIRECT DES CUISINES et la version |
+
+Les trois seuils ne sont **pas des nombres ronds** — chacun vaut la hauteur réelle de ce qu'il conditionne :
+
+```ts
+HEIGHT_FOR_BADGE_ROW    = 232  // 150 wordmark + 40 plaque + 22 live + 20 air
+HEIGHT_FOR_HALO         = 300  // 150 lockup + 240 anneau − 90 chevauchement
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // colonne la plus haute : 192 mascotte + 24 puce
+```
+
+`tests/menu-adaptive.test.ts` balaie **1 682 viewports** et vérifie `heroContentHeight(layout) ≤ scene` à chaque échantillon. Au redimensionnement, les deux hooks écoutent **six** événements et se mettent à jour dans une seule frame.
+
 ## ✨ Points forts
 
 | Groupe | Détails |
