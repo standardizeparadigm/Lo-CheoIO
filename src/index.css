@@ -851,12 +851,45 @@
  * remaining space becomes one deliberate footer instead of three accidental
  * gaps.
  */
+/*
+ * GAME pins its rows to the top; INFO spreads them.
+ *
+ * ROUND 6, and this is the hole in both round-6 screenshots. Both panels are
+ * sized to CORNER_MAX_ROWS (7) so their frames line up, but GAME *has* seven
+ * rows and INFO has four plus two blocks. With `flex-start` on both, INFO's
+ * content stacked at the top, its footer was pushed to the bottom by
+ * `margin-top: auto`, and the ~126px between them was empty — the large blank
+ * region under «THOÁT».
+ *
+ * The rejected `justify-around` spread *every* row with equal gaps, which broke
+ * the panels' internal rhythm. `space-between` on INFO only keeps GAME exactly
+ * as it was and turns INFO's single hole into even gaps between its six blocks.
+ *
+ * `flex-start` is kept for the tight economy, where there is no slack at all.
+ */
 .corner-panel-body {
+  justify-content: flex-start;
+}
+.corner-panel[data-panel="right"] .corner-panel-body {
+  justify-content: space-between;
+}
+.corner-panel[data-tight="1"] .corner-panel-body {
   justify-content: flex-start;
 }
 /* The deliberate footer that fills the space INFO has left over. */
 .panel-footer {
-  margin-top: auto;
+  /*
+   * No `margin-top: auto`.
+   *
+   * It existed to shove the footer to the bottom of a `flex-start` column,
+   * which is what left the hole above it. Now that INFO distributes its blocks
+   * with `space-between`, an auto margin would push the footer away from the
+   * block above it a *second* time and recreate a smaller version of the same
+   * gap, at the bottom instead of the middle.
+   *
+   * GAME never relied on it: its seven rows fill the body.
+   */
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
