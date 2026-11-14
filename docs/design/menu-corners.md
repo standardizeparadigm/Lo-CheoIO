@@ -17,9 +17,41 @@ Menu chính pre-1.1.5 gánh toàn bộ tương tác (CTA, mode cards, scoreboard
 
 ## Vị trí & responsive
 
-- Desktop: 2 panel nằm trong flow (`flex items-end justify-between`) phía trên ticker, dưới hero — neo theo góc màn hình vật lý, cách nhau tuyệt đối.
-- Mobile (<lg): mascot ẩn, panel w-44/w-48, hint text thu nhỏ; không overlap ticker vì cùng flow column.
+> **CẬP NHẬT v1.1.8 — đoạn dưới đây đã SAI và được sửa.** Bản trước viết "2 panel nằm
+> trong flow (`flex items-end justify-between`) phía trên ticker, dưới hero". Đó là
+> thiết kế v1.1.5, và chính nó là lỗi: hai panel là *flex sibling* `shrink-0` của hero,
+> nên chúng lấy chiều cao trước và hero bị ép còn 250px trong cửa sổ 720px — chữ `LỌ`
+> bị cắt ở đỉnh. Xem `docs/releases/v1.1.8.md` §1.
+
+- **Chrome là `absolute inset-x-0 bottom-0`**, không nằm trong flow của hero. Hero giữ
+  chỗ bằng `padding-bottom: reserve`, và `reserve` do **cùng** `planMenuLayout()` tính —
+  nên hai con số không thể lệch (`scene + reserve === viewport.height`).
+- Band chrome có `pointer-events-none`, mỗi panel có `pointer-events-auto` — nếu không,
+  dải phủ toàn chiều rộng sẽ nuốt mọi cú click ở một phần ba dưới màn hình.
+- Desktop: hai panel neo hai góc, cách nhau tuyệt đối, cùng chiều cao `CORNER_MAX_ROWS`
+  để khung thẳng hàng.
+- Mobile (<lg): mascot ẩn, panel `w-44`/`w-48`, hint thu nhỏ.
 - Modal luôn `max-h-[86vh]` + scroll nội bộ.
+
+## Chiều cao panel là hằng số, không phải kết quả
+
+Cả hai panel cao bằng `CORNER_MAX_ROWS` hàng — **kể cả khi nội dung ngắn hơn**. Đó là
+lý do khung của GAME và INFO thẳng hàng được, và cũng là lý do phát sinh lỗi "nửa dưới
+panel THÔNG TIN trống" của v1.1.8.
+
+GAME có 7 hàng, INFO có 4 hàng cộng hai khối (thử thách + tóm tắt). Chênh lệch ~126px.
+Cách xử lý:
+
+| Kinh tế | `justify-content` của body | Vì sao |
+| --- | --- | --- |
+| GAME (mọi lúc) | `flex-start` | 7 hàng lấp đầy, không có khoảng dư |
+| INFO, đầy đủ | `space-between` | chia đều khoảng dư **giữa** sáu khối thay vì dồn một chỗ |
+| INFO, `tight` | `flex-start` | không có khoảng dư để chia |
+
+`.panel-footer` **không** còn `margin-top: auto`: với `space-between` nó sẽ đẩy footer
+ra xa khối trên **lần thứ hai**, tạo lại đúng cái lỗ vừa sửa nhưng nhỏ hơn và ở đáy.
+
+`tests/panel-slack.test.ts` khoá cả bốn dòng trong bảng trên.
 
 ## Trạng thái «Chơi tiếp»
 
