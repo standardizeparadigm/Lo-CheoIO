@@ -5,6 +5,7 @@ import {
   MAX_CRACKS,
   comboWindowFor,
   jarBonus,
+  jarBonusFor,
   levelForCatches,
   multiplierForCombo,
 } from "../src/game/modeMath";
@@ -153,5 +154,79 @@ describe("isModeId", () => {
     expect(src).toContain("isModeId(");
     const fn = (await import("../src/game/runSave")).normalizeSavedRun;
     expect(fn({ mode: "constructor", score: 10, level: 2, catches: 5 })).toBeNull();
+  });
+});
+
+describe("the clamp the header promises", () => {
+  /*
+   * The header of `modeMath.ts` has always claimed: "Every one of them clamps
+   * its input, so a corrupted save or a NaN from the HUD cannot propagate into
+   * the score."
+   *
+   * It did not. `Math.max(0, NaN)` is `NaN`, and `Math.floor(Infinity)` is
+   * `Infinity`, so both walked straight through into `state.score`.
+   *
+   * What that looks like in the product: the HUD renders the literal text
+   * "NaN", and no later addition recovers it — every `NaN + x` is `NaN`. The
+   * Infinity case is worse: `jarBonus(Infinity)` is Infinity, so the next
+   * filled jar pays an infinite bonus and the run becomes unwinnable in the
+   * sense that it cannot end.
+   *
+   * Each test below names one entry point and asserts a *finite* result, which
+   * is the property that keeps the score readable.
+   */
+  const GARBAGE = [NaN, Infinity, -Infinity, undefined as unknown as number];
+
+  it("jarBonus returns a finite number for every corrupt level", () => {
+    for (const bad of GARBAGE) {
+      expect(Number.isFinite(jarBonus(bad)), `jarBonus(${bad})`).toBe(true);
+      // Level 0 and NaN both fall back to the same floor: the base bonus.
+      expect(jarBonus(bad), `jarBonus(${bad})`).toBe(200 + 1 * 50);
+    }
+  });
+
+  it("levelForCatches never returns NaN or Infinity", () => {
+    for (const bad of GARBAGE) {
+      expect(levelForCatches(bad), `levelForCatches(${bad})`).toBe(1);
+    }
+  });
+
+  it("multiplierForCombo never returns NaN or Infinity", () => {
+    for (const bad of GARBAGE) {
+      expect(multiplierForCombo(bad, false), `multiplier(${bad})`).toBe(1);
+      expect(multiplierForCombo(bad, true), `multiplier frenzy(${bad})`).toBe(2);
+    }
+  });
+
+  it("jarBonusFor survives a corrupt level in every mode", () => {
+    for (const mode of ["classic", "combo", "feast"] as const) {
+      for (const bad of GARBAGE) {
+        const out = jarBonusFor(bad, mode);
+        expect(Number.isFinite(out), `jarBonusFor(${bad}, ${mode})`).toBe(true);
+        expect(out).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("still returns the documented values for real input", () => {
+    // The clamp must not change the happy path — these are the numbers the
+    // balance doc publishes.
+    expect(jarBonus(1)).toBe(250);
+    expect(jarBonus(5)).toBe(450);
+    expect(levelForCatches(0)).toBe(1);
+    expect(levelForCatches(9)).toBe(1);
+    expect(levelForCatches(10)).toBe(2);
+    expect(multiplierForCombo(0, false)).toBe(1);
+    expect(multiplierForCombo(4, false)).toBe(2);
+    expect(multiplierForCombo(40, false)).toBe(9);
+    expect(multiplierForCombo(4, true)).toBe(4);
+  });
+
+  it("clamps a negative instead of paying a negative bonus", () => {
+    // Before the fix, `Math.max(1, -5) * 50` gave 200 + 50 = 250 by luck of the
+    // floor; the point is that it is *intentional* now.
+    expect(jarBonus(-5)).toBe(250);
+    expect(levelForCatches(-100)).toBe(1);
+    expect(multiplierForCombo(-100, false)).toBe(1);
   });
 });
