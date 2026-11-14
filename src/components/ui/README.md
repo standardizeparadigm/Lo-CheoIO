@@ -15,6 +15,7 @@ reusable and what keeps this folder from growing into a second `menu/`.
 | `scoreboard.tsx` | 74 | a sorted table with one highlighted row |
 | `keycap.tsx` | 22 | `<kbd>` styling used by every shortcut surface |
 | `stat.tsx` | 31 | a label/value pair; **not** the panel footer (`menu/panel/stat.ts`) |
+| `index.ts` | — | the barrel: the eight primitives and their prop types |
 
 ## `modal.tsx` is the only file with behaviour worth explaining
 
