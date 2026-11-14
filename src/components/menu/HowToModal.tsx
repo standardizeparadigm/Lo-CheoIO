@@ -62,7 +62,7 @@ export default function HowToModal({ onClose, touchMode }: { onClose: () => void
                 {t(r.titleKey)}
                 {i === todayRule && (
                   <span className="ml-1.5 border border-tumeric-500/60 px-1 py-px align-middle font-body text-[8px] font-bold tracking-[0.2em] text-tumeric-400 uppercase">
-                    {t("deck.tip")}
+                    {t("daily.rule")}
                   </span>
                 )}
               </span>
