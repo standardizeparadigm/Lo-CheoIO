@@ -279,6 +279,8 @@ const ko: Record<MessageKey, string> = {
   "shortcuts.pause": "일시정지",
   "shortcuts.mute": "음소거",
   "shortcuts.touch": "탭 & 드래그",
+  "shortcuts.start": "시작",
+  "shortcuts.restart": "즉시 다시",
   "shortcuts.footer": "모든 조작은 키보드와 터치 모두에서 사용할 수 있습니다.",
   "info.shortcuts": "단축키",
   "info.shortcutsHint": "조작",
