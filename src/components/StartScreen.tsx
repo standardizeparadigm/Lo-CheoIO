@@ -57,10 +57,10 @@ import {
   QuitModal,
 } from "./menu";
 import { useMenuPlan, useViewportWidth } from "./menu/layout/useMenuPlan";
-import { MenuDeck } from "./menu/deck";
 import { Wordmark } from "./menu/wordmark";
 import { TICKER_KEYS } from "./menu/ticker/keys";
 import { MenuTicker } from "./menu/ticker/MenuTicker";
+import { heroLayout } from "./menu/adaptive";
 import { HeroDecor } from "./menu/scene/HeroDecor";
 import { JarHalo } from "./menu/scene/JarHalo";
 import { JarLogo } from "./ui";
@@ -115,6 +115,14 @@ export default function StartScreen({
   const closeModal = () => setModal("none");
   const plan = useMenuPlan();
   const viewportWidth = useViewportWidth();
+  /*
+   * The hero's layout comes from the plan, not from a media query — see
+   * `menu/adaptive/hero.ts` for why. Both inputs are live: `plan` re-plans on
+   * resize/orientationchange/visualViewport resize, and `viewportWidth` is the
+   * width the same re-plan read, so the two can never describe different
+   * windows.
+   */
+  const hero = heroLayout({ scene: plan.scene, width: viewportWidth, minimal: plan.minimal });
 
   return (
     <div className="absolute inset-0 z-40 overflow-hidden">
@@ -179,10 +187,15 @@ export default function StartScreen({
           >
             <HeroDecor />
 
-            <div className="relative z-10 flex flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-10">
+            <div
+              className={`relative z-10 flex flex-col items-center gap-4${
+                hero.sideBySide ? " lg:flex-row lg:items-center lg:gap-10" : ""
+              }`}
+              data-hero-layout={hero.sideBySide ? "row" : "stack"}
+            >
               {/* ---- title lockup ---- */}
-              <div className="anim-slide w-full flex-1 text-center lg:text-left">
-                <div className={`mb-2 flex flex-wrap items-center justify-center gap-2 lg:justify-start${plan.minimal ? " hidden" : ""}`}>
+              <div className={`anim-slide w-full flex-1 text-center${hero.sideBySide ? " lg:text-left" : ""}`}>
+                <div className={`mb-2 flex flex-wrap items-center justify-center gap-2 ${hero.sideBySide ? "lg:justify-start" : ""}${hero.liveBadge ? "" : " hidden"}`}>
                   <span className="flex items-center gap-1.5 border border-chili-500/50 bg-chili-500/10 px-2 py-0.5">
                     <span className="anim-flicker h-2 w-2 rounded-full bg-chili-500" />
                     <span className="font-body text-[9px] font-extrabold tracking-[0.4em] text-chili-400 uppercase">
@@ -203,15 +216,21 @@ export default function StartScreen({
                 */}
                 <Wordmark lo={t("app.wordmarkLo")} cheo={t("app.wordmarkCheo")} label={t("app.wordmark")} />
 
-                <div className="mt-3 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                  <span className="inline-block -rotate-2 border-[3px] border-jade-950 bg-chili-500 px-3 py-1 font-display text-[11px] tracking-[0.2em] text-clay-100 hard-shadow-sm sm:text-xs">
-                    {t("brand.badge")}
-                  </span>
-                  <span className="font-body text-xs font-semibold tracking-wide text-brine-300">
-                    {t("menu.best")}{" "}
-                    <b className="font-display text-sm text-tumeric-400 tabular-nums">{fmtNum(best, lang)}</b>
-                  </span>
-                </div>
+                {hero.badgeRow && (
+                  <div
+                    className={`mt-3 flex flex-wrap items-center justify-center gap-3${
+                      hero.sideBySide ? " lg:justify-start" : ""
+                    }`}
+                  >
+                    <span className="inline-block -rotate-2 border-[3px] border-jade-950 bg-chili-500 px-3 py-1 font-display text-[11px] tracking-[0.2em] text-clay-100 hard-shadow-sm sm:text-xs">
+                      {t("brand.badge")}
+                    </span>
+                    <span className="font-body text-xs font-semibold tracking-wide text-brine-300">
+                      {t("menu.best")}{" "}
+                      <b className="font-display text-sm text-tumeric-400 tabular-nums">{fmtNum(best, lang)}</b>
+                    </span>
+                  </div>
+                )}
 
                 {/*
                   ROUND 5: the tagline moved out of the hero and into
@@ -242,33 +261,43 @@ export default function StartScreen({
                   start the game. It does not; that claim was wrong and is
                   corrected here so the next reader is not misled by it.)
                 */}
-                {!plan.minimal && <div className="hero-rule mx-auto mt-5 w-40 lg:mx-0" />}
+                {hero.badgeRow && <div className={`hero-rule mx-auto mt-5 w-40${hero.sideBySide ? " lg:mx-0" : ""}`} />}
 
                 {/*
-                  v1.1.8 (round 3): the deck replaces the three-number strip.
+                  ROUND 6: the deck is GONE — this is the «chỗ ở hình 3» the
+                  report points at.
 
-                  Round 2 filled this band with mode/ingredient/achievement
-                  counts; the report asks for those to go, and they were
-                  redundant with the tagline anyway. The deck fills the same
-                  band with the current mode, today's challenge and the day's
-                  how-to rule — three things the menu does not repeat.
+                  It was three columns of prose (mode blurb, daily challenge,
+                  rule of the day) sitting inside a fixed-height hero. At every
+                  height the chrome allowed, the three columns needed more room
+                  than the band had: at 1920×1080 the right column's rule text
+                  was clipped mid-sentence, and at 1920×820 the whole deck row
+                  was underneath the corner panels. A band cannot hold three
+                  paragraphs and a 200px wordmark at the same time; something
+                  had to stop being a paragraph.
+
+                  What it carried is not lost, and none of it was only here:
+
+                    · the mode is printed on the chip under the mascot, and the
+                      full list is a modal away in GAME;
+                    · the challenge is in the INFO panel's summary now, with its
+                      mode and target — see `menu/panel/summary.ts`;
+                    · the rule of the day is one line of the how-to modal, which
+                      was always the complete version of the same six rules.
+
+                  Deleting the band is what lets the hero be *only* the wordmark,
+                  the badge and the record — which is what the layout needs to
+                  fit at every size without clipping anything.
                 */}
-                {!plan.minimal && (
-                  <MenuDeck
-                    mode={mode}
-                    onModes={() => setModal("modes")}
-                    onHowTo={() => setModal("howto")}
-                    viewportWidth={viewportWidth}
-                  />
-                )}
               </div>
 
               {/* ---- mascot ---- */}
-              <div className={`anim-pop relative flex shrink-0 items-center justify-center${plan.minimal ? " hidden" : ""}`}>
-                <div className="relative flex h-40 w-40 items-center justify-center sm:h-48 sm:w-48 xl:h-60 xl:w-60">
-                  <JarHalo />
+              <div className={`anim-pop relative flex shrink-0 items-center justify-center${hero.mascot ? "" : " hidden"}`}>
+                <div className={`relative flex items-center justify-center ${hero.sideBySide ? "h-40 w-40 sm:h-48 sm:w-48 xl:h-60 xl:w-60" : "h-32 w-32"}`}>
+                  {hero.halo && <JarHalo />}
                   <JarLogo className="anim-bob anim-breathe jar-glow relative z-10 h-32 w-auto sm:h-40 xl:h-48" mood="happy" />
                 </div>
+                {!plan.minimal && (
                 <button
                   type="button"
                   onClick={() => setModal("modes")}
@@ -283,6 +312,7 @@ export default function StartScreen({
                     {t(`mode.${mode}.name` as MessageKey)}
                   </span>
                 </button>
+                )}
               </div>
             </div>
           </section>
