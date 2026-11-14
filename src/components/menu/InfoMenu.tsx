@@ -9,8 +9,11 @@ import { PanelStatStrip } from "./panel";
 import { buildStat } from "./panel";
 import { PanelSummary } from "./panel";
 import { summaryLines } from "./panel";
-import { APP_VERSION } from "../../version";
+import { PanelChallenge } from "./panel";
+import { challengeLine } from "./panel";
+import { challengeFor } from "../../game/daily";
 import { MODE_LIST } from "../../game/modes";
+import { APP_VERSION } from "../../version";
 import { ACHIEVEMENTS } from "../../game/achievements";
 import { KINDS } from "../../game/engine";
 
@@ -100,6 +103,17 @@ export default function InfoMenu({
         in the panel whose job is summarising. Not the rejected hero strip: no
         duplication on this screen, and not in the hero.
       */}
+      {/*
+        ROUND 6: the deck's challenge, as one line. The deck itself is gone
+        (three columns cannot live in a fixed-height band), but the challenge is
+        one number and one mode name, and it belongs somewhere the player can
+        read it. See `panel/summary.ts#challengeLine`.
+      */}
+      {plan.footer && (
+        <PanelChallenge
+          line={(() => { const c = challengeFor(new Date(), MODE_LIST.map((m) => m.id)); return challengeLine(c.mode, c.target); })()}
+        />
+      )}
       {!plan.tight && (
         <PanelSummary
           lines={summaryLines({
