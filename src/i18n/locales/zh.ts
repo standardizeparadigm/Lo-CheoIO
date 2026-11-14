@@ -273,6 +273,8 @@ const zh: Record<MessageKey, string> = {
   "shortcuts.pause": "暂停",
   "shortcuts.mute": "静音",
   "shortcuts.touch": "轻触与拖动",
+  "shortcuts.start": "开始",
+  "shortcuts.restart": "立即重来",
   "shortcuts.footer": "所有操作都支持键盘与触屏。",
   "info.shortcuts": "快捷键",
   "info.shortcutsHint": "操作",
