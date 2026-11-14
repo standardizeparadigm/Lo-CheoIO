@@ -28,3 +28,9 @@ Everything is a value in `decor.ts` — position, size, kind, drift duration. No
 component holds its own numbers. That means the layout can be asserted in a test
 with no renderer, and moving one glyph is a one-line edit rather than a hunt
 through JSX.
+
+## `index.ts`
+
+The barrel that `HeroDecor` and `JarHalo` are imported through. It exports the
+three components and the decor type; `decor.ts` stays importable directly
+because the tests read it without React.
