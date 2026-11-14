@@ -299,6 +299,8 @@ const vi = {
   "shortcuts.pause": "Tạm dừng",
   "shortcuts.mute": "Tắt/bật âm",
   "shortcuts.touch": "Chạm & kéo",
+  "shortcuts.start": "Khởi động",
+  "shortcuts.restart": "Chơi lại ngay",
   "shortcuts.footer": "Mọi phím đều dùng được ở cả bàn phím và tay cầm ảo trên điện thoại.",
   "info.shortcuts": "PHÍM TẮT",
   "info.shortcutsHint": "Điều khiển",
