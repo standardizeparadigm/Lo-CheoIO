@@ -11,7 +11,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.1.8-f5a81c.svg?style=for-the-badge&logo=semver&logoColor=black)](docs/releases/v1.1.8.md)
 [![Tier](https://img.shields.io/badge/tier-PATCH%20%C2%B7%20t%C3%ADm-9d6bff.svg?style=for-the-badge)](#-changelog-chia-t%E1%BA%A7ng)
-[![Tests](https://img.shields.io/badge/tests-615%20%C2%B7%2059%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-kiểm-chứng-chất-lượng)
+[![Tests](https://img.shields.io/badge/tests-620%20%C2%B7%2059%20files-2bb48c.svg?style=for-the-badge&logo=vitest&logoColor=white)](#-kiểm-chứng-chất-lượng)
 [![CI](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml/badge.svg)](https://github.com/standardizeparadigm/Lo-CheoIO/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-AGPL--3.0--only-e63b2e.svg?style=for-the-badge)](LICENSE)
 [![Offline](https://img.shields.io/badge/offline--first-100%25-2bb48c.svg?style=for-the-badge)](#-cài-đặt--chạy)
@@ -519,7 +519,7 @@ lo-cheoio/
 │  └─ utils/
 │     ├─ cn.ts             # clsx + tailwind-merge
 │     └─ useFocusTrap.ts   # trap Tab trong modal (v1.1.6)
-└─ tests/                  # vitest — 59 files · 615 test (modes · achievements · storage · i18n · runSave · settings · presets · audio · changelog-tiers…)
+└─ tests/                  # vitest — 59 files · 620 test (modes · achievements · storage · i18n · runSave · settings · presets · audio · changelog-tiers…)
 ```
 
 ## 🧱 Kiến trúc & hiệu năng
