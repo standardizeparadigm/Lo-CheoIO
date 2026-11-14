@@ -7,7 +7,7 @@ import type { ChangelogEntry } from "../types";
  * một phép cộng sai, và cả bốn đã được sửa bằng cách khai báo chiều cao thay
  * vì để nội dung tự quyết định.
  *
- * 40 bullets (vi) / 40 (en). Keep the two lists the same length:
+ * 41 bullets (vi) / 41 (en). Keep the two lists the same length:
  * tests/changelog-tiers.test.ts asserts it, and the panel would show an
  * uneven list otherwise.
  */
@@ -56,6 +56,7 @@ export const V1_1_8: ChangelogEntry = {
     "THÊM mục «Bố cục thích nghi» cho cả 10 README — bảng năm cờ của plan, hai ngưỡng suy ra được, và sơ đồ ASCII hai tầng (cửa sổ → plan → scene + reserve)",
     "FIX TIP THEO NGÀY TRẢ VỀ CHỈ SỐ RÁC: `tipIndexFor()` chặn `count <= 0` nhưng `NaN <= 0` là **false**, nên `count = NaN` lọt qua và hàm trả `NaN`; `count = 5.5` lọt qua và trả `0.5`. Caller dựng key `rule.NaN.t` / `rule.0.5.t` — không có trong bảng, tip hiện trống. Guard nay đòi **số nguyên**, không chỉ đòi dương; 10 test",
     "FIX FOOTER PANEL IN RA `✓NaN/NaN`: `stat.ts` kẹp bằng `Math.max(0, Math.trunc(x))` — `trunc(NaN)` là `NaN` và `max(0, NaN)` là `NaN`, nên footer in `✓NaN/NaN`, còn `Infinity` in `✓5/Infinity`. Giá trị đến từ localStorage nên người chơi sửa được; nay `whole()` loại mọi giá trị không hữu hạn, và một `tier` undefined không còn ném lỗi làm sập cả panel; 13 test",
+    "FIX BẪY FOCUS GIỮ PHÍM TAB LÀM CON TIN: khi container không còn control nào focus được (dialog dài đã cuộn hết, panel đang ẩn nút), `useFocusTrap` gọi `preventDefault()` rồi `return` — Tab **không làm gì cả**, mà dialog không nói gì về Escape; nay để trình duyệt xử lý. Cùng chỗ đó: trả focus về phần tử đã mở dialog nay kiểm `isConnected` và `disabled`, vì «Chơi tiếp» tự tắt ngay khi dùng xong snapshot nên `focus()` im lặng rơi về `<body>`; 12 test",
     "`CHÉO` KHÔNG CÒN TO HƠN `LỌ`: cỡ cũ là hai con số đặt độc lập (89.6px và 128px ở 1280px — từ ngắn hơn lại bằng 1.43 lần từ dài hơn, sáu glyph tràn lên đè `LỌ`); nay `CHÉO` suy ra từ `LỌ` qua một tỉ lệ khai báo, và test quét từng pixel từ 320 đến 3840 đòi tỉ lệ < 1 ở mọi điểm — gồm 320–375px, chỗ test cũ bỏ qua và chỗ sàn 2.9rem cũ làm `CHÉO` lớn hơn 12%",
     "LỖI TÌM THẤY KHI TÁCH MODULE: `isModeId(\"toString\")` trả về true (`in` đi qua prototype chain) nên một save sửa tay thành `{\"mode\":\"constructor\"}` lọt qua `runSave.ts` và engine nhận `Object` thay cho mode record; `metaFor()` và `t()` dính đúng lỗi đó — `t(\"toString\")` trả về một hàm, và ném TypeError khi có params",
   ],
@@ -98,6 +99,7 @@ export const V1_1_8: ChangelogEntry = {
     "NEW adaptive-layout section in all 10 READMEs — the plan's five flags, the two derived thresholds, and an ASCII diagram of the two layers (window → plan → scene + reserve)",
     "THE TIP SELECTOR RETURNED A NON-INDEX: `tipIndexFor()` guarded `count <= 0`, but `NaN <= 0` is **false** — so `count = NaN` passed and the function returned `NaN`; `count = 5.5` passed and returned `0.5`. The caller builds `rule.NaN.t` / `rule.0.5.t`, which the table does not have, and the day's tip renders blank. The guard now demands an **integer**, not merely a positive number; 10 tests",
     "THE PANEL FOOTER PRINTED `✓NaN/NaN`: `stat.ts` clamped with `Math.max(0, Math.trunc(x))` — `trunc(NaN)` is `NaN` and `max(0, NaN)` is `NaN`, so the footer rendered `✓NaN/NaN`, and `Infinity` rendered `✓5/Infinity`. The value comes from localStorage, so a player can type it; `whole()` now rejects every non-finite input, and an undefined `tier` no longer throws the whole panel away; 13 tests",
+    "FOCUS TRAP HELD TAB HOSTAGE: when the container had no focusable control left (a long dialog scrolled past its last one, a panel whose button was hidden), `useFocusTrap` called `preventDefault()` and returned — Tab did **nothing**, and the dialog never mentions Escape; the browser now handles it. Same hook: restoring focus to the element that opened the dialog now checks `isConnected` and `disabled`, because «Chơi tiếp» disables itself the moment the snapshot is consumed and `focus()` then falls silently to `<body>`; 12 tests",
     "`CHÉO` IS NO LONGER LARGER THAN `LỌ`: the two sizes were independent numbers (89.6px and 128px at 1280px — the shorter word 1.43× the longer one, its six glyphs spilling up over `LỌ`); `CHÉO` now derives from `LỌ` through one declared ratio, and the test sweeps every pixel from 320 to 3840 demanding a ratio below 1 everywhere — including 320–375px, which the old breakpoint list skipped and where the old 2.9rem floor made `CHÉO` 12% larger",
     "BUGS FOUND WHILE SPLITTING THE MODULE: `isModeId(\"toString\")` returned true (`in` walks the prototype chain), so a hand-edited save saying `{\"mode\":\"constructor\"}` passed normalisation in `runSave.ts` and the engine received `Object` instead of a mode record; `metaFor()` and `t()` had the same bug — `t(\"toString\")` handed back a function, and threw a TypeError when called with params",
   ],
