@@ -41,7 +41,7 @@
 
 ## 🆕 Mới trong v1.1.8
 
-> Bản **vá cuối** trước 1.2.0. Không thêm chế độ chơi, không đổi cân bằng, không đổi định dạng lưu — chỉ sửa cho màn hình bắt đầu hết tràn, đưa «Cách chơi» vào menu GAME và trang trí lại hero.
+> Bản **vá cuối** trước 1.2.0. Không thêm chế độ chơi, không đổi cân bằng, không đổi định dạng lưu. Vòng cuối của bản vá này làm một việc: **hero tự đo cửa sổ và tự chọn bố cục**, ở mọi kích thước, không cuộn, không cắt. Kèm theo là dải deck bị bỏ, và 20 hình SVG được vẽ lại.
 
 ### 📐 Một phép cộng không ai quản lý — và bốn lỗi cùng lúc
 
@@ -216,23 +216,88 @@ Cách sửa không phải `z-index`. Dấu không bị che vì **hình học**, 
 
 `tests/wordmark-diacritics.test.ts` khoá cả bốn mặt: chuỗi locale có dấu thật, rule có màu đặc, không rule nào vừa clip vừa `transparent`, và `inset` không được trả lại giá trị âm ở phía trên.
 
-### 🎴 Deck thay dải đếm — cùng một dải, nội dung khác
+### 🪟 Hai ảnh, cùng một cửa sổ, khác nhau 260 pixel
 
-Vòng 2 lấp khoảng trống dưới tagline bằng ba con số (`9 chế độ · 14 nguyên liệu · 16 thành tựu`). Yêu cầu vòng 3 bảo bỏ — và đúng: **đoạn tagline ngay phía trên đã nói đúng ba con số đó**, nên dải kia chỉ lặp lại chúng to hơn.
+Hai ảnh chụp cuối cùng của vòng này là **cùng một ứng dụng**: `1920×1080` khi bấm toàn màn hình, và `1920×820` khi thu về cửa sổ. Chiều rộng không đổi một pixel nào. Nhưng bức thứ hai có nửa dưới của hero nằm **dưới** hai panel góc, và chip `CHẾ ĐỘ CHƠI` bị cắt làm đôi.
 
-Hình dạng ba ô thì không có gì sai, nên nó được giữ; nội dung thì đổi thành ba thứ menu **không** nói ở chỗ khác:
+Nguyên nhân không phải thiếu chiều cao. Đó là **câu hỏi sai**:
 
-| Ô | Nội dung | Lấy từ đâu |
+| Thứ quyết định bố cục | Biết gì | Không biết gì |
 | --- | --- | --- |
-| trái | chế độ đang chọn + mô tả một dòng | `mode.<id>.name` · `mode.<id>.desc` |
-| giữa | **thử thách hôm nay** — một chế độ và một mốc điểm | `challengeFor(new Date(), MODE_IDS)` |
-| phải | **luật chơi trong ngày** — mở thẳng modal Cách chơi | `rule.<n>.t` · `rule.<n>.d` |
+| `sm:` · `lg:` trong CSS | chiều **rộng** | chiều **cao** |
+| `plan.minimal` | chiều **cao** (dưới 220px) | chiều rộng, và chỉ bật khi đã quá muộn |
+| `heroLayout()` (mới) | **cả hai**, từ cùng con số panel dùng | — |
 
-Ba điểm dễ sai, và cả ba đều được khoá bằng test (`tests/menu-deck.test.ts`, 520 test):
+Một quyết định phụ thuộc *hai trục* thì không thể viết bằng media query một trục. Nên bố cục hero rời khỏi CSS và thành một hàm thuần:
 
-1. **Ngày tính theo giờ địa phương.** Dùng mốc UTC thì thử thách đổi lúc **07:00 sáng ở Việt Nam**, và người chơi đọc thành *"đổi hai lần hôm nay"*. `localDayNumber()` dựng `new Date(y, m, d)` và làm tròn, nên một ca DST cũng không làm rơi mất ngày.
-2. **Không dùng phép chia lấy dư theo số chế độ.** Nó đi **tuần tự** qua danh sách: hôm nay classic, mai zen, mốt inferno… người chơi học được quy luật sau ba ngày. `mix()` là một bộ trộn 32-bit nhỏ.
-3. **Tip không xoay cùng hash với thử thách.** Nếu xoay cùng nhịp thì mỗi chế độ luôn đi với đúng một luật, và người chơi chỉ học được một phần sáu trò chơi. Tip dùng bước nhảy 5 trên 6 ô — nguyên tố cùng nhau, nên cả sáu luật xuất hiện trước khi lặp.
+```ts
+export function heroLayout({ scene, width, minimal }: HeroInput): HeroLayout {
+  if (minimal) return { sideBySide: false, halo: false, badgeRow: false, mascot: false, liveBadge: false };
+
+  const sideBySide = width >= WIDTH_FOR_SIDE_BY_SIDE && scene >= HEIGHT_FOR_SIDE_BY_SIDE;
+
+  return {
+    sideBySide,
+    halo:       scene >= HEIGHT_FOR_HALO,
+    badgeRow:   scene >= HEIGHT_FOR_BADGE_ROW,
+    mascot:     true,          // không bao giờ ẩn logo
+    liveBadge:  scene >= HEIGHT_FOR_BADGE_ROW,
+  };
+}
+```
+
+`scene` là chiều cao hero mà `planMenuLayout()` đã cấp — **đúng con số** chrome đang giữ chỗ. Không thể lệch, vì cả hai đọc từ một hàm.
+
+#### Ba ngưỡng, cả ba đều được suy ra
+
+Không có số tròn nào ở đây. Mỗi hằng số bằng chiều cao thật của thứ nó canh:
+
+| Hằng số | Giá trị | Suy ra từ |
+| --- | --- | --- |
+| `HEIGHT_FOR_BADGE_ROW` | **232** | wordmark 150 + badge 40 + live badge 22 = 212, cộng 20px thở |
+| `HEIGHT_FOR_HALO` | **300** | lockup 150 + vòng halo 240 − chồng lấn 90 |
+| `HEIGHT_FOR_SIDE_BY_SIDE` | **300** | cột cao hơn: mascot 192 + chip 24 + đệm |
+
+Con số `232` là một **lỗi đã bị bắt**. Bản nháp đầu đặt nó bằng `210` — dưới chính cái lockup 212px mà nó canh. Kết quả: band 210px vẽ lockup 212px, dòng kỷ lục bị cắt mất. Đúng loại lỗi mà cả vòng này đang sửa, do chính bản sửa sinh ra.
+
+`tests/menu-adaptive.test.ts` quét **1 682 viewport** — mọi tổ hợp 15 chiều rộng thật × 13 chiều cao thật, rồi bước 61px × 19px qua `320..3840` × `150..700` — và khẳng định `heroContentHeight(layout) ≤ scene` ở từng mẫu.
+
+#### Sự kiện thứ tư bị thiếu
+
+Người dùng tạo ra hai ảnh đó bằng cách **bấm phím toàn màn hình**. Ứng dụng nghe `resize` và `orientationchange`. Firefox không bắn cái nào trong hai khi vào toàn màn hình; Safari bản cũ chỉ bắn `webkitfullscreenchange`.
+
+Nên cửa sổ đổi chiều cao, hero giữ kế hoạch cũ, và chip bị cắt cho tới lần resize kế tiếp.
+
+```ts
+export const VIEWPORT_EVENTS = [
+  "resize",
+  "orientationchange",
+  "fullscreenchange",
+  "webkitfullscreenchange",
+  "mozfullscreenchange",
+  "MSFullscreenChange",
+] as const;
+```
+
+Danh sách này nằm một chỗ, vì `useMenuPlan()` và `useViewportWidth()` **cả hai** cần nó — và trước đây mỗi hàm tự đăng ký bản sao của mình, tức là hai bản có thể mô tả hai cửa sổ khác nhau.
+
+### 🗑️ Dải ngăn cách ở ảnh 12 — và cái deck đi cùng nó
+
+Ảnh thứ ba là một dải `1443×180` cắt ra từ giữa màn hình: dấu `🎮`, một đường vàng, rồi ba tiêu đề `GAME / THỦ THÁCH HÔM NAY / LUẬT CHƠI`. Đó là **deck** — ba cột chữ trong một band cao cố định.
+
+Nó không thể ở đó, và hai ảnh kia nói tại sao: ở `1920×1080` cột phải bị cắt **giữa câu**, ở `1920×820` cả hàng nằm dưới panel. Một band đủ cao cho wordmark 200px không đồng thời đủ cao cho ba đoạn văn.
+
+Không có gì trong deck bị mất:
+
+| Deck nói gì | Bây giờ ở đâu |
+| --- | --- |
+| chế độ đang chơi | chip dưới mascot, danh sách đầy đủ trong menu GAME |
+| **thử thách hôm nay** | một dòng trong panel THÔNG TIN — `mode · mốc điểm` |
+| luật chơi trong ngày | một dòng của modal Cách chơi, bản đầy đủ của đúng sáu luật đó |
+
+Logic ngày tháng thì **không** đi cùng. `challengeFor()` và `tipIndexFor()` chuyển sang `src/game/daily/` — chúng là hàm thuần của ngày địa phương, không liên quan gì tới việc hiển thị. Cả 21 test đi theo, giữ nguyên tên.
+
+Chỗ trống dưới wordmark bây giờ là **có chủ ý**. Đó là cái giá của một hero vừa ở mọi kích cỡ.
 
 ### 🔁 Vòng hai: bốn lỗi còn lại của cùng một màn hình
 
