@@ -39,7 +39,7 @@ Es un **arcade de acción de pantalla única** inspirado en los humildes encurti
 
 ## 🆕 Novedades de v1.1.8
 
-> El **último parche** antes de 1.2.0. Sin modos nuevos, sin cambios de equilibrio, sin cambios en el formato de guardado — solo una pantalla de inicio que ya no desborda, el «Cómo jugar» dentro del menú GAME y un hero decorado.
+> El **parche final** antes de 1.2.0. Sin modo nuevo, sin cambios de balance, sin cambios en el formato de guardado. Esta última ronda hace una cosa: **el hero mide la ventana y elige su propio diseño** — en todos los tamaños, sin scroll ni recortes. La banda del deck desaparece y los 20 SVG se redibujan.
 
 ### 📐 Una suma que nadie vigilaba — y cuatro errores a la vez
 
@@ -106,6 +106,89 @@ src/components/menu/
 | 8 | Documentación/SVG/lanzadores desfasados | barrido de 10 README + docs + 19 SVG → 1.1.8 |
 
 → Detalles completos: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md) · Versión anterior: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
+
+### 🪟 Dos capturas, una ventana, 260 píxeles de diferencia
+
+Las dos últimas capturas de esta ronda son **la misma aplicación**: `1920×1080` a pantalla completa y `1920×820` en ventana. El ancho no cambió ni un píxel. Pero en la segunda, la mitad inferior del hero queda **debajo** de los dos paneles de esquina y el chip `CHẾ ĐỘ CHƠI` aparece cortado por la mitad.
+
+La causa no es falta de altura. Es la pregunta equivocada:
+
+| Qué decide el diseño | Sabe | No sabe |
+| --- | --- | --- |
+| `sm:` · `lg:` en CSS | el **ancho** | el **alto** |
+| `plan.minimal` | el **alto** (bajo 220px) | el ancho, y solo cuando ya es tarde |
+| `heroLayout()` (nuevo) | **ambos**, desde el mismo número que usa el chrome | — |
+
+Una decisión que depende de *dos ejes* no se puede escribir como una media query de un eje. Así que el diseño del hero salió del CSS y se volvió una función pura:
+
+```ts
+export function heroLayout({ scene, width, minimal }: HeroInput): HeroLayout {
+  if (minimal) return { sideBySide: false, halo: false, badgeRow: false, mascot: false, liveBadge: false };
+
+  const sideBySide = width >= WIDTH_FOR_SIDE_BY_SIDE && scene >= HEIGHT_FOR_SIDE_BY_SIDE;
+
+  return {
+    sideBySide,
+    halo:       scene >= HEIGHT_FOR_HALO,
+    badgeRow:   scene >= HEIGHT_FOR_BADGE_ROW,
+    mascot:     true,          // el logo nunca se oculta
+    liveBadge:  scene >= HEIGHT_FOR_BADGE_ROW,
+  };
+}
+```
+
+`scene` es la altura que `planMenuLayout()` asignó al hero — **el número exacto** que el chrome reserva. No puede desviarse, porque ambos leen de una sola función.
+
+#### Tres umbrales, los tres derivados
+
+Aquí no hay un solo número redondo. Cada constante es la altura real de lo que controla:
+
+| Constante | Valor | Derivada de |
+| --- | --- | --- |
+| `HEIGHT_FOR_BADGE_ROW` | **232** | wordmark 150 + badge 40 + live badge 22 = 212, más 20px de aire |
+| `HEIGHT_FOR_HALO` | **300** | lockup 150 + anillo 240 − solape 90 |
+| `HEIGHT_FOR_SIDE_BY_SIDE` | **300** | la columna más alta: mascota 192 + chip 24 + relleno |
+
+`232` es un **error que se atrapó**. El primer borrador lo puso en `210` — por debajo del mismo lockup de 212px que controla. Una banda de 210px dibujaba un lockup de 212 y la línea de récord quedaba cortada. Exactamente la clase de error que esta ronda corrige, producido por la propia corrección.
+
+`tests/menu-adaptive.test.ts` recorre **1.682 viewports** — cada combinación de 15 anchos reales × 13 altos reales, y luego un paso por `320..3840` × `150..700` — y verifica `heroContentHeight(layout) ≤ scene` en cada muestra.
+
+#### El cuarto evento que faltaba
+
+El usuario produjo esas dos capturas **pulsando la tecla de pantalla completa**. La app escuchaba `resize` y `orientationchange`. Firefox no dispara ninguna de las dos al alternar pantalla completa; Safari antiguo solo dispara `webkitfullscreenchange`.
+
+Así que la ventana cambió de alto, el hero conservó su plan viejo, y el chip siguió cortado hasta el siguiente resize.
+
+```ts
+export const VIEWPORT_EVENTS = [
+  "resize",
+  "orientationchange",
+  "fullscreenchange",
+  "webkitfullscreenchange",
+  "mozfullscreenchange",
+  "MSFullscreenChange",
+] as const;
+```
+
+La lista vive en un solo lugar, porque `useMenuPlan()` y `useViewportWidth()` **ambos** la necesitan — y cada uno registraba su propia copia, es decir dos copias que pueden describir dos ventanas distintas.
+
+### 🗑️ La banda divisoria de la imagen 12 — y el deck que se fue con ella
+
+La tercera imagen es una tira de `1443×180` recortada del centro de la pantalla: un marcador `🎮`, una línea dorada y tres títulos `GAME / RETO DE HOY / REGLA DEL DÍA`. Ese es el **deck** — tres columnas de prosa dentro de una banda de altura fija.
+
+No puede vivir ahí, y las otras dos capturas dicen por qué: a `1920×1080` su columna derecha se cortaba **a mitad de frase**, a `1920×820` toda la fila quedaba bajo los paneles. Una banda suficientemente alta para un wordmark de 200px no lo es también para tres párrafos.
+
+Nada de lo que decía el deck se pierde:
+
+| Qué decía el deck | Dónde vive ahora |
+| --- | --- |
+| el modo que vas a jugar | el chip bajo la mascota; la lista completa está en GAME |
+| **el reto de hoy** | una línea en el panel INFO — `modo · objetivo` |
+| la regla del día | una línea del modal de instrucciones, que siempre fue la versión completa de esas seis reglas |
+
+Las cuentas de fecha **no** se fueron con él. `challengeFor()` y `tipIndexFor()` se mudaron a `src/game/daily/` — son funciones puras del día local, sin relación con la presentación. Las 21 pruebas se mudaron con ellas, conservando sus nombres.
+
+La banda vacía bajo el wordmark ahora es **deliberada**. Ese es el precio de un hero que encaja en cualquier tamaño.
 
 ### 🏷️ Changelog por niveles — un color por nivel
 
