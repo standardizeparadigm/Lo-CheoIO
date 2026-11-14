@@ -69,16 +69,45 @@ export const COMBO_WINDOW = 2.7;
 /** Max cracks before the jar breaks. */
 export const MAX_CRACKS = 3;
 
+/**
+ * A mode's multiplier, or 1.
+ *
+ * THE TWO BUGS THIS REPLACED
+ * --------------------------
+ * Both functions took `mode: {…} | ModeId` and did:
+ *
+ *     typeof mode === "string" ? MODES[mode].comboWindowMult ?? 1 : …
+ *
+ *  1. **No guard on the lookup.** `MODES[mode]` with an unknown id is
+ *     `undefined`, and the next `.comboWindowMult` throws
+ *     `TypeError: Cannot read properties of undefined`. `mode` comes out of a
+ *     save file and out of `locheo.run.v1`, so "unknown id" is a state a player
+ *     can reach by editing storage — and the throw happens inside the engine's
+ *     per-frame code, which takes the run with it.
+ *  2. **`?? 1` is not a numeric guard.** It catches `undefined` and `null` and
+ *     nothing else, so `comboWindowMult: Infinity` produced an infinite combo
+ *     window and `NaN` produced `NaN` — the same class of hole as the five
+ *     clamps fixed in `modeMath`, in the two functions that were supposed to be
+ *     the *replacement* for them.
+ *
+ * `multOf()` closes both: unknown mode → 1, non-finite or negative multiplier →
+ * 1. Zero is **preserved**, because a mode may legitimately want no combo window
+ * and `?? 1` was wrong about that too.
+ */
+function multOf(mode: { comboWindowMult?: number; jarBonusMult?: number } | ModeId, field: "comboWindowMult" | "jarBonusMult"): number {
+  const record = typeof mode === "string" ? (MODES as Record<string, unknown>)[mode] : mode;
+  if (!record || typeof record !== "object") return 1;
+  const raw = (record as Record<string, unknown>)[field];
+  if (typeof raw !== "number" || !Number.isFinite(raw) || raw < 0) return 1;
+  return raw;
+}
+
 /** Effective combo window for a mode (COMBO_WINDOW × the mode's comboWindowMult). */
 export function comboWindowFor(mode: { comboWindowMult?: number } | ModeId): number {
-  const mult =
-    typeof mode === "string" ? MODES[mode].comboWindowMult ?? 1 : mode.comboWindowMult ?? 1;
-  return COMBO_WINDOW * mult;
+  return COMBO_WINDOW * multOf(mode, "comboWindowMult");
 }
 
 /** Effective jar bonus for a mode (jarBonus × the mode's jarBonusMult). */
 export function jarBonusFor(level: number, mode: { jarBonusMult?: number } | ModeId): number {
-  const mult =
-    typeof mode === "string" ? MODES[mode].jarBonusMult ?? 1 : mode.jarBonusMult ?? 1;
-  return Math.round(jarBonus(level) * mult);
+  return Math.round(jarBonus(level) * multOf(mode, "jarBonusMult"));
 }
