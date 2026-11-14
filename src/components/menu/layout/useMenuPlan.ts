@@ -21,6 +21,7 @@
 import { useEffect, useState } from "react";
 import { planMenuLayout } from "./fit";
 import type { MenuPlan, Viewport } from "./fit";
+import { onViewportChange } from "./viewportEvents";
 
 /** The viewport the SSR smoke test and the fallback path use. */
 export const REFERENCE_VIEWPORT: Viewport = { width: 1280, height: 720 };
@@ -43,12 +44,10 @@ export function useViewportWidth(): number {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => setWidth(readViewport().width));
     };
-    window.addEventListener("resize", update);
-    window.visualViewport?.addEventListener("resize", update);
+    const unsubscribe = onViewportChange(update);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("resize", update);
-      window.visualViewport?.removeEventListener("resize", update);
+      unsubscribe();
     };
   }, []);
   return width;
@@ -67,14 +66,16 @@ export function useMenuPlan(): MenuPlan {
       });
     };
     update();
-    window.addEventListener("resize", update);
-    window.addEventListener("orientationchange", update);
-    window.visualViewport?.addEventListener("resize", update);
+    /*
+     * One subscription, covering resize, orientationchange, fullscreenchange
+     * and visualViewport resize — see `viewportEvents.ts` for why fullscreen
+     * had to be added in round 6 (it is how the user produced the two
+     * screenshots that started it).
+     */
+    const unsubscribe = onViewportChange(update);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("resize", update);
-      window.removeEventListener("orientationchange", update);
-      window.visualViewport?.removeEventListener("resize", update);
+      unsubscribe();
     };
   }, []);
 
