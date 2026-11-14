@@ -44,6 +44,7 @@ Mỗi bản có một **tầng** (suy ra từ SemVer, xem `docs/guides/release-p
 | `glossary.md` | Từ vựng game cho translator |
 | `troubleshooting.md` | Sự cố thường gặp — đen màn hình, audio, «Chơi tiếp», launcher, build |
 | `redrawing-an-asset.md` | Vẽ lại một hình trong `assets/` — sàn chất lượng, bốn lỗi đã gặp, vì sao SMIL chứ không CSS |
+| `numeric-guards.md` | Chặn số hỏng — vì sao `Math.max(0, x)` không phải guard, và năm lỗi thật của vòng 6 |
 
 ## Khác
 
