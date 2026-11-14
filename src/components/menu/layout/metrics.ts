@@ -201,7 +201,18 @@ export function rowHeight(rich: boolean, tight = false): number {
  * is precisely what cut the artwork in 1.1.7.
  */
 export function cornerPanelHeight(rows: number, rich: boolean, tight = false): number {
-  const n = Math.max(1, rows);
+  /*
+   * `Math.max(1, rows)` floors a negative and passes `NaN` and `Infinity`
+   * through — the tenth instance of this shape in the release, and here the
+   * consequence is a *declared panel height* of `NaN`, which React silently
+   * drops and the panel then sizes to its content. That is the v1.1.7 bug
+   * (`CornerPanel` "tự cao bằng nội dung") coming back through a different door.
+   *
+   * `Math.trunc` is not cosmetic either: `rows = 2.7` produced 200px, an odd
+   * height that no row sum can produce and that `plan.scene + plan.reserve`
+   * cannot account for.
+   */
+  const n = Number.isFinite(rows) ? Math.max(1, Math.trunc(rows)) : 1;
   return (
     PANEL_HEADER_HEIGHT +
     n * rowHeight(rich, tight) +
