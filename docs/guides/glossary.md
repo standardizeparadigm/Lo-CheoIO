@@ -30,8 +30,8 @@ từ xuất hiện trong commit, review và tên file mà người mới phải 
 | **wordmark** | `LỌ CHÉO` — hai dòng chữ ở giữa hero, và là tên module `menu/wordmark/` |
 | **slam** | cú lắc hũ. Luôn viết hoa `SLAM` khi nói về phím, thường khi nói về cơ chế |
 | **challenge** | thử thách trong ngày, suy ra từ ngày địa phương. Không lưu, không mạng |
-| **tip** | luật chơi trong ngày, chọn bằng bước nhảy 5/6 |
-| **tier** | tầng phát hành: `major` · `minor` · `patch`. **Suy ra** từ SemVer, không lưu |
+| **tip** | luật chơi trong ngày; `tipIndexFor()` chọn bằng bước nhảy 5/6 |
+| **tier** | tầng phát hành: `major` · `minor` · `patch`. **Suy ra** từ SemVer bằng `tierFor()`, không lưu |
 | **bullets** | các dòng `itemsVi` / `itemsEn` của một changelog entry. Phải cùng độ dài |
 | **barrel** | file `index.ts` chỉ re-export. App không import barrel nào — cố ý |
 | **gate** | một trong 9 bước kiểm tra (`tsc`, `vitest`, `check:readme`, `check:i18n`, `check-assets`, `check-svg`, `smoke`, `probe`, `build`) |
