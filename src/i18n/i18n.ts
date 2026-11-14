@@ -95,12 +95,34 @@ export function t(
   lang: Language = activeLanguage,
 ): string {
   const table = messages[lang] ?? messages.vi;
-  const template = table[key] ?? messages.vi[key] ?? String(key);
-  return interpolate(template, params);
+  /*
+   * Look up with `hasOwnProperty`, not `table[key] ?? fallback`.
+   *
+   * `messages` is a plain object, so it inherits from `Object.prototype`. A key
+   * that is not in the table but *is* a prototype member — `"toString"`,
+   * `"valueOf"`, `"constructor"` — reads back as a function, which is neither
+   * `undefined` nor a string, so `??` does not catch it. Without params the
+   * function escaped into the returned string; with params `interpolate` called
+   * `.split` on it and threw a TypeError, i.e. a white screen.
+   *
+   * `MessageKey` makes this unreachable from typed code, but the key can arrive
+   * from outside the type system: a deep link, a query parameter, or a stored
+   * value from an older build with a key that has since been renamed.
+   */
+  const own = Object.prototype.hasOwnProperty;
+  if (own.call(table, key)) return interpolate(table[key], params);
+  if (own.call(messages.vi, key)) return interpolate(messages.vi[key], params);
+  return String(key);
 }
 
+/**
+ * True when `key` is a real message key in the Vietnamese source table.
+ *
+ * Was `key in messages.vi`, which reported `"toString"` and `"constructor"` as
+ * valid keys for the same prototype-chain reason as `t()` above.
+ */
 export function hasKey(key: string): key is MessageKey {
-  return key in messages.vi;
+  return Object.prototype.hasOwnProperty.call(messages.vi, key);
 }
 
 /** Helper to read an entire locale table (used by tests). */
