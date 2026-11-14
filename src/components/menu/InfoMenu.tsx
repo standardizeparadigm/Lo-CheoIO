@@ -11,6 +11,7 @@ import { PanelSummary } from "./panel";
 import { summaryLines } from "./panel";
 import { PanelChallenge } from "./panel";
 import { challengeLine } from "./panel";
+import type { ChallengeLine } from "./panel";
 import { challengeFor } from "../../game/daily";
 import { MODE_LIST } from "../../game/modes";
 import { APP_VERSION } from "../../version";
@@ -34,6 +35,26 @@ function changelogHint(vi: boolean): string {
   const date = vi ? latest.date.split("-").reverse().join("/") : latest.date;
   return `${tier} · ${date}`;
 }
+
+const MODE_IDS = MODE_LIST.map((m) => m.id);
+
+/**
+ * Today's challenge, computed once per render instead of inside JSX.
+ *
+ * The previous version called `challengeFor()` twice in one expression — once
+ * for the mode, once for the target — inside an IIFE in the markup. That is
+ * two hashes of the same day and two `Date` allocations per render, for a
+ * value that cannot change until local midnight.
+ *
+ * Still per render rather than module-level: a module constant would freeze
+ * the import day, so an app left open across midnight would show yesterday's
+ * challenge until reloaded. Per render is the cheap correct answer.
+ */
+function todayChallenge(): ChallengeLine {
+  const c = challengeFor(new Date(), MODE_IDS);
+  return challengeLine(c.mode, c.target);
+}
+
 export default function InfoMenu({
   onAbout,
   onChangelog,
@@ -48,6 +69,7 @@ export default function InfoMenu({
   plan: MenuPlan;
 }) {
   const { t, lang } = useI18n();
+  const challenge = todayChallenge();
 
   return (
     <CornerPanel
@@ -109,11 +131,7 @@ export default function InfoMenu({
         one number and one mode name, and it belongs somewhere the player can
         read it. See `panel/summary.ts#challengeLine`.
       */}
-      {plan.footer && (
-        <PanelChallenge
-          line={(() => { const c = challengeFor(new Date(), MODE_LIST.map((m) => m.id)); return challengeLine(c.mode, c.target); })()}
-        />
-      )}
+      {plan.footer && <PanelChallenge line={challenge} />}
       {!plan.tight && (
         <PanelSummary
           lines={summaryLines({
