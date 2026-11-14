@@ -328,6 +328,51 @@ Hai panel cũng nhận **footer** thay vì để khoảng dư rơi rải rác: G
 
 <img src="assets/settings-sections.svg" alt="Cài đặt 6 mục (từ v1.1.6) — công tắc, thanh mức và bộ chọn (hoạt họa SMIL)" width="100%" />
 
+## 📐 Bố cục thích nghi — cách hero tự chọn hình dạng
+
+Màn hình bắt đầu không dùng media query để quyết định bố cục. Nó **đo** cửa sổ
+rồi chọn từ năm khả năng:
+
+```
+        ┌───────────────────────────────┐
+        │  planMenuLayout(viewport)     │   thuần, không DOM
+        │  → { scene, reserve, … }      │   scene + reserve = chiều cao
+        └──────────────┬────────────────┘
+                       │  scene  ← đúng con số chrome đang giữ chỗ
+                       ▼
+        ┌───────────────────────────────┐
+        │  heroLayout({ scene, width }) │   thuần, 5 boolean
+        └──────────────┬────────────────┘
+                       │
+     ┌─────────┬───────┴───────┬──────────┬──────────┐
+     ▼         ▼               ▼          ▼          ▼
+ sideBySide  halo         badgeRow    mascot   liveBadge
+```
+
+| Cờ | Bật khi | Tắt thì mất gì |
+| --- | --- | --- |
+| `sideBySide` | rộng ≥ 1024 **và** hero ≥ 300px | mascot xuống dưới wordmark |
+| `halo` | hero ≥ 300px | vòng sáng quanh hũ biến mất |
+| `badgeRow` | hero ≥ 232px | tấm «HŨ DƯA ĐẠI CHIẾN» + dòng kỷ lục |
+| `mascot` | gần như luôn | — (chỉ tắt ở chế độ tối giản) |
+| `liveBadge` | hero ≥ 232px | dòng TRỰC TIẾP TỪ BẾP + phiên bản |
+
+Ba ngưỡng **không phải số tròn** — mỗi cái bằng chiều cao thật của thứ nó canh:
+
+```ts
+HEIGHT_FOR_BADGE_ROW   = 232   // 150 wordmark + 40 badge + 22 live + 20 thở
+HEIGHT_FOR_HALO        = 300   // 150 lockup + 240 vòng − 90 chồng lấn
+HEIGHT_FOR_SIDE_BY_SIDE = 300  // cột cao hơn: 192 mascot + 24 chip + đệm
+```
+
+`tests/menu-adaptive.test.ts` quét **1 682 viewport** và khẳng định
+`heroContentHeight(layout) ≤ scene` ở từng mẫu — nên một ngưỡng đặt sai là test
+đỏ, không phải người dùng phát hiện.
+
+Khi cửa sổ đổi kích thước, `useMenuPlan()` và `useViewportWidth()` cùng nghe
+**sáu** sự kiện (`resize` · `orientationchange` · `fullscreenchange` + ba tiền tố
+nhà cung cấp) và cập nhật trong một `requestAnimationFrame`.
+
 ## ✨ Tính năng nổi bật
 
 | Nhóm | Chi tiết |
