@@ -77,3 +77,18 @@ một panel nào — 12 test chạy trong vài mili giây.
 - `justify-around` / `justify-between` / `justify-evenly` **không** được quay
   lại `.corner-panel-body` — có test grep.
 - `unlocked` luôn bị kẹp; `NaN` và số âm đều trả `0`.
+
+## The two components the footers render
+
+| File | What it shows | When |
+| --- | --- | --- |
+| `PanelChallenge.tsx` | today's challenge: mode name · target | `plan.footer` is true |
+| `PanelSummary.tsx` | three catalogue counts, one line each | `!plan.tight` |
+
+Neither is interactive. The counts are already announced by the rows above them
+(`16 thành tựu`, `9 chế độ`), so these blocks render plain text rather than adding
+a second reading of the same numbers to the accessibility tree.
+
+`PanelSummary.tsx` is the one that had `mt-auto` while its body used
+`space-between`. `summary.ts` is the module behind both: `summaryLines()`,
+`challengeLine()`, and the `safeCount()` clamp.
