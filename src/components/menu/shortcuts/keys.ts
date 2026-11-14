@@ -50,7 +50,21 @@ export function keyBindings(): readonly KeyBinding[] {
     { caps: ["W", "A", "S", "D"], action: "shortcuts.move", kind: "key" },
     { caps: ["←", "↑", "↓", "→"], action: "shortcuts.move", kind: "key" },
     { caps: ["SPACE"], action: "shortcuts.slam", kind: "key" },
-    { caps: ["ESC"], action: "shortcuts.pause", kind: "key" },
+    /*
+     * P and ESC are the same action, and both are real: `GameCanvas` switches
+     * on `KeyP` and `Escape` in one case-block. A first draft listed only ESC,
+     * which made the panel wrong about a key the README has documented since
+     * 1.1.0 — the panel must not be *less* complete than the docs.
+     */
+    { caps: ["P", "ESC"], action: "shortcuts.pause", kind: "key" },
+    /*
+     * R restarts from any state, including mid-run. It was missing from the
+     * first draft of this list, and the README's control table already had it.
+     * That is the failure mode this whole module exists to prevent, caught by
+     * comparing the list against `GameCanvas` rather than against memory.
+     */
+    { caps: ["R"], action: "shortcuts.restart", kind: "key" },
+    { caps: ["ENTER"], action: "shortcuts.start", kind: "key" },
     { caps: ["M"], action: "shortcuts.mute", kind: "key" },
     { caps: ["TAP", "DRAG"], action: "shortcuts.touch", kind: "pointer" },
   ];
@@ -76,6 +90,7 @@ const CAP_TO_CODE: Readonly<Record<string, string>> = {
   "→": "ArrowRight",
   SPACE: "Space",
   ESC: "Escape",
+  ENTER: "Enter",
 };
 
 /** The `KeyboardEvent.code` a printed cap stands for. */
