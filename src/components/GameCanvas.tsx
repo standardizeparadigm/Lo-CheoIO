@@ -157,7 +157,34 @@ export default function GameCanvas({
           break;
       }
     };
+    /**
+     * True when the keystroke belongs to a text field the player is typing in.
+     *
+     * ROUND 6: typing a name on the game-over screen fired the game's global
+     * shortcuts. Every handler here is on `window`, and `keydown` on a text
+     * input still bubbles — so entering "MINH" muted the game on the `M`,
+     * "PHÚC" paused it on the `P`, and any name with an `R` restarted the run
+     * underneath the form.
+     *
+     * The check is on the *target*, not on `document.activeElement`, because
+     * `activeElement` reflects focus at the time the handler runs rather than
+     * where the keystroke was aimed, and the two differ when a handler has
+     * already moved focus.
+     */
+    const isTyping = (e: KeyboardEvent): boolean => {
+      const el = e.target as HTMLElement | null;
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
+    };
+
     const down = (e: KeyboardEvent) => {
+      /*
+       * Movement and the global shortcuts are suppressed while typing; the
+       * key is not even recorded, so releasing it later is a no-op rather
+       * than an unbalanced set(false).
+       */
+      if (isTyping(e)) return;
       if (
         ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Space", "KeyW", "KeyA", "KeyS", "KeyD"].includes(e.code)
       ) {
