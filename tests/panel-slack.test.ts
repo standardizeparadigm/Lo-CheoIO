@@ -93,3 +93,51 @@ describe("the constraint round 5 established still holds", () => {
     expect(tag).not.toContain("overflow-y");
   });
 });
+
+/**
+ * The same rule has to hold inside the block that *is* the bottom of INFO.
+ *
+ * `PanelSummary` is the last child before the footer slot. It carried
+ * `mt-auto` from round 5, when the body was `flex-start` and something had to
+ * shove the summary down. Once the body became `space-between`, that auto
+ * margin asked for a second slice of the same space: the summary would sit
+ * against the floor with a fresh gap above it — the v1.1.8 report's hole,
+ * reproduced lower down and smaller, which is exactly the failure mode the
+ * footer comment warns about.
+ *
+ * Badge tests would not catch it (the class still compiles) and no screenshot
+ * at 720px would either (the gap is ~2px there). It only opens up on a tall
+ * window, which is what this asserts.
+ */
+describe("the last block in the body obeys the same rule as the footer", () => {
+  const summary = readFileSync("src/components/menu/panel/PanelSummary.tsx", "utf8");
+
+  /** The root `<dl>`'s className, comments stripped. */
+  const rootClass = (() => {
+    const src = summary.replace(/\/\*[\s\S]*?\*\//g, "");
+    const at = src.indexOf("<dl className=\"");
+    const open = src.indexOf('"', at + 14);
+    const close = src.indexOf('"', open + 1);
+    return src.slice(open + 1, close);
+  })();
+
+  it("carries no auto top margin", () => {
+    expect(rootClass).not.toContain("mt-auto");
+    expect(rootClass).not.toMatch(/\bmx-auto|my-auto\b/);
+  });
+
+  it("keeps the dashed rule that separates it from the rows", () => {
+    // Same reason as the footer's border: without it the block reads as a
+    // fifth menu row.
+    expect(rootClass).toContain("border-t-2");
+    expect(rootClass).toContain("border-dashed");
+  });
+
+  it("is still the block the docs point at", () => {
+    // The design doc names this file and this decision. A reader following it
+    // from `menu-corners.md` must land on the same rule it describes.
+    const design = readFileSync("docs/design/menu-corners.md", "utf8");
+    expect(design).toContain("PanelSummary.tsx");
+    expect(design).toContain("space-between");
+  });
+});
