@@ -13,6 +13,7 @@ that rule for `src/game/`; this folder follows it by convention.
 | `clipboard.ts` | `copyText` with the `execCommand` fallback |
 | `useFocusTrap.ts` | Keeps Tab inside a modal |
 | `cn.ts` | Tailwind class joining, without a dependency |
+| `index.ts` | the barrel — the folder's only import surface |
 
 ## Why `mediaQuery.ts` exists
 
