@@ -25,6 +25,24 @@ describe("the guide and the code agree on ARIA", () => {
     expect(segmented).not.toContain("aria-checked");
   });
 
+  it("SegmentedControl still has the full roving keyboard model", () => {
+    /*
+     * The distinction the guide draws is subtle — same keyboard model, different
+     * announced role — and a careless "simplify to a plain group" would delete
+     * the arrow keys while the guide kept claiming the behaviour. Pin it.
+     */
+    expect(segmented).toContain("tabIndex={active ? 0 : -1}");
+    for (const key of ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown", "Home", "End"]) {
+      expect(segmented, `SegmentedControl lost ${key}`).toContain(key);
+    }
+  });
+
+  it("the guide does not claim the stepper has arrow keys", () => {
+    // The two cases are not symmetrical and the guide says so.
+    expect(stepper).not.toContain("ArrowLeft");
+    expect(guide).toMatch(/Khác trường hợp trên|không.*phím mũi tên/);
+  });
+
   it("the guide says so, and explains why", () => {
     expect(guide).toContain("radiogroup");
     // The rule, not just the fact: a role promises keys.

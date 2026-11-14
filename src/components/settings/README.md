@@ -49,12 +49,17 @@ save formats break.
 
 ## Accessibility, because this is the modal people tab through
 
-- `SegmentedControl` is `role="group"` + `aria-labelledby` with a **toggle
-  button** per option (`aria-pressed`), not a radio group. That is deliberate: a
-  radio group implies arrow-key navigation and a single roving tabindex, and this
-  control is a row of buttons that Tab walks through. Claiming `radiogroup`
-  without implementing the arrow keys is worse than claiming `group` — a screen
-  reader would announce a control the user cannot operate as announced.
+- `SegmentedControl` is `role="group"` + `aria-labelledby`, with one toggle
+  button per option (`aria-pressed`), **and** the full roving behaviour:
+  `tabIndex={active ? 0 : -1}`, arrow keys move the selection, `Home`/`End` jump
+  to the ends.
+
+  It is not `role="radiogroup"`, and the distinction is narrower than it looks —
+  the keyboard model is identical. `radiogroup` promises `aria-checked` on a
+  radio, and this renders `<button aria-pressed>`; announcing "radio button,
+  checked, 2 of 3" while the DOM says "button, pressed" is a disagreement between
+  the tree and the announcement. `group` plus `aria-pressed` says exactly what is
+  there, and the arrow keys still work.
 - `VolumeStepper` is a pair of labelled `−`/`+` buttons around a `role="img"`
   read-out (`aria-label="<label> 40/100"`), not a `role="slider"`. Same reason:
   a slider role promises `aria-valuenow` and arrow keys, and a stepper with two

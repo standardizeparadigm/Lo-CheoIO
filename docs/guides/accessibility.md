@@ -82,18 +82,26 @@ Nay `isTyping(e)` chặn theo `e.target` — cố ý **không** dùng
 
 ### `role="radiogroup"` cho SegmentedControl
 
-Nghe hợp lý: nhóm lựa chọn loại trừ nhau *là* radio group. Nhưng `radiogroup`
-**hứa** điều hướng bằng phím mũi tên và một roving tabindex — control này là một
-hàng nút Tab đi qua, không có cả hai.
+Nghe hợp lý: nhóm lựa chọn loại trừ nhau *là* radio group. Và bàn phím thì **y
+hệt** — control này có đủ roving tabindex (`tabIndex={active ? 0 : -1}`), phím
+mũi tên, `Home`/`End`. Nên `radiogroup` không sai về hành vi.
 
-Nói với screen reader rằng đây là radio group khiến nó **công bố một control
-người dùng không vận hành được như đã công bố**. Tệ hơn là công bố thứ đơn giản
-hơn mà đúng. Nên: `role="group"` + `aria-pressed`.
+Nó sai về **thứ được công bố**. `radiogroup` hứa `aria-checked` trên một radio;
+control này render `<button aria-pressed>`. Screen reader sẽ đọc "radio button,
+checked, 2 / 3" trong khi DOM ghi "button, pressed" — cây a11y và lời đọc không
+khớp nhau.
+
+`role="group"` + `aria-pressed` nói đúng thứ đang có, và phím mũi tên vẫn chạy.
+Nên: `group`.
 
 ### `role="slider"` cho VolumeStepper
 
-Cùng lý do: `slider` hứa `aria-valuenow` và phím mũi tên. Stepper là hai nút
-`−`/`+` quanh một `role="img"` đọc `"<nhãn> 40/100"`. Không có hai thứ kia.
+Khác trường hợp trên: stepper **không** có phím mũi tên lẫn `aria-valuenow`.
+Nó là hai nút `−`/`+` có `aria-label` quanh một `role="img"` đọc
+`"<nhãn> 40/100"`.
+
+Gắn `role="slider"` vào đây là hứa hai thứ không tồn tại — và khác với
+`SegmentedControl`, không có hành vi nào bù lại.
 
 ## Còn hạn chế (biết để tránh ngạc nhiên)
 
