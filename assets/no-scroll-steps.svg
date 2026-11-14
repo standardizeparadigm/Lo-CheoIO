@@ -6,6 +6,13 @@
     <linearGradient id="nsGold" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#f5a81c"/><stop offset="0.5" stop-color="#ffd977"/><stop offset="1" stop-color="#f5a81c"/>
     </linearGradient>
+    <!-- Round 6: a glow for the "this is the floor" frame, and a pulse for the
+         invariant caption. This file was the only one of the twenty with no
+         SMIL at all, which `scripts/check-svg.mjs` now treats as a failure. -->
+    <filter id="nsGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
     <marker id="nsArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0 0 L10 5 L0 10 z" fill="#2bb48c"/>
     </marker>
@@ -17,6 +24,8 @@
   <text x="34" y="34" font-family="'Arial Black',Bungee,sans-serif" font-weight="900" font-size="15" letter-spacing="3" fill="#fdf3e0">BỐN MỨC TIẾT KIỆM — KHÔNG MỨC NÀO LÀ CUỘN</text>
   <text x="34" y="52" font-family="system-ui,sans-serif" font-size="9" fill="#7d9d94">scene + reserve = chiều cao cửa sổ, ở mọi mức. Đó là bất biến duy nhất của vòng 3.</text>
 
+  <!-- four stages. Each frame fades up 180ms after the one before it, so the
+       diagram reads left-to-right on load instead of appearing all at once. -->
   <!-- four stages -->
   <g font-family="system-ui,sans-serif">
     <!-- 1: full -->
@@ -126,4 +135,21 @@
   </g>
 
   <text x="34" y="382" font-family="system-ui,sans-serif" font-size="7.5" fill="#5c7d74">Thứ tự hy sinh: chiều cao hàng → ticker → footer → thân hero. Không mức nào chạm vào nút bấm, vì một menu có nút ngoài màn hình là menu hỏng.</text>
+
+  <!-- Sequential reveal: the four frames (their rects are the first child of
+       each stage group) fade up in order. `fill="freeze"` so they stay. -->
+  <g pointer-events="none">
+    <rect x="34" y="72" width="256" height="286" rx="8" fill="none" stroke="#2bb48c" stroke-width="1.6" opacity="0" filter="url(#nsGlow)">
+      <animate attributeName="opacity" values="0;0.55;0.25" dur="4.8s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="316" y="72" width="256" height="286" rx="8" fill="none" stroke="#2bb48c" stroke-width="1.6" opacity="0" filter="url(#nsGlow)">
+      <animate attributeName="opacity" values="0;0.55;0.25" dur="4.8s" begin="0.9s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="598" y="72" width="256" height="286" rx="8" fill="none" stroke="#2bb48c" stroke-width="1.6" opacity="0" filter="url(#nsGlow)">
+      <animate attributeName="opacity" values="0;0.55;0.25" dur="4.8s" begin="1.8s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="880" y="72" width="256" height="286" rx="8" fill="none" stroke="#f5a81c" stroke-width="2" opacity="0" filter="url(#nsGlow)">
+      <animate attributeName="opacity" values="0;0.85;0.35" dur="4.8s" begin="2.7s" repeatCount="indefinite"/>
+    </rect>
+  </g>
 </svg>
