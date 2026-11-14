@@ -1,7 +1,11 @@
 # Chặn số hỏng — vì sao `Math.max(0, x)` không phải guard
 
-Vòng 6 tìm ra **năm** chỗ trong bốn module khác nhau dùng `Math.max(0, x)` như
+Vòng 6 tìm ra **sáu** chỗ trong năm module khác nhau dùng `Math.max(0, x)` như
 thể nó chặn được giá trị không hữu hạn. Nó không.
+
+Chỗ thứ sáu đến muộn: nó nằm trong footer của panel góc, nơi bị đọc là "chỉ là
+một dòng trạng thái", và nó in ra `✓NaN/NaN` cho tới khi có người viết test cho
+một component mà không ai nghĩ cần test.
 
 ## Vì sao
 
@@ -25,6 +29,7 @@ phải guard cho `Infinity`, và tên hàm (`max`) trông như thể nó bao qu�
 | `game/engine.ts` | Save JSON **hợp lệ** (`"shield": 1e999`) khôi phục khiên vô hạn |
 | `game/audioLevels.ts` | `Infinity` vào `GainNode.gain.value`; WebAudio clip và có thể chốt node — hiệu ứng tắt hẳn |
 | `menu/layout/fit.ts` | `Math.max(1, NaN)` = `NaN`; React **bỏ im lặng** `style={{ height: NaN }}` nên hero mất chiều cao khai báo |
+| `menu/panel/stat.ts` | Footer panel in `✓NaN/NaN` và `✓5/Infinity`; giá trị đến từ localStorage nên người chơi **sửa được** |
 
 Điểm chung: mỗi chỗ đều có một **comment khẳng định nó an toàn**. Đó là lý do
 chúng sống lâu — người đọc tin comment hơn đọc phép toán.
