@@ -65,6 +65,39 @@ Cách sửa không phải nới rộng thêm vài pixel cho vừa, mà là **kha
 
 <img src="assets/layout-fix.svg" alt="Trước và sau bản vá 1.1.8 — 1.1.7 ép scene còn 250px làm chú lọ bị cắt, 1.1.8 giữ scene 342px và reserve 378px cho panel (hoạt họa SMIL)" width="100%" />
 
+
+### ✂️ `LỌ` vẫn bị cắt — lần này không phải chuyện chiều cao
+
+Vòng 5 báo lại: ở **1920×1080 fullscreen** và **1920×829** chữ `LỌ` vẫn mất nửa trên. Chiều cao thì đã đúng từ vòng 3, nên đây là lỗi khác — và nó tệ hơn, vì nó là **lỗi do chính tôi tạo ra ở vòng 4**.
+
+Khi tách lockup khỏi `StartScreen` thành `Wordmark.tsx`, class `leading-[0.82]` trên thẻ `<h1>` **bị bỏ lại**. Hai file CSS trong repo vẫn mô tả nó, hai file vẫn giải thích vấn đề dấu nặng dựa trên nó — nhưng `<h1>` thì không có `line-height` nào. Dòng dưới (`.text-shimmer`) thừa kế `normal` (~1.2em) thay vì `0.92`, lockup cao thêm **~20px** so với mọi con số trong repo.
+
+Hero là một band cao cố định và màn hình dùng `justify-center` — nên 20px thừa tràn **đều hai phía**, và đỉnh `LỌ` là thứ bị cắt trước. Ở 1280×720: band 342px, nội dung 349px.
+
+Bản vá làm hai việc, và việc thứ hai quan trọng hơn:
+
+1. **Khôi phục `leading`** trên `<h1>` và trên `.text-shimmer`.
+2. **Đổi `justify-center` → `justify-start`.** Căn giữa là thứ biến "cao hơn một chút" thành "cắt cả hai đầu". Neo đỉnh thì phần tràn chỉ đi xuống, nơi deck (trang trí) nhường chỗ — `LỌ` không thể bị cắt nữa, kể cả khi một bản dịch trong tương lai làm nội dung cao lên.
+
+<img src="assets/wordmark-crop.svg" alt="Vì sao LỌ bị cắt — hero căn giữa đẩy nội dung ra cả hai phía và cắt đỉnh chữ; hero neo đỉnh thì chỉ phần dưới nhường (hoạt họa SMIL)" width="100%" />
+
+### 📖 Tagline rời hero, thành mục «GIỚI THIỆU» riêng
+
+«Bỏ cái chỗ như trong hình 3 đi, cho nó vào mục thông tin và làm 1 cái riêng nó cho» — đoạn văn ba dòng dưới wordmark.
+
+Nó không phải trang trí: nó giải thích toàn bộ trò chơi. Nên nó không bị xoá — nó **đổi địa chỉ**. Ba dòng văn xuôi trong một band cao cố định là 75px mà wordmark và deck đang tranh nhau; trong một modal thì nó có chỗ để đọc.
+
+`menu/about/` là module mới. Modal **GIỚI THIỆU** (tiếng Anh: **ABOUT**) giờ mở đầu bằng chính đoạn văn đó, rồi mới tới thẻ tác giả — vì người chơi mới cần biết *trò chơi là gì* trước khi biết *ai làm ra nó*.
+
+### ⌨️ Panel THÔNG TIN hết trống
+
+INFO có ba hàng trong một panel thiết kế cho bảy, nên ~126px của nó là hình chữ nhật rỗng — thấy rõ dưới «THOÁT» trong ảnh. Hai thứ được thêm vào, cả hai đều là thông tin menu đáng lẽ phải có từ đầu:
+
+- **`PHÍM TẮT`** — danh sách điều khiển đầy đủ. Trước đó chỗ duy nhất ghi lại là một hàng bốn phím trong modal how-to, chỉ nói về di chuyển; `Space`, `P`, `R`, `Enter`, `M` không được ghi ở đâu cả. Danh sách nằm ở `menu/shortcuts/keys.ts` và được test đối chiếu với **chính key handler của `GameCanvas`** — nên nó không thể quảng cáo một phím không làm gì, và cũng không thể bỏ sót một phím có thật.
+- **Bản tóm tắt catalogue** — số chế độ · nguyên liệu · thành tựu, suy ra từ cùng dữ liệu mà danh sách mode và thành tựu đọc.
+
+> Đây **không phải** dải ba số `9 · 14 · 16` từng bị bác. Khác chỗ (panel, không phải hero), khác việc (panel sinh ra để tóm tắt), và không lặp gì người chơi vừa đọc trên màn hình này.
+
 ### 🌀 Lỗi cuộn: vùng cuộn lồng trong vùng cuộn
 
 Phần dưới đứng yên mà phần trên vẫn kéo lên xuống được — đúng như mô tả. v1.1.7 bọc nội dung hero trong một khung `overflow-y-auto`, rồi căn giữa nó bằng `min-h-full` + `justify-center`. Cách đó chỉ đúng khi nội dung **thấp hơn** khung; khi nội dung **cao hơn**, `justify-center` đẩy nó lên và đỉnh nằm *phía trên gốc cuộn* — không có vị trí cuộn nào chạm tới được.
