@@ -201,3 +201,34 @@ describe("the daily data does not drift from the catalogue", () => {
     expect(new Intl.NumberFormat("en").format(1600)).toBe("1,600");
   });
 });
+
+describe("every exported function has a real caller", () => {
+  it("tipIndexFor and challengeFor are both wired into the UI", () => {
+    /*
+     * Round 6 found this the hard way: `tipIndexFor()` was moved to
+     * `game/daily/` during the deck deletion and *nothing called it*. It would
+     * have shipped as dead code — a pure function with 6 passing tests and no
+     * effect on the app.
+     *
+     * So the absence of a caller is now a test failure. Both entry points must
+     * appear in a `.tsx` file outside their own module.
+     */
+    const tsx = [
+      "src/components/menu/HowToModal.tsx",
+      "src/components/menu/panel/PanelChallenge.tsx",
+      "src/components/menu/InfoMenu.tsx",
+    ].map((f) => readFileSync(f, "utf8"));
+
+    const haystack = tsx.join("\n");
+    expect(haystack, "tipIndexFor has no caller").toContain("tipIndexFor");
+    expect(haystack, "challengeFor has no caller").toContain("challengeFor");
+  });
+
+  it("tipIndexFor is not exported for the sake of the barrel", () => {
+    // A barrel export with no importer is the shape the bug took. If this ever
+    // needs removing, the fix is to delete the export, not this test.
+    const barrel = readFileSync("src/game/daily/index.ts", "utf8");
+    expect(barrel).toContain("tipIndexFor");
+    expect(barrel).toContain("challengeFor");
+  });
+});
