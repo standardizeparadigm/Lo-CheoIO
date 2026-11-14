@@ -3,15 +3,58 @@
 Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến được ghi ở đây.
 Định dạng theo [Keep a Changelog](https://keepachangelog.com/vi/1.1.0/), phiên bản theo [SemVer](https://semver.org/lang/vi/).
 
-## [1.1.7] — 2026-11-12
+## [1.1.8] — 2026-11-12
 
-Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 9 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
+Bản **vá cuối cùng trước 1.2.0**: **màn hình bắt đầu hết tràn (bốn lỗi trong ảnh chụp, một nguyên nhân) · chữ `LỌ` không còn bị cắt · panel GAME và ticker nằm gọn trong khung · «Cách chơi» chuyển vào mục GAME · hero có 14 món trang trí động và ba vòng halo · toàn bộ chiều cao được khai báo trong `menu/layout` · 308 unit tests (36 file)**.
+
+→ Chi tiết đầy đủ: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md)
+
+### Fixed
+
+- **Bốn lỗi trong ảnh chụp, một nguyên nhân** — hàng panel góc và ticker là *flex sibling* `shrink-0` của hero, chiếm `415 + 55 = 470px` trong cửa sổ 720px, nên hero chỉ còn **250px** trong khi nội dung cần khoảng 430px. Panel tự cao bằng nội dung nên chiều cao phụ thuộc độ dài bản dịch — tiếng Đức và tiếng Thái tràn trước tiếng Anh
+- **`LỌ` bị cắt và không thể cuộn tới** — đây là lỗi *khác* với lỗi chiều cao, và nghiêm trọng hơn: v1.1.7 lồng một khung `overflow-y-auto` bên trong cột flex và căn giữa nội dung bằng `min-h-full` + `justify-center`. Khi nội dung cao hơn khung, căn giữa đẩy **đỉnh** nội dung lên trên gốc cuộn — nên phần đầu hero không chỉ bị cuộn khỏi tầm nhìn mà *không thể với tới ở bất kỳ vị trí cuộn nào*. Nay cả màn hình chỉ còn **một** vùng cuộn, nội dung neo ở đỉnh
+- **Panel GAME tràn xuống dưới** — `CÀI ĐẶT` và dòng bản quyền bị đẩy ra ngoài mép. Chiều cao panel nay là tham số bắt buộc: bảy dòng luôn là **318px** (gọn) hoặc **458px** (đầy đủ) ở mọi ngôn ngữ
+- **Ticker bị cắt ở mép dưới** — dòng `V1.1.7 · AGPL-3.0 · …` từng là khối thứ hai trong cùng một flex item `shrink-0`, nên nó xuống dòng, dải vượt quá chiều cao được cấp và mép dưới cắt đôi chữ. Nay dải cao cố định **48px**, dòng bản quyền nằm cùng khối với marquee
+- **Nút `×` lạc giữa màn hình** — nút đóng của khung «Cách chơi», thuộc một accordion đã cuộn khỏi tầm nhìn. Accordion được thay bằng modal nên không còn nút nào lạc chỗ
+- **Chữ `CHÉO` bị chặn cỡ theo chiều rộng nhưng không theo chiều cao** — cửa sổ thấp mà rộng làm glyph tràn khỏi dải hero
+
+### Changed
+
+- **«Cách chơi» chuyển vào mục GAME** — sáu luật chơi và bảng phím không còn nằm trong hero (mở ra là đẩy chữ `LỌ` khỏi màn hình) mà thành một hàng trong panel GAME, mở ra modal. Bố cục không nhúc nhích khi mở
+- **Chữ `LỌ CHÉO` đặt giữa hero rồi nhấc lên một chút** — đúng yêu cầu trong báo cáo
+- **Panel GAME từ 6 lên 7 hàng** — thêm «Cách chơi», nên `CORNER_MAX_ROWS` và toàn bộ phép cộng phía sau đổi theo
+- **Ngưỡng dòng đầy đủ từ 800 lên 840px** — dòng đầy đủ tốn thêm 20px × 7 = 140px; reserve đầy đủ là 518px, nên hero chỉ còn giữ được sàn 320px từ `518 + 320 = 838px` trở lên
+
+### Added
+
+- **`src/components/menu/layout/`** — `metrics.ts` (mọi con số được khai báo, phép cộng viết ra), `fit.ts` (`planMenuLayout()` thuần, không DOM), `useMenuPlan.ts` (đọc cửa sổ thật, ưu tiên `visualViewport`, gộp resize vào một animation frame), `index.ts`, `README.md`
+- **`src/components/menu/scene/`** — `decor.ts` (14 món trang trí dạng dữ liệu + hai phép kiểm hình học), `DecorGlyph.tsx` (tám hình vẽ tay 24×24), `HeroDecor.tsx`, `JarHalo.tsx`
+- **`src/components/menu/ticker/`** — dải chạy chữ tách thành module: 14 chuỗi + `tickerTone()` thuần
+- **`src/components/menu/howto/rules.ts`** — sáu luật chơi dạng dữ liệu thay vì JSX viết tay
+- **`src/components/menu/HowToModal.tsx`** — modal «Cách chơi», hai cột, huy hiệu theo màu
+- **`src/components/menu/MenuChrome.tsx`** — chrome nổi, ra khỏi flex flow
+- **`tests/menu-layout.test.ts`** (32 ca) · **`tests/menu-decor.test.ts`** (12) · **`tests/menu-ticker.test.ts`** (8) — **+52 test**
+- **`scripts/probe-menu-layout.tsx`** — render `StartScreen` thành HTML thật rồi kiểm **21 tính chất** trên DOM sinh ra
+- **`docs/releases/v1.1.8.md`** — mô tả phát hành đầy đủ
+- **Hai i18n key** `game.howtoHint` · `howto.goal` cho cả 7 locale — **304 key**, parity nguyên vẹn
+
+### Documentation
+
+- Đồng bộ toàn bộ **10 README**, `docs/`, `assets/*.svg`, ba launcher và `index.html` lên **1.1.8**
+- Xoá hết câu "1.1.7 là bản vá cuối cùng trước 1.2.0" — vai trò đó thuộc về 1.1.8
+- Chuỗi ngày phát hành: `10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 · 11-14`
+
+[1.1.8]: https://github.com/standardizeparadigm/LoCheoIO/releases/tag/v1.1.8
+
+## [1.1.7] — 2026-11-10
+
+**Nền menu hết mờ (sửa bốn lớp chồng nhau) · changelog chia tầng PATCH/UPDATE/MAJOR có màu riêng · mô tả đầy đủ cho cả 8 bản phát hành · ngày phát hành xếp lại thành chuỗi liền mạch · dự án tách thành nhiều thư mục hơn · README 10 ngôn ngữ làm lại · đồng bộ toàn bộ tài liệu/SVG/launcher lên 1.1.7 · 256 unit tests (33 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.7.md](docs/releases/v1.1.7.md)
 
 ### Fixed
 - **Nền sau menu vẫn mờ** — bốn lớp phủ cộng hưởng: `.nebula-*` `blur(64px)` + opacity đỉnh `1.0`; vignette nội tuyến `rgba(6,26,26, 0.42 → 0.88 → 1.0)` phủ toàn màn hình; khung CRT `inset 0 0 140px rgba(6,26,26,0.9)`; `.tile-floor` chỉ `opacity-45` nên gần như vô hình. Sửa: `blur(22px)`, đỉnh `0.80`, `.menu-vignette` chỉ tối ở góc (`0.30` / `0.62`), `.app-vignette` `90px @ 0.55`, sàn `opacity-70`
-- **Ngày phát hành trùng và phi logic** — bảy bản liền nhau đều ghi `2026-11-12`, riêng 1.1.6 ghi `2026-11-13` (sau thời điểm phát hành). Chuỗi mới: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 (nhịp 2 ngày, không bản nào trùng ngày)
+- **Ngày phát hành trùng và phi logic** — bảy bản liền nhau đều ghi `2026-11-10`, riêng 1.1.6 ghi `2026-11-13` (sau thời điểm phát hành). Chuỗi mới: 10-26 · 10-29 · 10-31 · 11-02 · 11-04 · 11-06 · 11-08 · 11-10 · 11-12 (nhịp 2 ngày, không bản nào trùng ngày)
 - **Nhãn changelog sai bản chất** — trường `kind` viết tay (`feature`/`fix`/`polish`) không suy ra từ SemVer nên đã từng lệch. Nay `tierFor(version)` suy tầng trực tiếp từ số phiên bản; `kind` còn đó nhưng `@deprecated` và không còn được đọc khi render
 - **Năm chuỗi chưa dịch lọt qua mọi cổng** — `changelog.title` / `info.changelog` ở es và fr, `scoreboard.top` ở es/fr/ko vẫn là tiếng Anh. Bật luật thứ 5 trong `check:i18n` (một locale không được mang nguyên văn chuỗi tiếng Anh) và dịch: **CAMBIOS** / **NOUVEAUTÉS** / **MEJORES** / **MEILLEURS** / **상위**
 - **Comment của `scripts/check-readme-sync.mjs` ghi cứng `1.1.6`** — đọc từ `package.json` thay vì sao chép tay qua từng bản
@@ -34,7 +77,7 @@ Bản **vá cuối cùng trước 1.2.0**: **nền menu hết mờ (sửa bốn 
 - **`.menu-vignette` / `.app-vignette`** thành rule CSS có tên thay cho utility viết thẳng trong JSX — chỉnh một chỗ, và `prefers-reduced-motion` áp dụng được
 - Build ~831 KB (`dist/index.html`, gzip ~388 KB)
 
-## [1.1.6] — 2026-11-10
+## [1.1.6] — 2026-11-08
 
 Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (Cấu hình nhanh · Âm thanh · Giao diện & chuyển động · Ngôn ngữ · Sao lưu · Dữ liệu) · ngôn ngữ dời hẳn vào cài đặt · thêm âm lượng 0–100, mức rung, chất lượng hình, tự tạm dừng khi đổi tab · 4 preset một chạm · xuất/nhập cấu hình JSON · nền menu nhiều lớp chuyển động · viền gradient chạy vòng ở mục tác giả · trap focus trong modal · lớp truy cập storage duy nhất · bảng màu canvas/CSS dùng chung · README 10 ngôn ngữ làm mới · 222 unit tests (29 file)**.
 
@@ -79,7 +122,7 @@ Bản **đại tu cài đặt + làm đẹp menu**: **cài đặt chia 6 mục (
 - Reduced-motion bao phủ **toàn bộ** animation mới (nebula, starfield, light-ray, glow-ring, jar-glow, about-card, cta-shine)
 - Build ~771 KB
 
-## [1.1.5] — 2026-11-08
+## [1.1.5] — 2026-11-06
 
 Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn lại với panel góc GAME (dưới-trái) & INFO (dưới-phải) · chế độ chơi dồn vào màn chọn riêng · lưu & «Chơi tiếp» ván đang dở · cài đặt trong game (SFX · nhạc · rung · giảm chuyển động) · Changelog/Author/Quit ngay từ menu · prefers-reduced-motion toàn bộ · README 10 ngôn ngữ với animation · 113 unit tests**.
 
@@ -115,7 +158,7 @@ Bản **chuẩn hóa menu + hoàn thiện trải nghiệm**: **menu chính gọn
 - README 10 ngôn ngữ: badge 1.1.5, mục "Mới trong v1.1.5", releases table, cây thư mục (menu/ · changelog.ts · runSave.ts · settings.ts · smoke-ssr), 113 tests
 - Build ~766 KB (gzip ~368 KB) — tăng do modal layer
 
-## [1.1.4] — 2026-11-06
+## [1.1.4] — 2026-11-04
 
 Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc**: **2 chế độ mới (Lễ Hội Combo · Đại Tiệc Dưa) · 16 thành tựu · 7 ngôn ngữ trong game (thêm Español · Français) · sửa crash `play-windows.bat` (CRLF + UTF-8 BOM) · launcher 7 ngôn ngữ · README 10 ngôn ngữ làm mới · assets SMIL mới (languages/new-modes/divider) · modes.svg 9 chế độ · 61 unit tests**.
 
@@ -140,7 +183,7 @@ Bản **mở rộng nội dung chơi + sửa lỗi launcher Windows tận gốc*
 - `ModeSelector` grid → 9 thẻ (`lg:grid-cols-9`); `ModeConfig` thêm optional `comboWindowMult?` / `jarBonusMult?` (mặc định 1)
 - Test suite: **61/61** (modes 22 · achievements 15 · storage 11 · i18n 13)
 
-## [1.1.3] — 2026-11-04
+## [1.1.3] — 2026-11-02
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mưa Dưa · Gốm Mỏng) · 14 thành tựu · 5 ngôn ngữ trong game (thêm 日本語 · 한국어) · launcher đa ngôn ngữ + animation cho macOS/Windows/Linux · favicon web · modes.svg showcase 7 chế độ · README 10 ngôn ngữ đồng bộ · 55 unit tests**.
 
@@ -168,7 +211,7 @@ Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Mư
 - ModeSelector grid: `lg:grid-cols-5` → `lg:grid-cols-7` (vừa 7 thẻ)
 - `npm run check` (typecheck + 55 tests + build) xanh — cổng CI bắt buộc trước PR
 
-## [1.1.2] — 2026-11-02
+## [1.1.2] — 2026-10-31
 
 Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Đua 60 Giây · Mùa Vàng) · 12 thành tựu · combo 12+ bốc lửa · launcher double-click cho macOS/Windows/Linux · README 10 ngôn ngữ · license asset mới · 49 unit tests**.
 
@@ -195,7 +238,7 @@ Bản **sửa lỗi + mở rộng nội dung chơi**: **2 chế độ mới (Đu
 - ModeSelector grid: `grid-cols-3` → `grid-cols-2 md… lg:grid-cols-5` để vừa 5 thẻ chế độ mọi cỡ màn hình
 - `npm run check` (typecheck + 49 tests + build) là gate bắt buộc trước khi mở PR
 
-## [1.1.1] — 2026-10-31
+## [1.1.1] — 2026-10-29
 
 Bản tập trung **sửa lỗi & mở rộng**: **chuyển đổi ngôn ngữ VI/EN/ZH ngay trong game · README 7 ngôn ngữ · banner/animation mới · rà quét và sửa toàn bộ lỗi tồn đọng · 45 unit tests**.
 
@@ -217,7 +260,7 @@ Bản tập trung **sửa lỗi & mở rộng**: **chuyển đổi ngôn ngữ V
 ### Changed
 - `APP_VERSION` → **1.1.1**; README badges/cấu trúc cập nhật; `assets/banner.svg` hiển thị V1.1.1
 
-## [1.1.0] — 2026-10-29
+## [1.1.0] — 2026-10-27
 
 Bản đại tu: **3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau & Cải Vàng mới · 10 thành tựu cộng dồn · menu gradient/aurora · README 3 ngôn ngữ có animation · fonts tự host (offline thật) · 6 lỗi logic được sửa · 36 unit tests**.
 
@@ -243,7 +286,7 @@ Bản đại tu: **3 chế độ chơi · Khiên Tỏi Vàng · Sâu Rau & Cải
 - Storage: 1 entry lỗi kéo sập cả bảng điểm; dữ liệu không được validate đầy đủ
 - README mô tả sai hoàn toàn dự án; fonts CDN phá offline-first; package.json mặc định; theme-color lệch
 
-## [1.0.0] — 2026-10-26
+## [1.0.0] — 2026-10-24
 
 Phát hành đầu tiên: engine hoàn chỉnh, 11 nguyên liệu, cơ chế CHÉO, LẮC HŨ, combo ×9, bảng vàng TOP 8, âm thanh Web Audio procedural.
 
