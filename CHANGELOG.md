@@ -5,7 +5,7 @@ Mọi thay đổi đáng chú ý của Lọ Chéo — Hũ Dưa Đại Chiến đ
 
 ## [1.1.8] — 2026-11-12
 
-Bản **vá cuối cùng trước 1.2.0**: **màn hình bắt đầu hết tràn (bốn lỗi trong ảnh chụp, một nguyên nhân) · chữ `LỌ` không còn bị cắt · panel GAME và ticker nằm gọn trong khung · «Cách chơi» chuyển vào mục GAME · hero có 14 món trang trí động và ba vòng halo · toàn bộ chiều cao được khai báo trong `menu/layout` · 308 unit tests (36 file)**.
+Bản **vá cuối cùng trước 1.2.0**, sáu vòng: **màn hình bắt đầu hết tràn (bốn lỗi, một nguyên nhân) · chữ `LỌ` không còn bị cắt · «Cách chơi» chuyển vào mục GAME · panel THÔNG TIN hết trống · hero tự đo cửa sổ và tự chọn bố cục ở mọi kích thước · dải deck bị bỏ · 20 hình SVG vẽ lại · 556 unit tests (54 file)**.
 
 → Chi tiết đầy đủ: [docs/releases/v1.1.8.md](docs/releases/v1.1.8.md)
 
@@ -26,6 +26,32 @@ Bản **vá cuối cùng trước 1.2.0**: **màn hình bắt đầu hết tràn
 - **Ngưỡng dòng đầy đủ từ 800 lên 840px** — dòng đầy đủ tốn thêm 20px × 7 = 140px; reserve đầy đủ là 518px, nên hero chỉ còn giữ được sàn 320px từ `518 + 320 = 838px` trở lên
 
 ### Added
+
+- **`src/components/menu/adaptive/`** — `breakpoints.ts` (bốn ngưỡng, mỗi cái suy từ chiều cao thật của thứ nó canh) · `hero.ts` (`heroLayout()` · `heroContentHeight()`) · `index.ts` · `README.md`. Bố cục hero rời khỏi media query một trục; quyết định giờ đọc `scene` — đúng con số `MenuChrome` đang giữ chỗ
+- **`src/components/menu/layout/viewportEvents.ts`** — sáu tên sự kiện (`resize` · `orientationchange` · `fullscreenchange` + ba tiền tố nhà cung cấp) trong một chỗ; `useMenuPlan()` và `useViewportWidth()` dùng chung
+- **`src/game/daily/`** — `challenge.ts` · `tip.ts` · `index.ts` · `README.md`, chuyển từ `components/menu/deck/`. Thử thách và luật trong ngày là dữ kiện trò chơi suy từ ngày địa phương, không phải thành phần giao diện
+- **`src/components/menu/panel/PanelChallenge.tsx`** — dòng `mode · mốc điểm` trong panel THÔNG TIN
+- **`scripts/check-svg.mjs`** — validator cho 20 hình: `url(#id)` treo, `width` cố định trên root, gradient tự tham chiếu, `<script>`, `on*=`, `<animate>` thiếu `attributeName`. Kèm **sàn chất lượng**: mỗi file phải có gradient, animation SMIL và filter
+- **`tests/menu-adaptive.test.ts`** (15) — quét **1 682 viewport**, hai ảnh chụp, bậc thang ba cờ, ngưỡng suy ra
+- **`tests/viewport-events.test.ts`** (10) — sáu sự kiện, đăng ký/huỷ khớp nhau, không cần jsdom
+- **`tests/panel-slack.test.ts`** (7) — khoảng trống panel đi đâu, và không được đi đâu
+
+### Changed — vòng sáu
+
+- **Hero tự đo cửa sổ** — bốn class `lg:` quyết định *bố cục* giờ theo `hero.sideBySide`, lấy từ plan nên biết cả chiều cao. `data-hero-layout="row|stack"` để probe kiểm được nhánh nào đã chạy
+- **Dải deck bị xoá** — ba cột chữ trong band cao cố định; ở `1920×1080` cột phải bị cắt giữa câu, ở `1920×820` cả hàng nằm dưới panel. Nội dung không mất: chế độ ở chip dưới mascot, thử thách ở panel THÔNG TIN, luật ở modal Cách chơi
+- **Panel THÔNG TIN chia đều khoảng trống** (`space-between` chỉ trên panel phải) thay vì dồn nội dung lên đỉnh và footer xuống đáy — đó chính là khoảng trống ~126px dưới «THOÁT» trong cả hai ảnh
+- **20 hình SVG vẽ lại** — mỗi file thêm filter glow; `divider.svg` từ 1 060 lên 5 828 byte (file được thấy nhiều nhất, giữa mọi mục của cả 10 README); `no-scroll-steps.svg` thêm hiện dần bốn khung
+- **`tests/menu-deck.test.ts` → `tests/daily-challenge.test.ts`** — 21 test ngày tháng giữ nguyên, 2 test về component đã xoá thì đi theo component
+
+### Fixed — vòng sáu
+
+- **`1920×820` cắt mất nửa chip `CHẾ ĐỘ CHƠI`** — band ~452px, hero hai cột cần ~460px, `minimal` là `false`, nên hàng ngang được dựng rồi bị cắt ở đáy
+- **Toàn màn hình không kích hoạt re-plan** — Firefox không bắn `resize` khi vào toàn màn hình, Safari cũ chỉ bắn `webkitfullscreenchange`. Cửa sổ đổi chiều cao mà hero giữ kế hoạch cũ
+- **`HEIGHT_FOR_BADGE_ROW` từng là `210`** — thấp hơn chính lockup 212px mà nó canh, nên band 210px vẽ lockup 212px và dòng kỷ lục bị cắt. Bài quét bắt được, không phải người đọc mã
+- **`tipIndexFor()` không có người gọi** — xoá deck làm mất caller duy nhất; hàm thuần còn 6 test xanh và **không ảnh hưởng gì tới app**. Nay modal Cách chơi đánh dấu luật của hôm nay, và có test khoá "mỗi hàm export phải có caller thật"
+- **`challengeFor()` gọi hai lần trong một biểu thức JSX** — hai lần băm cùng một ngày mỗi render, cho một giá trị không đổi tới nửa đêm
+- **`no-scroll-steps.svg` không có animation nào** — cả sơ đồ nói về *trình tự* bốn bước co lại
 
 - **`src/components/menu/layout/`** — `metrics.ts` (mọi con số được khai báo, phép cộng viết ra), `fit.ts` (`planMenuLayout()` thuần, không DOM), `useMenuPlan.ts` (đọc cửa sổ thật, ưu tiên `visualViewport`, gộp resize vào một animation frame), `index.ts`, `README.md`
 - **`src/components/menu/scene/`** — `decor.ts` (14 món trang trí dạng dữ liệu + hai phép kiểm hình học), `DecorGlyph.tsx` (tám hình vẽ tay 24×24), `HeroDecor.tsx`, `JarHalo.tsx`
